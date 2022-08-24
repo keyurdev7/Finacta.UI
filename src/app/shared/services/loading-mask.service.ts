@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class LoadingMaskService {
   maskSubject = new BehaviorSubject(false);
   message: string = '';
@@ -15,9 +17,6 @@ export class LoadingMaskService {
 
   mask(message: string = ''): void {
     this.message = message;
-
-    // We track how many times the loading mask has been called
-    // so we know when to hide it when handling concurrent calls
     if (this.maskCallCount <= 0) {
       this.maskSubject.next(true);
     }

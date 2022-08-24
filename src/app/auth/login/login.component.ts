@@ -13,7 +13,6 @@ export class LoginComponent implements OnInit {
   public show: boolean = false;
   public loginForm: FormGroup | any;
   public errorMessage: any;
-  public showLoader: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -32,18 +31,18 @@ export class LoginComponent implements OnInit {
 
   // Simple Login
   login() {
-    this.showLoader = true;
     this.api
-      .login(this.loginForm.email.value, this.loginForm.password.value)
+      .login(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe((res) => {
         if (res && res.succeeded) {
-          this.toster.success(res.message).onHidden.subscribe((hide) => {
-            this.loginForm.reset();
-            this.showLoader = false;
-            this.router.navigate(['/auth/login']);
-          });
+          this.loginForm.reset();
+          if(!!res.data.isPortalSubscibe){
+            this.router.navigate(['/dashboard']);
+          }
+          else{
+            this.router.navigate(['/pages/pricing']);
+          }
         } else if (res && res.errors.length) {
-          this.showLoader = false;
           res.errors.forEach((err) => {
             this.toster.error(err.errorMessage);
           });

@@ -17,12 +17,12 @@ export class AdminGuard implements CanActivate {
     // Guard for user is login or not
     let user = JSON.parse(this.cookieService.get('user')|| '{}');
     if (!user || user === null) {
-      this.router.navigate(['/auth/login']);
+      // this.router.navigate(['/auth/login']);
       return true
     }
     else if (user) {
       if (!Object.keys(user).length) {
-        this.router.navigate(['/auth/login']);
+        // this.router.navigate(['/auth/login']);
         return true
       }
     }

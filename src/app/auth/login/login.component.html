@@ -72,8 +72,7 @@
             <div class="container-login100-form-btn">
               <button
                 class="login100-form-btn btn-primary"
-                [class.loader--text]="showLoader"
-                [disabled]="!loginForm.valid || showLoader"
+                [disabled]="!loginForm.valid"
                 (click)="login()"
               >
                 Login

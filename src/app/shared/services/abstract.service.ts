@@ -110,40 +110,4 @@ export class AbstractService {
       context
     );
   }
-
-  httpPut<T>(context: {
-    url: string;
-    payload?: any;
-    returnType?: ClassConstructor<T>;
-    params?: HttpParams;
-    noLoadingMask?: boolean;
-    callerErrorHandler?: boolean;
-  }): Observable<T | T[]> {
-    this.updateErrorParam(context);
-    return this.httpRequest(
-      this.httpClient.put(context.url, context.payload, {
-        params: context.params,
-      }),
-      context
-    );
-  }
-
-  httpGetImage<T>(context: {
-    url: string;
-    returnType?: ClassConstructor<T>;
-    params?: HttpParams;
-    noLoadingMask?: boolean;
-    callerErrorHandler?: boolean;
-    observe?: any;
-  }): Observable<T | T[]> {
-    this.updateErrorParam(context);
-    return this.httpRequest(
-      this.httpClient.get(context.url, {
-        params: context.params,
-        observe: context.observe,
-        responseType: 'blob',
-      }),
-      context
-    );
-  }
 }

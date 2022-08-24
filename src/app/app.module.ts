@@ -13,6 +13,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { ColorPickerService } from 'ngx-color-picker';
 import { ToastrModule } from 'ngx-toastr';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { ToastrModule } from 'ngx-toastr';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
+    SharedModule,
     SimpleNotificationsModule.forRoot(),
     ToastrModule.forRoot(), // ToastrModule added
   ],
