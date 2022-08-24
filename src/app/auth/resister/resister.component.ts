@@ -50,8 +50,8 @@ export class ResisterComponent implements OnInit {
     this.showLoader = true;
     const data = { ...this.registerForm.value };
     delete data.confirmPass;
-    this.api.register(data).subscribe({
-      next: (res) => {
+    this.api.register(data).subscribe(
+      (res) => {
         this.showLoader = false;
         if (res && res.succeeded) {
           this.toster.success(res.message).onHidden.subscribe((hide) => {
@@ -63,13 +63,8 @@ export class ResisterComponent implements OnInit {
             this.toster.error(err.errorMessage);
           });
         }
-      },
-      error: (e) => {
-        this.showLoader = false;
-        console.error(e);
-        this.toster.error('Something went wrong!');
-      },
-    });
+      }
+    );
   }
 
   ngOnDestroy() {
