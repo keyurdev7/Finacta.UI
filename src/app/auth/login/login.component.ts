@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   ) {
     this.loginForm = this.fb.group({
       email: [null, [Validators.required, Validators.email]],
-      password: [null, Validators.required],
+      password: [null, [Validators.required, Validators.minLength(8)]],
     });
     document.querySelector('body')?.classList.add('login-img');
   }
@@ -36,10 +36,9 @@ export class LoginComponent implements OnInit {
       .subscribe((res) => {
         if (res && res.succeeded) {
           this.loginForm.reset();
-          if(!!res.data.isPortalSubscibe){
+          if (!!res.data.isPortalSubscibe) {
             this.router.navigate(['/dashboard']);
-          }
-          else{
+          } else {
             this.router.navigate(['/pages/pricing']);
           }
         } else if (res && res.errors.length) {

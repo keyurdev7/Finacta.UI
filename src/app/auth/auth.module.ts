@@ -6,22 +6,24 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { ResisterComponent } from './resister/resister.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
-import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { RegisterSuccessComponent } from './register-success/register-success.component';
+import { EmailVerificationComponent } from './email-verification/email-verification.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 
 @NgModule({
   declarations: [
     LoginComponent,
     ResisterComponent,
     ForgetPasswordComponent,
-    VerifyEmailComponent
+    RegisterSuccessComponent,
+    EmailVerificationComponent,
   ],
   imports: [
     CommonModule,
     AuthRoutingModule,
-    FormsModule, ReactiveFormsModule,
-    NgbModule
-  ]
+    FormsModule,
+    ReactiveFormsModule,
+    NgbModule,
+  ],
 })
-export class AuthModule { }
+export class AuthModule {}

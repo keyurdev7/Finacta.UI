@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ForgetPasswordComponent } from './auth/forget-password/forget-password.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ResisterComponent } from './auth/resister/resister.component';
-import { VerifyEmailComponent } from './auth/verify-email/verify-email.component';
+import { RegisterSuccessComponent } from './auth/register-success/register-success.component';
 import { AdminGuard } from './shared/guard/admin.guard';
 import { ContentLayoutComponent } from './shared/layout-components/layout/content-layout/content-layout.component';
 import { ErrorLayoutComponent } from './shared/layout-components/layout/error-layout/error-layout.component';
@@ -21,54 +21,55 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: '/dashboard',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   // // Vertical layout
   {
     path: '',
     component: ContentLayoutComponent,
     canActivate: [AdminGuard],
-    children: content
+    children: content,
   },
   {
     path: '',
     component: SwitcherLayoutComponent,
     canActivate: [AdminGuard],
-    children: switcher
+    children: switcher,
   },
   {
     path: '',
     component: ErrorLayoutComponent,
     canActivate: [AdminGuard],
-    children: errorRoute
+    children: errorRoute,
   },
   {
     path: '',
     component: LandingPageLayoutComponent,
     canActivate: [AdminGuard],
-    children: LandingPage
+    children: LandingPage,
   },
   {
     path: '',
     component: FullLayoutComponent,
     canActivate: [AdminGuard],
-    children: customRoute
+    children: customRoute,
   },
   {
     path: '',
-    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: '',
-    loadChildren: () => import('./shared/shared.module').then(m => m.SharedModule),
+    loadChildren: () =>
+      import('./shared/shared.module').then((m) => m.SharedModule),
   },
   {
     path: '**',
-    redirectTo: '/error-pages/error-404'
+    redirectTo: '/error-pages/error-404',
   },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

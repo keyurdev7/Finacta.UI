@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AbstractService } from './abstract.service';
 import { environment } from '../../../environments/environment';
@@ -20,12 +20,12 @@ export class APIService extends AbstractService {
     return this.httpPost({
       url: this.baseUrl + '/Auth/Register',
       payload: data,
-      // returnType: Merchant,
+      // returnType: '',
       callerErrorHandler: false,
     }) as Observable<any>;
   }
 
-  login(email: string, password: string, ): Observable<any> {
+  login(email: string, password: string): Observable<any> {
     const body = {
       email: email,
       password: password,
@@ -33,7 +33,18 @@ export class APIService extends AbstractService {
     return this.httpPost({
       url: this.baseUrl + '/Auth/login',
       payload: body,
-      // returnType: Merchant,
+      // returnType: '',
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  emailVerify(token: string): Observable<any> {
+    const params = new HttpParams().append('param', token);
+
+    return this.httpGet({
+      url: this.baseUrl + '/Auth/VerifyEmail',
+      params: params,
+      // returnType: '',
       callerErrorHandler: false,
     }) as Observable<any>;
   }

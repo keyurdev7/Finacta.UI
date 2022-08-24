@@ -62,6 +62,12 @@
             >
               Password is required
             </div>
+            <div
+              *ngIf="hasError('password', 'minlength')"
+              class="text text-danger mt-1"
+            >
+              Password should be atleast 8 characters long.
+            </div>
             <div class="text-end pt-1">
               <p class="mb-0">
                 <a routerLink="/auth/forgot-password" class="text-primary ms-1"

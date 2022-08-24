@@ -12,7 +12,6 @@ import { CustomValidators } from 'src/app/shared/validations/CustomValidators';
 })
 export class ResisterComponent implements OnInit {
   public registerForm: FormGroup;
-  public showLoader: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -20,16 +19,15 @@ export class ResisterComponent implements OnInit {
     public toster: ToastrService,
     public router: Router
   ) {
-    this.showLoader = false;
     this.registerForm = this.fb.group(
       {
-        firstName: ['', [Validators.required]],
-        lastName: ['', [Validators.required]],
-        emailId: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(8)]],
-        confirmPass: ['', [Validators.required]],
-        companyName: ['', [Validators.required]],
-        companyNumber: ['', [Validators.required]],
+        firstName: [null, [Validators.required]],
+        lastName: [null, [Validators.required]],
+        emailId: [null, [Validators.required, Validators.email]],
+        password: [null, [Validators.required, Validators.minLength(8)]],
+        confirmPass: [null, [Validators.required]],
+        companyName: [null, [Validators.required]],
+        companyNumber: [null, [Validators.required]],
       }
       // CustomValidators.mustMatch('password', 'confirmPass')
     );
@@ -47,24 +45,18 @@ export class ResisterComponent implements OnInit {
   }
 
   submit(): void {
-    this.showLoader = true;
     const data = { ...this.registerForm.value };
     delete data.confirmPass;
-    this.api.register(data).subscribe(
-      (res) => {
-        this.showLoader = false;
-        if (res && res.succeeded) {
-          this.toster.success(res.message).onHidden.subscribe((hide) => {
-            this.registerForm.reset();
-            this.router.navigate(['/auth/login']);
-          });
-        } else if (res && res.errors.length) {
-          res.errors.forEach((err) => {
-            this.toster.error(err.errorMessage);
-          });
-        }
+    this.api.register(data).subscribe((res) => {
+      if (res && res.succeeded) {
+        this.registerForm.reset();
+        this.router.navigate(['/auth/register-success']);
+      } else if (res && res.errors.length) {
+        res.errors.forEach((err) => {
+          this.toster.error(err.errorMessage);
+        });
       }
-    );
+    });
   }
 
   ngOnDestroy() {

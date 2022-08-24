@@ -153,9 +153,8 @@
             </div>
             <div class="container-login100-form-btn">
               <button
-                [disabled]="!registerForm.valid || showLoader"
+                [disabled]="!registerForm.valid"
                 class="btn btn-primary btn-block"
-                [class.loader--text]="showLoader"
                 (click)="submit()"
               >
                 Register
