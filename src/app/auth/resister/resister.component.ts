@@ -28,8 +28,10 @@ export class ResisterComponent implements OnInit {
         confirmPass: [null, [Validators.required]],
         companyName: [null, [Validators.required]],
         companyNumber: [null, [Validators.required]],
+      },
+      {
+        validators: [CustomValidators.mustMatch('password', 'confirmPass')],
       }
-      // CustomValidators.mustMatch('password', 'confirmPass')
     );
 
     document.querySelector('body')?.classList.add('login-img');
