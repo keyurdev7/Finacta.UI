@@ -2,11 +2,6 @@
 <div class="page">
   <div>
     <!-- CONTAINER OPEN -->
-    <!-- <div class="col col-login mx-auto text-center">
-      <a routerLink="/">
-        <img src="./assets/images/brand/logo.png" class="header-brand-img" alt="">
-      </a>
-    </div> -->
     <div class="container-login100">
       <div class="wrap-login100 p-0">
         <div class="card-body">
@@ -156,17 +151,11 @@
             >
               Company Number is required
             </div>
-            <!-- <label class="custom-control custom-checkbox mt-4">
-              <input type="checkbox" class="custom-control-input" />
-              <span class="custom-control-label"
-                >Agree the
-                <a routerLink="/pages/terms">terms and policy</a></span
-              >
-            </label> -->
             <div class="container-login100-form-btn">
               <button
-                [disabled]="!registerForm.valid"
+                [disabled]="!registerForm.valid || showLoader"
                 class="btn btn-primary btn-block"
+                [class.loader--text]="showLoader"
                 (click)="submit()"
               >
                 Register
@@ -182,23 +171,6 @@
             </div>
           </form>
         </div>
-        <!-- <div class="card-footer">
-          <div class="d-flex justify-content-center my-3">
-            <a
-              (click)="authService.GoogleAuth()"
-              href="javascript:void(0)"
-              class="social-login text-center me-4"
-            >
-              <i class="fa fa-google"></i>
-            </a>
-            <a href="javascript:void(0)" class="social-login text-center me-4">
-              <i class="fa fa-facebook"></i>
-            </a>
-            <a href="javascript:void(0)" class="social-login text-center">
-              <i class="fa fa-twitter"></i>
-            </a>
-          </div>
-        </div> -->
       </div>
     </div>
     <!-- CONTAINER CLOSED -->

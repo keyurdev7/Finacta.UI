@@ -12,6 +12,7 @@ import { CustomValidators } from 'src/app/shared/validations/CustomValidators';
 })
 export class ResisterComponent implements OnInit {
   public registerForm: FormGroup;
+  public showLoader: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -19,6 +20,7 @@ export class ResisterComponent implements OnInit {
     public toster: ToastrService,
     public router: Router
   ) {
+    this.showLoader = false;
     this.registerForm = this.fb.group(
       {
         firstName: ['', [Validators.required]],
@@ -45,10 +47,12 @@ export class ResisterComponent implements OnInit {
   }
 
   submit(): void {
+    this.showLoader = true;
     const data = { ...this.registerForm.value };
     delete data.confirmPass;
     this.api.register(data).subscribe({
       next: (res) => {
+        this.showLoader = false;
         if (res && res.succeeded) {
           this.toster.success(res.message).onHidden.subscribe((hide) => {
             this.registerForm.reset();
@@ -61,6 +65,7 @@ export class ResisterComponent implements OnInit {
         }
       },
       error: (e) => {
+        this.showLoader = false;
         console.error(e);
         this.toster.error('Something went wrong!');
       },
