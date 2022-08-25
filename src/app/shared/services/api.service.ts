@@ -20,7 +20,6 @@ export class APIService extends AbstractService {
     return this.httpPost({
       url: this.baseUrl + '/Auth/Register',
       payload: data,
-      // returnType: '',
       callerErrorHandler: false,
     }) as Observable<any>;
   }
@@ -33,7 +32,6 @@ export class APIService extends AbstractService {
     return this.httpPost({
       url: this.baseUrl + '/Auth/login',
       payload: body,
-      // returnType: '',
       callerErrorHandler: false,
     }) as Observable<any>;
   }
@@ -44,7 +42,14 @@ export class APIService extends AbstractService {
     return this.httpGet({
       url: this.baseUrl + '/Auth/VerifyEmail',
       params: params,
-      // returnType: '',
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  getSubscriptionPlans(): Observable<any>{
+    return this.httpGet({
+      url: this.baseUrl + '/SubscriptionManagement/GetPortalSubscription',
+      params: new HttpParams(),
       callerErrorHandler: false,
     }) as Observable<any>;
   }
