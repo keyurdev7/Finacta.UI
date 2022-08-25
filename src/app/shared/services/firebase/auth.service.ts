@@ -31,15 +31,6 @@ export class AuthService implements OnInit {
     public ngZone: NgZone,
     public toster: ToastrService,
     private cookieService: CookieService) {
-
-    this.afAuth.authState.subscribe(user => {
-      if (user) {
-        this.userData = user;
-        cookieService.set('user', JSON.stringify(this.userData));
-      } else {
-        cookieService.set('user', null || '{}');
-      }
-    });
   }
 
   ngOnInit(): void { }

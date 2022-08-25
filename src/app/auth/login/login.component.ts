@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
       .subscribe((res) => {
         if (res && res.succeeded) {
           this.loginForm.reset();
-          this.cookieService.set('user', JSON.stringify(res.data));
+          this.cookieService.set('user', JSON.stringify(res.data), 1, '/');
           if (!!res.data.isPortalSubscibe) {
             this.router.navigate(['/dashboard']);
           } else {

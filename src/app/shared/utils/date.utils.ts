@@ -1,4 +1,4 @@
-import moment from 'moment';
+import * as moment from "moment";
 
 export function momentTransform(value: any) {
   const date = moment(value);
