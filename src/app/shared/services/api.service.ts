@@ -38,7 +38,6 @@ export class APIService extends AbstractService {
 
   emailVerify(token: string): Observable<any> {
     const params = new HttpParams().append('param', token);
-
     return this.httpGet({
       url: this.baseUrl + '/Auth/VerifyEmail',
       params: params,
@@ -46,7 +45,7 @@ export class APIService extends AbstractService {
     }) as Observable<any>;
   }
 
-  getSubscriptionPlans(): Observable<any>{
+  getSubscriptionPlans(): Observable<any> {
     return this.httpGet({
       url: this.baseUrl + '/SubscriptionManagement/GetPortalSubscription',
       params: new HttpParams(),
@@ -61,6 +60,39 @@ export class APIService extends AbstractService {
     };
     return this.httpPost({
       url: this.baseUrl + '/SubscriptionManagement/PortalSubscriptionRequest',
+      payload: body,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  forgotPassword(email: string): Observable<any> {
+    const body = {
+      emailId: email,
+    };
+    return this.httpPost({
+      url: this.baseUrl + '/UserManagement/ForgotPassword',
+      payload: body,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  verifyForgotPasswordLink(token: string): Observable<any> {
+    const params = new HttpParams().append('param', token);
+    return this.httpGet({
+      url: this.baseUrl + '/UserManagement/VerifyForgotPasswordlink',
+      params: params,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  resetPassword(userId: string, password: string): Observable<any> {
+    const body = {
+      userId: userId,
+      password: password,
+      tempPassword: password,
+    };
+    return this.httpPost({
+      url: this.baseUrl + '/UserManagement/ResetPassword',
       payload: body,
       callerErrorHandler: false,
     }) as Observable<any>;

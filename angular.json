@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "preview": {
+    "finacta": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -26,7 +26,7 @@
               "chartist",
               "quill"
             ],
-            "outputPath": "dist/preview",
+            "outputPath": "dist/finacta",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -84,10 +84,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "preview:build:production"
+              "browserTarget": "finacta:build:production"
             },
             "development": {
-              "browserTarget": "preview:build:development"
+              "browserTarget": "finacta:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -95,7 +95,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "preview:build"
+            "browserTarget": "finacta:build"
           }
         },
         "test": {
@@ -119,7 +119,7 @@
       }
     }
   },
-  "defaultProject": "preview",
+  "defaultProject": "finacta",
   "cli": {
     "analytics": false
   }

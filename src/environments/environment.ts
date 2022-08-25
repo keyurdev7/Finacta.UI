@@ -4,15 +4,15 @@
 
 export const environment = {
   production: false,
-  firebase:{
-    apiKey: "******************************",
-    authDomain: "******************************",
-    projectId: "******************************",
-    storageBucket: "******************************",
-    messagingSenderId: "******************************",
-    appId: "******************************",
+  firebase: {
+    apiKey: '******************************',
+    authDomain: '******************************',
+    projectId: '******************************',
+    storageBucket: '******************************',
+    messagingSenderId: '******************************',
+    appId: '******************************',
   },
-  application_host: 'https://finactaapp.azurewebsites.net/'
+  application_host: 'https://finactaapp.azurewebsites.net',
 };
 
 /*

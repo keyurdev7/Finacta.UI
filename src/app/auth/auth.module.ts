@@ -8,6 +8,7 @@ import { ResisterComponent } from './resister/resister.component';
 import { ForgetPasswordComponent } from './forget-password/forget-password.component';
 import { RegisterSuccessComponent } from './register-success/register-success.component';
 import { EmailVerificationComponent } from './email-verification/email-verification.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ForgetPasswordComponent,
     RegisterSuccessComponent,
     EmailVerificationComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     CommonModule,
