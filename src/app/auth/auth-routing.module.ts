@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { ResisterComponent } from './resister/resister.component';
 import { RegisterSuccessComponent } from './register-success/register-success.component';
 import { EmailVerificationComponent } from './email-verification/email-verification.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'auth/forgot-password', component: ForgetPasswordComponent },
   { path: 'auth/register-success', component: RegisterSuccessComponent },
   { path: 'auth/email-verify', component: EmailVerificationComponent },
+  { path: 'auth/setpassword', component: ResetPasswordComponent },
 ];
 
 @NgModule({

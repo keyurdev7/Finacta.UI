@@ -1,1 +1,29 @@
-<app-page-header [title]="'Pricing'" [items]="['Pages']" [active_item]="'Pricing'"></app-page-header>
+<app-page-header
+  [title]="'Pricing'"
+  [items]="['Pages']"
+  [active_item]="'Pricing'"
+></app-page-header>
+<div class="row d-flex align-items-center justify-content-center">
+  <div class="col-lg-8 col-xl-3 col-md-8 col-sm-12">
+    <div class="card p-3 pricing-card">
+      <div class="card-header d-block text-justified pt-2">
+        <p class="text-18 font-weight-semibold mb-1">{{subPlans.subscriptionName}}</p>
+        <p class="text-justify font-weight-semibold mb-1">
+          <span class="text-30 me-2">$</span><span class="text-30 me-1">{{subPlans.subscriptionPrice}}</span
+          ><span class="text-24"
+            ><span class="op-0-5 text-muted text-20">/</span> {{subPlans.durationMonth ? 'Month' : 'Year'}}</span
+          >
+        </p>
+        <p class="text-13 mb-1 text-warning font-weight-">
+          Billed monthly on regular basis!
+        </p>
+      </div>
+      <div class="card-footer text-center border-top-0 pt-1">
+        <button (click)="subscriptionPay(subPlans.subscriptionId)" class="btn btn-lg btn-outline-warning btn-block">
+          <span class="ms-4 me-4">Pay</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/row-->

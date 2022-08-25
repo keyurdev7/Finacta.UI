@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { APIService } from 'src/app/shared/services/api.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private api: APIService,
     public toster: ToastrService,
+    public cookieService: CookieService,
     public router: Router
   ) {
     this.loginForm = this.fb.group({
@@ -36,6 +38,7 @@ export class LoginComponent implements OnInit {
       .subscribe((res) => {
         if (res && res.succeeded) {
           this.loginForm.reset();
+          this.cookieService.set('user', JSON.stringify(res.data), 1, '/');
           if (!!res.data.isPortalSubscibe) {
             this.router.navigate(['/dashboard']);
           } else {
