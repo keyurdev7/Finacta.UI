@@ -53,4 +53,16 @@ export class APIService extends AbstractService {
       callerErrorHandler: false,
     }) as Observable<any>;
   }
+
+  saveSubscriptionPlan(userId: number, companyId: number): Observable<any> {
+    const body = {
+      userId: userId,
+      companyId: companyId,
+    };
+    return this.httpPost({
+      url: this.baseUrl + '/SubscriptionManagement/PortalSubscriptionRequest',
+      payload: body,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
 }
