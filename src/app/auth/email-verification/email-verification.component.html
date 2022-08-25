@@ -1,0 +1,36 @@
+<div class="register-2">
+  <div class="page">
+    <div class="page-content">
+      <div class="container">
+        <div class="row">
+          <div class="col mx-auto">
+            <div class="row justify-content-center">
+              <div class="col-md-5">
+                <div class="text-center mb-6"></div>
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row mt-xl-5 text-center">
+                      <h3 *ngIf="!isVerified">Verifying email...</h3>
+                      <h3 *ngIf="isVerified">Email Verified</h3>
+                      <div class="">
+                        <div class="formGroup">
+                          <p class="text-center" *ngIf="!isVerified">
+                            Please wait while we verify your email address.
+                          </p>
+                          <p class="text-center" *ngIf="isVerified">
+                            Your email is successfully verified. Redirecting to
+                            login...
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+.loader--text {
+  position: relative;
+  top: 200%;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.loader--text:before {
+  content: "\f110";
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  animation: loader 0.3s infinite;
+}
+  
+  @keyframes loader {
+    15% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .bxl-google {
+    color: var(--primary-bg-color);
+    font-size: 22px;
+    line-height: 35px !important;
+    outline: none;
+    height: 37px;
+    width: 37px;
+    background: #fff;
+    margin: auto;
+    text-align: center;
+    border: 1px solid #f1ecf7;
+    box-shadow: none;
+    border-radius: 35px;
+  }
