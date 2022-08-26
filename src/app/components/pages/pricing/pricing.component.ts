@@ -42,6 +42,8 @@ export class PricingComponent implements OnInit {
       .subscribe((res) => {
         if (res && res.succeeded) {
           this.router.navigate(['/dashboard']);
+          currentUser.isPortalSubscibe = true;
+          this.cookieService.set('user', JSON.stringify(currentUser), 1, '/');
         } else if (res && res.errors.length) {
           res.errors.forEach((err) => {
             this.toster.error(err.errorMessage);

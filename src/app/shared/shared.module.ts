@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-// components 
+// components
 import { HeaderComponent } from './layout-components/header/header.component';
 import { FooterComponent } from './layout-components/footer/footer.component';
 import { LoaderComponent } from './layout-components/loader/loader.component';
@@ -25,7 +25,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { NgbdSortableHeader } from './directives/soratable.directive';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SwitcherLayoutComponent } from './layout-components/layout/switcher-layout/switcher-layout.component';
 import { SwitcherLayoutHeaderComponent } from './layout-components/layout/switcher-layout/switcher-layout-header/switcher-layout-header.component';
 import { LandingPageLayoutComponent } from './layout-components/layout/landingpage-layout/landingpage-layout.component';
@@ -33,7 +33,7 @@ import { LoadingMaskService } from './services/loading-mask.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
-  wheelPropagation: false
+  wheelPropagation: false,
 };
 
 @NgModule({
@@ -56,7 +56,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ToggleThemeDirective,
     HoverEffectSidebarDirective,
     SwitcherLayoutComponent,
-    SwitcherLayoutHeaderComponent
+    SwitcherLayoutHeaderComponent,
   ],
   imports: [
     CommonModule,
@@ -64,17 +64,31 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     RouterModule,
     PerfectScrollbarModule,
     ColorPickerModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  exports : [
-    PageHeaderComponent, TabToTopComponent, FullLayoutComponent, ContentLayoutComponent, ErrorLayoutComponent, SwitcherComponent, LoaderComponent,ToggleBtnDirective, ToggleThemeDirective, NgbdSortableHeader, LandingPageLayoutComponent, SidemenuToggleDirective
+  exports: [
+    PageHeaderComponent,
+    TabToTopComponent,
+    FullLayoutComponent,
+    ContentLayoutComponent,
+    ErrorLayoutComponent,
+    SwitcherComponent,
+    LoaderComponent,
+    ToggleBtnDirective,
+    ToggleThemeDirective,
+    NgbdSortableHeader,
+    LandingPageLayoutComponent,
+    SidemenuToggleDirective,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
-    LoadingMaskService
-  ]
+    LoadingMaskService,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

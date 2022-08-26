@@ -26,6 +26,7 @@ export class ResetPasswordComponent implements OnInit {
 
     this.resetForm = this.fb.group(
       {
+        tempPassword: [null, [Validators.required]],
         password: [null, [Validators.required, Validators.minLength(8)]],
         confirmPass: [null, [Validators.required]],
       },
@@ -62,7 +63,11 @@ export class ResetPasswordComponent implements OnInit {
 
   submit(): void {
     this.api
-      .resetPassword(this.userId, this.resetForm.value.password)
+      .resetPassword(
+        this.userId,
+        this.resetForm.value.password,
+        this.resetForm.value.tempPassword
+      )
       .subscribe((res) => {
         if (res && res.succeeded) {
           this.resetForm.reset();

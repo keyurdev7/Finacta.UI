@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-  CanActivate,
+  CanActivateChild,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   Router,
@@ -11,10 +11,10 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class AdminGuard implements CanActivate {
+export class AdminGuard implements CanActivateChild {
   constructor(public router: Router, public cookieService: CookieService) {}
 
-  canActivate(
+  canActivateChild(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
@@ -26,6 +26,10 @@ export class AdminGuard implements CanActivate {
     } else if (user) {
       if (!Object.keys(user).length) {
         this.router.navigate(['/auth/login']);
+        return true;
+      }
+      else if(!user.isPortalSubscibe && state.url !== '/pages/pricing'){
+        this.router.navigate(['/pages/pricing']);
         return true;
       }
     }
