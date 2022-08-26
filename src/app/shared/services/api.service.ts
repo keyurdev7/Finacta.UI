@@ -97,4 +97,16 @@ export class APIService extends AbstractService {
       callerErrorHandler: false,
     }) as Observable<any>;
   }
+
+  changePassword(userId: string, password: string): Observable<any> {
+    const body = {
+      userId: userId,
+      password: password
+    };
+    return this.httpPost({
+      url: this.baseUrl + '/UserManagement/ChangePassword',
+      payload: body,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
 }

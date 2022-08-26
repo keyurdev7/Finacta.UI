@@ -1,9 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ForgetPasswordComponent } from './auth/forget-password/forget-password.component';
-import { LoginComponent } from './auth/login/login.component';
-import { ResisterComponent } from './auth/resister/resister.component';
-import { RegisterSuccessComponent } from './auth/register-success/register-success.component';
 import { AdminGuard } from './shared/guard/admin.guard';
 import { ContentLayoutComponent } from './shared/layout-components/layout/content-layout/content-layout.component';
 import { ErrorLayoutComponent } from './shared/layout-components/layout/error-layout/error-layout.component';
@@ -27,31 +23,31 @@ const routes: Routes = [
   {
     path: '',
     component: ContentLayoutComponent,
-    canActivate: [AdminGuard],
+    canActivateChild: [AdminGuard],
     children: content,
   },
   {
     path: '',
     component: SwitcherLayoutComponent,
-    canActivate: [AdminGuard],
+    canActivateChild: [AdminGuard],
     children: switcher,
   },
   {
     path: '',
     component: ErrorLayoutComponent,
-    canActivate: [AdminGuard],
+    canActivateChild: [AdminGuard],
     children: errorRoute,
   },
   {
     path: '',
     component: LandingPageLayoutComponent,
-    canActivate: [AdminGuard],
+    canActivateChild: [AdminGuard],
     children: LandingPage,
   },
   {
     path: '',
     component: FullLayoutComponent,
-    canActivate: [AdminGuard],
+    canActivateChild: [AdminGuard],
     children: customRoute,
   },
   {

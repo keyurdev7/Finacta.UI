@@ -25,7 +25,7 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { NgbdSortableHeader } from './directives/soratable.directive';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SwitcherLayoutComponent } from './layout-components/layout/switcher-layout/switcher-layout.component';
 import { SwitcherLayoutHeaderComponent } from './layout-components/layout/switcher-layout/switcher-layout-header/switcher-layout-header.component';
 import { LandingPageLayoutComponent } from './layout-components/layout/landingpage-layout/landingpage-layout.component';
@@ -64,10 +64,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     RouterModule,
     PerfectScrollbarModule,
     ColorPickerModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports : [
-    PageHeaderComponent, TabToTopComponent, FullLayoutComponent, ContentLayoutComponent, ErrorLayoutComponent, SwitcherComponent, LoaderComponent,ToggleBtnDirective, ToggleThemeDirective, NgbdSortableHeader, LandingPageLayoutComponent, SidemenuToggleDirective
+    PageHeaderComponent, TabToTopComponent, FullLayoutComponent, ContentLayoutComponent, ErrorLayoutComponent, SwitcherComponent, LoaderComponent,ToggleBtnDirective, ToggleThemeDirective, NgbdSortableHeader, LandingPageLayoutComponent, SidemenuToggleDirective, FormsModule, ReactiveFormsModule
   ],
   providers: [
     {

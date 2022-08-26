@@ -80,4 +80,7 @@ input:not(.dark-mode)::placeholder{
 .search-result{
     z-index: 9999 ;
 }
+.dropdown-menu-arrow a {
+    cursor: pointer;
+}
 
