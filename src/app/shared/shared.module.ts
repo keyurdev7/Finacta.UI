@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-// components 
+// components
 import { HeaderComponent } from './layout-components/header/header.component';
 import { FooterComponent } from './layout-components/footer/footer.component';
 import { LoaderComponent } from './layout-components/loader/loader.component';
@@ -33,7 +33,7 @@ import { LoadingMaskService } from './services/loading-mask.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
-  wheelPropagation: false
+  wheelPropagation: false,
 };
 
 @NgModule({
@@ -56,7 +56,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ToggleThemeDirective,
     HoverEffectSidebarDirective,
     SwitcherLayoutComponent,
-    SwitcherLayoutHeaderComponent
+    SwitcherLayoutHeaderComponent,
   ],
   imports: [
     CommonModule,
@@ -65,17 +65,30 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     ColorPickerModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  exports : [
-    PageHeaderComponent, TabToTopComponent, FullLayoutComponent, ContentLayoutComponent, ErrorLayoutComponent, SwitcherComponent, LoaderComponent,ToggleBtnDirective, ToggleThemeDirective, NgbdSortableHeader, LandingPageLayoutComponent, SidemenuToggleDirective, FormsModule, ReactiveFormsModule
+  exports: [
+    PageHeaderComponent,
+    TabToTopComponent,
+    FullLayoutComponent,
+    ContentLayoutComponent,
+    ErrorLayoutComponent,
+    SwitcherComponent,
+    LoaderComponent,
+    ToggleBtnDirective,
+    ToggleThemeDirective,
+    NgbdSortableHeader,
+    LandingPageLayoutComponent,
+    SidemenuToggleDirective,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
-    LoadingMaskService
-  ]
+    LoadingMaskService,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Gallery } from 'angular-gallery';
-import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
+import { ProfileForm } from 'src/app/models/profile-form.model';
+import { User } from 'src/app/models/user.model';
 import { APIService } from 'src/app/shared/services/api.service';
 import { CustomValidators } from 'src/app/shared/validations/CustomValidators';
-import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-profile',
@@ -13,9 +14,12 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
+  public profileForm: FormGroup = new FormGroup([]);
   public changePasswordForm: FormGroup = new FormGroup([]);
+  public user: User = new User();
+  private file: File | null = null;
+
   constructor(
-    private gallery: Gallery,
     private fb: FormBuilder,
     private api: APIService,
     public toster: ToastrService,
@@ -23,27 +27,16 @@ export class ProfileComponent implements OnInit {
     public cookieService: CookieService
   ) {}
 
-  images: any[] = [
-    { path: './assets/images/media/1.jpg' },
-    { path: './assets/images/media/4.jpg' },
-    { path: './assets/images/media/5.jpg' },
-    { path: './assets/images/media/6.jpg' },
-    { path: './assets/images/media/7.jpg' },
-    { path: './assets/images/media/8.jpg' },
-    { path: './assets/images/media/11.jpg' },
-    { path: './assets/images/media/10.jpg' },
-    { path: './assets/images/media/2.jpg' },
-    { path: './assets/images/media/9.jpg' },
-    { path: './assets/images/media/12.jpg' },
-    { path: './assets/images/media/20.jpg' },
-  ];
-  showGallery(index: number) {
-    let prop: any = {};
-    prop.images = this.images;
-    prop.index = index;
-    this.gallery.load(prop);
-  }
   ngOnInit(): void {
+    this.user = JSON.parse(this.cookieService.get('user'));
+    this.profileForm = this.fb.group({
+      firstName: [this.user.firstName, [Validators.required]],
+      lastName: [this.user.lastName, [Validators.required]],
+      image: [null, []],
+      phone: [this.user.phoneNumber, []],
+      position: [this.user.position, []],
+      marketing: [this.user.marketingEmails, []],
+    });
     this.changePasswordForm = this.fb.group(
       {
         password: [null, [Validators.required, Validators.minLength(8)]],
@@ -55,17 +48,67 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  hasError(control: string, validator: string): boolean {
+  getFullName(): string {
+    return `${this.user.firstName} ${this.user.lastName}`;
+  }
+
+  hasError(form: string, control: string, validator: string): boolean {
     return (
-      this.changePasswordForm.controls[control]?.touched &&
-      this.changePasswordForm.controls[control].errors?.[validator]
+      this[form].controls[control]?.touched &&
+      this[form].controls[control].errors?.[validator]
     );
   }
 
+  onFileUpload(event): void {
+    if (event.target.files && event.target.files.length) {
+      this.file = event.target.files[0];
+    } else {
+      this.file = null;
+    }
+  }
+
+  submitProfile(): void {
+    const data = new ProfileForm();
+    data.FirstName = this.profileForm.value.firstName;
+    data.LastName = this.profileForm.value.lastName;
+    data.IsMarketingEmails = this.profileForm.value.marketing;
+    data.UserId = this.user.userId;
+    if (!!this.profileForm.value.image && !!this.file) data.photo = this.file;
+    if (!!this.profileForm.value.phone)
+      data.PhoneNumber = this.profileForm.value.phone;
+    if (!!this.profileForm.value.position)
+      data.Position = this.profileForm.value.position;
+
+    this.api.updateProfile(data).subscribe((res) => {
+      if (res && res.succeeded) {
+        this.profileForm.reset();
+        this.file = null;
+        this.toster.success(res.message);
+        this.user.firstName = res.data.firstName;
+        this.user.lastName = res.data.lastName;
+        this.user.marketingEmails = res.data.marketingEmails;
+        this.user.phoneNumber = res.data.phoneNumber;
+        this.user.position = res.data.position;
+        this.user.profilePhoto = res.data.profilePhoto;
+        this.cookieService.set('user', JSON.stringify(this.user), 1, '/');
+        this.profileForm.patchValue({
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
+          marketing: res.data.marketingEmails,
+          phone: res.data.phoneNumber,
+          position: res.data.position,
+        });
+      } else if (res && res.errors.length) {
+        res.errors.forEach((err) => {
+          this.toster.error(err.errorMessage);
+        });
+      }
+    });
+  }
+
   changePassword(): void {
-    const user = JSON.parse(this.cookieService.get('user'));
     this.api
-      .changePassword(user.userId, this.changePasswordForm.value.password)
+      .changePassword(this.user.userId, this.changePasswordForm.value.password)
       .subscribe((res) => {
         if (res && res.succeeded) {
           this.changePasswordForm.reset();
@@ -76,9 +119,5 @@ export class ProfileComponent implements OnInit {
           });
         }
       });
-  }
-  
-  closeGallery() {
-    this.gallery.close();
   }
 }

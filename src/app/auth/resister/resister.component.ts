@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { RegisterForm } from 'src/app/models/register-form.model';
 import { APIService } from 'src/app/shared/services/api.service';
 import { CustomValidators } from 'src/app/shared/validations/CustomValidators';
 
@@ -47,8 +48,14 @@ export class ResisterComponent implements OnInit {
   }
 
   submit(): void {
-    const data = { ...this.registerForm.value };
-    delete data.confirmPass;
+    const data = new RegisterForm();
+    data.firstName = this.registerForm.value.firstName;
+    data.lastName = this.registerForm.value.lastName;
+    data.emailId = this.registerForm.value.emailId;
+    data.password = this.registerForm.value.password;
+    data.companyName = this.registerForm.value.companyName;
+    data.companyNumber = this.registerForm.value.companyNumber;
+
     this.api.register(data).subscribe((res) => {
       if (res && res.succeeded) {
         this.registerForm.reset();

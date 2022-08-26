@@ -5,6 +5,7 @@ import { AbstractService } from './abstract.service';
 import { environment } from '../../../environments/environment';
 import { LoadingMaskService } from './loading-mask.service';
 import { RegisterForm } from './../../models/register-form.model';
+import { ProfileForm } from './../../models/profile-form.model';
 
 @Injectable({
   providedIn: 'root',
@@ -85,11 +86,15 @@ export class APIService extends AbstractService {
     }) as Observable<any>;
   }
 
-  resetPassword(userId: string, password: string): Observable<any> {
+  resetPassword(
+    userId: string,
+    password: string,
+    tempPassword: string
+  ): Observable<any> {
     const body = {
       userId: userId,
       password: password,
-      tempPassword: password,
+      tempPassword: tempPassword,
     };
     return this.httpPost({
       url: this.baseUrl + '/UserManagement/ResetPassword',
@@ -98,7 +103,19 @@ export class APIService extends AbstractService {
     }) as Observable<any>;
   }
 
-  changePassword(userId: string, password: string): Observable<any> {
+  updateProfile(data: ProfileForm): Observable<any> {
+    const body = new FormData();
+    Object.keys(data).forEach((key) => {
+      if (data[key] !== null) body.append(key, data[key]);
+    });
+    return this.httpPost({
+      url: this.baseUrl + '/UserManagement/UpdateUserProfile',
+      payload: body,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  changePassword(userId: number, password: string): Observable<any> {
     const body = {
       userId: userId,
       password: password
