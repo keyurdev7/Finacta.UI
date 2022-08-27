@@ -5,34 +5,35 @@ import {
   RouterStateSnapshot,
   Router,
 } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { first, Observable } from 'rxjs';
+import { AppState, userSelector } from 'src/app/store/app.state';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminGuard implements CanActivateChild {
-  constructor(public router: Router, public cookieService: CookieService) {}
+  constructor(public router: Router, public store: Store<AppState>) {}
 
   canActivateChild(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
     // Guard for user is login or not
-    let user = JSON.parse(this.cookieService.get('user') || '{}');
-    if (!user || user === null) {
-      this.router.navigate(['/auth/login']);
-      return true;
-    } else if (user) {
-      if (!Object.keys(user).length) {
-        this.router.navigate(['/auth/login']);
-        return true;
-      }
-      else if(!user.isPortalSubscibe && state.url !== '/pages/pricing'){
-        this.router.navigate(['/pages/pricing']);
-        return true;
-      }
-    }
-    return true;
+    return new Observable<boolean>((obs) => {
+      this.store
+        .pipe(userSelector)
+        .pipe(first())
+        .subscribe((res) => {
+          if (!res || !Object.keys(res).length || !res.userId) {
+            this.router.navigate(['/auth/login']);
+            obs.next(true);
+          } else if (!res.isPortalSubscibe && state.url !== '/pages/pricing') {
+            this.router.navigate(['/pages/pricing']);
+            obs.next(true);
+          }
+          obs.next(true);
+        });
+    });
   }
 }

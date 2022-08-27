@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { APIService } from 'src/app/shared/services/api.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { CookieService } from 'ngx-cookie-service';
+import { Store } from '@ngrx/store';
+import { UpdateUserAction } from 'src/app/store/app.actions';
 
 @Component({
   selector: 'app-login',
@@ -12,34 +13,33 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class LoginComponent implements OnInit {
   public show: boolean = false;
-  public loginForm: FormGroup | any;
+  public loginForm: FormGroup = new FormGroup([]);
   public errorMessage: any;
 
   constructor(
     private fb: FormBuilder,
     private api: APIService,
     public toster: ToastrService,
-    public cookieService: CookieService,
-    public router: Router
+    public router: Router,
+    public store: Store
   ) {
+    document.querySelector('body')?.classList.add('login-img');
+  }
+
+  ngOnInit() {
     this.loginForm = this.fb.group({
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(8)]],
     });
-    document.querySelector('body')?.classList.add('login-img');
   }
 
-  ngOnInit() {}
-
-  // Simple Login
   login() {
     this.api
       .login(this.loginForm.value.email, this.loginForm.value.password)
       .subscribe((res) => {
         if (res && res.succeeded) {
           this.loginForm.reset();
-          this.cookieService.delete('user');
-          this.cookieService.set('user', JSON.stringify(res.data), 1, '/');
+          this.store.dispatch(UpdateUserAction(res.data));
           if (!!res.data.isPortalSubscibe) {
             this.router.navigate(['/dashboard']);
           } else {

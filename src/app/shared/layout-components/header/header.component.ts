@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { Store } from '@ngrx/store';
+import { User } from 'src/app/models/user.model';
+import { UpdateUserAction } from 'src/app/store/app.actions';
+import { AppState, userSelector } from 'src/app/store/app.state';
 
 @Component({
   selector: 'app-header',
@@ -8,16 +11,19 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(
-    private cookieService: CookieService,
-    private router: Router
-  ) {}
+  public user: User = new User();
+  constructor(private router: Router, private store: Store<AppState>) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store.pipe(userSelector).subscribe((res) => {
+      this.user = res;
+    });
+  }
 
   signout() {
-    this.cookieService.delete('user');
-    this.cookieService.deleteAll('user', '/auth/login');
+    const user = new User();
+    delete user.isPortalSubscibe;
+    this.store.dispatch(UpdateUserAction(user));
     this.router.navigate(['/auth/login']);
   }
 }

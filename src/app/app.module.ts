@@ -2,7 +2,6 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AngularFireModule } from '@angular/fire/compat';
@@ -14,6 +13,8 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { ColorPickerService } from 'ngx-color-picker';
 import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './shared/shared.module';
+import { StoreModule } from '@ngrx/store';
+import { hydrationMetaReducer, userReducer } from './store/app.reducer';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +29,13 @@ import { SharedModule } from './shared/shared.module';
     AngularFireDatabaseModule,
     SharedModule,
     SimpleNotificationsModule.forRoot(),
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot(),
+    StoreModule.forRoot(
+      {
+        user: userReducer,
+      },
+      { metaReducers: [hydrationMetaReducer] }
+    ),
   ],
   providers: [ColorPickerService],
   bootstrap: [AppComponent],
