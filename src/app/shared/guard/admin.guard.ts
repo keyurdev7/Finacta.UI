@@ -28,8 +28,8 @@ export class AdminGuard implements CanActivateChild {
           if (!res || !Object.keys(res).length || !res.userId) {
             this.router.navigate(['/auth/login']);
             obs.next(true);
-          } else if (!res.isPortalSubscibe && state.url !== '/pages/pricing') {
-            this.router.navigate(['/pages/pricing']);
+          } else if (!res.isPortalSubscibe && state.url !== '/pricing') {
+            this.router.navigate(['/pricing']);
             obs.next(true);
           }
           obs.next(true);

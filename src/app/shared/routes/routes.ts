@@ -31,7 +31,7 @@ export const content: Routes = [
     loadChildren: () => import('../../components/maps/maps.module').then(m => m.MapsModule)
   },
   {
-    path: 'pages',
+    path: '',
     loadChildren: () => import('../../components/pages/pages.module').then(m => m.PagesModule)
   },
   {
