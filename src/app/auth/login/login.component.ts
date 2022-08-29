@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
           if (!!res.data.isPortalSubscibe) {
             this.router.navigate(['/dashboard']);
           } else {
-            this.router.navigate(['/pages/pricing']);
+            this.router.navigate(['/pricing']);
           }
         } else if (res && res.errors.length) {
           res.errors.forEach((err) => {
