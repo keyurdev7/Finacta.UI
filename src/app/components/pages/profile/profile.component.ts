@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { ProfileForm } from 'src/app/models/profile-form.model';
 import { User } from 'src/app/models/user.model';
 import { APIService } from 'src/app/shared/services/api.service';
 import { CustomValidators } from 'src/app/shared/validations/CustomValidators';
+import { UpdateUserAction } from 'src/app/store/app.actions';
+import { AppState, userSelector } from 'src/app/store/app.state';
 
 @Component({
   selector: 'app-profile',
@@ -18,17 +21,18 @@ export class ProfileComponent implements OnInit {
   public changePasswordForm: FormGroup = new FormGroup([]);
   public user: User = new User();
   private file: File | null = null;
+  subscriptions: Subscription[] = [];
 
   constructor(
     private fb: FormBuilder,
     private api: APIService,
     public toster: ToastrService,
     public router: Router,
-    public cookieService: CookieService
+    public store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
-    this.user = JSON.parse(this.cookieService.get('user'));
+    this.subscribeToUser();
     this.profileForm = this.fb.group({
       firstName: [this.user.firstName, [Validators.required]],
       lastName: [this.user.lastName, [Validators.required]],
@@ -45,6 +49,14 @@ export class ProfileComponent implements OnInit {
       {
         validators: [CustomValidators.mustMatch('password', 'confirmPass')],
       }
+    );
+  }
+
+  subscribeToUser() {
+    this.subscriptions.push(
+      this.store.pipe(userSelector).subscribe((res) => {
+        this.user = res;
+      })
     );
   }
 
@@ -84,13 +96,18 @@ export class ProfileComponent implements OnInit {
         this.profileForm.reset();
         this.file = null;
         this.toster.success(res.message);
-        this.user.firstName = res.data.firstName;
-        this.user.lastName = res.data.lastName;
-        this.user.marketingEmails = res.data.marketingEmails;
-        this.user.phoneNumber = res.data.phoneNumber;
-        this.user.position = res.data.position;
-        this.user.profilePhoto = res.data.profilePhoto;
-        this.cookieService.set('user', JSON.stringify(this.user), 1, '/');
+        this.store.dispatch(
+          UpdateUserAction(
+            Object.assign({}, this.user, {
+              firstName: res.data.firstName,
+              lastName: res.data.lastName,
+              marketingEmails: res.data.marketingEmails,
+              phoneNumber: res.data.phoneNumber,
+              position: res.data.position,
+              profilePhoto: res.data.profilePhoto,
+            })
+          )
+        );
         this.profileForm.patchValue({
           firstName: res.data.firstName,
           lastName: res.data.lastName,

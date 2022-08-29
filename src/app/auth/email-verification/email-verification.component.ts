@@ -31,6 +31,7 @@ export class EmailVerificationComponent implements OnInit {
           this.isVerified = false;
           res.errors.forEach((err) => {
             this.toster.error(err.errorMessage);
+            this.router.navigate(['/auth/login']);
           });
         }
       });

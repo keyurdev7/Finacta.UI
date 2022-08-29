@@ -12,7 +12,7 @@ import { CustomValidators } from 'src/app/shared/validations/CustomValidators';
   styleUrls: ['./resister.component.scss'],
 })
 export class ResisterComponent implements OnInit {
-  public registerForm: FormGroup;
+  public registerForm: FormGroup = new FormGroup([]);
 
   constructor(
     private fb: FormBuilder,
@@ -20,6 +20,10 @@ export class ResisterComponent implements OnInit {
     public toster: ToastrService,
     public router: Router
   ) {
+    document.querySelector('body')?.classList.add('login-img');
+  }
+
+  ngOnInit(): void {
     this.registerForm = this.fb.group(
       {
         firstName: [null, [Validators.required]],
@@ -34,11 +38,7 @@ export class ResisterComponent implements OnInit {
         validators: [CustomValidators.mustMatch('password', 'confirmPass')],
       }
     );
-
-    document.querySelector('body')?.classList.add('login-img');
   }
-
-  ngOnInit(): void {}
 
   hasError(control: string, validator: string): boolean {
     return (

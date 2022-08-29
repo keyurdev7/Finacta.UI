@@ -283,20 +283,20 @@ export class NavService implements OnDestroy {
 					]
 				},
 				
-				{ path: '/pages/settings', title: 'Settings', type: 'link' },
-				{ path: '/pages/profile', title: 'Profile', type: 'link' },
-				{ path: '/pages/about-company', title: 'About Company', type: 'link' },
-				{ path: '/pages/services', title: 'Services', type: 'link' },
+				{ path: '/settings', title: 'Settings', type: 'link' },
+				{ path: '/profile', title: 'Profile', type: 'link' },
+				{ path: '/about-company', title: 'About Company', type: 'link' },
+				{ path: '/services', title: 'Services', type: 'link' },
 				
 				{ path: '/switcher/switcher', title: 'Switcher', type: 'external' },
-				{ path: '/pages/terms', title: 'Terms', type: 'link' },
-				{ path: '/pages/faqs', title: 'FAQS', type: 'link' },
-				{ path: '/pages/pricing', title: 'Pricing', type: 'link' },
+				{ path: '/terms', title: 'Terms', type: 'link' },
+				{ path: '/faqs', title: 'FAQS', type: 'link' },
+				{ path: '/pricing', title: 'Pricing', type: 'link' },
 				{
 					title: 'Blog', type: 'sub', Menusub: true, active: false, children: [
-						{ path: '/pages/blog/blog', title: 'Blog', type: 'link' },
-						{ path: '/pages/blog/blog-details', title: 'Blog Details', type: 'link' },
-						{ path: '/pages/blog/edit-post', title: 'Edit Post', type: 'link' },
+						{ path: '/blog/blog', title: 'Blog', type: 'link' },
+						{ path: '/blog/blog-details', title: 'Blog Details', type: 'link' },
+						{ path: '/blog/edit-post', title: 'Edit Post', type: 'link' },
 					]
 				},
 			]

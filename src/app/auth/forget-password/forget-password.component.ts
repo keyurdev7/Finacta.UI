@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./forget-password.component.scss'],
 })
 export class ForgetPasswordComponent implements OnInit {
-  public forgotForm: FormGroup | any;
+  public forgotForm: FormGroup = new FormGroup([]);
 
   constructor(
     private fb: FormBuilder,
@@ -18,13 +18,14 @@ export class ForgetPasswordComponent implements OnInit {
     public toster: ToastrService,
     public router: Router
   ) {
-    this.forgotForm = this.fb.group({
-      email: [null, [Validators.required, Validators.email]],
-    });
     document.querySelector('body')?.classList.add('login-img');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.forgotForm = this.fb.group({
+      email: [null, [Validators.required, Validators.email]],
+    });
+  }
 
   submit() {
     this.api.forgotPassword(this.forgotForm.value.email).subscribe((res) => {

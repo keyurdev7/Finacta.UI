@@ -13,7 +13,7 @@ import { CustomValidators } from 'src/app/shared/validations/CustomValidators';
 export class ResetPasswordComponent implements OnInit {
   public isVerified: boolean = false;
   private userId: string = '';
-  public resetForm: FormGroup;
+  public resetForm: FormGroup = new FormGroup([]);
 
   constructor(
     private fb: FormBuilder,
@@ -23,17 +23,6 @@ export class ResetPasswordComponent implements OnInit {
     public router: Router
   ) {
     document.querySelector('body')?.classList.add('login-img');
-
-    this.resetForm = this.fb.group(
-      {
-        tempPassword: [null, [Validators.required]],
-        password: [null, [Validators.required, Validators.minLength(8)]],
-        confirmPass: [null, [Validators.required]],
-      },
-      {
-        validators: [CustomValidators.mustMatch('password', 'confirmPass')],
-      }
-    );
 
     this.activatedRoute.queryParams.subscribe((params) => {
       const token = params['param'];
@@ -46,13 +35,25 @@ export class ResetPasswordComponent implements OnInit {
           this.userId = '';
           res.errors.forEach((err) => {
             this.toster.error(err.errorMessage);
+            this.router.navigate(['/auth/login']);
           });
         }
       });
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.resetForm = this.fb.group(
+      {
+        tempPassword: [null, [Validators.required]],
+        password: [null, [Validators.required, Validators.minLength(8)]],
+        confirmPass: [null, [Validators.required]],
+      },
+      {
+        validators: [CustomValidators.mustMatch('password', 'confirmPass')],
+      }
+    );
+  }
 
   hasError(control: string, validator: string): boolean {
     return (

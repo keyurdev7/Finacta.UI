@@ -1,6 +1,6 @@
 <app-page-header
   [title]="'Profile'"
-  [items]="['Pages']"
+  [items]="['Home']"
   [active_item]="'Profile'"
 ></app-page-header>
 
@@ -13,8 +13,9 @@
           <div class="col-lg-12 col-md-12 col-xl-6">
             <div class="d-flex flex-wrap align-items-center">
               <div class="profile-img-main rounded">
+                <!-- [src]="user.profilePhoto" -->
                 <img
-                  [src]="user.profilePhoto"
+                  src="./assets/images/faces/6.jpg"
                   alt="img"
                   class="m-0 p-1 rounded hrem-6"
                 />

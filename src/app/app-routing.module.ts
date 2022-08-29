@@ -9,7 +9,7 @@ import { SwitcherLayoutComponent } from './shared/layout-components/layout/switc
 import { customRoute } from './shared/routes/custom.routes';
 import { errorRoute } from './shared/routes/error.routes';
 import { LandingPage } from './shared/routes/landingpage';
-import { content } from './shared/routes/routes copy';
+import { content } from './shared/routes/routes';
 import { switcher } from './shared/routes/switchers';
 import { SharedModule } from './shared/shared.module';
 
