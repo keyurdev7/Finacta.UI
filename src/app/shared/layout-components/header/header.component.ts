@@ -11,6 +11,7 @@ import { AppState, userSelector } from 'src/app/store/app.state';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  public isCollapsed = true;
   public user: User = new User();
   constructor(private router: Router, private store: Store<AppState>) {}
 
