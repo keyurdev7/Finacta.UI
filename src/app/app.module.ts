@@ -1,5 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './shared/shared.module';
 import { StoreModule } from '@ngrx/store';
 import { hydrationMetaReducer, userReducer } from './store/app.reducer';
+import { TokenInterceptor } from './shared/services/token.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,7 +38,10 @@ import { hydrationMetaReducer, userReducer } from './store/app.reducer';
       { metaReducers: [hydrationMetaReducer] }
     ),
   ],
-  providers: [ColorPickerService],
+  providers: [
+    ColorPickerService,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
