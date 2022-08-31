@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
       .subscribe((res) => {
         if (res && res.succeeded) {
           this.loginForm.reset();
-          if(!!res.isTemporaryPassword){
+          if(!!res.data.isTemporaryPassword){
             this.router.navigate(['/auth/setpassword/'+res.data.userId]);
           }
           else{

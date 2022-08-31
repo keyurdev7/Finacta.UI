@@ -27,9 +27,9 @@ export class ResetPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
-      if (!!params['userId']) {
+      if (!!params['id']) {
         this.isVerified = true;
-        this.userId = params['userId'];
+        this.userId = params['id'];
       } else {
         this.activatedRoute.queryParams.subscribe((params) => {
           const token = params['param'];
