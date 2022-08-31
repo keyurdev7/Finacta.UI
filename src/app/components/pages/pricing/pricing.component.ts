@@ -56,8 +56,9 @@ export class PricingComponent implements OnInit, OnDestroy {
       .subscribe((res) => {
         if (res && res.succeeded) {
           this.router.navigate(['/dashboard']);
-          this.user.isPortalSubscibe = true;
-          this.store.dispatch(UpdateUserAction(this.user));
+          this.store.dispatch(UpdateUserAction(Object.assign({}, this.user, {
+            isPortalSubscibe: true 
+          })));
         } else if (res && res.errors.length) {
           res.errors.forEach((err) => {
             this.toster.error(err.errorMessage);

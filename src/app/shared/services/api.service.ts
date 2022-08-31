@@ -6,6 +6,8 @@ import { environment } from '../../../environments/environment';
 import { LoadingMaskService } from './loading-mask.service';
 import { RegisterForm } from './../../models/register-form.model';
 import { ProfileForm } from './../../models/profile-form.model';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.state';
 
 @Injectable({
   providedIn: 'root',

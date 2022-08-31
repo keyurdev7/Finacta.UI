@@ -23,26 +23,38 @@ export class ResetPasswordComponent implements OnInit {
     public router: Router
   ) {
     document.querySelector('body')?.classList.add('login-img');
-
-    this.activatedRoute.queryParams.subscribe((params) => {
-      const token = params['param'];
-      this.api.verifyForgotPasswordLink(token).subscribe((res) => {
-        if (res && res.succeeded) {
-          this.isVerified = true;
-          this.userId = res.data;
-        } else if (res && res.errors.length) {
-          this.isVerified = false;
-          this.userId = '';
-          res.errors.forEach((err) => {
-            this.toster.error(err.errorMessage);
-            this.router.navigate(['/auth/login']);
-          });
-        }
-      });
-    });
   }
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((params) => {
+      if (!!params['userId']) {
+        this.isVerified = true;
+        this.userId = params['userId'];
+      } else {
+        this.activatedRoute.queryParams.subscribe((params) => {
+          const token = params['param'];
+          if (token) {
+            this.api.verifyForgotPasswordLink(token).subscribe((res) => {
+              if (res && res.succeeded) {
+                this.isVerified = true;
+                this.userId = res.data;
+              } else if (res && res.errors.length) {
+                this.isVerified = false;
+                this.userId = '';
+                res.errors.forEach((err) => {
+                  this.toster.error(err.errorMessage);
+                  this.router.navigate(['/auth/login']);
+                });
+              }
+            });
+          }
+        });
+      }
+    });
+    this.initializeResetForm();
+  }
+
+  initializeResetForm(): void {
     this.resetForm = this.fb.group(
       {
         tempPassword: [null, [Validators.required]],

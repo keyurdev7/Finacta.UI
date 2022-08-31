@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CompanyUserComponent } from './components/company-user/company-user/company-user.component';
 import { AdminGuard } from './shared/guard/admin.guard';
 import { ContentLayoutComponent } from './shared/layout-components/layout/content-layout/content-layout.component';
 import { ErrorLayoutComponent } from './shared/layout-components/layout/error-layout/error-layout.component';

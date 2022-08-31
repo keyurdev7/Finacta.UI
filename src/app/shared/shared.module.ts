@@ -30,6 +30,7 @@ import { SwitcherLayoutComponent } from './layout-components/layout/switcher-lay
 import { SwitcherLayoutHeaderComponent } from './layout-components/layout/switcher-layout/switcher-layout-header/switcher-layout-header.component';
 import { LandingPageLayoutComponent } from './layout-components/layout/landingpage-layout/landingpage-layout.component';
 import { LoadingMaskService } from './services/loading-mask.service';
+import { MaterialModuleModule } from '../materialModule/material-module/material-module.module';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -66,6 +67,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ColorPickerModule,
     FormsModule,
     ReactiveFormsModule,
+    MaterialModuleModule,
   ],
   exports: [
     PageHeaderComponent,
@@ -82,6 +84,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SidemenuToggleDirective,
     FormsModule,
     ReactiveFormsModule,
+    MaterialModuleModule
   ],
   providers: [
     {

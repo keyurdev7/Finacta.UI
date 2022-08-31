@@ -24,7 +24,7 @@ export class User {
   profilePhoto: string = '';
   refreshToken: string = '';
   success?: boolean = false;
-  token?: string = '';
+  token: string = '';
   userId: number = 0;
   userTypeId: number = 0;
 }

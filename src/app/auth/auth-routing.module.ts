@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'auth/register-success', component: RegisterSuccessComponent },
   { path: 'auth/email-verify', component: EmailVerificationComponent },
   { path: 'auth/setpassword', component: ResetPasswordComponent },
+  { path: 'auth/setpassword/:id', component: ResetPasswordComponent },
 ];
 
 @NgModule({

@@ -1,0 +1,67 @@
+<app-page-header
+  [title]="'Company Users'"
+  [items]="['Home']"
+  [active_item]="'Company Users'"
+></app-page-header>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <button
+          class="float-end"
+          mat-button
+          (click)="openDialog()"
+          mat-flat-button
+          color="warn"
+        >
+          Invite User
+        </button>
+
+        <div class="table-responsive">
+          <table
+            mat-table
+            [dataSource]="companyUserDataSource"
+            #mytable
+            class="table text-nowrap table-bordered"
+          >
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.firstName }}
+              </td>
+            </ng-container>
+
+            <!-- Email Column -->
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef>Email</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.emailId }}
+              </td>
+            </ng-container>
+
+            <!-- Invitation Status Column -->
+            <ng-container matColumnDef="invitationStatus">
+              <th mat-header-cell *matHeaderCellDef>Invitation Status</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.invitationStatusName }}
+              </td>
+            </ng-container>
+
+            <!-- User Active Status Column -->
+            <ng-container matColumnDef="userActiveStatus">
+              <th mat-header-cell *matHeaderCellDef>User Active Status</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.userActiveStatus }}
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

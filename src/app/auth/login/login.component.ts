@@ -39,11 +39,16 @@ export class LoginComponent implements OnInit {
       .subscribe((res) => {
         if (res && res.succeeded) {
           this.loginForm.reset();
-          this.store.dispatch(UpdateUserAction(res.data));
-          if (!!res.data.isPortalSubscibe) {
-            this.router.navigate(['/dashboard']);
-          } else {
-            this.router.navigate(['/pricing']);
+          if(!!res.isTemporaryPassword){
+            this.router.navigate(['/auth/setpassword/'+res.data.userId]);
+          }
+          else{
+            this.store.dispatch(UpdateUserAction(res.data));
+            if (!!res.data.isPortalSubscibe) {
+              this.router.navigate(['/dashboard']);
+            } else {
+              this.router.navigate(['/pricing']);
+            }
           }
         } else if (res && res.errors.length) {
           res.errors.forEach((err) => {

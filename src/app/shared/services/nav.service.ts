@@ -90,6 +90,9 @@ export class NavService implements OnDestroy {
 		{
 			title: 'Dashboard', icon: 'home', active: true, badgeClass:'badge badge-sm bg-secondary badge-hide', badgeValue:'new', path: '/dashboard', type: 'link'
 		},
+		{
+			title: 'Company Users', icon: 'layout', active: true, badgeClass:'badge badge-sm bg-secondary badge-hide', badgeValue:'new', path: '/company-users', type: 'link'
+		},
 		// {
 		// 	headTitle: 'COMPONENTS',
 		// },

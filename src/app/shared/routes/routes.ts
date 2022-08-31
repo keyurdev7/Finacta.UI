@@ -1,7 +1,12 @@
 import { Routes } from '@angular/router';
+import { CompanyUserComponent } from 'src/app/components/company-user/company-user/company-user.component';
 
 
 export const content: Routes = [
+  {
+    path: 'company-users',
+    component: CompanyUserComponent,
+  },
   {
     path: 'dashboard',
     loadChildren: () => import('../../components/dashboard/dashboard.module').then(m => m.DashboardModule)
