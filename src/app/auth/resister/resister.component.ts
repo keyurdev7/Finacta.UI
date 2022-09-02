@@ -29,7 +29,7 @@ export class ResisterComponent implements OnInit {
         firstName: [null, [Validators.required]],
         lastName: [null, [Validators.required]],
         emailId: [null, [Validators.required, Validators.email]],
-        password: [null, [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)?(?=.*[-+_!@#$%^&*.,?])?.+$/gm)]],
+        password: [null, [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d@$!%*?&]{8,}$/)]],
         confirmPass: [null, [Validators.required]],
         companyName: [null, [Validators.required]],
         companyNumber: [null, [Validators.required]],

@@ -260,7 +260,7 @@
                           >
                             Password is required
                           </div>
-                          <div
+                          <!-- <div
                             *ngIf="
                               hasError(
                                 'changePasswordForm',
@@ -271,7 +271,7 @@
                             class="text text-danger mt-1"
                           >
                             Password should contain 8 letters.
-                          </div>
+                          </div> -->
                           <div
                             *ngIf="
                               hasError(
@@ -282,8 +282,7 @@
                             "
                             class="text text-danger mt-1"
                           >
-                            Password should contain one Capital letter and one
-                            small letter.
+                            Password should be minimum eight characters, at least one uppercase letter, one lowercase letter.
                           </div>
                           <div class="wrap-input100 validate-input">
                             <input
