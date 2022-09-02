@@ -46,9 +46,15 @@
                   class="nav-link pe-2 leading-none d-flex animate"
                 >
                   <span>
-                    <!-- [src]="user.profilePhoto" -->
-                    <img                      
-                      src="./assets/images/faces/6.jpg"
+                    <img 
+                      *ngIf="user.profilePhoto"                    
+                      [src]="user.profilePhoto"
+                      alt="profile-user"
+                      class="avatar profile-user brround cover-image"
+                    />
+                    <img 
+                      *ngIf="!user.profilePhoto"                    
+                      src="./assets/images/faces/default-profile-icon.jpg"
                       alt="profile-user"
                       class="avatar profile-user brround cover-image"
                     />

@@ -27,4 +27,8 @@ export class User {
   token: string = '';
   userId: number = 0;
   userTypeId: number = 0;
+
+  getFullName(): string{
+    return this.firstName + " " + this.lastName;
+  }
 }

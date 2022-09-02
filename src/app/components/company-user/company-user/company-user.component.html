@@ -8,15 +8,26 @@
   <div class="col-12">
     <div class="card">
       <div class="card-body">
-        <button
-          class="float-end mb-3"
-          mat-button
-          (click)="openDialog()"
-          mat-flat-button
-          color="warn"
-        >
-          Invite User
-        </button>
+        <div>
+          <mat-form-field appearance="standard">
+            <mat-label>Filter</mat-label>
+            <input
+              matInput
+              (keyup)="applyFilter($event)"
+              placeholder="Ex. Mia"
+              #input
+            />
+          </mat-form-field>
+          <button
+            class="float-end mt-4"
+            mat-button
+            (click)="openDialog()"
+            mat-flat-button
+            color="warn"
+          >
+            Invite User
+          </button>
+        </div>
 
         <div class="table-responsive">
           <table
@@ -24,36 +35,98 @@
             [dataSource]="companyUserDataSource"
             #mytable
             class="table text-nowrap table-bordered"
+            matSort
           >
-            <!-- Name Column -->
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef>Name</th>
-              <td mat-cell *matCellDef="let element">
-                {{ element.firstName }}
+            <!-- photo Column -->
+            <ng-container matColumnDef="photo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Photo</th>
+              <td mat-cell *matCellDef="let element" class="text-center">
+                <div
+                  class="avatar avatar-md rounded-circle"
+                  *ngIf="element.profilePhoto; else else_block"
+                >
+                  <img
+                    alt="avatar"
+                    class="rounded-circle"
+                    [src]="element.profilePhoto"
+                  />
+                </div>
+                <ng-template #else_block>
+                  <div class="avatar avatar-md rounded-circle">
+                    <img
+                      alt="avatar"
+                      class="rounded-circle"
+                      src="./assets/images/faces/default-profile-icon.jpg"
+                    />
+                  </div>
+                </ng-template>
               </td>
             </ng-container>
 
-            <!-- Email Column -->
-            <ng-container matColumnDef="email">
-              <th mat-header-cell *matHeaderCellDef>Email</th>
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
               <td mat-cell *matCellDef="let element">
-                {{ element.emailId }}
+                {{ element.firstName }} {{ element.lastName }}
+              </td>
+            </ng-container>
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Position
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.position }}
+              </td>
+            </ng-container>
+
+            <!-- Phone Number Column -->
+            <ng-container matColumnDef="phone">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Phone Number
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.phoneNumber }}
+              </td>
+            </ng-container>
+
+            <!-- Last Login Column -->
+            <ng-container matColumnDef="lastLoginDateTime">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Last Login
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.lastLoginDateTime | dateAgo }}
+              </td>
+            </ng-container>
+
+            <!-- Joined Date Column -->
+            <ng-container matColumnDef="joinedDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Joined Date
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.joinedDate | date: 'short'}}
               </td>
             </ng-container>
 
             <!-- Invitation Status Column -->
             <ng-container matColumnDef="invitationStatus">
-              <th mat-header-cell *matHeaderCellDef>Invitation Status</th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Invitation Status
+              </th>
               <td mat-cell *matCellDef="let element">
                 {{ element.invitationStatusName }}
               </td>
             </ng-container>
 
-            <!-- User Active Status Column -->
-            <ng-container matColumnDef="userActiveStatus">
-              <th mat-header-cell *matHeaderCellDef>User Active Status</th>
-              <td mat-cell *matCellDef="let element">
-                {{ element.userActiveStatus }}
+            <!-- Action Column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>Action</th>
+              <td mat-cell *matCellDef="let element" class="action-link">
+                <button class="btn btn-primary me-2">Edit</button>
+                <button class="btn btn-danger">Resent Invitation</button>
               </td>
             </ng-container>
 
@@ -66,6 +139,10 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
           </table>
+          <mat-paginator
+            [pageSizeOptions]="[10, 25, 100]"
+            aria-label="Select page of users"
+          ></mat-paginator>
         </div>
       </div>
     </div>

@@ -31,6 +31,7 @@ import { SwitcherLayoutHeaderComponent } from './layout-components/layout/switch
 import { LandingPageLayoutComponent } from './layout-components/layout/landingpage-layout/landingpage-layout.component';
 import { LoadingMaskService } from './services/loading-mask.service';
 import { MaterialModuleModule } from '../materialModule/material-module/material-module.module';
+import { DateAgoPipe } from './pipes/date-ago.pipe';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -58,6 +59,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HoverEffectSidebarDirective,
     SwitcherLayoutComponent,
     SwitcherLayoutHeaderComponent,
+    DateAgoPipe,
   ],
   imports: [
     CommonModule,
@@ -84,7 +86,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SidemenuToggleDirective,
     FormsModule,
     ReactiveFormsModule,
-    MaterialModuleModule
+    MaterialModuleModule,
+    DateAgoPipe,
   ],
   providers: [
     {

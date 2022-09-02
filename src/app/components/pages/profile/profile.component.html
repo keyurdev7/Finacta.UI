@@ -13,10 +13,16 @@
           <div class="col-lg-12 col-md-12 col-xl-6">
             <div class="d-flex flex-wrap align-items-center">
               <div class="profile-img-main rounded">
-                <!-- [src]="user.profilePhoto" -->
                 <img
-                  src="./assets/images/faces/6.jpg"
-                  alt="img"
+                  *ngIf="user.profilePhoto"
+                  [src]="user.profilePhoto"
+                  alt="profile-image"
+                  class="m-0 p-1 rounded hrem-6"
+                />
+                <img
+                  *ngIf="!user.profilePhoto"
+                  src="./assets/images/faces/default-profile-icon.jpg"
+                  alt="profile-image"
                   class="m-0 p-1 rounded hrem-6"
                 />
               </div>
@@ -264,7 +270,20 @@
                             "
                             class="text text-danger mt-1"
                           >
-                            Password should be atleast 8 characters long.
+                            Password should contain 8 letters.
+                          </div>
+                          <div
+                            *ngIf="
+                              hasError(
+                                'changePasswordForm',
+                                'password',
+                                'pattern'
+                              )
+                            "
+                            class="text text-danger mt-1"
+                          >
+                            Password should contain one Capital letter and one
+                            small letter.
                           </div>
                           <div class="wrap-input100 validate-input">
                             <input

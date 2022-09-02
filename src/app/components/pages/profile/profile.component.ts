@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit {
     });
     this.changePasswordForm = this.fb.group(
       {
-        password: [null, [Validators.required, Validators.minLength(8)]],
+        password: [null, [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)?(?=.*[-+_!@#$%^&*.,?])?.+$/gm)]],
         confirmPass: [null, [Validators.required]],
       },
       {
