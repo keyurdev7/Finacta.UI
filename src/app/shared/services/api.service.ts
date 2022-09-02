@@ -48,6 +48,13 @@ export class APIService extends AbstractService {
     }) as Observable<any>;
   }
 
+  companyUserVerify(param: string): Observable<any> {
+    return this.httpPost({
+      url: this.baseUrl + '/UserManagement/VerifyInvitedUser?param='+param,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
   getSubscriptionPlans(): Observable<any> {
     return this.httpGet({
       url: this.baseUrl + '/SubscriptionManagement/GetPortalSubscription',

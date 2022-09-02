@@ -9,7 +9,7 @@
     <div class="card">
       <div class="card-body">
         <button
-          class="float-end"
+          class="float-end mb-3"
           mat-button
           (click)="openDialog()"
           mat-flat-button
@@ -56,6 +56,12 @@
                 {{ element.userActiveStatus }}
               </td>
             </ng-container>
+
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                No data found.
+              </td>
+            </tr>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>

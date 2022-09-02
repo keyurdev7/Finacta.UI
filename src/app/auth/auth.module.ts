@@ -10,6 +10,7 @@ import { RegisterSuccessComponent } from './register-success/register-success.co
 import { EmailVerificationComponent } from './email-verification/email-verification.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CompanyUserVerificationComponent } from './company-user-verification/company-user-verification.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RegisterSuccessComponent,
     EmailVerificationComponent,
     ResetPasswordComponent,
+    CompanyUserVerificationComponent,
   ],
   imports: [
     CommonModule,
