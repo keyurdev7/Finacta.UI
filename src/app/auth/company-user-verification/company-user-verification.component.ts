@@ -20,8 +20,8 @@ export class CompanyUserVerificationComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params) => {
-      const param = encodeURIComponent(params['param']).replace(/'/g,"%27").replace(/"/g,"%22");
-      this.api.companyUserVerify(param).subscribe((res) => {
+      ///const param = encodeURIComponent(params['param']).replace(/'/g,"%27").replace(/"/g,"%22");
+      this.api.companyUserVerify(params['param']).subscribe((res) => {
         if (res && res.succeeded) {
           this.isVerified = true;
           if (!!res.data.IsRedirectToResetPassword) {
