@@ -19,7 +19,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.store.pipe(userSelector).subscribe((res) => {
       this.user = res;
-      this.selectedCompany = res.userCompany[0].companyId;
+      if(res.userCompany){
+        this.selectedCompany = res.userCompany[0]?.companyId;
+      }
     });
   }
 
