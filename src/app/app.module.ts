@@ -18,9 +18,10 @@ import { hydrationMetaReducer, userReducer } from './store/app.reducer';
 import { TokenInterceptor } from './shared/services/token.interceptor';
 import { CompanyUserComponent } from './components/company-user/company-user/company-user.component';
 import { InviteUserModalComponent } from './components/company-user/invite-user-modal/invite-user-modal.component';
+import { DeleteUserDialogComponent } from './components/company-user/delete-user-dialog/delete-user-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, CompanyUserComponent, InviteUserModalComponent],
+  declarations: [AppComponent, CompanyUserComponent, InviteUserModalComponent, DeleteUserDialogComponent],
   imports: [
     HttpClientModule,
     BrowserModule,

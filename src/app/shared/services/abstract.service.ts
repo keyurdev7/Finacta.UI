@@ -110,4 +110,23 @@ export class AbstractService {
       context
     );
   }
+
+  httpDelete<T>(context: {
+    url: string;
+    payload?: any;
+    returnType?: ClassConstructor<T>;
+    params?: HttpParams;
+    headers?: HttpHeaders;
+    noLoadingMask?: boolean;
+    callerErrorHandler?: boolean;
+  }): Observable<T | T[]> {
+    this.updateErrorParam(context);
+    return this.httpRequest(
+      this.httpClient.delete(context.url, {
+        params: context.params,
+        headers: context.headers,
+      }),
+      context
+    );
+  }
 }

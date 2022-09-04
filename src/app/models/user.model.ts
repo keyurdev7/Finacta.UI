@@ -1,7 +1,10 @@
 import { Transform } from 'class-transformer';
 import { momentTransform } from '../shared/utils/date.utils';
+import { AccessMenuHeader } from './access-menu-header.model';
+import { Company } from './company.model';
 
 export class User {
+  accessMenu: AccessMenuHeader[] = [];
   companyId: number = 0;
   companyName: string = '';
   emailId: string = '';
@@ -27,8 +30,9 @@ export class User {
   token: string = '';
   userId: number = 0;
   userTypeId: number = 0;
+  userCompany: Company[] = [];
 
-  getFullName(): string{
-    return this.firstName + " " + this.lastName;
+  getFullName(): string {
+    return this.firstName + ' ' + this.lastName;
   }
 }

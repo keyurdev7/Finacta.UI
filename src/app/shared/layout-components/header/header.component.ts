@@ -12,12 +12,14 @@ import { AppState, userSelector } from 'src/app/store/app.state';
 })
 export class HeaderComponent implements OnInit {
   public isCollapsed = true;
+  public selectedCompany: number = 0;
   public user: User = new User();
   constructor(private router: Router, private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store.pipe(userSelector).subscribe((res) => {
       this.user = res;
+      this.selectedCompany = res.userCompany[0].companyId;
     });
   }
 

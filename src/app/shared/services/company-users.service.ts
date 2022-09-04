@@ -33,4 +33,18 @@ export class CompanyUsersService extends AbstractService {
       callerErrorHandler: false,
     }) as Observable<any>;
   }
+
+  reSendInvitation(userId: number): Observable<any> {
+    return this.httpPost({
+      url: this.baseUrl + '/UserManagement/ResentInvitation?userid='+userId,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  deleteCompanyUser(userId: number): Observable<any> {
+    return this.httpDelete({
+      url: this.baseUrl + '/UserManagement/DeleteUser?userid='+userId,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
 }
