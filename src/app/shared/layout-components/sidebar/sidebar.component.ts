@@ -9,6 +9,9 @@ import { Menu, NavService } from '../../services/nav.service';
 import { switcherArrowFn, parentNavActive, checkHoriMenu } from './sidebar';
 import { fromEvent } from 'rxjs';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
+import { AppState, userSelector } from 'src/app/store/app.state';
+import { Store } from '@ngrx/store';
+import { AccessMenuHeader } from 'src/app/models/access-menu-header.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,7 +20,7 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
   encapsulation: ViewEncapsulation.None,
 })
 export class SidebarComponent {
-  public menuItems!: Menu[];
+  public menuItems!: AccessMenuHeader[];
   public url: any;
   public routerSubscription: any;
   public windowSubscribe$!:any;
@@ -25,15 +28,19 @@ export class SidebarComponent {
     private breakpointObserver: BreakpointObserver,
     private router: Router,
     private navServices: NavService,
-    public elRef: ElementRef
+    public elRef: ElementRef,
+    private store: Store<AppState>
   ) {
     this.checkNavActiveOnLoad();
   }
   // To set Active on Load
   checkNavActiveOnLoad() {
-    this.navServices.items.subscribe((menuItems: any) => {
-      this.menuItems = menuItems;
-
+      this.store.pipe(userSelector).subscribe((res) => {
+      this.menuItems = res.accessMenu;
+      this.menuItems.map((item) => ({
+        ...item,
+        active: true       
+    }));
       this.router.events.subscribe((event: any) => {
         if (event instanceof NavigationStart) {
           this.closeNavActive();
@@ -47,7 +54,7 @@ export class SidebarComponent {
           }, 100);
         }
         if (event instanceof NavigationEnd) {
-          menuItems.filter((items: any) => {
+          res.accessMenu.filter((items: any) => {
             if (items.path === event.url) {
               this.setNavActive(items);
             }
@@ -117,17 +124,17 @@ export class SidebarComponent {
 
         this.navServices.collapseSidebar = false;
       }
-      if (menuItem.children && menuItem.children.includes(item)) {
-        menuItem.active = true;
-      }
-      if (menuItem.children) {
-        menuItem.children.filter((submenuItems) => {
-          if (submenuItems.children && submenuItems.children.includes(item)) {
-            menuItem.active = true;
-            submenuItems.active = true;
-          }
-        });
-      }
+      // if (menuItem.children && menuItem.children.includes(item)) {
+      //   menuItem.active = true;
+      // }
+      // if (menuItem.children) {
+      //   menuItem.children.filter((submenuItems) => {
+      //     if (submenuItems.children && submenuItems.children.includes(item)) {
+      //       menuItem.active = true;
+      //       submenuItems.active = true;
+      //     }
+      //   });
+      // }
     });
   }
 
