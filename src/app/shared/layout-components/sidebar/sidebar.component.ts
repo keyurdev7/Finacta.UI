@@ -5,7 +5,7 @@ import {
   ElementRef,
 } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { Menu, NavService } from '../../services/nav.service';
+import { NavService } from '../../services/nav.service';
 import { switcherArrowFn, parentNavActive, checkHoriMenu } from './sidebar';
 import { fromEvent } from 'rxjs';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
@@ -23,7 +23,7 @@ export class SidebarComponent {
   public menuItems!: AccessMenuHeader[];
   public url: any;
   public routerSubscription: any;
-  public windowSubscribe$!:any;
+  public windowSubscribe$!: any;
   constructor(
     private breakpointObserver: BreakpointObserver,
     private router: Router,
@@ -35,12 +35,12 @@ export class SidebarComponent {
   }
   // To set Active on Load
   checkNavActiveOnLoad() {
-      this.store.pipe(userSelector).subscribe((res) => {
+    this.store.pipe(userSelector).subscribe((res) => {
       this.menuItems = res.accessMenu;
       this.menuItems.map((item) => ({
         ...item,
-        active: true       
-    }));
+        active: true,
+      }));
       this.router.events.subscribe((event: any) => {
         if (event instanceof NavigationStart) {
           this.closeNavActive();
@@ -86,10 +86,15 @@ export class SidebarComponent {
   }
 
   checkCurrentActive() {
-    this.navServices.items.subscribe((menuItems: any) => {
-      this.menuItems = menuItems;
+    this.store.pipe(userSelector).subscribe((res) => {
+      this.menuItems = res.accessMenu;
+      this.menuItems.map((item) => ({
+        ...item,
+        active: true,
+      }));
+
       let currentUrl = this.router.url;
-      menuItems.filter((items: any) => {
+      res.accessMenu.filter((items: any) => {
         if (items.path === currentUrl) {
           this.setNavActive(items);
         }
@@ -208,39 +213,55 @@ export class SidebarComponent {
       this.closeNavActive();
     });
 
-    const WindowResize = fromEvent(window, 'resize')
-    // subscribing the Observable 
+    const WindowResize = fromEvent(window, 'resize');
+    // subscribing the Observable
     this.windowSubscribe$ = WindowResize.subscribe(() => {
-      let menuWidth: any = document.querySelector<HTMLElement>('.horizontal-main');
-    let menuItems: any = document.querySelector<HTMLElement>('.side-menu');
-    let mainSidemenuWidth: any = document.querySelector<HTMLElement>('.main-sidemenu');
-    let menuContainerWidth = menuWidth?.offsetWidth - mainSidemenuWidth?.offsetWidth;
-    let marginLeftValue = Math.ceil(Number(window.getComputedStyle(menuItems).marginLeft.split('px')[0]));
-    let marginRightValue = Math.ceil(Number(window.getComputedStyle(menuItems).marginRight.split('px')[0]));
-    let check = menuItems.scrollWidth + (0 - menuWidth?.offsetWidth) + menuContainerWidth;
+      let menuWidth: any =
+        document.querySelector<HTMLElement>('.horizontal-main');
+      let menuItems: any = document.querySelector<HTMLElement>('.side-menu');
+      let mainSidemenuWidth: any =
+        document.querySelector<HTMLElement>('.main-sidemenu');
+      let menuContainerWidth =
+        menuWidth?.offsetWidth - mainSidemenuWidth?.offsetWidth;
+      let marginLeftValue = Math.ceil(
+        Number(window.getComputedStyle(menuItems).marginLeft.split('px')[0])
+      );
+      let marginRightValue = Math.ceil(
+        Number(window.getComputedStyle(menuItems).marginRight.split('px')[0])
+      );
+      let check =
+        menuItems.scrollWidth +
+        (0 - menuWidth?.offsetWidth) +
+        menuContainerWidth;
 
-    // to check and adjst the menu on screen size change
-    if (document.querySelector('body')?.classList.contains('ltr')) {
-      if (marginLeftValue > -check == false && menuWidth?.offsetWidth - menuContainerWidth < menuItems.scrollWidth) {
-        menuItems.style.marginLeft = -check;
+      // to check and adjst the menu on screen size change
+      if (document.querySelector('body')?.classList.contains('ltr')) {
+        if (
+          marginLeftValue > -check == false &&
+          menuWidth?.offsetWidth - menuContainerWidth < menuItems.scrollWidth
+        ) {
+          menuItems.style.marginLeft = -check;
+        } else {
+          menuItems.style.marginLeft = 0;
+        }
       } else {
-        menuItems.style.marginLeft = 0;
+        console.log(menuWidth?.offsetWidth, menuItems.scrollWidth);
+        if (
+          marginRightValue > -check == false &&
+          menuWidth?.offsetWidth - menuContainerWidth < menuItems.scrollWidth
+        ) {
+          menuItems.style.marginRight = -check;
+        } else {
+          menuItems.style.marginRight = 0;
+        }
+        if (menuWidth?.offsetWidth > menuItems.scrollWidth) {
+          document.querySelector('.slide-leftRTL')?.classList.add('d-none');
+          document.querySelector('.slide-rightRTL')?.classList.add('d-none');
+        } else {
+          document.querySelector('.slide-rightRTL')?.classList.remove('d-none');
+        }
       }
-    } else {
-      console.log(menuWidth?.offsetWidth, menuItems.scrollWidth);
-      if (marginRightValue > -check == false && menuWidth?.offsetWidth - menuContainerWidth < menuItems.scrollWidth
-      ) { menuItems.style.marginRight = -check;
-      } else {
-        menuItems.style.marginRight = 0;
-      }
-      if (menuWidth?.offsetWidth > menuItems.scrollWidth) {
-        document.querySelector('.slide-leftRTL')?.classList.add('d-none');
-        document.querySelector('.slide-rightRTL')?.classList.add('d-none');
-      } else {
-        document.querySelector('.slide-rightRTL')?.classList.remove('d-none');
-      }
-    }
-    checkHoriMenu();
+      checkHoriMenu();
     });
   }
 
@@ -259,12 +280,16 @@ export class SidebarComponent {
   }
   ngDoCheck() {
     if (document.querySelector('.horizontal')) {
-      document.querySelector('.horizontal .main-content')?.addEventListener('click', () => {this.closeNavActive();});
+      document
+        .querySelector('.horizontal .main-content')
+        ?.addEventListener('click', () => {
+          this.closeNavActive();
+        });
     }
   }
-  
-  ngOnDestroy(){
-    // unsubscribing the Observable 
-    this.windowSubscribe$.unsubscribe()
+
+  ngOnDestroy() {
+    // unsubscribing the Observable
+    this.windowSubscribe$.unsubscribe();
   }
 }
