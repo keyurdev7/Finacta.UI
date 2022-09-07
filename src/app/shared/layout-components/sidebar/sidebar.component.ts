@@ -36,52 +36,56 @@ export class SidebarComponent {
   // To set Active on Load
   checkNavActiveOnLoad() {
     this.store.pipe(userSelector).subscribe((res) => {
-      this.menuItems = res.accessMenu;
-      this.menuItems.map((item) => ({
-        ...item,
-        active: true,
-      }));
-      this.router.events.subscribe((event: any) => {
-        if (event instanceof NavigationStart) {
-          this.closeNavActive();
-          setTimeout(() => {
-            let sidemenu = document.querySelectorAll('.side-menu__item.active');
-            let subSidemenu = document.querySelectorAll(
-              '.sub-side-menu__item.active'
-            );
-            sidemenu.forEach((e) => e.classList.remove('active'));
-            subSidemenu.forEach((e) => e.classList.remove('active'));
-          }, 100);
-        }
-        if (event instanceof NavigationEnd) {
-          res.accessMenu.filter((items: any) => {
-            if (items.path === event.url) {
-              this.setNavActive(items);
-            }
-            if (!items.children) {
-              return false;
-            }
-            items.children.filter((subItems: any) => {
-              if (subItems.path === event.url) {
-                this.setNavActive(subItems);
+      if (res.accessMenu) {
+        this.menuItems = res.accessMenu;
+        this.menuItems?.map((item) => ({
+          ...item,
+          active: true,
+        }));
+        this.router.events.subscribe((event: any) => {
+          if (event instanceof NavigationStart) {
+            this.closeNavActive();
+            setTimeout(() => {
+              let sidemenu = document.querySelectorAll(
+                '.side-menu__item.active'
+              );
+              let subSidemenu = document.querySelectorAll(
+                '.sub-side-menu__item.active'
+              );
+              sidemenu.forEach((e) => e.classList.remove('active'));
+              subSidemenu.forEach((e) => e.classList.remove('active'));
+            }, 100);
+          }
+          if (event instanceof NavigationEnd) {
+            res.accessMenu.filter((items: any) => {
+              if (items.path === event.url) {
+                this.setNavActive(items);
               }
-              if (!subItems.children) {
+              if (!items.children) {
                 return false;
               }
-              subItems.children.filter((subSubItems: any) => {
-                if (subSubItems.path === event.url) {
-                  this.setNavActive(subSubItems);
+              items.children.filter((subItems: any) => {
+                if (subItems.path === event.url) {
+                  this.setNavActive(subItems);
                 }
+                if (!subItems.children) {
+                  return false;
+                }
+                subItems.children.filter((subSubItems: any) => {
+                  if (subSubItems.path === event.url) {
+                    this.setNavActive(subSubItems);
+                  }
+                });
+                return;
               });
               return;
             });
-            return;
-          });
-          setTimeout(() => {
-            parentNavActive();
-          }, 200);
-        }
-      });
+            setTimeout(() => {
+              parentNavActive();
+            }, 200);
+          }
+        });
+      }
     });
   }
 

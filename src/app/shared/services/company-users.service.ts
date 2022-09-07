@@ -36,14 +36,21 @@ export class CompanyUsersService extends AbstractService {
 
   reSendInvitation(userId: number): Observable<any> {
     return this.httpPost({
-      url: this.baseUrl + '/UserManagement/ResentInvitation?userid='+userId,
+      url: this.baseUrl + '/UserManagement/ResentInvitation?userid=' + userId,
       callerErrorHandler: false,
     }) as Observable<any>;
   }
 
   deleteCompanyUser(userId: number): Observable<any> {
     return this.httpDelete({
-      url: this.baseUrl + '/UserManagement/DeleteUser?userid='+userId,
+      url: this.baseUrl + '/UserManagement/DeleteUser?userid=' + userId,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  changeCompany(companyId: number): Observable<any> {
+    return this.httpPost({
+      url: this.baseUrl + '/Auth/CompanyChange?companyId=' + companyId,
       callerErrorHandler: false,
     }) as Observable<any>;
   }

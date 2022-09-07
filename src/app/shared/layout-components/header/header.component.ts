@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user.model';
 import { UpdateUserAction } from 'src/app/store/app.actions';
 import { AppState, userSelector } from 'src/app/store/app.state';
+import { CompanyUsersService } from '../../services/company-users.service';
 
 @Component({
   selector: 'app-header',
@@ -12,20 +14,36 @@ import { AppState, userSelector } from 'src/app/store/app.state';
 })
 export class HeaderComponent implements OnInit {
   public isCollapsed = true;
-  public selectedCompany: number = 0;
   public user: User = new User();
-  constructor(private router: Router, private store: Store<AppState>) {}
+  constructor(
+    private router: Router,
+    private store: Store<AppState>,
+    private toster: ToastrService,
+    private companyService: CompanyUsersService
+  ) {}
 
   ngOnInit(): void {
     this.store.pipe(userSelector).subscribe((res) => {
       this.user = res;
-      if(res.userCompany){
-        this.selectedCompany = res.userCompany[0]?.companyId;
+    });
+  }
+
+  changeCompany(value): void {
+    this.companyService.changeCompany(value).subscribe((res) => {
+      if (res && res.succeeded) {
+        this.store.dispatch(UpdateUserAction(res.data));
+        this.toster.success("Company changed successfully");
+      } else if (res && res.errors.length) {
+        res.errors.forEach((err) => {
+          this.toster.error(err.errorMessage);
+        });
+      } else if (res && !res.succeeded && res.data) {
+        this.toster.error(res.data);
       }
     });
   }
 
-  signout() {
+  signout(): void {
     const user = new User();
     delete user.isPortalSubscibe;
     this.store.dispatch(UpdateUserAction(user));

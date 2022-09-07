@@ -39,9 +39,15 @@
             [(ngbCollapse)]="isCollapsed"
           >
             <div class="d-flex justify-content-end">
-              <div class="d-flex order-lg-2 justify-content-end">
+              <div
+                class="d-flex order-lg-2 justify-content-end"
+                *ngIf="user.isPortalSubscibe"
+              >
                 <mat-form-field>
-                  <mat-select [(value)]="selectedCompany">
+                  <mat-select
+                    [value]="user.lastLoginCompanyId"
+                    (selectionChange)="changeCompany($event.value)"
+                  >
                     <mat-option
                       *ngFor="let eachCompany of user.userCompany"
                       [value]="eachCompany.companyId"
