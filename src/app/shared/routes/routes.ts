@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { CompanyListComponent } from 'src/app/components/company-management/company-list/company-list.component';
 import { CompanyUserComponent } from 'src/app/components/company-user/company-user/company-user.component';
 
 
@@ -6,6 +7,10 @@ export const content: Routes = [
   {
     path: 'company-users',
     component: CompanyUserComponent,
+  },
+  {
+    path: 'company',
+    component: CompanyListComponent,
   },
   {
     path: 'dashboard',

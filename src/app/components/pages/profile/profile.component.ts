@@ -38,7 +38,7 @@ export class ProfileComponent implements OnInit {
       lastName: [this.user.lastName, [Validators.required]],
       image: [null, []],
       phone: [this.user.phoneNumber, []],
-      position: [this.user.position, []],
+      // position: [this.user.position, []],
       marketing: [this.user.marketingEmails, []],
     });
     this.changePasswordForm = this.fb.group(
@@ -88,8 +88,8 @@ export class ProfileComponent implements OnInit {
     if (!!this.profileForm.value.image && !!this.file) data.photo = this.file;
     if (!!this.profileForm.value.phone)
       data.PhoneNumber = this.profileForm.value.phone;
-    if (!!this.profileForm.value.position)
-      data.Position = this.profileForm.value.position;
+    // if (!!this.profileForm.value.position)
+    //   data.Position = this.profileForm.value.position;
 
     this.api.updateProfile(data).subscribe((res) => {
       if (res && res.succeeded) {
@@ -103,7 +103,7 @@ export class ProfileComponent implements OnInit {
               lastName: res.data.lastName,
               marketingEmails: res.data.marketingEmails,
               phoneNumber: res.data.phoneNumber,
-              position: res.data.position,
+              // position: res.data.position,
               profilePhoto: res.data.profilePhoto,
             })
           )
@@ -113,7 +113,7 @@ export class ProfileComponent implements OnInit {
           lastName: res.data.lastName,
           marketing: res.data.marketingEmails,
           phone: res.data.phoneNumber,
-          position: res.data.position,
+          // position: res.data.position,
         });
       } else if (res && res.errors.length) {
         res.errors.forEach((err) => {

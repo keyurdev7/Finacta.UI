@@ -20,7 +20,7 @@ import { AccessMenuHeader } from 'src/app/models/access-menu-header.model';
   encapsulation: ViewEncapsulation.None,
 })
 export class SidebarComponent {
-  public menuItems!: AccessMenuHeader[];
+  public menuItems: AccessMenuHeader[] = [];
   public url: any;
   public routerSubscription: any;
   public windowSubscribe$!: any;
@@ -38,10 +38,9 @@ export class SidebarComponent {
     this.store.pipe(userSelector).subscribe((res) => {
       if (res.accessMenu) {
         this.menuItems = res.accessMenu;
-        this.menuItems?.map((item) => ({
-          ...item,
-          active: true,
-        }));
+        this.menuItems?.map((item) =>
+          Object.assign({}, item, { active: true })
+        );
         this.router.events.subscribe((event: any) => {
           if (event instanceof NavigationStart) {
             this.closeNavActive();
@@ -92,11 +91,7 @@ export class SidebarComponent {
   checkCurrentActive() {
     this.store.pipe(userSelector).subscribe((res) => {
       this.menuItems = res.accessMenu;
-      this.menuItems.map((item) => ({
-        ...item,
-        active: true,
-      }));
-
+      this.menuItems?.map((item) => Object.assign({}, item, { active: true }));
       let currentUrl = this.router.url;
       res.accessMenu.filter((items: any) => {
         if (items.path === currentUrl) {
@@ -152,7 +147,7 @@ export class SidebarComponent {
     if (!item.active) {
       this.menuItems.forEach((a: any) => {
         if (this.menuItems.includes(item)) {
-          a.active = false;
+          Object.assign({}, a, { active: false });
         }
         if (!a.children) {
           return false;
@@ -165,14 +160,14 @@ export class SidebarComponent {
         return;
       });
     }
-    item.active = !item.active;
+    Object.assign({}, item, { active: !item.active });
   }
 
   // Close Nav menu
   closeNavActive() {
     this.menuItems.forEach((a: any) => {
       if (this.menuItems) {
-        a.active = false;
+        Object.assign({}, a, { active: false });
       }
       if (!a.children) {
         return false;

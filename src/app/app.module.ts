@@ -19,9 +19,11 @@ import { TokenInterceptor } from './shared/services/token.interceptor';
 import { CompanyUserComponent } from './components/company-user/company-user/company-user.component';
 import { InviteUserModalComponent } from './components/company-user/invite-user-modal/invite-user-modal.component';
 import { DeleteUserDialogComponent } from './components/company-user/delete-user-dialog/delete-user-dialog.component';
+import { CompanyListComponent } from './components/company-management/company-list/company-list.component';
+import { AddCompanyComponent } from './components/company-management/add-company/add-company.component';
 
 @NgModule({
-  declarations: [AppComponent, CompanyUserComponent, InviteUserModalComponent, DeleteUserDialogComponent],
+  declarations: [AppComponent, CompanyUserComponent, InviteUserModalComponent, DeleteUserDialogComponent, CompanyListComponent, AddCompanyComponent],
   imports: [
     HttpClientModule,
     BrowserModule,
