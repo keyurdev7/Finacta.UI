@@ -98,20 +98,6 @@
                       <div class="card-body border-0">
                         <form class="form-horizontal" [formGroup]="profileForm">
                           <div class="row mb-4">
-                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6">
-                              <div class="form-group">
-                                <label for="formFile" class="form-label"
-                                  >Profile Image</label
-                                >
-                                <input
-                                  class="form-control file-input"
-                                  type="file"
-                                  id="formFile"
-                                  formControlName="image"
-                                  (change)="onFileUpload($event)"
-                                />
-                              </div>
-                            </div>
                             <div class="col-md-12 col-lg-12 col-xl-6">
                               <div class="form-group">
                                 <label for="firstname" class="form-label"
@@ -187,6 +173,20 @@
                                   id="phonenumber"
                                   placeholder="Phone Number"
                                   formControlName="phone"
+                                />
+                              </div>
+                            </div>
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6">
+                              <div class="form-group">
+                                <label for="formFile" class="form-label"
+                                  >Profile Image</label
+                                >
+                                <input
+                                  class="form-control file-input"
+                                  type="file"
+                                  id="formFile"
+                                  formControlName="image"
+                                  (change)="onFileUpload($event)"
                                 />
                               </div>
                             </div>

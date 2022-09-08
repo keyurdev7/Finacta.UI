@@ -95,7 +95,7 @@
                 Last Login
               </th>
               <td mat-cell class="text-center" *matCellDef="let element">
-                {{ element.lastLoginDateTime | date: "d/M/yy" }}
+                {{ element.lastLoginDateTime | date: "MM/dd/yyyy" }}
               </td>
             </ng-container>
 
@@ -105,7 +105,7 @@
                 Joined Date
               </th>
               <td mat-cell class="text-center" mat-cell *matCellDef="let element">
-                {{ element.joinedDate | date: "d/M/yy" }}
+                {{ element.joinedDate | date: "MM/dd/yyyy" }}
               </td>
             </ng-container>
 

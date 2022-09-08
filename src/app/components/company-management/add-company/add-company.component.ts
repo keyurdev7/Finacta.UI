@@ -31,7 +31,7 @@ export class AddCompanyComponent implements OnInit {
     this.subscribeToUser();
     this.addCompanyForm = this.fb.group({
       name: [null, [Validators.required]],
-      phoneNumber: [null, [Validators.required, Validators.pattern("^[0-9]$")]],
+      phoneNumber: [null, [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
     });
   }
 
