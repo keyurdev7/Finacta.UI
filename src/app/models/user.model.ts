@@ -23,7 +23,7 @@ export class User {
   lastName: string = '';
   marketingEmails?: boolean = false;
   phoneNumber: string = '';
-  position: string = '';
+  position?: string = '';
   profilePhoto: string = '';
   refreshToken: string = '';
   success?: boolean = false;

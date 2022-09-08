@@ -18,9 +18,17 @@ export class CompanyUsersService extends AbstractService {
     super(httpClient, loadingMaskService);
   }
 
-  getCompanyUsers(token: string): Observable<any> {
+  getCompanyUsers(): Observable<any> {
     return this.httpGet({
       url: this.baseUrl + '/UserManagement/GetCompanyUser',
+      params: new HttpParams(),
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  getAllCompanies(): Observable<any> {
+    return this.httpGet({
+      url: this.baseUrl + '/CompanyManagement/GetMyCompanies',
       params: new HttpParams(),
       callerErrorHandler: false,
     }) as Observable<any>;
@@ -51,6 +59,14 @@ export class CompanyUsersService extends AbstractService {
   changeCompany(companyId: number): Observable<any> {
     return this.httpPost({
       url: this.baseUrl + '/Auth/CompanyChange?companyId=' + companyId,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  addCompany(companyData): Observable<any> {
+    return this.httpPost({
+      url: this.baseUrl + '/CompanyManagement/AddNewCompany',
+      payload: companyData,
       callerErrorHandler: false,
     }) as Observable<any>;
   }

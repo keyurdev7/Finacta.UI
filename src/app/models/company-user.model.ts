@@ -8,7 +8,6 @@ export class CompanyUser {
   lastName: string = '';
   profilePhoto: string = '';
   phoneNumber: string = '';
-  position: string = '';
   @Transform(({ value }) => momentTransform(value), { toClassOnly: true })
   lastLoginDateTime: string = '';
   @Transform(({ value }) => momentTransform(value), { toClassOnly: true })

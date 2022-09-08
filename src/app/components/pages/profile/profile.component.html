@@ -54,6 +54,12 @@
                               </tr>
                               <tr>
                                 <td>
+                                  <strong>Email :</strong>
+                                  {{ user.emailId }}
+                                </td>
+                              </tr>
+                              <!-- <tr>
+                                <td>
                                   <strong>Company Name :</strong>
                                   {{ user.companyName }}
                                 </td>
@@ -63,19 +69,13 @@
                                   <strong>Position :</strong>
                                   {{ user.position }}
                                 </td>
-                              </tr>
+                              </tr> -->
                             </tbody>
                             <tbody class="col-lg-12 col-xl-6 p-0 border-top-0">
                               <tr>
                                 <td>
                                   <strong>Second Name :</strong>
                                   {{ user.lastName }}
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <strong>Email :</strong>
-                                  {{ user.emailId }}
                                 </td>
                               </tr>
                               <tr>
@@ -98,7 +98,7 @@
                       <div class="card-body border-0">
                         <form class="form-horizontal" [formGroup]="profileForm">
                           <div class="row mb-4">
-                            <div class="col-sm-12 col-md-12 col-lg-12">
+                            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6">
                               <div class="form-group">
                                 <label for="formFile" class="form-label"
                                   >Profile Image</label
@@ -162,7 +162,7 @@
                                 </div>
                               </div>
                             </div>
-                            <div class="col-md-12 col-lg-12 col-xl-6">
+                            <!-- <div class="col-md-12 col-lg-12 col-xl-6">
                               <div class="form-group">
                                 <label for="position" class="form-label"
                                   >Position</label
@@ -175,7 +175,7 @@
                                   formControlName="position"
                                 />
                               </div>
-                            </div>
+                            </div> -->
                             <div class="col-md-12 col-lg-12 col-xl-6">
                               <div class="form-group">
                                 <label for="phonenumber" class="form-label"

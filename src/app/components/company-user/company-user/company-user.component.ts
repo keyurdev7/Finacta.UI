@@ -24,7 +24,7 @@ export class CompanyUserComponent implements OnInit {
   displayedColumns: string[] = [
     'photo',
     'firstName',
-    'position',
+    'emailId',
     'phoneNumber',
     'lastLoginDateTime',
     'joinedDate',
@@ -71,11 +71,9 @@ export class CompanyUserComponent implements OnInit {
   }
 
   getCompanyUsers(): void {
-    this.companyUserService
-      .getCompanyUsers(this.user.token)
-      .subscribe((res) => {
-        this.companyUserDataSource.data = res.data;
-      });
+    this.companyUserService.getCompanyUsers().subscribe((res) => {
+      this.companyUserDataSource.data = res.data;
+    });
   }
 
   openDialog(): void {
