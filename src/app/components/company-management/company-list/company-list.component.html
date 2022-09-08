@@ -55,13 +55,23 @@
               </td>
             </ng-container>
 
-            <!-- Last Login Column -->
+            <!-- Subscription End Date -->
             <ng-container matColumnDef="subscriptionEndDate">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                Last Login
+                Subscription End Date
               </th>
               <td mat-cell *matCellDef="let element">
                 {{ element.subscriptionEndDate | date: "MM/dd/yyyy" }}
+              </td>
+            </ng-container>
+
+            <!-- Subscription Status Column -->
+            <ng-container matColumnDef="subscriptionStatus">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Status
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.subscriptionStatus }}
               </td>
             </ng-container>
 

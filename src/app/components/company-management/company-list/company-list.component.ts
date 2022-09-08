@@ -18,6 +18,7 @@ export class CompanyListComponent implements OnInit {
     'companyName',
     'companyNumber',
     'subscriptionEndDate',
+    'subscriptionStatus',
     'action',
   ];
   companyDataSource: MatTableDataSource<Company> =
