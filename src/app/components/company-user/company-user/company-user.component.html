@@ -117,7 +117,9 @@
                 Invitation Status
               </th>
               <td mat-cell *matCellDef="let element">
-                {{ element.invitationStatusName }}
+                <!-- {{ element.invitationStatusName }} -->
+                <i class="fa fa-envelope" ngbTooltip="Invitation Sent" *ngIf="element.invitationStatusId == 0"></i>
+                <i class="fa fa-check" ngbTooltip="Invitation Accepted" *ngIf="element.invitationStatusId == 1"></i>
               </td>
             </ng-container>
 
@@ -125,7 +127,7 @@
             <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef>Action</th>
               <td mat-cell *matCellDef="let element" class="action-link">
-                <button class="btn btn-primary me-2">Edit</button>
+                <!-- <button class="btn btn-primary me-2">Edit</button> -->
                 <button
                   class="btn btn-warning me-2"
                   (click)="reSendInvite(element.userId)"

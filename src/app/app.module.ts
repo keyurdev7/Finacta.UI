@@ -19,6 +19,7 @@ import { TokenInterceptor } from './shared/services/token.interceptor';
 import { CompanyUserComponent } from './components/company-user/company-user/company-user.component';
 import { InviteUserModalComponent } from './components/company-user/invite-user-modal/invite-user-modal.component';
 import { DeleteUserDialogComponent } from './components/company-user/delete-user-dialog/delete-user-dialog.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent, CompanyUserComponent, InviteUserModalComponent, DeleteUserDialogComponent],
@@ -32,6 +33,7 @@ import { DeleteUserDialogComponent } from './components/company-user/delete-user
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     SharedModule,
+    NgbModule,
     SimpleNotificationsModule.forRoot(),
     ToastrModule.forRoot(),
     StoreModule.forRoot(
