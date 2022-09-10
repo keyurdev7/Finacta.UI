@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
@@ -18,16 +18,30 @@ import { AppState, userSelector } from 'src/app/store/app.state';
 export class PricingComponent implements OnInit, OnDestroy {
   subPlans: SubsciptionPlan = new SubsciptionPlan();
   user: User = new User();
+  companyId = 0;
+  IsFromCompanyList = false;
   subscriptions: Subscription[] = [];
   constructor(
     private api: APIService,
     public router: Router,
     public toster: ToastrService,
     private companyService: CompanyUsersService,
-    public store: Store<AppState>
+    public store: Store<AppState>,
+    private activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
+
+    this.activatedRoute.params.subscribe((params) => {
+      this.companyId = params['id']
+      this.IsFromCompanyList = true;
+    });
+    
+    if(this.companyId == 0)  
+    {
+      this.companyId = this.user.lastLoginCompanyId;
+    }
+
     this.subscribeToUser();
     this.getSubscriptionPlans();
   }
@@ -54,10 +68,18 @@ export class PricingComponent implements OnInit, OnDestroy {
 
   subscriptionPay(id: number): void {
     this.api
-      .saveSubscriptionPlan(this.user.userId, this.user.lastLoginCompanyId)
+      .saveSubscriptionPlan(this.user.userId, this.companyId)
       .subscribe((res) => {
         if (res && res.succeeded) {
-          this.changeCompany(this.user.lastLoginCompanyId);
+          if(this.IsFromCompanyList)
+          {
+            this.toster.success(res.message);
+            this.router.navigate(['/company']);
+          }
+          else
+          {
+            this.changeCompany(this.user.lastLoginCompanyId);
+          }
         } else if (res && res.errors.length) {
           res.errors.forEach((err) => {
             this.toster.error(err.errorMessage);
@@ -65,6 +87,7 @@ export class PricingComponent implements OnInit, OnDestroy {
         }
       });
   }
+ 
 
   changeCompany(value): void {
     this.companyService.changeCompany(value).subscribe((res) => {

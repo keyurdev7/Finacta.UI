@@ -6,7 +6,7 @@
 
 <div class="row">
   <div class="col-12">
-    <div class="card">
+    <div class="card cart">
       <div class="card-body">
         <div>
           <mat-form-field appearance="standard">
@@ -55,13 +55,24 @@
               </td>
             </ng-container>
 
+             <!-- Subscription Start Date -->
+             <ng-container matColumnDef="SubscriptionStartDateTime">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Subscription Start Date
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.subscriptionEndDateTime | date: "MM/dd/yyyy" }}
+              </td>
+            </ng-container>
+
+
             <!-- Subscription End Date -->
-            <ng-container matColumnDef="subscriptionEndDate">
+            <ng-container matColumnDef="SubscriptionEndDateTime">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
                 Subscription End Date
               </th>
               <td mat-cell *matCellDef="let element">
-                {{ element.subscriptionEndDate | date: "MM/dd/yyyy" }}
+                {{ element.subscriptionStartDateTime  | date: "MM/dd/yyyy"}}
               </td>
             </ng-container>
 
@@ -79,8 +90,24 @@
             <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef>Action</th>
               <td mat-cell *matCellDef="let element" class="action-link">
-                <button class="btn btn-primary me-2">Edit</button>
-                <button class="btn btn-danger">Delete</button>
+                <button *ngIf="element.subscriptionStatus !== 'Subscribed'"
+                  class="btn btn-success me-2"
+                  (click)="subscriptionPay(element.companyId)"
+                >
+                  Subscribe
+                </button>
+                <button *ngIf="element.subscriptionStatus === 'Subscribed'"
+                  class="btn btn-danger me-2"
+                  (click)="cancelSubscriptionConfirmation(element.companyId)"
+                >
+                  Cancel Subscription
+                </button>
+                <button *ngIf="element.subscriptionStatus === 'Subscribed'"
+                  class="btn btn-warning me-2"
+                  (click)="getCompaySubscriptionPaymentDetails(element.companyId)"
+                >
+                  Payment Details
+                </button>
               </td>
             </ng-container>
 

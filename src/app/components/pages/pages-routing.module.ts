@@ -19,6 +19,7 @@ const routes: Routes = [
     {path:'terms', component:  TermsComponent},
     {path:'faqs', component:  FaqsComponent},
     {path:'pricing', component:  PricingComponent},
+    {path: 'pricing/:id', component: PricingComponent },
   ]}
 ];
 

@@ -70,4 +70,19 @@ export class CompanyUsersService extends AbstractService {
       callerErrorHandler: false,
     }) as Observable<any>;
   }
+  cancelCompanySubscription(companyId:number):Observable<any>{
+    return this.httpGet({
+      url: this.baseUrl + '/CompanyManagement/CancelCompanySubscription?companyId='+companyId,
+      params: new HttpParams(),
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  getCompanyPayments(companyId:number):Observable<any>{
+    return this.httpGet({
+      url: this.baseUrl + '/CompanyManagement/GetCompanyPayments?companyId='+companyId,
+      params: new HttpParams(),
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
 }

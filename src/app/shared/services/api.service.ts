@@ -74,7 +74,7 @@ export class APIService extends AbstractService {
       callerErrorHandler: false,
     }) as Observable<any>;
   }
-
+  
   forgotPassword(email: string): Observable<any> {
     const body = {
       emailId: email,

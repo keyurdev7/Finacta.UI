@@ -22,9 +22,12 @@ import { DeleteUserDialogComponent } from './components/company-user/delete-user
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CompanyListComponent } from './components/company-management/company-list/company-list.component';
 import { AddCompanyComponent } from './components/company-management/add-company/add-company.component';
+import { DeleteCompanyDialogComponent } from './components/company-management/delete-company-dialog/delete-company-dialog.component';
+import { CandelSubscriptionDialogComponent } from './components/company-management/candel-subscription-dialog/candel-subscription-dialog.component';
+import { CompanyPaymentListComponent } from './components/company-management/company-payment-list/company-payment-list.component';
 
 @NgModule({
-  declarations: [AppComponent, CompanyUserComponent, InviteUserModalComponent, DeleteUserDialogComponent, CompanyListComponent, AddCompanyComponent],
+  declarations: [AppComponent, CompanyUserComponent, InviteUserModalComponent, DeleteUserDialogComponent, CompanyListComponent, AddCompanyComponent, DeleteCompanyDialogComponent, CandelSubscriptionDialogComponent, CompanyPaymentListComponent],
   imports: [
     HttpClientModule,
     BrowserModule,
