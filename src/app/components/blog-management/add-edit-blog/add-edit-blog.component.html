@@ -1,0 +1,81 @@
+<h1 mat-dialog-title>
+  <strong>{{ !!blogData ? "Edit" : "Add" }} Blog</strong>
+</h1>
+<div mat-dialog-content>
+  <form class="login100-form validate-form" [formGroup]="blogForm">
+    <div class="wrap-input100 validate-input">
+      <input
+        class="input100"
+        type="text"
+        formControlName="blogTitle"
+        placeholder="Title"
+      />
+      <span class="focus-input100"></span>
+      <span class="symbol-input100">
+        <i class="fa fa-pencil-square" aria-hidden="true"></i>
+      </span>
+    </div>
+    <div
+      *ngIf="hasError('blogTitle', 'required')"
+      class="text text-danger mt-1"
+    >
+      Title is required
+    </div>
+    <div class="wrap-input100 validate-input">
+      <quill-editor formControlName="blogContents" #editor [styles]="{'min-height': '120px'}"></quill-editor>
+    </div>
+    <div
+      *ngIf="hasError('blogContents', 'required')"
+      class="text text-danger mt-1"
+    >
+      Content is required
+    </div>
+    <div class="wrap-input100 validate-input">
+      <mat-select
+        class="input100"
+        placeholder="Category"
+        formControlName="categoryId"
+        [(value)]="selectedCategory"
+      >
+        <mat-option
+          *ngFor="let eachCategory of categories"
+          [value]="eachCategory.categoryId"
+          >{{ eachCategory.categoryName }}</mat-option
+        >
+      </mat-select>
+      <span class="focus-input100"></span>
+      <span class="symbol-input100">
+        <i class="fa fa-dedent" aria-hidden="true"></i>
+      </span>
+      <div
+        *ngIf="hasError('categoryId', 'required')"
+        class="text text-danger mt-1"
+      >
+        Category is required
+      </div>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions class="float-end">
+  <button
+    *ngIf="!blogData"
+    mat-button
+    [disabled]="!blogForm.valid"
+    (click)="add()"
+    mat-flat-button
+    color="warn"
+  >
+    Add
+  </button>
+  <button
+    *ngIf="!!blogData"
+    mat-button
+    [disabled]="!blogForm.valid"
+    (click)="update()"
+    mat-flat-button
+    color="warn"
+  >
+    Update
+  </button>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+</div>

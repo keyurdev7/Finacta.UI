@@ -1,0 +1,11 @@
+.login100-form{
+    width: 610px;
+}
+@media (max-width: 768px) {
+    .login100-form{
+        width: 100% !important;
+    }
+}
+::ng-deep .mat-select-trigger{
+    height: 43px !important;
+}

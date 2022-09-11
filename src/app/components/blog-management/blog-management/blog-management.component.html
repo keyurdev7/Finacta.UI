@@ -1,0 +1,128 @@
+<app-page-header
+  [title]="'Blog Management'"
+  [items]="['Home']"
+  [active_item]="'Blog Management'"
+></app-page-header>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card cart">
+      <div class="card-body">
+        <div>
+          <mat-form-field appearance="standard">
+            <mat-label>Filter</mat-label>
+            <input
+              matInput
+              (keyup)="applyFilter($event)"
+              placeholder="Ex. Mia"
+              #input
+            />
+          </mat-form-field>
+          <button
+            (click)="addBlog()"
+            class="float-end mt-4 add-blog"
+            mat-button
+            mat-flat-button
+            color="warn"
+          >
+            Add
+          </button>
+        </div>
+
+        <div class="table-responsive">
+          <table
+            mat-table
+            [dataSource]="blogDataSource"
+            #mytable
+            class="table text-nowrap table-bordered"
+            matSort
+          >
+            <!-- Blog Title Column -->
+            <ng-container matColumnDef="blogTitle">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.blogTitle }}
+              </td>
+            </ng-container>
+
+            <!-- Category Column -->
+            <ng-container matColumnDef="categoryName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Category
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.categoryName }}
+              </td>
+            </ng-container>
+
+            <!-- Published Date -->
+            <ng-container matColumnDef="publishedDateTime">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Published Date
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.publishedDateTime | date: "MM/dd/yyyy" }}
+              </td>
+            </ng-container>
+
+            <!-- Subscription End Date -->
+            <ng-container matColumnDef="createdByUserName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Author</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.createdByUserName }}
+              </td>
+            </ng-container>
+
+            <!-- Action Column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>Action</th>
+              <td mat-cell *matCellDef="let element" class="action-link">
+                <span class="me-2">
+                  <i
+                    class="fa fa-pencil"
+                    (click)="editBlog(element.blogId)"
+                    ngbTooltip="Edit"
+                  ></i>
+                </span>
+                <span class="me-2">
+                  <i
+                    *ngIf="!!element.publishedDateTime"
+                    (click)="unPublishBlog(element.blogId)"
+                    class="fa fa-toggle-on"
+                    ngbTooltip="Publish"
+                  ></i>
+                  <i
+                    *ngIf="!element.publishedDateTime"
+                    (click)="publishBlog(element.blogId)"
+                    class="fa fa-toggle-off"
+                    ngbTooltip="Not Publish"
+                  ></i>
+                </span>
+                <span class="me-2">
+                  <i
+                    class="fa fa-trash"
+                    (click)="deleteBlogConfirmation(element.blogId)"
+                    ngbTooltip="Delete"
+                  ></i>
+                </span>
+              </td>
+            </ng-container>
+
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                No data found.
+              </td>
+            </tr>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+          <mat-paginator
+            [pageSizeOptions]="[10, 25, 100]"
+            aria-label="Select page of users"
+          ></mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

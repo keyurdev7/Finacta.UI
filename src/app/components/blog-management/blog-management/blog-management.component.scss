@@ -1,0 +1,24 @@
+@media screen and (max-width: 380px) {
+    .add-company {
+      margin-bottom: 10px;
+    }
+}
+
+.fa.fa-trash{
+  color: red;
+  cursor: pointer;
+}
+
+.fa.fa-toggle-on{
+  color: green;
+  cursor: pointer;
+}
+
+.fa.fa-toggle-off{
+  color: red;
+  cursor: pointer;
+}
+
+.cdk-column-invitationStatusName{
+  text-align: center;
+}
