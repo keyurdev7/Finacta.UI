@@ -25,9 +25,26 @@ import { AddCompanyComponent } from './components/company-management/add-company
 import { DeleteCompanyDialogComponent } from './components/company-management/delete-company-dialog/delete-company-dialog.component';
 import { CandelSubscriptionDialogComponent } from './components/company-management/candel-subscription-dialog/candel-subscription-dialog.component';
 import { CompanyPaymentListComponent } from './components/company-management/company-payment-list/company-payment-list.component';
+import { BlogManagementComponent } from './components/blog-management/blog-management/blog-management.component';
+import { AddEditBlogComponent } from './components/blog-management/add-edit-blog/add-edit-blog.component';
+import { DeleteBlogConfirmationComponent } from './components/blog-management/delete-blog-confirmation/delete-blog-confirmation.component';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
-  declarations: [AppComponent, CompanyUserComponent, InviteUserModalComponent, DeleteUserDialogComponent, CompanyListComponent, AddCompanyComponent, DeleteCompanyDialogComponent, CandelSubscriptionDialogComponent, CompanyPaymentListComponent],
+  declarations: [
+    AppComponent,
+    CompanyUserComponent,
+    InviteUserModalComponent,
+    DeleteUserDialogComponent,
+    CompanyListComponent,
+    AddCompanyComponent,
+    DeleteCompanyDialogComponent,
+    CandelSubscriptionDialogComponent,
+    CompanyPaymentListComponent,
+    BlogManagementComponent,
+    AddEditBlogComponent,
+    DeleteBlogConfirmationComponent,
+  ],
   imports: [
     HttpClientModule,
     BrowserModule,
@@ -47,6 +64,7 @@ import { CompanyPaymentListComponent } from './components/company-management/com
       },
       { metaReducers: [hydrationMetaReducer] }
     ),
+    QuillModule.forRoot(),
   ],
   providers: [
     ColorPickerService,

@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AbstractService } from './abstract.service';
 import { environment } from '../../../environments/environment';
 import { LoadingMaskService } from './loading-mask.service';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.state';
 import { InviteUserForm } from 'src/app/models/invite-user-form.model';
 
 @Injectable({

@@ -127,7 +127,5 @@ export class CompanyListComponent implements OnInit {
       }
     })
   }
-
-  
 }
 
