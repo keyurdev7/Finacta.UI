@@ -6,6 +6,6 @@
         width: 100% !important;
     }
 }
-::ng-deep .mat-select-trigger{
+mat-select[formcontrolname="categoryId"] ::ng-deep .mat-select-trigger{
     height: 43px !important;
 }
