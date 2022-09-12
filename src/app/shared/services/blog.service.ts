@@ -75,4 +75,21 @@ export class BlogService extends AbstractService {
       callerErrorHandler: false,
     }) as Observable<any>;
   }
+
+  blogPublishedcategories(): Observable<any> {
+    return this.httpGet({
+      url: this.baseUrl + '/BlogManagement/BlogPublishedCategories',
+      params: new HttpParams(),
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  getAllPublishedBlogs(id: number = 0): Observable<any> {
+    const params = new HttpParams().append('categoryId', id);
+    return this.httpGet({
+      url: this.baseUrl + '/BlogManagement/GetAllPublishedBlogs',
+      params: params,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
 }

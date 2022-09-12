@@ -39,6 +39,10 @@ export class AddEditBlogComponent implements OnInit {
         !!this.blogData ? this.blogData.blogContents : null,
         [Validators.required],
       ],
+      blogShortContents: [
+        !!this.blogData ? this.blogData.blogShortContents : null,
+        [Validators.required, Validators.maxLength(300)],
+      ],
       categoryId: [
         !!this.blogData ? this.blogData.categoryId : null,
         [Validators.required],
@@ -64,6 +68,7 @@ export class AddEditBlogComponent implements OnInit {
     data.blogContents = this.blogForm.value.blogContents;
     data.blogTitle = this.blogForm.value.blogTitle;
     data.categoryId = this.blogForm.value.categoryId;
+    data.blogShortContents = this.blogForm.value.blogShortContents;
     this.blogService.addBlog(data).subscribe((res) => {
       if (res && res.succeeded) {
         this.blogForm.reset();
@@ -85,6 +90,7 @@ export class AddEditBlogComponent implements OnInit {
     data.blogContents = this.blogForm.value.blogContents;
     data.blogTitle = this.blogForm.value.blogTitle;
     data.categoryId = this.blogForm.value.categoryId;
+    data.blogShortContents = this.blogForm.value.blogShortContents;
     this.blogService.updateBlog(data).subscribe((res) => {
       if (res && res.succeeded) {
         this.blogForm.reset();

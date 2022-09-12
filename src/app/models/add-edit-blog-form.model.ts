@@ -3,4 +3,5 @@ export class AddEditBlogForm {
   categoryId: number = 0;
   blogTitle: string = '';
   blogContents: string = '';
+  blogShortContents: string = '';
 }

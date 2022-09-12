@@ -6,6 +6,7 @@ export class Blog {
   userId: number = 0;
   blogTitle: string = '';
   blogContents: string = '';
+  blogShortContents: string = '';
   categoryId: number = 0;
   @Transform(({ value }) => momentTransform(value), { toClassOnly: true })
   publishedDateTime: string = '';

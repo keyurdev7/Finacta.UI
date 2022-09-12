@@ -1,0 +1,80 @@
+<app-page-header
+  [title]="'Blog'"
+  [items]="['Home']"
+  [active_item]="'Blog'"
+></app-page-header>
+
+<!-- row -->
+<div class="row">
+  <div class="col-xl-8 col-lg-7 col-md-12">
+    <div *ngFor="let eachBlog of allBlogs" class="card overflow-hidden">
+      <div class="card-body">
+        <a href="javascript:void(0)" class="text-dark blog-title">{{
+          eachBlog.blogTitle
+        }}</a>
+        <p class="mb-0 text-muted mt-4">
+          {{ eachBlog.blogShortContents }}
+        </p>
+        <a routerLink="/blog/blog-details" class="btn btn-outline-primary mt-2"
+          >Read More</a
+        >
+      </div>
+      <div class="card-footer">
+        <div class="d-f-ai-c">
+          <div class="avatar-list indicators">
+            <a href="javascript:void(0)" class="avatar avatar-md rounded-circle"
+              ><img
+                class="avatar avatar-md rounded-circle cover-image"
+                src="./assets/images/faces/default-profile-icon.jpg"
+            /></a>
+          </div>
+          <h6 class="mb-0 text-muted ms-2 mt-sm-0 mt-2">
+            {{ eachBlog.createdByUserName }}
+          </h6>
+          <div class="d-sm-flex ms-auto">
+            <a href="javascript:void(0)" class="d-flex me-3"
+              ><span class="fe fe-calendar text-muted me-2 text-17"></span>
+              <div class="mt-0 mt-0 text-muted">
+                {{ eachBlog.publishedDateTime | date: "MM/dd/yyyy" }}
+              </div></a
+            >
+            <a class="me-0 d-flex" href="javascript:void(0)"
+              ><span
+                class="fe fe-message-square text-muted me-2 text-17"
+              ></span>
+              <div class="mt-0 mt-0 text-muted">11 Comments</div></a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-5 col-md-12">
+    <!--card-->
+    <div class="card overflow-hidden">
+      <div class="card-header border-bottom">
+        <h3 class="card-title">Topics</h3>
+      </div>
+      <div class="card-body p-0">
+        <ul class="list-group blog-topics">
+          <li class="list-group-item" (click)="getAllPublishedBlogs(0)">
+            <a class="text-dark-light"
+              ><i class="fe fe-chevron-right me-2"></i>All</a
+            >
+          </li>
+          <li
+            *ngFor="let eachCategory of categories"
+            (click)="getAllPublishedBlogs(eachCategory.categoryId)"
+            class="list-group-item"
+          >
+            <a class="text-dark-light"
+              ><i class="fe fe-chevron-right me-2"></i
+              >{{ eachCategory.categoryName }}</a
+            ><span class="tag float-end">{{ eachCategory.blogCount }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!--card closed-->
+  </div>
+</div>

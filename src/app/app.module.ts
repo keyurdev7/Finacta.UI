@@ -29,6 +29,8 @@ import { BlogManagementComponent } from './components/blog-management/blog-manag
 import { AddEditBlogComponent } from './components/blog-management/add-edit-blog/add-edit-blog.component';
 import { DeleteBlogConfirmationComponent } from './components/blog-management/delete-blog-confirmation/delete-blog-confirmation.component';
 import { QuillModule } from 'ngx-quill';
+import { BlogListComponent } from './components/blog-management/blog-list/blog-list.component';
+import { BlogDetailComponent } from './components/blog-management/blog-detail/blog-detail.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { QuillModule } from 'ngx-quill';
     BlogManagementComponent,
     AddEditBlogComponent,
     DeleteBlogConfirmationComponent,
+    BlogListComponent,
+    BlogDetailComponent,
   ],
   imports: [
     HttpClientModule,

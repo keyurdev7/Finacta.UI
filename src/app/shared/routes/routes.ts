@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { BlogListComponent } from 'src/app/components/blog-management/blog-list/blog-list.component';
 import { BlogManagementComponent } from 'src/app/components/blog-management/blog-management/blog-management.component';
 import { CompanyListComponent } from 'src/app/components/company-management/company-list/company-list.component';
 import { CompanyUserComponent } from 'src/app/components/company-user/company-user/company-user.component';
@@ -15,6 +16,10 @@ export const content: Routes = [
   {
     path: 'blog-management',
     component: BlogManagementComponent,
+  },
+  {
+    path: 'blog',
+    component: BlogListComponent,
   },
   {
     path: 'dashboard',

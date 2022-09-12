@@ -9,3 +9,6 @@
 mat-select[formcontrolname="categoryId"] ::ng-deep .mat-select-trigger{
     height: 43px !important;
 }
+.shortDescription textarea{
+    padding: 10px;
+}

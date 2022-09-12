@@ -21,6 +21,27 @@
     >
       Title is required
     </div>
+    <div class="wrap-input100 validate-input shortDescription">
+      <textarea
+        formControlName="blogShortContents"
+        placeholder="Short Description"
+        class="input100"
+        rows="4"
+        cols="50"
+      ></textarea>
+    </div>
+    <div
+      *ngIf="hasError('blogShortContents', 'required')"
+      class="text text-danger mt-1"
+    >
+      Short Description is required
+    </div>
+    <div
+      *ngIf="hasError('blogShortContents', 'maxlength')"
+      class="text text-danger mt-1"
+    >
+      Max Length should be of 300 characters
+    </div>
     <div class="wrap-input100 validate-input">
       <quill-editor
         formControlName="blogContents"
