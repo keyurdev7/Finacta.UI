@@ -22,7 +22,11 @@
       Title is required
     </div>
     <div class="wrap-input100 validate-input">
-      <quill-editor formControlName="blogContents" #editor [styles]="{'min-height': '120px'}"></quill-editor>
+      <quill-editor
+        formControlName="blogContents"
+        #editor
+        [styles]="{ 'min-height': '120px' }"
+      ></quill-editor>
     </div>
     <div
       *ngIf="hasError('blogContents', 'required')"
