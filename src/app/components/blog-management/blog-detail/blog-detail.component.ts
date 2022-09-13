@@ -93,12 +93,11 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     el.scrollIntoView({ behavior: 'smooth' });
   }
 
-  updateComment(element: HTMLElement): void {
+  updateComment(): void {
     this.blogService
       .updateComment(this.editCommentId, this.commentText)
       .subscribe((res) => {
         if (res && res.succeeded) {
-          this.scroll(element);
           this.commentText = '';
           this.editCommentId = 0;
           this.isCommentEdit = false;
