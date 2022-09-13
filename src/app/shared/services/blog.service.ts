@@ -92,4 +92,40 @@ export class BlogService extends AbstractService {
       callerErrorHandler: false,
     }) as Observable<any>;
   }
+
+  getAllBlogComment(blogId: number): Observable<any> {
+    const params = new HttpParams().append('blogId', blogId);
+    return this.httpGet({
+      url: this.baseUrl + '/BlogManagement/GetBlogComments',
+      params: params,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  addComment(blogId: number, comment: string): Observable<any> {
+    const data = {blogId, comment};
+    return this.httpPost({
+      url: this.baseUrl + '/BlogManagement/AddNewBlogComment',
+      payload: data,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  updateComment(blogCommentId: number, comment: string): Observable<any> {
+    const data = {blogCommentId, comment};
+    return this.httpPost({
+      url: this.baseUrl + '/BlogManagement/UpdateBlogComment',
+      payload: data,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  deleteComment(blogCommentId: number): Observable<any> {
+    const params = new HttpParams().append('blogCommentId', blogCommentId);
+    return this.httpGet({
+      url: this.baseUrl + '/BlogManagement/DeleteBlogComment',
+      params: params,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
 }

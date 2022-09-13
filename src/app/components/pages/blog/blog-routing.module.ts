@@ -7,7 +7,7 @@ import { EditPostComponent } from './edit-post/edit-post.component';
 const routes: Routes = [
   {path:'blog', children:[
     {path: 'blog', component: BlogComponent},
-    {path: 'blog-details', component: BlogDetailsComponent},
+    {path: 'blog-details-theme', component: BlogDetailsComponent},
     {path: 'edit-post', component: EditPostComponent},
   ]}
 ];

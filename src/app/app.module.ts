@@ -14,7 +14,7 @@ import { ColorPickerService } from 'ngx-color-picker';
 import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './shared/shared.module';
 import { StoreModule } from '@ngrx/store';
-import { hydrationMetaReducer, userReducer } from './store/app.reducer';
+import { blogReducer, hydrationMetaReducer, userReducer } from './store/app.reducer';
 import { TokenInterceptor } from './shared/services/token.interceptor';
 import { CompanyUserComponent } from './components/company-user/company-user/company-user.component';
 import { InviteUserModalComponent } from './components/company-user/invite-user-modal/invite-user-modal.component';
@@ -31,6 +31,7 @@ import { DeleteBlogConfirmationComponent } from './components/blog-management/de
 import { QuillModule } from 'ngx-quill';
 import { BlogListComponent } from './components/blog-management/blog-list/blog-list.component';
 import { BlogDetailComponent } from './components/blog-management/blog-detail/blog-detail.component';
+import { BlogSidebarComponent } from './components/blog-management/blog-sidebar/blog-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { BlogDetailComponent } from './components/blog-management/blog-detail/bl
     DeleteBlogConfirmationComponent,
     BlogListComponent,
     BlogDetailComponent,
+    BlogSidebarComponent,
   ],
   imports: [
     HttpClientModule,
@@ -65,6 +67,7 @@ import { BlogDetailComponent } from './components/blog-management/blog-detail/bl
     StoreModule.forRoot(
       {
         user: userReducer,
+        blog: blogReducer
       },
       { metaReducers: [hydrationMetaReducer] }
     ),
