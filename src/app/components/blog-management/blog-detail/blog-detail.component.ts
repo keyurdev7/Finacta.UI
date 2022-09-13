@@ -81,8 +81,9 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
       });
   }
 
-  editComment(comment: Comment, element): void {
+  editComment(comment: Comment, element:HTMLElement): void {
     this.scroll(element);
+    element.focus();
     this.isCommentEdit = true;
     this.commentText = comment.comment;
     this.editCommentId = comment.blogCommentId;
@@ -92,11 +93,12 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     el.scrollIntoView({ behavior: 'smooth' });
   }
 
-  updateComment(): void {
+  updateComment(element: HTMLElement): void {
     this.blogService
       .updateComment(this.editCommentId, this.commentText)
       .subscribe((res) => {
         if (res && res.succeeded) {
+          this.scroll(element);
           this.commentText = '';
           this.editCommentId = 0;
           this.isCommentEdit = false;

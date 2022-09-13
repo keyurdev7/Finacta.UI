@@ -1,7 +1,7 @@
 <app-page-header
-  [title]="'Blog-detail'"
+  [title]="'Blog Detail'"
   [items]="['Blog']"
-  [active_item]="'Blog-detail'"
+  [active_item]="'Blog Detail'"
 ></app-page-header>
 
 <!-- row -->
@@ -34,7 +34,7 @@
             <a href="javascript:void(0)" class="d-f-ai-c mx-4 text-13"
               ><span class="fe fe-calendar text-muted me-1 text-15"></span
               ><span class="mt-0 mt-0 text-muted">{{
-                blog.createdDateTime
+                blog.createdDateTime | date: "MM/dd/yyyy"
               }}</span></a
             >
             <a href="javascript:void(0)" class="me-0 d-f-ai-c text-13"
@@ -97,7 +97,7 @@
                         <a
                           ngbDropdownItem
                           href="javascript:void(0)"
-                          (click)="editComment(eachComment, commentForm)"
+                          (click)="editComment(eachComment, commentTextArea)"
                           ><i class="fe fe-edit me-1"></i> Edit</a
                         >
                         <a
@@ -123,11 +123,12 @@
               </div>
             </div>
           </ng-container>
-          <div class="row row-xs form-group-wrapper" #commentForm>
+          <div class="row row-xs form-group-wrapper">
             <h3 class="card-title">Comment here:</h3>
             <div class="col-md-12 mt-2">
               <div class="main-form-group">
                 <textarea
+                  #commentTextArea
                   name="message"
                   id="message"
                   class="form-control text-area border-0"
@@ -141,14 +142,20 @@
             <div class="col-md-12 mt-2">
               <button
                 *ngIf="!isCommentEdit"
-                class="btn btn-success text-white float-end my-2"
+                mat-button
+                mat-flat-button
+                color="warn"
+                class="btn text-white float-end my-2"
                 (click)="addComment()"
               >
                 Submit
               </button>
               <button
                 *ngIf="isCommentEdit"
-                class="btn btn-success text-white float-end my-2"
+                mat-button
+                mat-flat-button
+                color="warn"
+                class="btn text-white float-end my-2"
                 (click)="updateComment()"
               >
                 Update
