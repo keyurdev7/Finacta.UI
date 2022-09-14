@@ -60,6 +60,7 @@
             <div
               *ngFor="let eachComment of comments"
               class="media mb-4 overflow-visible"
+              [id]="'comment' + eachComment.blogCommentId"
             >
               <div class="me-3">
                 <a>

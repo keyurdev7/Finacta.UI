@@ -53,13 +53,17 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
   }
 
   getAllPublishedBlogs(id: number = 0) {
-    this.router.navigate(['/blog/', id])
+    this.router.navigate(['/blog/', id]);
   }
 
   getBlogComments(): void {
     this.blogService.getAllBlogComment(this.blog.blogId).subscribe((res) => {
       this.comments = res.data;
       this.blogCommentCount = this.comments.length;
+      if (this.editCommentId) {
+        this.scroll(document.getElementById('comment' + this.editCommentId));
+        this.editCommentId = 0;
+      }
     });
   }
 
@@ -81,7 +85,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
       });
   }
 
-  editComment(comment: Comment, element:HTMLElement): void {
+  editComment(comment: Comment, element: HTMLElement): void {
     this.scroll(element);
     element.focus();
     this.isCommentEdit = true;
@@ -89,8 +93,8 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     this.editCommentId = comment.blogCommentId;
   }
 
-  scroll(el: HTMLElement) {
-    el.scrollIntoView({ behavior: 'smooth' });
+  scroll(el: HTMLElement | null) {
+    el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
   updateComment(): void {
@@ -99,7 +103,6 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
       .subscribe((res) => {
         if (res && res.succeeded) {
           this.commentText = '';
-          this.editCommentId = 0;
           this.isCommentEdit = false;
           this.toster.success(res.message);
           this.getBlogComments();

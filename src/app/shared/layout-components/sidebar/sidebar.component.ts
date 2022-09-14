@@ -44,16 +44,16 @@ export class SidebarComponent {
         this.router.events.subscribe((event: any) => {
           if (event instanceof NavigationStart) {
             this.closeNavActive();
-            setTimeout(() => {
-              let sidemenu = document.querySelectorAll(
-                '.side-menu__item.active'
-              );
-              let subSidemenu = document.querySelectorAll(
-                '.sub-side-menu__item.active'
-              );
-              sidemenu.forEach((e) => e.classList.remove('active'));
-              subSidemenu.forEach((e) => e.classList.remove('active'));
-            }, 100);
+            // setTimeout(() => {
+            //   let sidemenu = document.querySelectorAll(
+            //     '.side-menu__item.active'
+            //   );
+            //   let subSidemenu = document.querySelectorAll(
+            //     '.sub-side-menu__item.active'
+            //   );
+            //   sidemenu.forEach((e) => e.classList.remove('active'));
+            //   subSidemenu.forEach((e) => e.classList.remove('active'));
+            // }, 100);
           }
           if (event instanceof NavigationEnd) {
             res.accessMenu.filter((items: any) => {
