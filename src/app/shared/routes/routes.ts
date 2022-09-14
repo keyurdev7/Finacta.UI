@@ -23,11 +23,7 @@ export const content: Routes = [
     component: BlogListComponent,
   },
   {
-    path: 'blog/:id',
-    component: BlogListComponent,
-  },
-  {
-    path: 'blog-detail',
+    path: 'blog/detail',
     component: BlogDetailComponent,
   },
   {

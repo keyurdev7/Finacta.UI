@@ -3,6 +3,7 @@ import { ActionReducer, createReducer, INIT, on } from '@ngrx/store';
 import { User } from '../models/user.model';
 import { AppState } from './app.state';
 import { Blog } from '../models/blog.model';
+import { Category } from '../models/category.model';
 
 export const hydrationMetaReducer = (
   reducer: ActionReducer<AppState>
@@ -31,4 +32,8 @@ export const userReducer = createReducer(
 export const blogReducer = createReducer(
   new Blog(),
   on(AppActions.UpdateBlogAction, (state, blog) => blog)
+);
+export const categoryReducer = createReducer(
+  new Category(),
+  on(AppActions.UpdateCategoryAction, (state, category) => category)
 );

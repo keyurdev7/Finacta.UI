@@ -14,7 +14,7 @@ import { ColorPickerService } from 'ngx-color-picker';
 import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './shared/shared.module';
 import { StoreModule } from '@ngrx/store';
-import { blogReducer, hydrationMetaReducer, userReducer } from './store/app.reducer';
+import { blogReducer, hydrationMetaReducer, categoryReducer, userReducer } from './store/app.reducer';
 import { TokenInterceptor } from './shared/services/token.interceptor';
 import { CompanyUserComponent } from './components/company-user/company-user/company-user.component';
 import { InviteUserModalComponent } from './components/company-user/invite-user-modal/invite-user-modal.component';
@@ -67,7 +67,8 @@ import { BlogSidebarComponent } from './components/blog-management/blog-sidebar/
     StoreModule.forRoot(
       {
         user: userReducer,
-        blog: blogReducer
+        blog: blogReducer,
+        category: categoryReducer,
       },
       { metaReducers: [hydrationMetaReducer] }
     ),

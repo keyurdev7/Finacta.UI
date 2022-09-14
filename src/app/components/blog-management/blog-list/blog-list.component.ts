@@ -1,34 +1,45 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { Blog } from 'src/app/models/blog.model';
+import { Category } from 'src/app/models/category.model';
 import { BlogService } from 'src/app/shared/services/blog.service';
-import { UpdateBlogAction } from 'src/app/store/app.actions';
-import { AppState } from 'src/app/store/app.state';
+import {
+  UpdateBlogAction,
+  UpdateCategoryAction,
+} from 'src/app/store/app.actions';
+import { AppState, categorySelector } from 'src/app/store/app.state';
 
 @Component({
   selector: 'app-blog-list',
   templateUrl: './blog-list.component.html',
   styleUrls: ['./blog-list.component.scss'],
 })
-export class BlogListComponent implements OnInit {
+export class BlogListComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['position'];
+  subscriptions: Subscription[] = [];
   blogDataSource: MatTableDataSource<Blog> = new MatTableDataSource<Blog>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
   constructor(
     private blogService: BlogService,
-    private activatedRoute: ActivatedRoute,
     private router: Router,
     private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
-    const categoryId = this.activatedRoute.snapshot.params['id'] || 0;
-    this.getAllPublishedBlogs(categoryId);
+    this.subscriptions = [this.subscribeToCategory()];
+  }
+
+  subscribeToCategory(): Subscription {
+    return this.store.pipe(categorySelector).subscribe((res) => {
+      this.getAllPublishedBlogs(res ? res.categoryId ? res.categoryId : 0 : 0);
+    });
   }
 
   ngAfterViewInit() {
@@ -39,7 +50,6 @@ export class BlogListComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.blogDataSource.filter = filterValue.trim().toLowerCase();
-
     if (this.blogDataSource.paginator) {
       this.blogDataSource.paginator.firstPage();
     }
@@ -53,6 +63,11 @@ export class BlogListComponent implements OnInit {
 
   readMore(blog: Blog): void {
     this.store.dispatch(UpdateBlogAction(blog));
-    this.router.navigate(['/blog-detail']);
+    this.router.navigate(['/blog/detail']);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((eachSub) => eachSub.unsubscribe());
+    this.store.dispatch(UpdateCategoryAction(new Category()));
   }
 }

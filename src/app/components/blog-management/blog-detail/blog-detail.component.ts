@@ -52,10 +52,6 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  getAllPublishedBlogs(id: number = 0) {
-    this.router.navigate(['/blog/', id]);
-  }
-
   getBlogComments(): void {
     this.blogService.getAllBlogComment(this.blog.blogId).subscribe((res) => {
       this.comments = res.data;
