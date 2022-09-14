@@ -32,6 +32,8 @@ import { QuillModule } from 'ngx-quill';
 import { BlogListComponent } from './components/blog-management/blog-list/blog-list.component';
 import { BlogDetailComponent } from './components/blog-management/blog-detail/blog-detail.component';
 import { BlogSidebarComponent } from './components/blog-management/blog-sidebar/blog-sidebar.component';
+import { FileManagementComponent } from './components/file-management/file-management/file-management.component';
+import { AddFolderModalComponent } from './components/file-management/add-folder-modal/add-folder-modal.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { BlogSidebarComponent } from './components/blog-management/blog-sidebar/
     BlogListComponent,
     BlogDetailComponent,
     BlogSidebarComponent,
+    FileManagementComponent,
+    AddFolderModalComponent,
   ],
   imports: [
     HttpClientModule,

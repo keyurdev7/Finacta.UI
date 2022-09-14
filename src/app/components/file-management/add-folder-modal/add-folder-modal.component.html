@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>
+    <strong>Add Folder</strong>
+  </h1>
+  <div mat-dialog-content>
+    <form class="login100-form validate-form" [formGroup]="addForm">
+      <div class="wrap-input100 validate-input">
+        <input
+          class="input100"
+          type="text"
+          formControlName="name"
+          placeholder="Name"
+        />
+        <span class="focus-input100"></span>
+        <span class="symbol-input100">
+          <i class="fa fa-folder" aria-hidden="true"></i>
+        </span>
+      </div>
+      <div
+        *ngIf="hasError('name', 'required')"
+        class="text text-danger mt-1"
+      >
+        Folder Name is required
+      </div>
+    </form>
+  </div>
+  <div mat-dialog-actions class="float-end">
+    <button
+      mat-button
+      [disabled]="!addForm.valid"
+      (click)="add()"
+      mat-flat-button
+      color="warn"
+    >
+      Add
+    </button>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+  </div>
+  

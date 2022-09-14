@@ -1,0 +1,63 @@
+<app-page-header
+  [title]="'File Management'"
+  [items]="breadCrumb"
+  [active_item]="currentActiveItem"
+></app-page-header>
+
+<!-- row -->
+<div class="row file-management">
+  <div class="col-lg-12">
+    <div class="col-auto">
+      <div class="input-group mb-4">
+        <div class="upload-add-folder">
+          <a
+            class="btn btn-outline-primary btn-block py-2 float-end"
+            id="btnCompose"
+            (click)="addFolderModal()"
+            href="javascript:;"
+            ><i class="fa fa-plus me-2"></i>Add Folder</a
+          >
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div *ngFor="let eachData of data" class="col-xl-2 col-md-4 col-sm-6">
+        <div class="card p-0">
+          <div class="d-flex align-items-center px-3 pt-3">
+            <div class="float-end ms-auto" ngbDropdown>
+              <a
+                href="javascript:;"
+                class="option-dots no-caret"
+                ngbDropdownToggle
+                aria-haspopup="true"
+                aria-expanded="false"
+                ><i class="fe fe-more-vertical"></i
+              ></a>
+              <div ngbDropdownMenu class="dropdown-menu-start folder-options">
+                <a
+                  ngbDropdownItem
+                  href="javascript:;"
+                  (click)="delete(eachData.recordId)"
+                  ><i class="fe fe-trash me-2"></i> Delete</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="card-body pt-0 text-center">
+            <div class="file-manger-icon">
+              <a (click)="getData(eachData.recordId)">
+                <img
+                  src="./assets/images/files/folder.png"
+                  alt="img"
+                  class="br-7"
+                />
+              </a>
+            </div>
+            <h6 class="my-1 font-weight-semibold">{{ eachData.recordName }}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Row -->

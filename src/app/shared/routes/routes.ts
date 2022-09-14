@@ -4,6 +4,7 @@ import { BlogListComponent } from 'src/app/components/blog-management/blog-list/
 import { BlogManagementComponent } from 'src/app/components/blog-management/blog-management/blog-management.component';
 import { CompanyListComponent } from 'src/app/components/company-management/company-list/company-list.component';
 import { CompanyUserComponent } from 'src/app/components/company-user/company-user/company-user.component';
+import { FileManagementComponent } from 'src/app/components/file-management/file-management/file-management.component';
 
 export const content: Routes = [
   {
@@ -25,6 +26,10 @@ export const content: Routes = [
   {
     path: 'blog/detail',
     component: BlogDetailComponent,
+  },
+  {
+    path: 'file-management',
+    component: FileManagementComponent,
   },
   {
     path: 'dashboard',
