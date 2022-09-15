@@ -43,6 +43,7 @@ export class PricingComponent implements OnInit, OnDestroy {
     }
 
     this.subscribeToUser();
+    
     this.getSubscriptionPlans();
   }
 

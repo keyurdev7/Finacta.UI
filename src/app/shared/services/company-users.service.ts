@@ -61,6 +61,13 @@ export class CompanyUsersService extends AbstractService {
     }) as Observable<any>;
   }
 
+  selectCompany(companyId: number): Observable<any> {
+    return this.httpPost({
+      url: this.baseUrl + '/Auth/SelectCompany?companyId=' + companyId,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
   addCompany(companyData): Observable<any> {
     return this.httpPost({
       url: this.baseUrl + '/CompanyManagement/AddNewCompany',

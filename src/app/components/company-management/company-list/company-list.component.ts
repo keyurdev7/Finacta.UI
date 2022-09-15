@@ -11,6 +11,12 @@ import { DeleteCompanyDialogComponent } from '../delete-company-dialog/delete-co
 import { CandelSubscriptionDialogComponent } from '../candel-subscription-dialog//candel-subscription-dialog.component';
 import { CompanyPaymentListComponent } from '../company-payment-list/company-payment-list.component';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState, userSelector } from 'src/app/store/app.state';
+import { User } from 'src/app/models/user.model';
+import { UpdateUserAction } from 'src/app/store/app.actions';
+
 
 @Component({
   selector: 'app-company-list',
@@ -18,6 +24,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./company-list.component.scss'],
 })
 export class CompanyListComponent implements OnInit {
+  subscriptions: Subscription[] = [];
+  user: User = new User();
+  usertypeid = 0;
   displayedColumns: string[] = [
     'companyName',
     'companyNumber',
@@ -35,15 +44,27 @@ export class CompanyListComponent implements OnInit {
     public dialog: MatDialog,
     public toster: ToastrService,
     public router: Router,
+    public store: Store<AppState>,
   ) {}
 
   ngOnInit(): void {
+    debugger;
     this.getAllCompanies();
+    this.subscribeToUser();
   }
 
   ngAfterViewInit() {
     this.companyDataSource.paginator = this.paginator;
     this.companyDataSource.sort = this.sort;
+  }
+
+  subscribeToUser() {
+    this.subscriptions.push(
+      this.store.pipe(userSelector).subscribe((res) => {
+        this.user = res;
+        this.usertypeid = this.user.userTypeId;
+      })
+    );
   }
 
   applyFilter(event: Event) {
@@ -127,5 +148,21 @@ export class CompanyListComponent implements OnInit {
       }
     })
   }
+
+  selectCompany(id:number):void{
+    this.companyUserService.selectCompany(id).subscribe((res) => {
+      if (res && res.succeeded) {
+        this.store.dispatch(UpdateUserAction(res.data));
+      } else if (res && res.errors.length) {
+        res.errors.forEach((err) => {
+          this.toster.error(err.errorMessage);
+        });
+      } else if (res && !res.succeeded && res.data) {
+        this.toster.error(res.data);
+      }
+    });
+
+  }
+
 }
 

@@ -29,18 +29,36 @@ export class HeaderComponent implements OnInit {
   }
 
   changeCompany(value): void {
-    this.companyService.changeCompany(value).subscribe((res) => {
-      if (res && res.succeeded) {
-        this.store.dispatch(UpdateUserAction(res.data));
-        this.toster.success("Company changed successfully");
-      } else if (res && res.errors.length) {
-        res.errors.forEach((err) => {
-          this.toster.error(err.errorMessage);
-        });
-      } else if (res && !res.succeeded && res.data) {
-        this.toster.error(res.data);
-      }
-    });
+    debugger;
+    if(this.user.userTypeId == 1 || this.user.userTypeId ==3)
+    {
+      this.companyService.selectCompany(value).subscribe((res) => {
+        if (res && res.succeeded) {
+          this.store.dispatch(UpdateUserAction(res.data));
+        } else if (res && res.errors.length) {
+          res.errors.forEach((err) => {
+            this.toster.error(err.errorMessage);
+          });
+        } else if (res && !res.succeeded && res.data) {
+          this.toster.error(res.data);
+        }
+      });
+    }
+    else
+    {    
+      this.companyService.changeCompany(value).subscribe((res) => {
+        if (res && res.succeeded) {
+          this.store.dispatch(UpdateUserAction(res.data));
+          this.toster.success("Company changed successfully");
+        } else if (res && res.errors.length) {
+          res.errors.forEach((err) => {
+            this.toster.error(err.errorMessage);
+          });
+        } else if (res && !res.succeeded && res.data) {
+          this.toster.error(res.data);
+        }
+      });
+    }
   }
 
   signout(): void {
