@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { File } from 'src/app/models/file.model';
 
 @Component({
   selector: 'app-delete-folder-modal',
@@ -7,7 +8,10 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./delete-folder-modal.component.scss'],
 })
 export class DeleteFolderModalComponent implements OnInit {
-  constructor(public dialogRef: MatDialogRef<DeleteFolderModalComponent>) {}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public fileData: File,
+    public dialogRef: MatDialogRef<DeleteFolderModalComponent>
+  ) {}
 
   ngOnInit(): void {}
 

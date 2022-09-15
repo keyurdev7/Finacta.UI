@@ -1,8 +1,25 @@
-<app-page-header
-  [title]="title"
-  [items]="breadCrumb"
-  [active_item]="currentActiveItem"
-></app-page-header>
+<div class="page-header">
+  <div>
+    <h1 class="page-title">{{ title }}</h1>
+  </div>
+  <div class="ms-auto pageheader-btn">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item" *ngFor="let item of breadCrumb">
+        <a *ngIf="item.isRouterLink" [routerLink]="[item.link]">
+          {{ item.title }}</a
+        >
+        <a
+          *ngIf="!item.isRouterLink"
+          href="javascript:;"
+          (click)="getData(item.link)"
+        >
+          {{ item.title }}</a
+        >
+      </li>
+      <li class="breadcrumb-item active">{{ currentActiveItem }}</li>
+    </ol>
+  </div>
+</div>
 
 <!-- row -->
 <div class="row file-management">
@@ -37,7 +54,7 @@
                 <a
                   ngbDropdownItem
                   href="javascript:;"
-                  (click)="deleteConfirmation(eachData.recordId)"
+                  (click)="deleteConfirmation(eachData)"
                   ><i class="fe fe-trash me-2"></i> Delete</a
                 >
               </div>
@@ -47,7 +64,11 @@
             <div class="file-manger-icon">
               <a (click)="getData(eachData.recordId)">
                 <img
-                  src="./assets/images/files/folder.png"
+                  [src]="
+                    './assets/images/files/' +
+                    getFileImage(eachData.recordName, eachData.recordType) +
+                    '.png'
+                  "
                   alt="img"
                   class="br-7"
                 />
