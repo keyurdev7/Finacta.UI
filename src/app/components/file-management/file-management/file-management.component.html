@@ -1,5 +1,5 @@
 <app-page-header
-  [title]="'File Management'"
+  [title]="title"
   [items]="breadCrumb"
   [active_item]="currentActiveItem"
 ></app-page-header>
@@ -37,7 +37,7 @@
                 <a
                   ngbDropdownItem
                   href="javascript:;"
-                  (click)="delete(eachData.recordId)"
+                  (click)="deleteConfirmation(eachData.recordId)"
                   ><i class="fe fe-trash me-2"></i> Delete</a
                 >
               </div>

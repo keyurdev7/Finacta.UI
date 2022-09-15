@@ -14,7 +14,12 @@ import { ColorPickerService } from 'ngx-color-picker';
 import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './shared/shared.module';
 import { StoreModule } from '@ngrx/store';
-import { blogReducer, hydrationMetaReducer, categoryReducer, userReducer } from './store/app.reducer';
+import {
+  blogReducer,
+  hydrationMetaReducer,
+  categoryReducer,
+  userReducer,
+} from './store/app.reducer';
 import { TokenInterceptor } from './shared/services/token.interceptor';
 import { CompanyUserComponent } from './components/company-user/company-user/company-user.component';
 import { InviteUserModalComponent } from './components/company-user/invite-user-modal/invite-user-modal.component';
@@ -34,6 +39,7 @@ import { BlogDetailComponent } from './components/blog-management/blog-detail/bl
 import { BlogSidebarComponent } from './components/blog-management/blog-sidebar/blog-sidebar.component';
 import { FileManagementComponent } from './components/file-management/file-management/file-management.component';
 import { AddFolderModalComponent } from './components/file-management/add-folder-modal/add-folder-modal.component';
+import { DeleteFolderModalComponent } from './components/file-management/delete-folder-modal/delete-folder-modal.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +60,7 @@ import { AddFolderModalComponent } from './components/file-management/add-folder
     BlogSidebarComponent,
     FileManagementComponent,
     AddFolderModalComponent,
+    DeleteFolderModalComponent,
   ],
   imports: [
     HttpClientModule,

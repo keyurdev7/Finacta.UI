@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { File } from 'src/app/models/file.model';
 import { FileManagementService } from 'src/app/shared/services/file-management.service';
 import { AddFolderModalComponent } from '../add-folder-modal/add-folder-modal.component';
+import { DeleteFolderModalComponent } from '../delete-folder-modal/delete-folder-modal.component';
 
 @Component({
   selector: 'app-file-management',
@@ -13,7 +14,10 @@ import { AddFolderModalComponent } from '../add-folder-modal/add-folder-modal.co
 export class FileManagementComponent implements OnInit {
   public data: File[] = [];
   currentFolderId: number = 0;
-  breadCrumb: string[] = ['Home'];
+  title: string = 'File Management';
+  homeLink: object = { title: 'Home', link: '/' };
+  fileLink: object = { title: this.title, link: '/file-management' };
+  breadCrumb: object[] = [this.homeLink];
   currentActiveItem: string = '';
   constructor(
     private dialog: MatDialog,
@@ -28,13 +32,26 @@ export class FileManagementComponent implements OnInit {
   getData(id: number = 0): void {
     this.currentFolderId = id;
     if (id === 0) {
-      this.currentActiveItem = 'File Management';
+      this.currentActiveItem = this.title;
+      this.breadCrumb = [this.homeLink];
     } else {
       const breadData = this.data.find((eachData) => eachData.recordId === id);
       if (breadData) {
-        this.breadCrumb.push(this.currentActiveItem);
         this.currentActiveItem = breadData.recordName;
+      } else {
+        this.currentActiveItem = this.title;
       }
+      this.fileManagementService.getBreadcrumbData(id).subscribe((res) => {
+        if (res && res.data && res.data.length) {
+          this.breadCrumb = [
+            this.homeLink,
+            this.fileLink,
+            ...res.data.map((d) => ({ title: d.folderName, link: d.folderId })),
+          ];
+        } else {
+          this.breadCrumb = [this.homeLink, this.fileLink];
+        }
+      });
     }
     this.fileManagementService.getData(id).subscribe((response) => {
       this.data = response.data;
@@ -49,6 +66,18 @@ export class FileManagementComponent implements OnInit {
     dialog.afterClosed().subscribe((result) => {
       if (result?.event === 'success') {
         this.getData(this.currentFolderId);
+      }
+      return;
+    });
+  }
+
+  deleteConfirmation(id: number): void {
+    const dialog = this.dialog.open(DeleteFolderModalComponent, {
+      minWidth: '28%',
+    });
+    dialog.afterClosed().subscribe((result) => {
+      if (result?.event === 'confirm') {
+        this.delete(id);
       }
       return;
     });
