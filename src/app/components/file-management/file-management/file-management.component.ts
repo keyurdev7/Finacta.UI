@@ -107,6 +107,10 @@ export class FileManagementComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((result) => {
       if (result?.event === 'success') {
+        this.breadCrumb.push({
+          title: this.currentActiveItem,
+          link: this.currentFolderId,
+        });
         this.getData(this.currentFolderId);
       }
       return;
@@ -129,6 +133,10 @@ export class FileManagementComponent implements OnInit {
   delete(id: number): void {
     this.fileManagementService.delete(id).subscribe((res) => {
       if (res && res.succeeded) {
+        this.breadCrumb.push({
+          title: this.currentActiveItem,
+          link: this.currentFolderId,
+        });
         this.toster.success(res.message);
         this.getData(this.currentFolderId);
       } else if (res && res.errors.length) {
