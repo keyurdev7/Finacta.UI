@@ -25,6 +25,15 @@ export class FileManagementService extends AbstractService {
     }) as Observable<any>;
   }
 
+  getBreadcrumbData(id: number = 0): Observable<any> {
+    const params = new HttpParams().append('folderId', id);
+    return this.httpGet({
+      url: this.baseUrl + '/FileManagement/GetFolderParent',
+      params: params,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
   delete(id: number): Observable<any> {
     const params = new HttpParams().append('folderId', id);
     return this.httpGet({

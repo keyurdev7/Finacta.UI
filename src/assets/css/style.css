@@ -11160,6 +11160,10 @@ input[type=number]::-webkit-outer-spin-button {
     color: transparent !important;
 }
 
+.main-form-group .form-control::-moz-placeholder {
+    color: transparent !important;
+}
+
 .main-form-group .form-control:focus,
 .main-form-group .form-control:not(:placeholder-shown) {
     padding-top: 1.65rem !important;

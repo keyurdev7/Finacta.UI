@@ -1,6 +1,6 @@
 <app-page-header
   [title]="'Profile'"
-  [items]="['Home']"
+  [items]="[{ title: 'Home', link: '/' }]"
   [active_item]="'Profile'"
 ></app-page-header>
 
@@ -233,9 +233,6 @@
                           class="login100-form validate-form"
                           [formGroup]="changePasswordForm"
                         >
-                          <span class="login100-form-title">
-                            Change Password
-                          </span>
                           <div class="wrap-input100 validate-input">
                             <input
                               class="input100"
@@ -282,7 +279,8 @@
                             "
                             class="text text-danger mt-1"
                           >
-                            Password should be minimum eight characters, at least one uppercase letter, one lowercase letter.
+                            Password should be minimum eight characters, at
+                            least one uppercase letter, one lowercase letter.
                           </div>
                           <div class="wrap-input100 validate-input">
                             <input

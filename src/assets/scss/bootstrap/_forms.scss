@@ -1183,6 +1183,9 @@ input[type='radio'] {
 		&::-webkit-textarea-placeholder {
 			color: transparent !important;
 		}
+		&::-moz-placeholder {
+			color: transparent !important;
+		}
 		&:focus, &:not(:placeholder-shown){
 			padding-top: 1.65rem !important;
 			padding-bottom: 0.5rem !important;
