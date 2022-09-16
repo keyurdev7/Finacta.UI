@@ -104,6 +104,7 @@
               </a>
             </div>
             <h6 class="my-1 font-weight-semibold">{{ eachData.recordName }}</h6>
+            <span class="text-muted fs-11" *ngIf="eachData.recordType === constants.FILE_TYPE">{{ eachData.fileSize }}{{ eachData.fileSizeType }}</span>
           </div>
         </div>
       </div>

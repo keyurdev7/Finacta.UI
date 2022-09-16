@@ -48,7 +48,10 @@ export class AddFileComponent implements OnInit {
       } else if (res && res.errors.length) {
         this.duplicateErr = false;
         res.errors.forEach((err) => {
-          if (err.errorCode === 10) this.duplicateErr = true;
+          if (err.errorCode === 10) {
+            this.duplicateErr = true;
+            this.override = true;
+          }
           this.toster.error(err.errorMessage);
         });
       } else if (res && !res.succeeded && res.data) {
