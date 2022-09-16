@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AbstractService } from './abstract.service';
 import { environment } from '../../../environments/environment';
 import { LoadingMaskService } from './loading-mask.service';
-import { AddEditBlogForm } from 'src/app/models/add-edit-blog-form.model';
+import { AddFile } from 'src/app/models/add-file.model';
 
 @Injectable({
   providedIn: 'root',
@@ -43,6 +43,15 @@ export class FileManagementService extends AbstractService {
     }) as Observable<any>;
   }
 
+  deleteFile(id: number): Observable<any> {
+    const params = new HttpParams().append('fileId', id);
+    return this.httpGet({
+      url: this.baseUrl + '/FileManagement/DeleteFile',
+      params: params,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
   addFolder(id: number, name: string): Observable<any> {
     const data = {
       folderName: name,
@@ -51,6 +60,18 @@ export class FileManagementService extends AbstractService {
     return this.httpPost({
       url: this.baseUrl + '/FileManagement/AddFolder',
       payload: data,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  addFile(data: AddFile): Observable<any> {
+    const body = new FormData();
+    Object.keys(data).forEach((key) => {
+      body.append(key, data[key]);
+    });
+    return this.httpPost({
+      url: this.baseUrl + '/FileManagement/AddFile',
+      payload: body,
       callerErrorHandler: false,
     }) as Observable<any>;
   }

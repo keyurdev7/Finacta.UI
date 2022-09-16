@@ -12,6 +12,7 @@ import {
   UpdateBlogAction,
   UpdateCategoryAction,
 } from 'src/app/store/app.actions';
+import * as commonConstants from 'src/app/shared/constants/common.constant';
 import { AppState, categorySelector } from 'src/app/store/app.state';
 
 @Component({
@@ -20,6 +21,7 @@ import { AppState, categorySelector } from 'src/app/store/app.state';
   styleUrls: ['./blog-list.component.scss'],
 })
 export class BlogListComponent implements OnInit, OnDestroy {
+  public constants = commonConstants;
   displayedColumns: string[] = ['position'];
   subscriptions: Subscription[] = [];
   blogDataSource: MatTableDataSource<Blog> = new MatTableDataSource<Blog>();
@@ -38,7 +40,9 @@ export class BlogListComponent implements OnInit, OnDestroy {
 
   subscribeToCategory(): Subscription {
     return this.store.pipe(categorySelector).subscribe((res) => {
-      this.getAllPublishedBlogs(res ? res.categoryId ? res.categoryId : 0 : 0);
+      this.getAllPublishedBlogs(
+        res ? (res.categoryId ? res.categoryId : 0) : 0
+      );
     });
   }
 

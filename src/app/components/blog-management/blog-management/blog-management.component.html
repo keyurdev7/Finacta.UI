@@ -61,7 +61,7 @@
                 Published Date
               </th>
               <td mat-cell *matCellDef="let element">
-                {{ element.publishedDateTime | date: "MM/dd/yyyy" }}
+                {{ element.publishedDateTime | date: constants.DATE_FORMAT }}
               </td>
             </ng-container>
 
@@ -118,7 +118,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
           </table>
           <mat-paginator
-            [pageSizeOptions]="[10, 25, 100]"
+            [pageSizeOptions]="[10, 20, 100]"
             aria-label="Select page of users"
           ></mat-paginator>
         </div>

@@ -15,8 +15,8 @@ import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, userSelector } from 'src/app/store/app.state';
 import { User } from 'src/app/models/user.model';
+import * as commonConstants from 'src/app/shared/constants/common.constant';
 import { UpdateUserAction } from 'src/app/store/app.actions';
-
 
 @Component({
   selector: 'app-company-list',
@@ -24,6 +24,7 @@ import { UpdateUserAction } from 'src/app/store/app.actions';
   styleUrls: ['./company-list.component.scss'],
 })
 export class CompanyListComponent implements OnInit {
+  public constants = commonConstants;
   subscriptions: Subscription[] = [];
   user: User = new User();
   usertypeid = 0;
@@ -44,7 +45,7 @@ export class CompanyListComponent implements OnInit {
     public dialog: MatDialog,
     public toster: ToastrService,
     public router: Router,
-    public store: Store<AppState>,
+    public store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
@@ -95,29 +96,28 @@ export class CompanyListComponent implements OnInit {
   }
 
   subscriptionPay(companyid: number) {
-    console.log('I was closed by the timer'+ companyid);
+    console.log('I was closed by the timer' + companyid);
     this.router.navigate(['/pricing/' + companyid]);
   }
 
-  cancelSubscriptionConfirmation(id:number)
-  {
-    const dialog = this.dialog.open(CandelSubscriptionDialogComponent,{
-      minWidth:'28%',
+  cancelSubscriptionConfirmation(id: number) {
+    const dialog = this.dialog.open(CandelSubscriptionDialogComponent, {
+      minWidth: '28%',
     });
 
-    dialog.afterClosed().subscribe((result)=>{
+    dialog.afterClosed().subscribe((result) => {
       if (result?.event === 'confirm') {
         this.cancelSubscription(id);
       }
       return;
-    })
+    });
   }
 
-  cancelSubscription(id:number):void{
+  cancelSubscription(id: number): void {
     this.companyUserService.cancelCompanySubscription(id).subscribe((res) => {
       if (res && res.succeeded) {
         this.toster.success(res.message);
-       this.getAllCompanies();
+        this.getAllCompanies();
       } else if (res && res.errors.length) {
         res.errors.forEach((err) => {
           this.toster.error(err.errorMessage);
@@ -125,17 +125,17 @@ export class CompanyListComponent implements OnInit {
       } else if (res && !res.succeeded && res.data) {
         this.toster.error(res.data);
       }
-    })
+    });
   }
 
-  getCompaySubscriptionPaymentDetails(id:number):void{
+  getCompaySubscriptionPaymentDetails(id: number): void {
     this.companyUserService.getCompanyPayments(id).subscribe((res) => {
       if (res && res.succeeded) {
         const dialog = new MatDialogConfig();
-        dialog.width  = '90%';
-        dialog.height= '50%';
+        dialog.width = '90%';
+        dialog.height = '50%';
         dialog.data = res.data;
-        this.dialog.open(CompanyPaymentListComponent,dialog);
+        this.dialog.open(CompanyPaymentListComponent, dialog);
         // const dialog = this.dialog.open(CompanyPaymentListComponent,{
         //   minWidth:'28%',
         // });
@@ -146,10 +146,10 @@ export class CompanyListComponent implements OnInit {
       } else if (res && !res.succeeded && res.data) {
         this.toster.error(res.data);
       }
-    })
+    });
   }
 
-  selectCompany(id:number):void{
+  selectCompany(id: number): void {
     this.companyUserService.selectCompany(id).subscribe((res) => {
       if (res && res.succeeded) {
         this.store.dispatch(UpdateUserAction(res.data));
@@ -161,8 +161,5 @@ export class CompanyListComponent implements OnInit {
         this.toster.error(res.data);
       }
     });
-
   }
-
 }
-

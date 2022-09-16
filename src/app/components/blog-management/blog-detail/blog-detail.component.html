@@ -1,6 +1,9 @@
 <app-page-header
   [title]="'Blog Detail'"
-  [items]="[{ title: 'Home', link: '/dashboard' },{ title: 'Blog', link: '/blog' }]"
+  [items]="[
+    { title: 'Home', link: '/dashboard' },
+    { title: 'Blog', link: '/blog' }
+  ]"
   [active_item]="'Blog Detail'"
 ></app-page-header>
 
@@ -34,7 +37,7 @@
             <a href="javascript:void(0)" class="d-f-ai-c mx-4 text-13"
               ><span class="fe fe-calendar text-muted me-1 text-15"></span
               ><span class="mt-0 mt-0 text-muted">{{
-                blog.createdDateTime | date: "MM/dd/yyyy"
+                blog.createdDateTime | date: constants.DATE_FORMAT
               }}</span></a
             >
             <a href="javascript:void(0)" class="me-0 d-f-ai-c text-13"

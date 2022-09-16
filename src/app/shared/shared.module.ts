@@ -33,6 +33,7 @@ import { LoadingMaskService } from './services/loading-mask.service';
 import { MaterialModuleModule } from '../materialModule/material-module/material-module.module';
 import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -71,7 +72,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule,
     ReactiveFormsModule,
     MaterialModuleModule,
-    NgSelectModule
+    NgSelectModule,
+    NgxDropzoneModule,
   ],
   exports: [
     PageHeaderComponent,
@@ -90,7 +92,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ReactiveFormsModule,
     MaterialModuleModule,
     DateAgoPipe,
-    NgSelectModule
+    NgSelectModule,
+    NgxDropzoneModule,
   ],
   providers: [
     {

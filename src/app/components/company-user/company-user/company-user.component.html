@@ -95,7 +95,7 @@
                 Last Login
               </th>
               <td mat-cell class="text-center" *matCellDef="let element">
-                {{ element.lastLoginDateTime | date: "MM/dd/yyyy" }}
+                {{ element.lastLoginDateTime | date: constants.DATE_FORMAT }}
               </td>
             </ng-container>
 
@@ -105,7 +105,7 @@
                 Joined Date
               </th>
               <td mat-cell class="text-center" mat-cell *matCellDef="let element">
-                {{ element.joinedDate | date: "MM/dd/yyyy" }}
+                {{ element.joinedDate | date: constants.DATE_FORMAT }}
               </td>
             </ng-container>
 
@@ -151,7 +151,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
           </table>
           <mat-paginator
-            [pageSizeOptions]="[10, 25, 100]"
+            [pageSizeOptions]="[10, 20, 100]"
             aria-label="Select page of users"
           ></mat-paginator>
         </div>

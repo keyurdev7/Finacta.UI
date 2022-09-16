@@ -4,7 +4,10 @@ import { ToastrService } from 'ngx-toastr';
 import { File } from 'src/app/models/file.model';
 import { FileManagementService } from 'src/app/shared/services/file-management.service';
 import { AddFolderModalComponent } from '../add-folder-modal/add-folder-modal.component';
+import { AddFileComponent } from '../add-file/add-file.component';
 import { DeleteFolderModalComponent } from '../delete-folder-modal/delete-folder-modal.component';
+import * as commonConstants from 'src/app/shared/constants/common.constant';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-file-management',
@@ -12,6 +15,8 @@ import { DeleteFolderModalComponent } from '../delete-folder-modal/delete-folder
   styleUrls: ['./file-management.component.scss'],
 })
 export class FileManagementComponent implements OnInit {
+  public envVar = environment;
+  public constants = commonConstants;
   public data: File[] = [];
   currentFolderId: number = 0;
   title: string = 'File Management';
@@ -45,8 +50,11 @@ export class FileManagementComponent implements OnInit {
 
   getFileImage(name: string, type: string): string {
     const ext = name.split('.').reverse()[0];
-    let ret = type === '1' ? this.fileTypes.folder : this.fileTypes.commonFile;
-    if (ext && type === '2') {
+    let ret =
+      type === this.constants.FOLDER_TYPE
+        ? this.fileTypes.folder
+        : this.fileTypes.commonFile;
+    if (ext && type === this.constants.FILE_TYPE) {
       Object.keys(this.fileTypes).forEach((key) => {
         if (
           Array.isArray(this.fileTypes[key]) &&
@@ -57,6 +65,21 @@ export class FileManagementComponent implements OnInit {
       });
     }
     return ret;
+  }
+
+  downloadFile(url: string, name: string): void {
+    fetch(url)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const blobURL = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = blobURL;
+        a.setAttribute('style', 'display: none');
+        a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      });
   }
 
   getData(id: number = 0): void {
@@ -117,6 +140,23 @@ export class FileManagementComponent implements OnInit {
     });
   }
 
+  addFileModal(): void {
+    const dialog = this.dialog.open(AddFileComponent, {
+      minWidth: '50%',
+      data: this.currentFolderId,
+    });
+    dialog.afterClosed().subscribe((result) => {
+      if (result?.event === 'success') {
+        this.breadCrumb.push({
+          title: this.currentActiveItem,
+          link: this.currentFolderId,
+        });
+        this.getData(this.currentFolderId);
+      }
+      return;
+    });
+  }
+
   deleteConfirmation(file: File): void {
     const dialog = this.dialog.open(DeleteFolderModalComponent, {
       minWidth: '28%',
@@ -124,14 +164,37 @@ export class FileManagementComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((result) => {
       if (result?.event === 'confirm') {
-        this.delete(file.recordId);
+        if (file.recordType === this.constants.FOLDER_TYPE) {
+          this.deleteFolder(file.recordId);
+        } else {
+          this.deleteFile(file.recordId);
+        }
       }
       return;
     });
   }
 
-  delete(id: number): void {
+  deleteFolder(id: number): void {
     this.fileManagementService.delete(id).subscribe((res) => {
+      if (res && res.succeeded) {
+        this.breadCrumb.push({
+          title: this.currentActiveItem,
+          link: this.currentFolderId,
+        });
+        this.toster.success(res.message);
+        this.getData(this.currentFolderId);
+      } else if (res && res.errors.length) {
+        res.errors.forEach((err) => {
+          this.toster.error(err.errorMessage);
+        });
+      } else if (res && !res.succeeded && res.data) {
+        this.toster.error(res.data);
+      }
+    });
+  }
+
+  deleteFile(id: number): void {
+    this.fileManagementService.deleteFile(id).subscribe((res) => {
       if (res && res.succeeded) {
         this.breadCrumb.push({
           title: this.currentActiveItem,

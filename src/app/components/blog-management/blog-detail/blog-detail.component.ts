@@ -9,6 +9,7 @@ import { User } from 'src/app/models/user.model';
 import { BlogService } from 'src/app/shared/services/blog.service';
 import { UpdateBlogAction } from 'src/app/store/app.actions';
 import { AppState, blogSelector, userSelector } from 'src/app/store/app.state';
+import * as commonConstants from 'src/app/shared/constants/common.constant';
 
 @Component({
   selector: 'app-blog-detail',
@@ -16,6 +17,7 @@ import { AppState, blogSelector, userSelector } from 'src/app/store/app.state';
   styleUrls: ['./blog-detail.component.scss'],
 })
 export class BlogDetailComponent implements OnInit, OnDestroy {
+  public constants = commonConstants;
   public categories;
   public blog: Blog = new Blog();
   public user: User = new User();

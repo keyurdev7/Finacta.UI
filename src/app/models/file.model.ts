@@ -5,6 +5,7 @@ export class File {
   recordId: number = 0;
   recordType: string = '1';
   recordName: string = '';
+  blobFilePath: string = '';
   fileType: string = '';
   fileSize: number = 0;
   fileSizeType: string = '';

@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { File } from 'src/app/models/file.model';
+import * as commonConstants from 'src/app/shared/constants/common.constant';
 
 @Component({
   selector: 'app-delete-folder-modal',
@@ -8,6 +9,7 @@ import { File } from 'src/app/models/file.model';
   styleUrls: ['./delete-folder-modal.component.scss'],
 })
 export class DeleteFolderModalComponent implements OnInit {
+  public constants = commonConstants;
   constructor(
     @Inject(MAT_DIALOG_DATA) public fileData: File,
     public dialogRef: MatDialogRef<DeleteFolderModalComponent>

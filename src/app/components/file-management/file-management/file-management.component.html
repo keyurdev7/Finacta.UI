@@ -26,6 +26,13 @@
   <div class="col-lg-12">
     <div class="col-auto">
       <div class="input-group mb-4">
+        <button
+          class="btn ripple btn-primary input-group-text border-0 text-white add-file"
+          (click)="addFileModal()"
+          type="button"
+        >
+          Upload File
+        </button>
         <div class="upload-add-folder">
           <a
             class="btn btn-outline-primary btn-block py-2 float-end"
@@ -50,7 +57,15 @@
                 aria-expanded="false"
                 ><i class="fe fe-more-vertical"></i
               ></a>
+
               <div ngbDropdownMenu class="dropdown-menu-start folder-options">
+                <a
+                  *ngIf="constants.FILE_TYPE === eachData.recordType"
+                  ngbDropdownItem
+                  href="javascript:;"
+                  (click)="downloadFile(eachData.blobFilePath, eachData.recordName)"
+                  ><i class="fe fe-download me-2"></i> Download</a
+                >
                 <a
                   ngbDropdownItem
                   href="javascript:;"
@@ -62,7 +77,21 @@
           </div>
           <div class="card-body pt-0 text-center">
             <div class="file-manger-icon">
-              <a (click)="getData(eachData.recordId)">
+              <a
+                *ngIf="eachData.recordType === constants.FOLDER_TYPE"
+                (click)="getData(eachData.recordId)"
+              >
+                <img
+                  [src]="
+                    './assets/images/files/' +
+                    getFileImage(eachData.recordName, eachData.recordType) +
+                    '.png'
+                  "
+                  alt="img"
+                  class="br-7"
+                />
+              </a>
+              <a *ngIf="eachData.recordType === constants.FILE_TYPE">
                 <img
                   [src]="
                     './assets/images/files/' +

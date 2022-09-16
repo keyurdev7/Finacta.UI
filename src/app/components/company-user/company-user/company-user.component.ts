@@ -12,6 +12,7 @@ import { AppState, userSelector } from 'src/app/store/app.state';
 import { InviteUserModalComponent } from '../invite-user-modal/invite-user-modal.component';
 import { ToastrService } from 'ngx-toastr';
 import { DeleteUserDialogComponent } from '../delete-user-dialog/delete-user-dialog.component';
+import * as commonConstants from 'src/app/shared/constants/common.constant';
 
 @Component({
   selector: 'app-company-user',
@@ -19,6 +20,7 @@ import { DeleteUserDialogComponent } from '../delete-user-dialog/delete-user-dia
   styleUrls: ['./company-user.component.scss'],
 })
 export class CompanyUserComponent implements OnInit {
+  public constants = commonConstants;
   user: User = new User();
   subscriptions: Subscription[] = [];
   displayedColumns: string[] = [

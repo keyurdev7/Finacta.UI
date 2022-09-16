@@ -9,6 +9,7 @@ import { Blog } from 'src/app/models/blog.model';
 import { BlogService } from 'src/app/shared/services/blog.service';
 import { AddEditBlogComponent } from '../add-edit-blog/add-edit-blog.component';
 import { DeleteBlogConfirmationComponent } from '../delete-blog-confirmation/delete-blog-confirmation.component';
+import * as commonConstants from 'src/app/shared/constants/common.constant';
 
 @Component({
   selector: 'app-blog-management',
@@ -16,6 +17,7 @@ import { DeleteBlogConfirmationComponent } from '../delete-blog-confirmation/del
   styleUrls: ['./blog-management.component.scss'],
 })
 export class BlogManagementComponent implements OnInit {
+  public constants = commonConstants;
   displayedColumns: string[] = [
     'blogTitle',
     'categoryName',

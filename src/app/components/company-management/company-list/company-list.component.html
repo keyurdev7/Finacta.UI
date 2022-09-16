@@ -62,7 +62,7 @@
                 Subscription Start Date
               </th>
               <td mat-cell *matCellDef="let element">
-                {{ element.subscriptionEndDateTime | date: "MM/dd/yyyy" }}
+                {{ element.subscriptionEndDateTime | date: constants.DATE_FORMAT }}
               </td>
             </ng-container>
 
@@ -73,7 +73,7 @@
                 Subscription End Date
               </th>
               <td mat-cell *matCellDef="let element">
-                {{ element.subscriptionStartDateTime  | date: "MM/dd/yyyy"}}
+                {{ element.subscriptionStartDateTime  | date: constants.DATE_FORMAT}}
               </td>
             </ng-container>
 
@@ -129,7 +129,7 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
           </table>
           <mat-paginator
-            [pageSizeOptions]="[10, 25, 100]"
+            [pageSizeOptions]="[10, 20, 100]"
             aria-label="Select page of users"
           ></mat-paginator>
         </div>

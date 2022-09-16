@@ -40,6 +40,7 @@ import { BlogSidebarComponent } from './components/blog-management/blog-sidebar/
 import { FileManagementComponent } from './components/file-management/file-management/file-management.component';
 import { AddFolderModalComponent } from './components/file-management/add-folder-modal/add-folder-modal.component';
 import { DeleteFolderModalComponent } from './components/file-management/delete-folder-modal/delete-folder-modal.component';
+import { AddFileComponent } from './components/file-management/add-file/add-file.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { DeleteFolderModalComponent } from './components/file-management/delete-
     FileManagementComponent,
     AddFolderModalComponent,
     DeleteFolderModalComponent,
+    AddFileComponent,
   ],
   imports: [
     HttpClientModule,
