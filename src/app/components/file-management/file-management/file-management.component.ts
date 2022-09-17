@@ -68,7 +68,7 @@ export class FileManagementComponent implements OnInit {
   }
 
   downloadFile(url: string, name: string): void {
-    fetch(url)
+    fetch(url, { mode: 'no-cors' })
       .then((response) => response.blob())
       .then((blob) => {
         const blobURL = URL.createObjectURL(blob);
@@ -91,7 +91,11 @@ export class FileManagementComponent implements OnInit {
         this.data = response.data;
       });
     } else {
-      const activeItem = this.data.find((eachData) => eachData.recordId === id);
+      const activeItem = this.data.find(
+        (eachData) =>
+          eachData.recordId === id &&
+          eachData.recordType === this.constants.FOLDER_TYPE
+      );
       const activeCrumb = this.breadCrumb.find(
         (eachData) => eachData.link === id
       );
