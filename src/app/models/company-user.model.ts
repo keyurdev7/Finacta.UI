@@ -15,4 +15,5 @@ export class CompanyUser {
   invitationStatusName: string = '';
   userActiveStatus: string = '';
   userDeleteStatus: string = '';
+  userActiveStatusId? :boolean = false;
 }

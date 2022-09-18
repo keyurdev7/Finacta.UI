@@ -5,6 +5,7 @@ import { AbstractService } from './abstract.service';
 import { environment } from '../../../environments/environment';
 import { LoadingMaskService } from './loading-mask.service';
 import { InviteUserForm } from 'src/app/models/invite-user-form.model';
+import { ActiveInActiveUserRequest } from 'src/app/models/active-inactive-user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +36,14 @@ export class CompanyUsersService extends AbstractService {
   inviteUser(data: InviteUserForm): Observable<any> {
     return this.httpPost({
       url: this.baseUrl + '/UserManagement/InviteUser',
+      payload: data,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  inviteAdvisorUser(data: InviteUserForm): Observable<any> {
+    return this.httpPost({
+      url: this.baseUrl + '/UserManagement/InviteAdvisorUser',
       payload: data,
       callerErrorHandler: false,
     }) as Observable<any>;
@@ -87,6 +96,14 @@ export class CompanyUsersService extends AbstractService {
     return this.httpGet({
       url: this.baseUrl + '/CompanyManagement/GetCompanyPayments?companyId='+companyId,
       params: new HttpParams(),
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  activeInActiveUser(data: ActiveInActiveUserRequest): Observable<any> {
+    return this.httpPost({
+      url: this.baseUrl + '/UserManagement/InActiveUser',
+      payload: data,
       callerErrorHandler: false,
     }) as Observable<any>;
   }

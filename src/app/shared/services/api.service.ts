@@ -55,6 +55,13 @@ export class APIService extends AbstractService {
     }) as Observable<any>;
   }
 
+  VerifyInvitedAdvisorUser(param: string): Observable<any> {
+    return this.httpPost({
+      url: this.baseUrl + '/UserManagement/VerifyInvitedAdvisorUser?param='+param,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
   getSubscriptionPlans(): Observable<any> {
     return this.httpGet({
       url: this.baseUrl + '/SubscriptionManagement/GetPortalSubscription',
