@@ -30,9 +30,15 @@ export class User {
   token: string = '';
   userId: number = 0;
   userTypeId: number = 0;
+  userActiveStatusId? : boolean = false;
   userCompany: Company[] = [];
 
   getFullName(): string {
     return this.firstName + ' ' + this.lastName;
   }
+}
+
+export class UserActiveInactive1{
+  id:number =0;
+  userActiveStatusId? : boolean = false;
 }

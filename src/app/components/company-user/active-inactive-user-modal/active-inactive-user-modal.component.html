@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>
+    <strong>{{title}}</strong>
+  </h1>
+  <div mat-dialog-content>{{message}}</div>
+  <div mat-dialog-actions class="float-end">
+    <button mat-button (click)="confirm()" mat-flat-button color="warn">
+      Yes
+    </button>
+    <button mat-button (click)="closeDialog()">No</button>
+  </div>
+  

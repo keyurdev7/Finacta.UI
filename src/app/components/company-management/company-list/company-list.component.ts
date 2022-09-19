@@ -96,7 +96,6 @@ export class CompanyListComponent implements OnInit {
   }
 
   subscriptionPay(companyid: number) {
-    console.log('I was closed by the timer' + companyid);
     this.router.navigate(['/pricing/' + companyid]);
   }
 
@@ -136,6 +135,7 @@ export class CompanyListComponent implements OnInit {
         dialog.height = '50%';
         dialog.data = res.data;
         this.dialog.open(CompanyPaymentListComponent, dialog);
+        
         // const dialog = this.dialog.open(CompanyPaymentListComponent,{
         //   minWidth:'28%',
         // });
