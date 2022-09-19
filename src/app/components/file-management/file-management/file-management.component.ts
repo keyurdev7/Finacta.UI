@@ -67,21 +67,6 @@ export class FileManagementComponent implements OnInit {
     return ret;
   }
 
-  downloadFile(url: string, name: string): void {
-    fetch(url, { mode: 'no-cors' })
-      .then((response) => response.blob())
-      .then((blob) => {
-        const blobURL = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = blobURL;
-        a.setAttribute('style', 'display: none');
-        a.download = name;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      });
-  }
-
   getData(id: number = 0): void {
     this.currentFolderId = id;
     if (id === 0) {
