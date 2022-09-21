@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -22,7 +22,7 @@ import { ActiveInActiveUserRequest } from 'src/app/models/active-inactive-user.m
   templateUrl: './company-user.component.html',
   styleUrls: ['./company-user.component.scss'],
 })
-export class CompanyUserComponent implements OnInit {
+export class CompanyUserComponent implements OnInit, OnDestroy {
   public constants = commonConstants;
   user: User = new User();
   activeinactive : UserActiveInactive = new UserActiveInactive();
@@ -205,5 +205,9 @@ export class CompanyUserComponent implements OnInit {
     //     this.toster.error(res.data);
     //   }
     // });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((eachSub) => eachSub.unsubscribe());
   }
 }

@@ -32,6 +32,7 @@ export class User {
   userTypeId: number = 0;
   userActiveStatusId? : boolean = false;
   userCompany: Company[] = [];
+  fileManagementListView?: boolean = true
 
   getFullName(): string {
     return this.firstName + ' ' + this.lastName;

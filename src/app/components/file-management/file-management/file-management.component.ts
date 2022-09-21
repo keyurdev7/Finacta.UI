@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { File } from 'src/app/models/file.model';
@@ -8,17 +8,24 @@ import { AddFileComponent } from '../add-file/add-file.component';
 import { DeleteFolderModalComponent } from '../delete-folder-modal/delete-folder-modal.component';
 import * as commonConstants from 'src/app/shared/constants/common.constant';
 import { environment } from 'src/environments/environment';
+import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState, userSelector } from 'src/app/store/app.state';
+import { User } from 'src/app/models/user.model';
+import { UpdateUserAction } from 'src/app/store/app.actions';
 
 @Component({
   selector: 'app-file-management',
   templateUrl: './file-management.component.html',
   styleUrls: ['./file-management.component.scss'],
 })
-export class FileManagementComponent implements OnInit {
+export class FileManagementComponent implements OnInit, OnDestroy {
   public envVar = environment;
   public isListView: boolean = true;
   public constants = commonConstants;
+  public subscriptions: Subscription[] = [];
   public data: File[] = [];
+  public user: User = new User();
   currentFolderId: number = 0;
   title: string = 'File Management';
   homeLink: any = { title: 'Home', link: '/', isRouterLink: true };
@@ -42,11 +49,25 @@ export class FileManagementComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private fileManagementService: FileManagementService,
-    private toster: ToastrService
+    private toster: ToastrService,
+    public store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
     this.getData();
+    this.subscriptions = [this.subscribeToUser()];
+  }
+
+  changeView(): void {
+    this.user.fileManagementListView = !this.isListView;
+    this.store.dispatch(UpdateUserAction(this.user));
+  }
+
+  subscribeToUser(): Subscription {
+    return this.store.pipe(userSelector).subscribe((res) => {
+      this.user = res;
+      this.isListView = this.user.fileManagementListView ? true : false;
+    });
   }
 
   getFileImage(name: string, type: string): string {
@@ -205,5 +226,9 @@ export class FileManagementComponent implements OnInit {
         this.toster.error(res.data);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((eachSub) => eachSub.unsubscribe());
   }
 }
