@@ -15,4 +15,34 @@
 }
 .file-name {
   cursor: pointer;
+  color: #495057;
+}
+.add-btns {
+  display: flex;
+  justify-content: flex-end;
+
+  @media (max-width: 575.98px) {
+    justify-content: center;
+  }
+}
+.mode-icons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  .mode-icon {
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: #495057;
+    &.active-mode {
+      color: var(--primary-bg-color);
+    }
+    &:first-of-type {
+      margin-right: 10px;
+    }
+  }
+
+  @media (max-width: 575.98px) {
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
 }

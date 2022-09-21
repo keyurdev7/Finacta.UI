@@ -78,7 +78,7 @@ import { ActiveInactiveUserModalComponent } from './components/company-user/acti
     SharedModule,
     NgbModule,
     SimpleNotificationsModule.forRoot(),
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({ positionClass: 'toast-top-center' }),
     StoreModule.forRoot(
       {
         user: userReducer,

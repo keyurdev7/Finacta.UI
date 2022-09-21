@@ -58,15 +58,21 @@ export class FileManagementComponent implements OnInit, OnDestroy {
     this.subscriptions = [this.subscribeToUser()];
   }
 
-  changeView(): void {
-    this.user.fileManagementListView = !this.isListView;
-    this.store.dispatch(UpdateUserAction(this.user));
+  changeView(mode: boolean): void {
+    this.store.dispatch(
+      UpdateUserAction(
+        Object.assign({}, this.user, {
+          fileManagementListView: mode,
+        })
+      )
+    );
   }
 
   subscribeToUser(): Subscription {
     return this.store.pipe(userSelector).subscribe((res) => {
       this.user = res;
-      this.isListView = this.user.fileManagementListView ? true : false;
+      this.isListView =
+        this.user.fileManagementListView === false ? false : true;
     });
   }
 

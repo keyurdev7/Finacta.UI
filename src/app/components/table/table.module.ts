@@ -23,7 +23,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-
 @NgModule({
   declarations: [
     DefaultTableComponent,
@@ -38,7 +37,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AddMemberComponent,
     CRUDComponent,
     EditMemberComponent,
-    MemberListComponent
+    MemberListComponent,
   ],
   imports: [
     CommonModule,
@@ -50,10 +49,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ReactiveFormsModule,
     MaterialModuleModule,
     NgxPaginationModule,
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot({ positionClass: 'toast-top-center' }), // ToastrModule added
   ],
-  providers:[
-    ToastrService
-  ]
+  providers: [ToastrService],
 })
-export class TableModule { }
+export class TableModule {}
