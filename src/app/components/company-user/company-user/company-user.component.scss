@@ -1,20 +1,20 @@
 @media screen and (max-width: 380px) {
-    .invite-user {
-      margin-bottom: 10px;
-    }
+  .invite-user {
+    margin-bottom: 10px;
   }
-  .fa.fa-envelope{
-    color: var(--primary-bg-color);
-  }
+}
+.fa.fa-envelope {
+  color: var(--primary-bg-color);
+}
 
-  .fa.fa-check{
-    color: green;
-  }
+.fa.fa-check {
+  color: green;
+}
 
-  .cdk-column-invitationStatusName{
-    text-align: center;
-  }
+.cdk-column-invitationStatusName {
+  text-align: center;
+}
 
-  .iconactiveinactive{
-    font-size: 35px !important;
-  }
+.iconactiveinactive {
+  font-size: 35px !important;
+}

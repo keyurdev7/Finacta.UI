@@ -44,7 +44,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div *ngIf="!isListView" class="row">
       <div *ngFor="let eachData of data" class="col-xl-2 col-md-4 col-sm-6">
         <div class="card p-0">
           <div class="d-flex align-items-center px-3 pt-3">
@@ -114,6 +114,108 @@
         </div>
       </div>
     </div>
+
+    <!-- row -->
+    <div class="row" *ngIf="isListView">
+      <div class="col-xl-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table border text-nowrap recent-files-container">
+                <thead>
+                  <tr class="row-first">
+                    <th>File Name</th>
+                    <th>Date Modified</th>
+                    <th>Type</th>
+                    <th>Size</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let items of data">
+                    <td>
+                      <div class="recent-files">
+                        <img
+                          class="file-image"
+                          [src]="
+                            './assets/images/files/' +
+                            getFileImage(items.recordName, items.recordType) +
+                            '.png'
+                          "
+                          alt="img"
+                        />
+                        <span
+                          class="mb-1 font-weight-semibold file-name"
+                          *ngIf="items.recordType === constants.FOLDER_TYPE"
+                          (click)="getData(items.recordId)"
+                          >{{ items.recordName }}</span
+                        >
+                        <span
+                          class="mb-1 font-weight-semibold"
+                          *ngIf="items.recordType === constants.FILE_TYPE"
+                          >{{ items.recordName }}</span
+                        >
+                      </div>
+                    </td>
+                    <td>
+                      <span class="text-muted modified-date">{{
+                        items.createdDateTime | date: constants.DATE_FORMAT
+                      }}</span>
+                    </td>
+                    <td>
+                      <span
+                        class="text-muted"
+                        *ngIf="items.recordType === constants.FILE_TYPE"
+                        >{{ getExt(items.fileType) }}</span
+                      >
+                      <span
+                        class="text-muted"
+                        *ngIf="items.recordType === constants.FOLDER_TYPE"
+                        >Folder</span
+                      >
+                    </td>
+                    <td>
+                      <span
+                        *ngIf="items.recordType === constants.FILE_TYPE"
+                        class="text-muted file-size"
+                        >{{ items.fileSize }}{{ items.fileSizeType }}</span
+                      >
+                    </td>
+                    <td>
+                      <div class="float-end ms-auto" ngbDropdown>
+                        <a
+                          href="javascript:;"
+                          class="option-dots no-caret"
+                          ngbDropdownToggle
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                          ><i class="fe fe-more-vertical"></i
+                        ></a>
+                        <div
+                          ngbDropdownMenu
+                          class="dropdown-menu-start recent-files-options"
+                        >
+                          <a
+                            *ngIf="constants.FILE_TYPE === items.recordType"
+                            ngbDropdownItem
+                            href="javascript:;"
+                            ><i class="fe fe-download me-2"></i> Download</a
+                          >
+                          <a ngbDropdownItem href="javascript:;"
+                            ><i class="fe fe-trash me-2"></i> Delete</a
+                          >
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Row -->
   </div>
 </div>
 <!-- End Row -->

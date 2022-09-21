@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private store: Store<AppState>,
     private toster: ToastrService,
-    private companyService: CompanyUsersService
+    private companyService: CompanyUsersService,
   ) {}
 
   ngOnInit(): void {
@@ -30,10 +30,10 @@ export class HeaderComponent implements OnInit {
 
   changeCompany(value): void {
     debugger;
-    if(this.user.userTypeId == 1 || this.user.userTypeId ==3)
-    {
+    if (this.user.userTypeId == 1 || this.user.userTypeId == 3) {
       this.companyService.selectCompany(value).subscribe((res) => {
         if (res && res.succeeded) {
+          this.reload();
           this.store.dispatch(UpdateUserAction(res.data));
         } else if (res && res.errors.length) {
           res.errors.forEach((err) => {
@@ -43,13 +43,12 @@ export class HeaderComponent implements OnInit {
           this.toster.error(res.data);
         }
       });
-    }
-    else
-    {    
+    } else {
       this.companyService.changeCompany(value).subscribe((res) => {
         if (res && res.succeeded) {
+          this.reload();
           this.store.dispatch(UpdateUserAction(res.data));
-          this.toster.success("Company changed successfully");
+          this.toster.success('Company changed successfully');
         } else if (res && res.errors.length) {
           res.errors.forEach((err) => {
             this.toster.error(err.errorMessage);
@@ -59,6 +58,10 @@ export class HeaderComponent implements OnInit {
         }
       });
     }
+  }
+
+  reload() {
+    window.location.reload();
   }
 
   signout(): void {

@@ -16,6 +16,7 @@ import { environment } from 'src/environments/environment';
 })
 export class FileManagementComponent implements OnInit {
   public envVar = environment;
+  public isListView: boolean = true;
   public constants = commonConstants;
   public data: File[] = [];
   currentFolderId: number = 0;
@@ -65,6 +66,11 @@ export class FileManagementComponent implements OnInit {
       });
     }
     return ret;
+  }
+
+  getExt(type): string {
+    const ext = type.split('.').reverse()[0];
+    return ext;
   }
 
   getData(id: number = 0): void {
