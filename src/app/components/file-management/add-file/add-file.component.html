@@ -9,11 +9,7 @@
 </div>
 <div class="modal-body">
   <div class="mb-2">
-    <ngx-dropzone
-      (change)="onSelect($event)"
-      [expandable]="true"
-      [multiple]="false"
-    >
+    <ngx-dropzone (change)="onSelect($event)" [multiple]="false">
       <ngx-dropzone-label>Drop it, Here!</ngx-dropzone-label>
       <ngx-dropzone-preview
         ngProjectAs="ngx-dropzone-preview"

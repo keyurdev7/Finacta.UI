@@ -16,7 +16,11 @@ export class AddEditBlogComponent implements OnInit {
   public blogForm: FormGroup = new FormGroup([]);
   categories: Category[] = [];
   selectedCategory: number = 0;
+  imageToUpload: any;
+  imageUrl: any;
+  imageRemoved: boolean = false;
   @ViewChild('editor') editor;
+  @ViewChild('imageInput') imageInput;
   constructor(
     @Inject(MAT_DIALOG_DATA) public blogData: Blog,
     public dialogRef: MatDialogRef<AddEditBlogComponent>,
@@ -48,6 +52,28 @@ export class AddEditBlogComponent implements OnInit {
         [Validators.required],
       ],
     });
+    if (this.blogData && this.blogData.blogImageName) {
+      this.imageUrl = this.blogData.blogImageName;
+    }
+  }
+
+  handleFileInput(file: FileList | any) {
+    if (file.target.files && file.target.files.length) {
+      this.imageRemoved = false;
+      this.imageToUpload = file.target.files.item(0);
+      let reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.imageUrl = event.target.result;
+      };
+      reader.readAsDataURL(this.imageToUpload);
+    }
+  }
+
+  onImageRemove(): void {
+    this.imageInput.nativeElement.value = '';
+    this.imageRemoved = true;
+    this.imageToUpload = null;
+    this.imageUrl = null;
   }
 
   getAllCategories(): void {
@@ -65,13 +91,18 @@ export class AddEditBlogComponent implements OnInit {
 
   add(): void {
     const data = new AddEditBlogForm();
-    data.blogContents = this.blogForm.value.blogContents;
-    data.blogTitle = this.blogForm.value.blogTitle;
-    data.categoryId = this.blogForm.value.categoryId;
-    data.blogShortContents = this.blogForm.value.blogShortContents;
+    data.BlogContents = this.blogForm.value.blogContents;
+    data.BlogTitle = this.blogForm.value.blogTitle;
+    data.CategoryId = this.blogForm.value.categoryId;
+    data.BlogShortContents = this.blogForm.value.blogShortContents;
+    if (this.imageToUpload) {
+      data.BlogImage = this.imageToUpload;
+    }
     this.blogService.addBlog(data).subscribe((res) => {
       if (res && res.succeeded) {
         this.blogForm.reset();
+        this.imageToUpload = null;
+        this.imageUrl = null;
         this.dialogRef.close({ event: 'success' });
         this.toster.success(res.message);
       } else if (res && res.errors.length) {
@@ -86,14 +117,21 @@ export class AddEditBlogComponent implements OnInit {
 
   update(): void {
     const data = new AddEditBlogForm();
-    data.blogId = this.blogData.blogId;
-    data.blogContents = this.blogForm.value.blogContents;
-    data.blogTitle = this.blogForm.value.blogTitle;
-    data.categoryId = this.blogForm.value.categoryId;
-    data.blogShortContents = this.blogForm.value.blogShortContents;
+    data.BlogId = this.blogData.blogId;
+    data.BlogContents = this.blogForm.value.blogContents;
+    data.BlogTitle = this.blogForm.value.blogTitle;
+    data.CategoryId = this.blogForm.value.categoryId;
+    data.BlogShortContents = this.blogForm.value.blogShortContents;
+    if (this.imageToUpload) {
+      data.BlogImage = this.imageToUpload;
+    } else if (this.imageRemoved) {
+      data.RemoveBlogImage = true;
+    }
     this.blogService.updateBlog(data).subscribe((res) => {
       if (res && res.succeeded) {
         this.blogForm.reset();
+        this.imageToUpload = null;
+        this.imageUrl = null;
         this.dialogRef.close({ event: 'success' });
         this.toster.success(res.message);
       } else if (res && res.errors.length) {

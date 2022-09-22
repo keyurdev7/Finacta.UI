@@ -8,6 +8,7 @@ export class Blog {
   blogTitle: string = '';
   blogContents: string = '';
   blogShortContents: string = '';
+  blogImageName: string = '';
   categoryId: number = 0;
   categoryName: string = '';
   @Transform(({ value }) => momentTransform(value), { toClassOnly: true })

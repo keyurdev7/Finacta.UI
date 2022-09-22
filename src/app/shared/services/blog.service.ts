@@ -61,17 +61,25 @@ export class BlogService extends AbstractService {
   }
 
   addBlog(data: AddEditBlogForm): Observable<any> {
+    const body = new FormData();
+    Object.keys(data).forEach((key) => {
+      body.append(key, data[key]);
+    });
     return this.httpPost({
       url: this.baseUrl + '/BlogManagement/AddNewBlog',
-      payload: data,
+      payload: body,
       callerErrorHandler: false,
     }) as Observable<any>;
   }
 
   updateBlog(data: AddEditBlogForm): Observable<any> {
+    const body = new FormData();
+    Object.keys(data).forEach((key) => {
+      body.append(key, data[key]);
+    });
     return this.httpPost({
       url: this.baseUrl + '/BlogManagement/UpdateBlog',
-      payload: data,
+      payload: body,
       callerErrorHandler: false,
     }) as Observable<any>;
   }
@@ -103,7 +111,7 @@ export class BlogService extends AbstractService {
   }
 
   addComment(blogId: number, comment: string): Observable<any> {
-    const data = {blogId, comment};
+    const data = { blogId, comment };
     return this.httpPost({
       url: this.baseUrl + '/BlogManagement/AddNewBlogComment',
       payload: data,
@@ -112,7 +120,7 @@ export class BlogService extends AbstractService {
   }
 
   updateComment(blogCommentId: number, comment: string): Observable<any> {
-    const data = {blogCommentId, comment};
+    const data = { blogCommentId, comment };
     return this.httpPost({
       url: this.baseUrl + '/BlogManagement/UpdateBlogComment',
       payload: data,

@@ -1,14 +1,23 @@
-.login100-form{
-    width: 610px;
+.login100-form {
+  width: 610px;
 }
 @media (max-width: 768px) {
-    .login100-form{
-        width: 100% !important;
-    }
+  .login100-form {
+    width: 100% !important;
+  }
 }
-mat-select[formcontrolname="categoryId"] ::ng-deep .mat-select-trigger{
-    height: 43px !important;
+mat-select[formcontrolname="categoryId"] ::ng-deep .mat-select-trigger {
+  height: 43px !important;
 }
-.shortDescription textarea{
-    padding: 10px;
+.shortDescription textarea {
+  padding: 10px;
+}
+.image {
+  height: 200px;
+  width: 200px;
+  object-fit: contain;
+}
+.close-icon {
+  position: absolute;
+  cursor: pointer;
 }

@@ -79,6 +79,19 @@
     >
       Category is required
     </div>
+    <div class="wrap-input100 validate-input">
+      <input
+        class="form-control"
+        type="file"
+        (change)="handleFileInput($event)"
+        accept=".jpg,.svg,.png,.jpeg"
+        #imageInput
+      />
+      <div *ngIf="imageUrl" class="position-relative mt-3">
+        <img [src]="imageUrl" class="image" />
+        <span class="fa fa-close close-icon" (click)="onImageRemove()"></span>
+      </div>
+    </div>
   </form>
 </div>
 <div mat-dialog-actions class="float-end">

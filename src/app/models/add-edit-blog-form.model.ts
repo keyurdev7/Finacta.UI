@@ -1,7 +1,9 @@
 export class AddEditBlogForm {
-  blogId?: number = 0;
-  categoryId: number = 0;
-  blogTitle: string = '';
-  blogContents: string = '';
-  blogShortContents: string = '';
+  BlogId?: number = 0;
+  CategoryId: number = 0;
+  BlogTitle: string = '';
+  BlogContents: string = '';
+  BlogShortContents: string = '';
+  BlogImage?: File;
+  RemoveBlogImage?: boolean = false;
 }
