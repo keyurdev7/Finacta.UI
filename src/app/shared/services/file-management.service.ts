@@ -75,4 +75,15 @@ export class FileManagementService extends AbstractService {
       callerErrorHandler: false,
     }) as Observable<any>;
   }
+
+  search(id: number, search: string = ''): Observable<any> {
+    const params = new HttpParams()
+      .append('parentFolderId', id)
+      .append('searchFileName', search);
+    return this.httpGet({
+      url: this.baseUrl + '/FileManagement/SearchFile',
+      params: params,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
 }
