@@ -153,18 +153,31 @@
                   <tr *ngFor="let eachData of data">
                     <td>
                       <div class="recent-files">
-                        <img
-                          class="file-image"
-                          [src]="
-                            './assets/images/files/' +
-                            getFileImage(
-                              eachData.recordName,
-                              eachData.recordType
-                            ) +
-                            '.png'
+                        <a
+                          [attr.href]="
+                            eachData.recordType === constants.FILE_TYPE
+                              ? eachData.blobFilePath
+                              : null
                           "
-                          alt="img"
-                        />
+                          [attr.target]="
+                            eachData.recordType === constants.FILE_TYPE
+                              ? '_blank'
+                              : null
+                          "
+                        >
+                          <img
+                            class="file-image"
+                            [src]="
+                              './assets/images/files/' +
+                              getFileImage(
+                                eachData.recordName,
+                                eachData.recordType
+                              ) +
+                              '.png'
+                            "
+                            alt="img"
+                          />
+                        </a>
                         <span
                           class="mb-1 file-name"
                           *ngIf="eachData.recordType === constants.FOLDER_TYPE"
@@ -222,10 +235,14 @@
                           <a
                             *ngIf="constants.FILE_TYPE === eachData.recordType"
                             ngbDropdownItem
-                            href="javascript:;"
+                            [href]="eachData.blobFilePath"
+                            [download]="eachData.recordName"
                             ><i class="fe fe-download me-2"></i> Download</a
                           >
-                          <a ngbDropdownItem href="javascript:;"
+                          <a
+                            ngbDropdownItem
+                            href="javascript:;"
+                            (click)="deleteConfirmation(eachData)"
                             ><i class="fe fe-trash me-2"></i> Delete</a
                           >
                         </div>
