@@ -81,7 +81,6 @@ export class CompanyUserComponent implements OnInit, OnDestroy {
   getCompanyUsers(): void {
     this.companyUserService.getCompanyUsers().subscribe((res) => {
       this.companyUserDataSource.data = res.data;
-      debugger;
     });
   }
 
@@ -142,7 +141,6 @@ export class CompanyUserComponent implements OnInit, OnDestroy {
   }
 
   activedeactiveUserModal(id,isActive) : void{
-    debugger;
     this.activeinactive.id = id;
     this.activeinactive.userActiveStatusId = isActive;
     const dialog = this.dialog.open(ActiveInactiveUserModalComponent, {

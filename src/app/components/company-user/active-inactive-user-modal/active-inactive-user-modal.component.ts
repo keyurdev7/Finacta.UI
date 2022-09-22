@@ -20,7 +20,6 @@ export class ActiveInactiveUserModalComponent implements OnInit {
       public dialogRef: MatDialogRef<ActiveInactiveUserModalComponent>
     ) 
   {
-    debugger;
     this.activeinactive = data;
   }
 

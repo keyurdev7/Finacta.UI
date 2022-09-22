@@ -49,7 +49,6 @@ export class CompanyListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    debugger;
     this.getAllCompanies();
     this.subscribeToUser();
   }

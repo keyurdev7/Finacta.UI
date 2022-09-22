@@ -29,7 +29,6 @@ export class HeaderComponent implements OnInit {
   }
 
   changeCompany(value): void {
-    debugger;
     if (this.user.userTypeId == 1 || this.user.userTypeId == 3) {
       this.companyService.selectCompany(value).subscribe((res) => {
         if (res && res.succeeded) {

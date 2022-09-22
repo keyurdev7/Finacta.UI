@@ -22,7 +22,6 @@ export class InviteUserModalComponent implements OnInit {
     private companyUserService: CompanyUsersService,
     public toster: ToastrService
   ) {
-    debugger;
       this.usertype = data;
   }
 
