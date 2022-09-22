@@ -39,6 +39,16 @@ li::marker{color: transparent;}
             border-bottom-left-radius: 0;
         }
     }
+    .mat-form-field-wrapper {
+        padding-bottom: 0.5em !important;
+        .mat-form-field-underline {
+            bottom: 0.5em;
+        }
+    }
+    .mat-select-value-text, .mat-option-text {
+        font-size: 0.85rem;
+        font-family: 'Poppins', sans-serif;
+    }
 }
 // search field
 .search-result{

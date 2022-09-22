@@ -35,7 +35,7 @@
         <span
           class="mode-icon fa fa-folder"
           [ngClass]="{ 'active-mode': !isListView }"
-          ngbTooltip="Grid View"
+          ngbTooltip="Folder View"
           (click)="changeView(false)"
         ></span>
       </div>
@@ -166,7 +166,10 @@
                           "
                         >
                           <img
-                            class="file-image"
+                            *ngIf="
+                              eachData.recordType === constants.FOLDER_TYPE
+                            "
+                            class="me-2 w-icn"
                             [src]="
                               './assets/images/files/' +
                               getFileImage(
@@ -177,6 +180,17 @@
                             "
                             alt="img"
                           />
+                          <i
+                            *ngIf="eachData.recordType === constants.FILE_TYPE"
+                            class="fa me-2 w-icn list-file-icon"
+                            [ngClass]="
+                              'fa-file-' +
+                              getFileImage(
+                                eachData.recordName,
+                                eachData.recordType
+                              )
+                            "
+                          ></i>
                         </a>
                         <span
                           class="mb-1 file-name"

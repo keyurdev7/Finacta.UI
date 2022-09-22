@@ -38,8 +38,8 @@ export class FileManagementComponent implements OnInit, OnDestroy {
   currentActiveItem: string = '';
   fileTypes: any = {
     pdf: ['pdf'],
-    doc: ['doc', 'docx'],
-    xls: ['xls', 'xlsx'],
+    word: ['doc', 'docx'],
+    excel: ['xls', 'xlsx'],
     image: ['jpg', 'jpeg', 'png', 'gif'],
     audio: ['mp3', 'wav'],
     video: ['mp4', 'flv', 'mkv', 'mov'],
@@ -92,6 +92,12 @@ export class FileManagementComponent implements OnInit, OnDestroy {
         }
       });
     }
+    ret =
+      this.isListView && ret === this.fileTypes.commonFile
+        ? 'o'
+        : this.isListView && ret !== this.fileTypes.folder
+        ? ret + '-o'
+        : ret;
     return ret;
   }
 

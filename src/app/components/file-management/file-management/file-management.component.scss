@@ -10,9 +10,6 @@
 .add-file {
   margin-right: 10px;
 }
-.file-image {
-  width: 23px;
-}
 .file-name {
   cursor: pointer;
   color: #495057;
@@ -45,4 +42,8 @@
     justify-content: center;
     margin-bottom: 1rem;
   }
+}
+.list-file-icon {
+  font-size: 1rem;
+  text-align: center;
 }
