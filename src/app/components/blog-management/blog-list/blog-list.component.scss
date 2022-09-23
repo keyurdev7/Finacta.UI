@@ -1,3 +1,11 @@
-.blog-table{
-    background-color: unset;
+.blog-table {
+  background-color: unset;
+}
+.blog-image {
+  background-position: center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  position: relative;
+  border-radius: 0px;
+  height: 200px;
 }

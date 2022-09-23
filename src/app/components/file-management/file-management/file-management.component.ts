@@ -26,6 +26,8 @@ export class FileManagementComponent implements OnInit, OnDestroy {
   public subscriptions: Subscription[] = [];
   public data: File[] = [];
   public user: User = new User();
+  searchStr: string = '';
+  searched: boolean = false;
   currentFolderId: number = 0;
   title: string = 'File Management';
   homeLink: any = { title: 'Home', link: '/', isRouterLink: true };
@@ -109,7 +111,7 @@ export class FileManagementComponent implements OnInit, OnDestroy {
     return ext;
   }
 
-  getData(id: number = 0): void {
+  getData(id: number = 0, fromClear: boolean = false): void {
     this.currentFolderId = id;
     if (id === 0) {
       this.currentActiveItem = this.title;
@@ -131,7 +133,9 @@ export class FileManagementComponent implements OnInit, OnDestroy {
       } else if (activeCrumb) {
         this.currentActiveItem = activeCrumb.title;
       } else {
-        this.currentActiveItem = this.title;
+        this.currentActiveItem = fromClear
+          ? this.currentActiveItem
+          : this.title;
       }
       this.fileManagementService.getBreadcrumbData(id).subscribe((res) => {
         if (res && res.data && res.data.length) {
@@ -241,6 +245,36 @@ export class FileManagementComponent implements OnInit, OnDestroy {
         this.toster.error(res.data);
       }
     });
+  }
+
+  search(fromClear: boolean = false): void {
+    this.searchStr = this.searchStr.trim();
+    this.searched = false;
+    if (this.searchStr) {
+      this.searched = true;
+      this.fileManagementService
+        .search(this.currentFolderId, this.searchStr)
+        .subscribe((res) => {
+          if (res && res.succeeded) {
+            this.data = res.data;
+          } else if (res && res.errors.length) {
+            res.errors.forEach((err) => {
+              this.toster.error(err.errorMessage);
+            });
+          } else if (res && !res.succeeded && res.data) {
+            this.toster.error(res.data);
+          }
+        });
+    } else {
+      this.getData(this.currentFolderId, fromClear);
+    }
+  }
+
+  clearSearch(): void {
+    this.searchStr = '';
+    if (this.searched) {
+      this.search(true);
+    }
   }
 
   ngOnDestroy(): void {

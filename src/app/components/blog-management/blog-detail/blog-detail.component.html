@@ -53,6 +53,13 @@
               {{ blog.blogTitle }}
             </h1>
           </div>
+          <div class="p-1 bg-light br-5" *ngIf="blog.blogImageName">
+            <img
+              [src]="blog.blogImageName"
+              alt="img"
+              class="cover-image br-5 ms-auto me-auto wp-100"
+            />
+          </div>
         </div>
         <div class="mb-2 mt-5 content">
           <p class="text-muted text-14" [innerHTML]="blog.blogContents"></p>

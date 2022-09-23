@@ -16,16 +16,16 @@
 }
 .add-btns {
   display: flex;
-  justify-content: flex-end;
 
   @media (max-width: 575.98px) {
     justify-content: center;
+    margin-bottom: 1rem;
   }
 }
 .mode-icons {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   .mode-icon {
     font-size: 1.25rem;
     cursor: pointer;
@@ -46,4 +46,21 @@
 .list-file-icon {
   font-size: 1rem;
   text-align: center;
+}
+.search-wrap {
+  align-items: center;
+  input {
+    height: 42px;
+  }
+  button {
+    height: 42px;
+  }
+  .clear-icon {
+    position: absolute;
+    padding: 12px;
+    font-size: 1rem;
+    right: 80px;
+    cursor: pointer;
+    z-index: 5;
+  }
 }

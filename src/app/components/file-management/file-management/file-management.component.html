@@ -30,21 +30,7 @@
   </div>
   <div class="col-lg-12" *ngIf="!isAllCompaniesSelected">
     <div class="row mb-4">
-      <div class="col-xs-12 col-sm-7 mode-icons">
-        <span
-          class="mode-icon fa fa-list"
-          [ngClass]="{ 'active-mode': isListView }"
-          ngbTooltip="List View"
-          (click)="changeView(true)"
-        ></span>
-        <span
-          class="mode-icon fa fa-folder"
-          [ngClass]="{ 'active-mode': !isListView }"
-          ngbTooltip="Folder View"
-          (click)="changeView(false)"
-        ></span>
-      </div>
-      <div class="col-xs-12 col-sm-5 add-btns">
+      <div class="col-xs-12 col-sm-4 add-btns">
         <button
           class="btn ripple btn-primary input-group-text border-0 text-white add-file"
           (click)="addFileModal()"
@@ -62,220 +48,273 @@
           >
         </div>
       </div>
-    </div>
-    <div *ngIf="!isListView" class="row">
-      <div *ngFor="let eachData of data" class="col-xl-2 col-md-4 col-sm-6">
-        <div class="card p-0">
-          <div class="d-flex align-items-center px-3 pt-3">
-            <div class="float-end ms-auto" ngbDropdown>
-              <a
-                href="javascript:;"
-                class="option-dots no-caret"
-                ngbDropdownToggle
-                aria-haspopup="true"
-                aria-expanded="false"
-                ><i class="fe fe-more-vertical"></i
-              ></a>
-
-              <div ngbDropdownMenu class="dropdown-menu-start folder-options">
-                <a
-                  *ngIf="constants.FILE_TYPE === eachData.recordType"
-                  ngbDropdownItem
-                  [href]="eachData.blobFilePath"
-                  [download]="eachData.recordName"
-                  ><i class="fe fe-download me-2"></i> Download</a
-                >
-                <a
-                  ngbDropdownItem
-                  href="javascript:;"
-                  (click)="deleteConfirmation(eachData)"
-                  ><i class="fe fe-trash me-2"></i> Delete</a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="card-body pt-0 text-center">
-            <div class="file-manger-icon">
-              <a
-                *ngIf="eachData.recordType === constants.FOLDER_TYPE"
-                (click)="getData(eachData.recordId)"
-              >
-                <img
-                  [src]="
-                    './assets/images/files/' +
-                    getFileImage(eachData.recordName, eachData.recordType) +
-                    '.png'
-                  "
-                  alt="img"
-                  class="br-7"
-                />
-              </a>
-              <a
-                *ngIf="eachData.recordType === constants.FILE_TYPE"
-                [href]="eachData.blobFilePath"
-                target="_blank"
-              >
-                <img
-                  [src]="
-                    './assets/images/files/' +
-                    getFileImage(eachData.recordName, eachData.recordType) +
-                    '.png'
-                  "
-                  alt="img"
-                  class="br-7"
-                />
-              </a>
-            </div>
-            <h6 class="my-1 font-weight-semibold">{{ eachData.recordName }}</h6>
-            <span
-              class="text-muted fs-11"
-              *ngIf="eachData.recordType === constants.FILE_TYPE"
+      <div class="col-xs-12 col-sm-4 mode-icons">
+        <span
+          class="mode-icon fa fa-list"
+          [ngClass]="{ 'active-mode': isListView }"
+          ngbTooltip="List View"
+          (click)="changeView(true)"
+        ></span>
+        <span
+          class="mode-icon fa fa-folder"
+          [ngClass]="{ 'active-mode': !isListView }"
+          ngbTooltip="Folder View"
+          (click)="changeView(false)"
+        ></span>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <div class="form-group mb-0">
+          <div class="input-group search-wrap">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search files..."
+              [(ngModel)]="searchStr"
+            />
+            <i
+              class="fa fa-close clear-icon"
+              (click)="clearSearch()"
+              *ngIf="searchStr"
+            ></i>
+            <button
+              class="input-group-text btn btn-primary text-white"
+              (click)="search()"
             >
-              {{ eachData.fileSize }}{{ eachData.fileSizeType }}
-            </span>
+              Search
+            </button>
           </div>
         </div>
       </div>
     </div>
+    <div class="col-lg-12" *ngIf="!data || !data.length">
+      <h5 class="text-center" *ngIf="!searched">This folder is empty</h5>
+      <h5 class="text-center" *ngIf="searched">No results found</h5>
+    </div>
+    <ng-container *ngIf="data && data.length">
+      <!-- row -->
+      <div *ngIf="!isListView" class="row">
+        <div *ngFor="let eachData of data" class="col-xl-2 col-md-4 col-sm-6">
+          <div class="card p-0">
+            <div class="d-flex align-items-center px-3 pt-3">
+              <div class="float-end ms-auto" ngbDropdown>
+                <a
+                  href="javascript:;"
+                  class="option-dots no-caret"
+                  ngbDropdownToggle
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  ><i class="fe fe-more-vertical"></i
+                ></a>
 
-    <!-- row -->
-    <div class="row" *ngIf="isListView">
-      <div class="col-xl-12">
-        <div class="card">
-          <div class="card-body" *ngIf="data.length">
-            <div class="table-responsive">
-              <table class="table border text-nowrap recent-files-container">
-                <thead>
-                  <tr class="row-first">
-                    <th>File Name</th>
-                    <th>Date Modified</th>
-                    <th>Type</th>
-                    <th>Size</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let eachData of data">
-                    <td>
-                      <div class="recent-files">
-                        <a
-                          [attr.href]="
-                            eachData.recordType === constants.FILE_TYPE
-                              ? eachData.blobFilePath
-                              : null
-                          "
-                          [attr.target]="
-                            eachData.recordType === constants.FILE_TYPE
-                              ? '_blank'
-                              : null
-                          "
-                        >
-                          <img
+                <div ngbDropdownMenu class="dropdown-menu-start folder-options">
+                  <a
+                    *ngIf="constants.FILE_TYPE === eachData.recordType"
+                    ngbDropdownItem
+                    [href]="eachData.blobFilePath"
+                    [download]="eachData.recordName"
+                    ><i class="fe fe-download me-2"></i> Download</a
+                  >
+                  <a
+                    ngbDropdownItem
+                    href="javascript:;"
+                    (click)="deleteConfirmation(eachData)"
+                    ><i class="fe fe-trash me-2"></i> Delete</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="card-body pt-0 text-center">
+              <div class="file-manger-icon">
+                <a
+                  *ngIf="eachData.recordType === constants.FOLDER_TYPE"
+                  (click)="getData(eachData.recordId)"
+                >
+                  <img
+                    [src]="
+                      './assets/images/files/' +
+                      getFileImage(eachData.recordName, eachData.recordType) +
+                      '.png'
+                    "
+                    alt="img"
+                    class="br-7"
+                  />
+                </a>
+                <a
+                  *ngIf="eachData.recordType === constants.FILE_TYPE"
+                  [href]="eachData.blobFilePath"
+                  target="_blank"
+                >
+                  <img
+                    [src]="
+                      './assets/images/files/' +
+                      getFileImage(eachData.recordName, eachData.recordType) +
+                      '.png'
+                    "
+                    alt="img"
+                    class="br-7"
+                  />
+                </a>
+              </div>
+              <h6 class="my-1 font-weight-semibold">
+                {{ eachData.recordName }}
+              </h6>
+              <span
+                class="text-muted fs-11"
+                *ngIf="eachData.recordType === constants.FILE_TYPE"
+              >
+                {{ eachData.fileSize }}{{ eachData.fileSizeType }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End Row -->
+
+      <!-- row -->
+      <div class="row" *ngIf="isListView">
+        <div class="col-xl-12">
+          <div class="card">
+            <div class="card-body" *ngIf="data.length">
+              <div class="table-responsive">
+                <table class="table border text-nowrap recent-files-container">
+                  <thead>
+                    <tr class="row-first">
+                      <th>File Name</th>
+                      <th>Date Modified</th>
+                      <th>Type</th>
+                      <th>Size</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let eachData of data">
+                      <td>
+                        <div class="recent-files">
+                          <a
+                            [attr.href]="
+                              eachData.recordType === constants.FILE_TYPE
+                                ? eachData.blobFilePath
+                                : null
+                            "
+                            [attr.target]="
+                              eachData.recordType === constants.FILE_TYPE
+                                ? '_blank'
+                                : null
+                            "
+                          >
+                            <img
+                              *ngIf="
+                                eachData.recordType === constants.FOLDER_TYPE
+                              "
+                              class="me-2 w-icn"
+                              [src]="
+                                './assets/images/files/' +
+                                getFileImage(
+                                  eachData.recordName,
+                                  eachData.recordType
+                                ) +
+                                '.png'
+                              "
+                              alt="img"
+                            />
+                            <i
+                              *ngIf="
+                                eachData.recordType === constants.FILE_TYPE
+                              "
+                              class="fa me-2 w-icn list-file-icon"
+                              [ngClass]="
+                                'fa-file-' +
+                                getFileImage(
+                                  eachData.recordName,
+                                  eachData.recordType
+                                )
+                              "
+                            ></i>
+                          </a>
+                          <span
+                            class="mb-1 file-name"
                             *ngIf="
                               eachData.recordType === constants.FOLDER_TYPE
                             "
-                            class="me-2 w-icn"
-                            [src]="
-                              './assets/images/files/' +
-                              getFileImage(
-                                eachData.recordName,
-                                eachData.recordType
-                              ) +
-                              '.png'
-                            "
-                            alt="img"
-                          />
-                          <i
-                            *ngIf="eachData.recordType === constants.FILE_TYPE"
-                            class="fa me-2 w-icn list-file-icon"
-                            [ngClass]="
-                              'fa-file-' +
-                              getFileImage(
-                                eachData.recordName,
-                                eachData.recordType
-                              )
-                            "
-                          ></i>
-                        </a>
-                        <span
-                          class="mb-1 file-name"
-                          *ngIf="eachData.recordType === constants.FOLDER_TYPE"
-                          (click)="getData(eachData.recordId)"
-                          >{{ eachData.recordName }}</span
-                        >
-                        <a
-                          [href]="eachData.blobFilePath"
-                          target="_blank"
-                          class="mb-1 file-name"
-                          *ngIf="eachData.recordType === constants.FILE_TYPE"
-                          >{{ eachData.recordName }}</a
-                        >
-                      </div>
-                    </td>
-                    <td>
-                      <span class="text-muted modified-date">{{
-                        eachData.createdDateTime | date: constants.DATE_FORMAT
-                      }}</span>
-                    </td>
-                    <td>
-                      <span
-                        class="text-muted"
-                        *ngIf="eachData.recordType === constants.FILE_TYPE"
-                        >{{ getExt(eachData.fileType) }}</span
-                      >
-                      <span
-                        class="text-muted"
-                        *ngIf="eachData.recordType === constants.FOLDER_TYPE"
-                        >Folder</span
-                      >
-                    </td>
-                    <td>
-                      <span
-                        *ngIf="eachData.recordType === constants.FILE_TYPE"
-                        class="text-muted file-size"
-                        >{{ eachData.fileSize
-                        }}{{ eachData.fileSizeType }}</span
-                      >
-                    </td>
-                    <td>
-                      <div class="float-end ms-auto" ngbDropdown>
-                        <a
-                          href="javascript:;"
-                          class="option-dots no-caret"
-                          ngbDropdownToggle
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                          ><i class="fe fe-more-vertical"></i
-                        ></a>
-                        <div
-                          ngbDropdownMenu
-                          class="dropdown-menu-start recent-files-options"
-                        >
-                          <a
-                            *ngIf="constants.FILE_TYPE === eachData.recordType"
-                            ngbDropdownItem
-                            [href]="eachData.blobFilePath"
-                            [download]="eachData.recordName"
-                            ><i class="fe fe-download me-2"></i> Download</a
+                            (click)="getData(eachData.recordId)"
+                            >{{ eachData.recordName }}</span
                           >
                           <a
-                            ngbDropdownItem
-                            href="javascript:;"
-                            (click)="deleteConfirmation(eachData)"
-                            ><i class="fe fe-trash me-2"></i> Delete</a
+                            [href]="eachData.blobFilePath"
+                            target="_blank"
+                            class="mb-1 file-name"
+                            *ngIf="eachData.recordType === constants.FILE_TYPE"
+                            >{{ eachData.recordName }}</a
                           >
                         </div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                      </td>
+                      <td>
+                        <span class="text-muted modified-date">{{
+                          eachData.createdDateTime | date: constants.DATE_FORMAT
+                        }}</span>
+                      </td>
+                      <td>
+                        <span
+                          class="text-muted"
+                          *ngIf="eachData.recordType === constants.FILE_TYPE"
+                          >{{ getExt(eachData.fileType) }}</span
+                        >
+                        <span
+                          class="text-muted"
+                          *ngIf="eachData.recordType === constants.FOLDER_TYPE"
+                          >Folder</span
+                        >
+                      </td>
+                      <td>
+                        <span
+                          *ngIf="eachData.recordType === constants.FILE_TYPE"
+                          class="text-muted file-size"
+                          >{{ eachData.fileSize
+                          }}{{ eachData.fileSizeType }}</span
+                        >
+                      </td>
+                      <td>
+                        <div class="float-end ms-auto" ngbDropdown>
+                          <a
+                            href="javascript:;"
+                            class="option-dots no-caret"
+                            ngbDropdownToggle
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            ><i class="fe fe-more-vertical"></i
+                          ></a>
+                          <div
+                            ngbDropdownMenu
+                            class="dropdown-menu-start recent-files-options"
+                          >
+                            <a
+                              *ngIf="
+                                constants.FILE_TYPE === eachData.recordType
+                              "
+                              ngbDropdownItem
+                              [href]="eachData.blobFilePath"
+                              [download]="eachData.recordName"
+                              ><i class="fe fe-download me-2"></i> Download</a
+                            >
+                            <a
+                              ngbDropdownItem
+                              href="javascript:;"
+                              (click)="deleteConfirmation(eachData)"
+                              ><i class="fe fe-trash me-2"></i> Delete</a
+                            >
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <!-- End Row -->
+      <!-- End Row -->
+    </ng-container>
   </div>
 </div>
 <!-- End Row -->

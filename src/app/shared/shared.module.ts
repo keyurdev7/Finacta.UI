@@ -17,7 +17,6 @@ import { FullscreenDirective } from './directives/fullscreen-toggle.directive';
 import { ToggleBtnDirective } from './directives/toggle-btn.directive';
 import { SidemenuToggleDirective } from './directives/sidemenuToggle';
 import { ToggleThemeDirective } from './directives/toggle-theme.directive';
-import { HoverEffectSidebarDirective } from './directives/hover-effect-sidebar.directive';
 // Plugins
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ColorPickerModule } from 'ngx-color-picker';
@@ -58,7 +57,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ToggleBtnDirective,
     SidemenuToggleDirective,
     ToggleThemeDirective,
-    HoverEffectSidebarDirective,
     SwitcherLayoutComponent,
     SwitcherLayoutHeaderComponent,
     DateAgoPipe,

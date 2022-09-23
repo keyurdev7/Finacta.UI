@@ -12,6 +12,14 @@
         <th mat-header-cell *matHeaderCellDef>Detail</th>
         <td mat-cell *matCellDef="let eachBlog" class="p-0">
           <div class="card overflow-hidden">
+            <a
+              *ngIf="eachBlog.blogImageName"
+              (click)="readMore(eachBlog)"
+              class="card custom-card blog-image mb-0"
+              [ngStyle]="{
+                'background-image': 'url(' + eachBlog.blogImageName + ')'
+              }"
+            ></a>
             <div class="card-body">
               <a href="javascript:void(0)" class="text-dark blog-title">{{
                 eachBlog.blogTitle
@@ -50,7 +58,9 @@
                       class="fe fe-calendar text-muted me-2 text-17"
                     ></span>
                     <div class="mt-0 mt-0 text-muted">
-                      {{ eachBlog.publishedDateTime | date: constants.DATE_FORMAT }}
+                      {{
+                        eachBlog.publishedDateTime | date: constants.DATE_FORMAT
+                      }}
                     </div></a
                   >
                   <a class="me-0 d-flex" href="javascript:void(0)"
@@ -58,7 +68,10 @@
                       class="fe fe-message-square text-muted me-2 text-17"
                     ></span>
                     <div class="mt-0 mt-0 text-muted">
-                      {{ eachBlog.blogCommentCount }} {{eachBlog.blogCommentCount > 1 ? 'Comments' : 'Comment'}}
+                      {{ eachBlog.blogCommentCount }}
+                      {{
+                        eachBlog.blogCommentCount > 1 ? "Comments" : "Comment"
+                      }}
                     </div></a
                   >
                 </div>
