@@ -57,13 +57,11 @@ export class TermListComponent implements OnInit {
     })
   }
   ngAfterViewInit() {
-    debugger;
     this.termDataSource.paginator = this.paginator;
     this.termDataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {
-    debugger;
     const filterValue = (event.target as HTMLInputElement).value;
     this.termDataSource.filter = filterValue.trim().toLowerCase();
     if (this.termDataSource.paginator) {
@@ -73,8 +71,9 @@ export class TermListComponent implements OnInit {
 
   addTerm():void{
     const dialog = this.dialog.open(AddTermComponent, {
-      minWidth : '50%',
+      width : '70%',
     });
+
     dialog.afterClosed().subscribe((result) => {
       if (result?.event === 'success') {
         this.getTerms();
@@ -89,7 +88,7 @@ export class TermListComponent implements OnInit {
   editTerm(id: number): void {
     const data = this.termDataSource.data.find((eachData) => eachData.termId === id);
     const dialog = this.dialog.open(AddTermComponent, {
-      minWidth: '50%',
+      width : '70%',
       data
     });
     dialog.afterClosed().subscribe((result) => {
