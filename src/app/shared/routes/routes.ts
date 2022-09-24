@@ -5,6 +5,9 @@ import { BlogManagementComponent } from 'src/app/components/blog-management/blog
 import { CompanyListComponent } from 'src/app/components/company-management/company-list/company-list.component';
 import { CompanyUserComponent } from 'src/app/components/company-user/company-user/company-user.component';
 import { FileManagementComponent } from 'src/app/components/file-management/file-management/file-management.component';
+import { TermListComponent } from 'src/app/components/term-management/term-list/term-list.component'
+import { TermsViewComponent } from 'src/app/components/term-management/terms-view/terms-view.component'
+
 
 export const content: Routes = [
   {
@@ -18,6 +21,14 @@ export const content: Routes = [
   {
     path: 'blog-management',
     component: BlogManagementComponent,
+  },
+  {
+    path: 'term-management',
+    component: TermListComponent,
+  },
+  {
+    path: 'terms',
+    component: TermsViewComponent,
   },
   {
     path: 'blog',

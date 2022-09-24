@@ -42,6 +42,10 @@ import { AddFolderModalComponent } from './components/file-management/add-folder
 import { DeleteFolderModalComponent } from './components/file-management/delete-folder-modal/delete-folder-modal.component';
 import { AddFileComponent } from './components/file-management/add-file/add-file.component';
 import { ActiveInactiveUserModalComponent } from './components/company-user/active-inactive-user-modal/active-inactive-user-modal.component';
+import { TermListComponent } from './components/term-management/term-list/term-list.component';
+import { AddTermComponent } from './components/term-management/add-term/add-term.component';
+import { TermsViewComponent } from './components/term-management/terms-view/terms-view.component';
+import { DeleteTermConfirmationComponent } from './components/term-management/delete-term-confirmation/delete-term-confirmation.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +69,10 @@ import { ActiveInactiveUserModalComponent } from './components/company-user/acti
     DeleteFolderModalComponent,
     AddFileComponent,
     ActiveInactiveUserModalComponent,
+    TermListComponent,
+    AddTermComponent,
+    TermsViewComponent,
+    DeleteTermConfirmationComponent,
   ],
   imports: [
     HttpClientModule,

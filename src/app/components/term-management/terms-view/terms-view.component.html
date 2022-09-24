@@ -1,0 +1,16 @@
+<app-page-header
+  [title]="'Terms'"
+  [items]="[{ title: 'Home', link: '/' }]"
+  [active_item]="'Terms'"
+></app-page-header>
+
+<div class="row ">
+    <div class="col-md-12" *ngFor="let term of termDataSource">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="mb-3">{{ term.termTitle }}</h4>
+                <p class="text-muted text-14" [innerHTML]="term.termContent"></p>
+            </div>
+        </div>
+    </div>
+</div>

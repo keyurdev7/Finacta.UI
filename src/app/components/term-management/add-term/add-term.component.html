@@ -1,0 +1,60 @@
+<h1 mat-dialog-title>
+    <strong>{{ !!termData ? "Edit" : "Add" }} Term</strong>
+</h1>
+<div mat-dialog-content>
+    <form class="validate-form" [formGroup]="termForm">
+        <div class="wrap-input100 validate-input w-100">
+          <input
+            class="input100 termTitle w-100"
+            type="text"
+            formControlName="termTitle"
+            placeholder="Term Title"
+          />
+          <span class="focus-input100"></span>
+        </div>
+        <div
+          *ngIf="hasError('termTitle', 'required')"
+          class="text text-danger mt-1"
+        >
+        Term Title is required
+        </div>
+        <div class="wrap-input100 validate-input">
+          <quill-editor
+            class="w-100"
+            formControlName="termContent"
+            #editor
+            [styles]="{ 'min-height': '160px' }"
+          ></quill-editor>
+        </div>
+        <div
+          *ngIf="hasError('termContent', 'required')"
+          class="text text-danger mt-1"
+        >
+            Term Content is required
+        </div>
+      </form>
+</div>
+
+<div mat-dialog-actions class="float-end">
+    <button
+     *ngIf="!termData"
+      mat-button
+      [disabled]="!termForm.valid"
+      (click)="addTerm()"
+      mat-flat-button
+      color="warn"
+    >
+      Add
+    </button>
+    <button
+     *ngIf="!!termData"
+      mat-button
+      [disabled]="!termForm.valid"
+      (click)="updateTerm()"
+      mat-flat-button
+      color="warn"
+    >
+      Update
+    </button>
+    <button mat-button (click)="closeDialog()">Cancel</button>
+  </div>

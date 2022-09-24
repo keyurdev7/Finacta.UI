@@ -1,0 +1,96 @@
+<app-page-header
+[title]="'Term'"
+[items]="[{ title: 'Home', link: '/' }]"
+[active_item]="'Term Management'"
+></app-page-header>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <mat-form-field appearance="standard">
+                      <mat-label>Filter</mat-label>
+                      <input
+                        matInput
+                        (keyup)="applyFilter($event)"
+                        placeholder="Ex. Mia"
+                        #input
+                      />
+                    </mat-form-field>
+                    <button
+                      class="float-end mt-4"
+                      mat-button
+                      mat-flat-button
+                      color="warn"
+                      (click)="addTerm()"
+                    >
+                      Add Term
+                    </button>
+                </div>
+
+                <div class="table-responsive">
+                <table
+                    mat-table
+                    [dataSource]="termDataSource"
+                    #mytable
+                    class="table text-nowrap table-bordered"
+                    matSort
+                >
+                    <!-- title Column -->
+                    <ng-container matColumnDef="termtitle">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Term Title</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.termTitle }}
+                    </td>
+                    </ng-container>
+        
+                    <!-- term content Column -->
+                    <!-- <ng-container matColumnDef="termcontent" style="display: none">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Term content</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.termContent }}
+                    </td>
+                    </ng-container> -->
+        
+                    <!-- Action Column -->
+                    <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef class="action">Action</th>
+                    <td mat-cell *matCellDef="let element" class="action-link action">
+                        <span class="me-2">
+                            <i
+                              class="fa fa-pencil"
+                              ngbTooltip="Edit"
+                              (click)="editTerm(element.termId)"
+                            ></i>
+                          </span>
+                          <span class="me-2">
+                            <i
+                              class="fa fa-trash"
+                              ngbTooltip="Delete"
+                              (click) = "deleteTermConfirmation(element.termId)"
+                            ></i>
+                          </span>
+                    </td>
+                    </ng-container>
+        
+                    <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                        No data found.
+                    </td>
+                    </tr>
+        
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+                <mat-paginator
+                    [pageSizeOptions]="[10, 20, 100]"
+                    aria-label="Select page of users"
+                ></mat-paginator>
+                </div>
+
+
+            </div>
+        </div>
+    </div>    
+</div>
