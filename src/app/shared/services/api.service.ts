@@ -6,8 +6,7 @@ import { environment } from '../../../environments/environment';
 import { LoadingMaskService } from './loading-mask.service';
 import { RegisterForm } from './../../models/register-form.model';
 import { ProfileForm } from './../../models/profile-form.model';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.state';
+import { UserTheme } from 'src/app/models/user-theme.model';
 
 @Injectable({
   providedIn: 'root',
@@ -50,14 +49,17 @@ export class APIService extends AbstractService {
 
   companyUserVerify(param: string): Observable<any> {
     return this.httpPost({
-      url: this.baseUrl + '/UserManagement/VerifyInvitedUser?param='+param,
+      url: this.baseUrl + '/UserManagement/VerifyInvitedUser?param=' + param,
       callerErrorHandler: false,
     }) as Observable<any>;
   }
 
   VerifyInvitedAdvisorUser(param: string): Observable<any> {
     return this.httpPost({
-      url: this.baseUrl + '/UserManagement/VerifyInvitedAdvisorUser?param='+param,
+      url:
+        this.baseUrl +
+        '/UserManagement/VerifyInvitedAdvisorUser?param=' +
+        param,
       callerErrorHandler: false,
     }) as Observable<any>;
   }
@@ -81,7 +83,7 @@ export class APIService extends AbstractService {
       callerErrorHandler: false,
     }) as Observable<any>;
   }
-  
+
   forgotPassword(email: string): Observable<any> {
     const body = {
       emailId: email,
@@ -134,11 +136,26 @@ export class APIService extends AbstractService {
   changePassword(userId: number, password: string): Observable<any> {
     const body = {
       userId: userId,
-      password: password
+      password: password,
     };
     return this.httpPost({
       url: this.baseUrl + '/UserManagement/ChangePassword',
       payload: body,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  getInvoices(): Observable<any> {
+    return this.httpGet({
+      url: this.baseUrl + '/InvoiceManagement/GetAllInvoices',
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  updateUserTheme(data: UserTheme): Observable<any> {
+    return this.httpPost({
+      url: this.baseUrl + '/UserManagement/UpdateTheme',
+      payload: data,
       callerErrorHandler: false,
     }) as Observable<any>;
   }

@@ -5,6 +5,7 @@ import { BlogManagementComponent } from 'src/app/components/blog-management/blog
 import { CompanyListComponent } from 'src/app/components/company-management/company-list/company-list.component';
 import { CompanyUserComponent } from 'src/app/components/company-user/company-user/company-user.component';
 import { FileManagementComponent } from 'src/app/components/file-management/file-management/file-management.component';
+import { InvoicesComponent } from 'src/app/components/invoices/invoices.component';
 
 export const content: Routes = [
   {
@@ -30,6 +31,10 @@ export const content: Routes = [
   {
     path: 'file-management',
     component: FileManagementComponent,
+  },
+  {
+    path: 'invoices',
+    component: InvoicesComponent,
   },
   {
     path: 'dashboard',

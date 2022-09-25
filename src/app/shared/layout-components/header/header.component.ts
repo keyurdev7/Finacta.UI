@@ -6,6 +6,7 @@ import { User } from 'src/app/models/user.model';
 import { UpdateUserAction } from 'src/app/store/app.actions';
 import { AppState, userSelector } from 'src/app/store/app.state';
 import { CompanyUsersService } from '../../services/company-users.service';
+import { SwitcherService } from '../../services/switcher.service';
 
 @Component({
   selector: 'app-header',
@@ -20,6 +21,7 @@ export class HeaderComponent implements OnInit {
     private store: Store<AppState>,
     private toster: ToastrService,
     private companyService: CompanyUsersService,
+    public SwitcherService: SwitcherService
   ) {}
 
   ngOnInit(): void {
@@ -61,6 +63,10 @@ export class HeaderComponent implements OnInit {
 
   reload() {
     window.location.reload();
+  }
+
+  toggleSwitcher() {
+    this.SwitcherService.emitChange(true);
   }
 
   signout(): void {

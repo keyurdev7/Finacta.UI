@@ -277,6 +277,14 @@ export class FileManagementComponent implements OnInit, OnDestroy {
     }
   }
 
+  rowClick(row: any): void {
+    if (row.recordType === this.constants.FILE_TYPE) {
+      window.open(row.blobFilePath, '_blank');
+    } else if (row.recordType === this.constants.FOLDER_TYPE) {
+      this.getData(row.recordId);
+    }
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach((eachSub) => eachSub.unsubscribe());
   }

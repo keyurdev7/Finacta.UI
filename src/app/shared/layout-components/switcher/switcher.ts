@@ -216,8 +216,8 @@ export function dynamicDarkBodyColor(primaryColor: any, color: any) {
   });
 }
 
-export function customClickFn() {
-  let body:HTMLBodyElement | any= document.querySelector('body');
+export function customClickFn(eventCallback: any = null) {
+  let body: HTMLBodyElement | any = document.querySelector('body');
   let html: any = document.querySelector('html');
   let ltr: any = document.querySelectorAll('#myonoffswitch54');
   let rtl: any = document.querySelectorAll('#myonoffswitch55');
@@ -233,8 +233,12 @@ export function customClickFn() {
   let appSidebar: any = document.querySelector('.app-sidebar');
   let header: any = document.querySelector('.header');
   let mainSidemenu: any = document.querySelector('.main-sidemenu');
-  let lightBtn: any = document.getElementById('myonoffswitch1') as HTMLInputElement;
-  let darkBtn: any = document.getElementById('myonoffswitch2') as HTMLInputElement;
+  let lightBtn: any = document.getElementById(
+    'myonoffswitch1'
+  ) as HTMLInputElement;
+  let darkBtn: any = document.getElementById(
+    'myonoffswitch2'
+  ) as HTMLInputElement;
   let sideMenu: any = document.querySelector('.horizontal .side-menu');
   let lightMenu: any = document.querySelector('#myonoffswitch3');
   let colorMenu: any = document.querySelector('#myonoffswitch4');
@@ -247,232 +251,292 @@ export function customClickFn() {
 
   let styleId = document.querySelector('#style');
   // LTR
-  fromEvent(ltr, 'click').subscribe(() => {
-    //add
-    body?.classList.add('ltr');
-    html?.setAttribute('dir', 'ltr');
-    styleId?.setAttribute(
-      'href',
-      './assets/plugins/bootstrap/css/bootstrap.css'
-    );
-    //remove
-    body?.classList.remove('rtl');
-    sidebarFn.checkHoriMenu();
-    localStorage.setItem('Noaltr', 'true')
-    localStorage.removeItem('Noartl')
-  });
+  // fromEvent(ltr, 'click').subscribe(() => {
+  //   //add
+  //   body?.classList.add('ltr');
+  //   html?.setAttribute('dir', 'ltr');
+  //   styleId?.setAttribute(
+  //     'href',
+  //     './assets/plugins/bootstrap/css/bootstrap.css'
+  //   );
+  //   //remove
+  //   body?.classList.remove('rtl');
+  //   sidebarFn.checkHoriMenu();
+  //   localStorage.setItem('Noaltr', 'true')
+  //   localStorage.removeItem('Noartl')
+  // });
   // RTL
-  fromEvent(rtl, 'click').subscribe(() => {
-    //add
-    body?.classList.add('rtl');
-    html?.setAttribute('dir', 'rtl');
-    styleId?.setAttribute(
-      'href',
-      './assets/plugins/bootstrap/css/bootstrap.rtl.css'
-    );
-    //remove
-    body?.classList.remove('ltr');
-    sidebarFn.checkHoriMenu();
-    localStorage.setItem('Noartl', 'true')
-    localStorage.removeItem('Noaltr')
-  });
+  // fromEvent(rtl, 'click').subscribe(() => {
+  //   //add
+  //   body?.classList.add('rtl');
+  //   html?.setAttribute('dir', 'rtl');
+  //   styleId?.setAttribute(
+  //     'href',
+  //     './assets/plugins/bootstrap/css/bootstrap.rtl.css'
+  //   );
+  //   //remove
+  //   body?.classList.remove('ltr');
+  //   sidebarFn.checkHoriMenu();
+  //   localStorage.setItem('Noartl', 'true')
+  //   localStorage.removeItem('Noaltr')
+  // });
   // Layouts
-  fromEvent(vertical, 'click').subscribe(() => {
-    //add
-    mainContent?.classList.add('app-content');
-    mainContainer.forEach((e,i)=>{
-      e.classList.add('container-fluid')
-    })
-    header?.classList.add('app-header');
-    body?.classList.add('sidebar-mini');
-    //remove
-    body?.classList.remove('horizontal');
-    body?.classList.remove('horizontal-hover');
-    appSidebar?.classList.remove('horizontal-main');
-    mainSidemenu?.classList.remove('container');
-    mainContent?.classList.remove('hor-content');
-    header?.classList.remove('hor-header');
-    mainContainer.forEach((e,i)=>{
-      e.classList.remove('container')
-    })
-    document.querySelector('.slide-left')?.classList.add('d-none');
-    document.querySelector('.slide-right')?.classList.add('d-none');
-    document.querySelector('.slide-leftRTL')?.classList.add('d-none');
-    document.querySelector('.slide-rightRTL')?.classList.add('d-none');
-    localStorage.setItem('NoasidebarMini', 'true')
-    localStorage.removeItem('Noahorizontal')
-    localStorage.removeItem('NoahorizontalHover') 
-  });
-  fromEvent(horizontal, 'click').subscribe(() => {
-    //add
-    body?.classList.add('horizontal');
-    mainContent?.classList.add('hor-content');
-    mainContainer.forEach((e,i)=>{
-      e.classList.add('container')
-    })
-    header?.classList.add('hor-header');
-    appSidebar?.classList.add('horizontal-main');
-    mainSidemenu?.classList.add('container');
-    sideMenu?.classList.add('flex-nowrap');
-    // // remove
-    sideMenu?.classList.remove('flex-wrap');
-    mainContent?.classList.remove('app-content');
-    mainContainer.forEach((e,i)=>{
-      e.classList.remove('container-fluid')
-    })
-    header?.classList.remove('app-header');
-    body?.classList.remove('sidebar-mini');
-    body?.classList.remove('sidenav-toggled');
-    body?.classList.remove('horizontal-hover');
-    let li = document.querySelectorAll('.side-menu li');
-    li.forEach((e, i) => {
-      e.classList.remove('is-expanded');
-    });
-    sidebarFn.checkHoriMenu();     
-    setTimeout(()=>{
-      sidebarFn.parentNavActive();    
-    }, 300) 
-    localStorage.setItem('Noahorizontal', 'true')
-    localStorage.removeItem('NoahorizontalHorizontal')
-    localStorage.removeItem('NoasidebarMini') 
-    
-  });
-  fromEvent(horizontalHover, 'click').subscribe(() => {
-    //add
-    body?.classList.add('horizontal');
-    body?.classList.add('horizontal-hover');
-    mainContent?.classList.add('hor-content');
-    mainContainer.forEach((e,i)=>{
-      e.classList.add('container')
-    })
-    console.log(mainContainer);
-    header?.classList.add('hor-header');
-    appSidebar?.classList.add('horizontal-main');
-    mainSidemenu?.classList.add('container');
-    sideMenu?.classList.add('flex-nowrap');
-    // remove
-    sideMenu?.classList.remove('flex-wrap');
-    mainContent?.classList.remove('app-content');
-    mainContainer.forEach((e,i)=>{
-      e.classList.remove('container-fluid')
-    })
-    header?.classList.remove('app-header');
-    body?.classList.remove('sidebar-mini');
-    body?.classList.remove('sidenav-toggled');
+  // fromEvent(vertical, 'click').subscribe(() => {
+  //   //add
+  //   mainContent?.classList.add('app-content');
+  //   mainContainer.forEach((e,i)=>{
+  //     e.classList.add('container-fluid')
+  //   })
+  //   header?.classList.add('app-header');
+  //   body?.classList.add('sidebar-mini');
+  //   //remove
+  //   body?.classList.remove('horizontal');
+  //   body?.classList.remove('horizontal-hover');
+  //   appSidebar?.classList.remove('horizontal-main');
+  //   mainSidemenu?.classList.remove('container');
+  //   mainContent?.classList.remove('hor-content');
+  //   header?.classList.remove('hor-header');
+  //   mainContainer.forEach((e,i)=>{
+  //     e.classList.remove('container')
+  //   })
+  //   document.querySelector('.slide-left')?.classList.add('d-none');
+  //   document.querySelector('.slide-right')?.classList.add('d-none');
+  //   document.querySelector('.slide-leftRTL')?.classList.add('d-none');
+  //   document.querySelector('.slide-rightRTL')?.classList.add('d-none');
+  //   localStorage.setItem('NoasidebarMini', 'true')
+  //   localStorage.removeItem('Noahorizontal')
+  //   localStorage.removeItem('NoahorizontalHover')
+  // });
+  // fromEvent(horizontal, 'click').subscribe(() => {
+  //   //add
+  //   body?.classList.add('horizontal');
+  //   mainContent?.classList.add('hor-content');
+  //   mainContainer.forEach((e,i)=>{
+  //     e.classList.add('container')
+  //   })
+  //   header?.classList.add('hor-header');
+  //   appSidebar?.classList.add('horizontal-main');
+  //   mainSidemenu?.classList.add('container');
+  //   sideMenu?.classList.add('flex-nowrap');
+  //   // // remove
+  //   sideMenu?.classList.remove('flex-wrap');
+  //   mainContent?.classList.remove('app-content');
+  //   mainContainer.forEach((e,i)=>{
+  //     e.classList.remove('container-fluid')
+  //   })
+  //   header?.classList.remove('app-header');
+  //   body?.classList.remove('sidebar-mini');
+  //   body?.classList.remove('sidenav-toggled');
+  //   body?.classList.remove('horizontal-hover');
+  //   let li = document.querySelectorAll('.side-menu li');
+  //   li.forEach((e, i) => {
+  //     e.classList.remove('is-expanded');
+  //   });
+  //   sidebarFn.checkHoriMenu();
+  //   setTimeout(()=>{
+  //     sidebarFn.parentNavActive();
+  //   }, 300)
+  //   localStorage.setItem('Noahorizontal', 'true')
+  //   localStorage.removeItem('NoahorizontalHorizontal')
+  //   localStorage.removeItem('NoasidebarMini')
 
-    let li = document.querySelectorAll('.side-menu li');
-    li.forEach((e, i) => {
-      e.classList.remove('is-expanded');
-    });
-    sidebarFn.checkHoriMenu();
-    setTimeout(()=>{
-      sidebarFn.parentNavActive();    
-    }, 300)    
-    localStorage.setItem('NoahorizontalHover', 'true')
-    localStorage.removeItem('Noahorizontal')
-    localStorage.removeItem('NoasidebarMini') 
-  });
+  // });
+  // fromEvent(horizontalHover, 'click').subscribe(() => {
+  //   //add
+  //   body?.classList.add('horizontal');
+  //   body?.classList.add('horizontal-hover');
+  //   mainContent?.classList.add('hor-content');
+  //   mainContainer.forEach((e,i)=>{
+  //     e.classList.add('container')
+  //   })
+  //   console.log(mainContainer);
+  //   header?.classList.add('hor-header');
+  //   appSidebar?.classList.add('horizontal-main');
+  //   mainSidemenu?.classList.add('container');
+  //   sideMenu?.classList.add('flex-nowrap');
+  //   // remove
+  //   sideMenu?.classList.remove('flex-wrap');
+  //   mainContent?.classList.remove('app-content');
+  //   mainContainer.forEach((e,i)=>{
+  //     e.classList.remove('container-fluid')
+  //   })
+  //   header?.classList.remove('app-header');
+  //   body?.classList.remove('sidebar-mini');
+  //   body?.classList.remove('sidenav-toggled');
+
+  //   let li = document.querySelectorAll('.side-menu li');
+  //   li.forEach((e, i) => {
+  //     e.classList.remove('is-expanded');
+  //   });
+  //   sidebarFn.checkHoriMenu();
+  //   setTimeout(()=>{
+  //     sidebarFn.parentNavActive();
+  //   }, 300)
+  //   localStorage.setItem('NoahorizontalHover', 'true')
+  //   localStorage.removeItem('Noahorizontal')
+  //   localStorage.removeItem('NoasidebarMini')
+  // });
   // Theme
-  fromEvent(lightBtn, 'click').subscribe(() => {
-    lightBtn.checked = true;
-    // add
-    document.querySelector('body')?.classList.add('light-mode');
-    // remove
-    document.querySelector('body')?.classList.remove('dark-mode');
-    document.querySelector('body')?.classList.remove('bg-img1');
-    document.querySelector('body')?.classList.remove('bg-img2');
-    document.querySelector('body')?.classList.remove('bg-img3');
-    document.querySelector('body')?.classList.remove('bg-img4');
-    localStorage.clear();
-    localStorage.setItem('Noalight-theme', 'true')
-    localStorage.removeItem('Noadark-theme')
-    console.log('ok');
-    
-  });
-  fromEvent(darkBtn, 'click').subscribe(() => {
-    darkBtn.checked = true;
-    // add
-    document.querySelector('body')?.classList.add('dark-mode');
-    // remove
-    document.querySelector('body')?.classList.remove('light-mode');
-    document.querySelector('body')?.classList.remove('bg-img1');
-    document.querySelector('body')?.classList.remove('bg-img2');
-    document.querySelector('body')?.classList.remove('bg-img3');
-    document.querySelector('body')?.classList.remove('bg-img4');
-    localStorage.clear();
-    localStorage.setItem('Noadark-theme', 'true')
-    localStorage.removeItem('Noalight-theme')
-  });
+  // fromEvent(lightBtn, 'click').subscribe(() => {
+  //   lightBtn.checked = true;
+  //   // add
+  //   document.querySelector('body')?.classList.add('light-mode');
+  //   // remove
+  //   document.querySelector('body')?.classList.remove('dark-mode');
+  //   document.querySelector('body')?.classList.remove('bg-img1');
+  //   document.querySelector('body')?.classList.remove('bg-img2');
+  //   document.querySelector('body')?.classList.remove('bg-img3');
+  //   document.querySelector('body')?.classList.remove('bg-img4');
+  //   localStorage.clear();
+  //   localStorage.setItem('Noalight-theme', 'true')
+  //   localStorage.removeItem('Noadark-theme')
+  //   console.log('ok');
+
+  // });
+  // fromEvent(darkBtn, 'click').subscribe(() => {
+  //   darkBtn.checked = true;
+  //   // add
+  //   document.querySelector('body')?.classList.add('dark-mode');
+  //   // remove
+  //   document.querySelector('body')?.classList.remove('light-mode');
+  //   document.querySelector('body')?.classList.remove('bg-img1');
+  //   document.querySelector('body')?.classList.remove('bg-img2');
+  //   document.querySelector('body')?.classList.remove('bg-img3');
+  //   document.querySelector('body')?.classList.remove('bg-img4');
+  //   localStorage.clear();
+  //   localStorage.setItem('Noadark-theme', 'true')
+  //   localStorage.removeItem('Noalight-theme')
+  // });
   // layout width  style
-  fromEvent(defaultTheme, 'click').subscribe(() => {
-    body?.classList.add('layout-fullwidth');
-    body?.classList.remove('layout-boxed');
-    sidebarFn.checkHoriMenu();
-  });
-  fromEvent(boxed, 'click').subscribe(() => {
-    body?.classList.add('layout-boxed');
-    body?.classList.remove('layout-fullwidth');
-    sidebarFn.checkHoriMenu();
-  });
+  // fromEvent(defaultTheme, 'click').subscribe(() => {
+  //   body?.classList.add('layout-fullwidth');
+  //   body?.classList.remove('layout-boxed');
+  //   sidebarFn.checkHoriMenu();
+  // });
+  // fromEvent(boxed, 'click').subscribe(() => {
+  //   body?.classList.add('layout-boxed');
+  //   body?.classList.remove('layout-fullwidth');
+  //   sidebarFn.checkHoriMenu();
+  // });
   // layout position
   fromEvent(fixedLayout, 'click').subscribe(() => {
-    body?.classList.add('fixed-layout');
-    body?.classList.remove('scrollable-layout');
+    eventCallback && eventCallback({ layout_Position: 'fixed' });
+    fixedLayoutFn();
   });
   fromEvent(scrollableLayout, 'click').subscribe(() => {
-    body?.classList.add('scrollable-layout');
-    body?.classList.remove('fixed-layout');
+    eventCallback && eventCallback({ layout_Position: 'scroll' });
+    scrollLayoutFn();
   });
   // menu
   fromEvent(lightMenu, 'click').subscribe(() => {
-    body?.classList.add('light-menu');
-    body?.classList.remove('color-menu');
-    body?.classList.remove('dark-menu');
-    body?.classList.remove('gradient-menu');
+    eventCallback && eventCallback({ menu_Style: 'light' });
+    lightMenuFn();
   });
-  fromEvent(colorMenu, 'click').subscribe(() => {
-    body?.classList.add('color-menu');
-    body?.classList.remove('light-menu');
-    body?.classList.remove('dark-menu');
-    body?.classList.remove('gradient-menu');
-  });
+  // fromEvent(colorMenu, 'click').subscribe(() => {
+  //   body?.classList.add('color-menu');
+  //   body?.classList.remove('light-menu');
+  //   body?.classList.remove('dark-menu');
+  //   body?.classList.remove('gradient-menu');
+  // });
   fromEvent(darkMenu, 'click').subscribe(() => {
-    body?.classList.add('dark-menu');
-    body?.classList.remove('color-menu');
-    body?.classList.remove('light-menu');
-    body?.classList.remove('gradient-menu');
+    eventCallback && eventCallback({ menu_Style: 'dark' });
+    darkMenuFn();
   });
-  fromEvent(gradientMenu, 'click').subscribe(() => {
-    body?.classList.add('gradient-menu');
-    body?.classList.remove('color-menu');
-    body?.classList.remove('light-menu');
-    body?.classList.remove('dark-menu');
-  });
+  // fromEvent(gradientMenu, 'click').subscribe(() => {
+  //   body?.classList.add('gradient-menu');
+  //   body?.classList.remove('color-menu');
+  //   body?.classList.remove('light-menu');
+  //   body?.classList.remove('dark-menu');
+  // });
   // header
   fromEvent(lightHeader, 'click').subscribe(() => {
-    body?.classList.add('header-light');
-    body?.classList.remove('color-header');
-    body?.classList.remove('gradient-header');
-    body?.classList.remove('dark-header');
+    eventCallback && eventCallback({ header_Style: 'light' });
+    lightHeaderFn();
   });
   fromEvent(darkHeader, 'click').subscribe(() => {
-    body?.classList.add('dark-header');
-    body?.classList.remove('header-light');
-    body?.classList.remove('color-header');
-    body?.classList.remove('gradient-header');
+    eventCallback && eventCallback({ header_Style: 'dark' });
+    darkHeaderFn();
   });
-  fromEvent(colorHeader, 'click').subscribe(() => {
-    body?.classList.add('color-header');
-    body?.classList.remove('header-light');
-    body?.classList.remove('gradient-header');
-    body?.classList.remove('dark-header');
+  // fromEvent(colorHeader, 'click').subscribe(() => {
+  //   body?.classList.add('color-header');
+  //   body?.classList.remove('header-light');
+  //   body?.classList.remove('gradient-header');
+  //   body?.classList.remove('dark-header');
+  // });
+  // fromEvent(gradientHeader, 'click').subscribe(() => {
+  //   body?.classList.add('gradient-header');
+  //   body?.classList.remove('header-light');
+  //   body?.classList.remove('color-header');
+  //   body?.classList.remove('dark-header');
+  // });
+}
+
+export function lightMenuFn() {
+  let body: HTMLBodyElement | any = document.querySelector('body');
+  body?.classList.add('light-menu');
+  body?.classList.remove('color-menu');
+  body?.classList.remove('dark-menu');
+  body?.classList.remove('gradient-menu');
+  document.getElementsByName('onoffswitch2').forEach((e: any) => {
+    e.checked = false;
   });
-  fromEvent(gradientHeader, 'click').subscribe(() => {
-    body?.classList.add('gradient-header');
-    body?.classList.remove('header-light');
-    body?.classList.remove('color-header');
-    body?.classList.remove('dark-header');
+  (document.getElementById('myonoffswitch3') as any).checked = true;
+}
+
+export function darkMenuFn() {
+  let body: HTMLBodyElement | any = document.querySelector('body');
+  body?.classList.add('dark-menu');
+  body?.classList.remove('color-menu');
+  body?.classList.remove('light-menu');
+  body?.classList.remove('gradient-menu');
+  document.getElementsByName('onoffswitch2').forEach((e: any) => {
+    e.checked = false;
   });
+  (document.getElementById('myonoffswitch5') as any).checked = true;
+}
+
+export function lightHeaderFn() {
+  let body: HTMLBodyElement | any = document.querySelector('body');
+  body?.classList.add('header-light');
+  body?.classList.remove('color-header');
+  body?.classList.remove('gradient-header');
+  body?.classList.remove('dark-header');
+  document.getElementsByName('onoffswitch3').forEach((e: any) => {
+    e.checked = false;
+  });
+  (document.getElementById('myonoffswitch6') as any).checked = true;
+}
+
+export function darkHeaderFn() {
+  let body: HTMLBodyElement | any = document.querySelector('body');
+  body?.classList.add('dark-header');
+  body?.classList.remove('header-light');
+  body?.classList.remove('color-header');
+  body?.classList.remove('gradient-header');
+  document.getElementsByName('onoffswitch3').forEach((e: any) => {
+    e.checked = false;
+  });
+  (document.getElementById('myonoffswitch8') as any).checked = true;
+}
+
+export function fixedLayoutFn() {
+  let body: HTMLBodyElement | any = document.querySelector('body');
+  body?.classList.add('fixed-layout');
+  body?.classList.remove('scrollable-layout');
+  document.getElementsByName('onoffswitch5').forEach((e: any) => {
+    e.checked = false;
+  });
+  (document.getElementById('myonoffswitch11') as any).checked = true;
+}
+
+export function scrollLayoutFn() {
+  let body: HTMLBodyElement | any = document.querySelector('body');
+  body?.classList.add('scrollable-layout');
+  body?.classList.remove('fixed-layout');
+  document.getElementsByName('onoffswitch5').forEach((e: any) => {
+    e.checked = false;
+  });
+  (document.getElementById('myonoffswitch12') as any).checked = true;
 }
 
 export function removeForTransparent() {

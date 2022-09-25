@@ -2,6 +2,7 @@ import { Transform } from 'class-transformer';
 import { momentTransform } from '../shared/utils/date.utils';
 import { AccessMenuHeader } from './access-menu-header.model';
 import { Company } from './company.model';
+import { UserTheme } from './user-theme.model';
 
 export class User {
   accessMenu: AccessMenuHeader[] = [];
@@ -33,6 +34,8 @@ export class User {
   userActiveStatusId?: boolean = false;
   userCompany: Company[] = [];
   fileManagementListView?: boolean = true;
+  isSidebarOpen?: boolean = false;
+  userTheme: UserTheme = new UserTheme();
 
   getFullName(): string {
     return this.firstName + ' ' + this.lastName;

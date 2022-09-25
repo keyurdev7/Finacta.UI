@@ -187,56 +187,40 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let eachData of data">
-                      <td>
+                    <tr *ngFor="let eachData of data" class="body-rows">
+                      <td (click)="rowClick(eachData)">
                         <div class="recent-files">
-                          <a
-                            [attr.href]="
-                              eachData.recordType === constants.FILE_TYPE
-                                ? eachData.blobFilePath
-                                : null
+                          <img
+                            *ngIf="
+                              eachData.recordType === constants.FOLDER_TYPE
                             "
-                            [attr.target]="
-                              eachData.recordType === constants.FILE_TYPE
-                                ? '_blank'
-                                : null
+                            class="me-2 w-icn"
+                            [src]="
+                              './assets/images/files/' +
+                              getFileImage(
+                                eachData.recordName,
+                                eachData.recordType
+                              ) +
+                              '.png'
                             "
-                          >
-                            <img
-                              *ngIf="
-                                eachData.recordType === constants.FOLDER_TYPE
-                              "
-                              class="me-2 w-icn"
-                              [src]="
-                                './assets/images/files/' +
-                                getFileImage(
-                                  eachData.recordName,
-                                  eachData.recordType
-                                ) +
-                                '.png'
-                              "
-                              alt="img"
-                            />
-                            <i
-                              *ngIf="
-                                eachData.recordType === constants.FILE_TYPE
-                              "
-                              class="fa me-2 w-icn list-file-icon"
-                              [ngClass]="
-                                'fa-file-' +
-                                getFileImage(
-                                  eachData.recordName,
-                                  eachData.recordType
-                                )
-                              "
-                            ></i>
-                          </a>
+                            alt="img"
+                          />
+                          <i
+                            *ngIf="eachData.recordType === constants.FILE_TYPE"
+                            class="fa me-2 w-icn list-file-icon"
+                            [ngClass]="
+                              'fa-file-' +
+                              getFileImage(
+                                eachData.recordName,
+                                eachData.recordType
+                              )
+                            "
+                          ></i>
                           <span
                             class="mb-1 file-name"
                             *ngIf="
                               eachData.recordType === constants.FOLDER_TYPE
                             "
-                            (click)="getData(eachData.recordId)"
                             >{{ eachData.recordName }}</span
                           >
                           <a
@@ -248,12 +232,12 @@
                           >
                         </div>
                       </td>
-                      <td>
+                      <td (click)="rowClick(eachData)">
                         <span class="text-muted modified-date">{{
                           eachData.createdDateTime | date: constants.DATE_FORMAT
                         }}</span>
                       </td>
-                      <td>
+                      <td (click)="rowClick(eachData)">
                         <span
                           class="text-muted"
                           *ngIf="eachData.recordType === constants.FILE_TYPE"
@@ -265,7 +249,7 @@
                           >Folder</span
                         >
                       </td>
-                      <td>
+                      <td (click)="rowClick(eachData)">
                         <span
                           *ngIf="eachData.recordType === constants.FILE_TYPE"
                           class="text-muted file-size"

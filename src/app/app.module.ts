@@ -42,6 +42,7 @@ import { AddFolderModalComponent } from './components/file-management/add-folder
 import { DeleteFolderModalComponent } from './components/file-management/delete-folder-modal/delete-folder-modal.component';
 import { AddFileComponent } from './components/file-management/add-file/add-file.component';
 import { ActiveInactiveUserModalComponent } from './components/company-user/active-inactive-user-modal/active-inactive-user-modal.component';
+import { InvoicesComponent } from './components/invoices/invoices.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { ActiveInactiveUserModalComponent } from './components/company-user/acti
     DeleteFolderModalComponent,
     AddFileComponent,
     ActiveInactiveUserModalComponent,
+    InvoicesComponent,
   ],
   imports: [
     HttpClientModule,
