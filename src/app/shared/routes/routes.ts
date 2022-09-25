@@ -7,7 +7,7 @@ import { CompanyUserComponent } from 'src/app/components/company-user/company-us
 import { FileManagementComponent } from 'src/app/components/file-management/file-management/file-management.component';
 import { TermListComponent } from 'src/app/components/term-management/term-list/term-list.component'
 import { TermsViewComponent } from 'src/app/components/term-management/terms-view/terms-view.component'
-
+import { InvoicesComponent } from 'src/app/components/invoices/invoices.component';
 
 export const content: Routes = [
   {
@@ -41,6 +41,10 @@ export const content: Routes = [
   {
     path: 'file-management',
     component: FileManagementComponent,
+  },
+  {
+    path: 'invoices',
+    component: InvoicesComponent,
   },
   {
     path: 'dashboard',

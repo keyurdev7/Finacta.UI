@@ -1,7 +1,12 @@
-import { Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import {  Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { User } from 'src/app/models/user.model';
+import { AppState, userSelector } from 'src/app/store/app.state';
 import { SwitcherService } from '../../services/switcher.service';
 import * as switcher from './switcher';
+import { APIService } from '../../services/api.service';
+import { UpdateUserAction } from 'src/app/store/app.actions';
 
 @Component({
   selector: 'app-switcher',
@@ -12,11 +17,14 @@ export class SwitcherComponent implements OnInit {
   layoutSub: Subscription;
 
   body = document.querySelector('body');
+  private user: User = new User();
 
   @ViewChild('switcher', { static: false }) switcher!: ElementRef;
   constructor(
     public renderer: Renderer2,
-    public switcherServic: SwitcherService
+    public switcherServic: SwitcherService,
+    private api: APIService,
+    private store: Store<AppState>
   ) {   
     this.layoutSub = switcherServic.changeEmitted.subscribe((value) => {
       if (value) {
@@ -32,10 +40,37 @@ export class SwitcherComponent implements OnInit {
   }
   ngOnInit(): void {
     switcher.localStorageBackUp();
-    switcher.customClickFn();
+    switcher.customClickFn((e) => this.updateUserTheme(e));
     switcher.updateChanges();
 
+    this.store.pipe(userSelector).subscribe((res) => {
+      this.user = res;
+      this.user.userTheme.layout_Position !== 'scroll'
+        ? switcher.fixedLayoutFn()
+        : switcher.scrollLayoutFn();
+      this.user.userTheme.menu_Style !== 'dark'
+        ? switcher.lightMenuFn()
+        : switcher.darkMenuFn();
+      this.user.userTheme.header_Style !== 'dark'
+        ? switcher.lightHeaderFn()
+        : switcher.darkHeaderFn();
+    });
+
   }
+
+  updateUserTheme(data: any): void {
+    const theme = Object.assign({}, this.user.userTheme, data);
+    this.api.updateUserTheme(theme).subscribe(() => {
+      this.store.dispatch(
+        UpdateUserAction(
+          Object.assign({}, this.user, {
+            userTheme: theme,
+          })
+        )
+      );
+    });
+  }
+  
   reset(){
     localStorage.clear(); 
     let html:any = document.querySelector('html')

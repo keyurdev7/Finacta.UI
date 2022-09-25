@@ -46,6 +46,7 @@ import { TermListComponent } from './components/term-management/term-list/term-l
 import { AddTermComponent } from './components/term-management/add-term/add-term.component';
 import { TermsViewComponent } from './components/term-management/terms-view/terms-view.component';
 import { DeleteTermConfirmationComponent } from './components/term-management/delete-term-confirmation/delete-term-confirmation.component';
+import { InvoicesComponent } from './components/invoices/invoices.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { DeleteTermConfirmationComponent } from './components/term-management/de
     AddTermComponent,
     TermsViewComponent,
     DeleteTermConfirmationComponent,
+    InvoicesComponent,
   ],
   imports: [
     HttpClientModule,

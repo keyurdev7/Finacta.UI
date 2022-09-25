@@ -1,0 +1,95 @@
+<app-page-header
+  [title]="'Invoice-list'"
+  [items]="[{ title: 'Home', link: '/' }]"
+  [active_item]="'Invoice-list'"
+></app-page-header>
+
+<!-- ROW-1 OPEN -->
+<div class="row">
+  <table
+    mat-table
+    [dataSource]="invoices"
+    class="table text-nowrap text-md-nowrap"
+  >
+    <ng-container matColumnDef="invoiceNumber">
+      <td mat-cell *matCellDef="let element">
+        <h6 class="text-muted">Invoice Number</h6>
+        <p class="fs-14 mb-0">
+          <a
+            [href]="element.invoiceXeroUrl"
+            target="_blank"
+            class="text-primary"
+          >
+            {{ element.invoiceNumber }}
+          </a>
+        </p>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="invoiceStatus">
+      <td mat-cell *matCellDef="let element" class="text-center">
+        <span class="text-muted d-block">Status</span>
+        <p
+          class="mb-0 mt-1 badge rounded-pill bg-{{
+            statusStages[element.invoiceStatus.toLowerCase()]
+          }}-transparent text-{{
+            statusStages[element.invoiceStatus.toLowerCase()]
+          }}"
+        >
+          {{ element.invoiceStatus }}
+        </p>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="invoiceAmount">
+      <td mat-cell *matCellDef="let element" class="text-end">
+        <h6 class="text-muted">Amount</h6>
+        <h4 class="mb-0">{{ element.invoiceAmount | currency: "GBP" }}</h4>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="view">
+      <td mat-cell *matCellDef="let element" class="text-center">
+        <h6 class="text-muted">View</h6>
+        <a [href]="element.invoiceXeroUrl" target="_blank">
+          <i class="fa fa-eye view-icon"></i>
+        </a>
+      </td>
+    </ng-container>
+    <!-- <ng-container matColumnDef="action">
+      <td mat-cell *matCellDef="let element">
+        <div class="options-inv" ngbDropdown>
+          <a
+            href="javascript:;"
+            class="option-dots no-caret"
+            ngbDropdownToggle
+            aria-haspopup="true"
+            aria-expanded="false"
+            ><i class="fe fe-more-vertical"></i
+          ></a>
+          <div ngbDropdownMenu class="dropdown-menu-start">
+            <a ngbDropdownItem href="javascript:;"
+              ><i class="fe fe-edit me-2"></i> Edit</a
+            >
+            <a ngbDropdownItem href="javascript:;"
+              ><i class="fe fe-share me-2"></i> Share</a
+            >
+            <a ngbDropdownItem href="javascript:;"
+              ><i class="fe fe-download me-2"></i> Download</a
+            >
+            <a ngbDropdownItem href="javascript:;"
+              ><i class="si si-printer me-2"></i> Print</a
+            >
+            <a ngbDropdownItem href="javascript:;"
+              ><i class="fe fe-trash me-2"></i> Delete</a
+            >
+          </div>
+        </div>
+      </td>
+    </ng-container> -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+        No data found.
+      </td>
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+<!-- ROW-1 CLOSED -->
