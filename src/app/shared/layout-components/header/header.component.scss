@@ -49,6 +49,11 @@ li::marker{color: transparent;}
         font-size: 0.85rem;
         font-family: 'Poppins', sans-serif;
     }
+    .dark-header {
+        .mat-select-arrow, .mat-select-value-text {
+            color: rgba(255, 255, 255, 0.8);
+        }
+    }
 }
 // search field
 .search-result{

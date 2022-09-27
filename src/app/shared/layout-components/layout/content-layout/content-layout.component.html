@@ -7,9 +7,9 @@
       <!-- //sidebar -->
       <app-sidebar></app-sidebar>
       <div class="jumps-prevent" style="padding-top: 74px;"></div>
-      <div class="app-content main-content mt-0">
+      <div class="app-content main-content mt-0" (click)="toggleSwitcherBody()">
         <div class="side-app"  [ngClass]="{ 'pt-60': scrolled }">
-          <div class="main-container container-fluid" (click)="toggleSwitcherBody()">
+          <div class="main-container container-fluid">
 
             <!-- // contetnt  -->
             <router-outlet></router-outlet>
