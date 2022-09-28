@@ -9,4 +9,6 @@ export const environment = {
     appId: '******************************',
   },
   application_host: 'http://localhost/finacta_build',
+  paymentKey:
+    'pk_test_51Jowr9HVkDEbtXkoM35BSz7GPaGNuPWJd9BRIpSJAzgq3tfIVWEkpohAau2XbnYpbvIiKtvsEBAoEEeEcDd1y2Su00IgEkKUxc',
 };

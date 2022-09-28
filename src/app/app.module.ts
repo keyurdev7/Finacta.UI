@@ -47,6 +47,7 @@ import { AddTermComponent } from './components/term-management/add-term/add-term
 import { TermsViewComponent } from './components/term-management/terms-view/terms-view.component';
 import { DeleteTermConfirmationComponent } from './components/term-management/delete-term-confirmation/delete-term-confirmation.component';
 import { InvoicesComponent } from './components/invoices/invoices.component';
+import { NgxStripeModule } from 'ngx-stripe';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,9 @@ import { InvoicesComponent } from './components/invoices/invoices.component';
     NgbModule,
     SimpleNotificationsModule.forRoot(),
     ToastrModule.forRoot({ positionClass: 'toast-top-center' }),
+    NgxStripeModule.forRoot(
+      'pk_test_51Jowr9HVkDEbtXkoM35BSz7GPaGNuPWJd9BRIpSJAzgq3tfIVWEkpohAau2XbnYpbvIiKtvsEBAoEEeEcDd1y2Su00IgEkKUxc'
+    ),
     StoreModule.forRoot(
       {
         user: userReducer,
