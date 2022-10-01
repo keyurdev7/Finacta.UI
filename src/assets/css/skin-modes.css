@@ -307,6 +307,10 @@
     .dark-header .hor-header.header .header-brand .header-brand-img.dark-logo {
         display: block;
     }
+
+    .dark-header .header .nav-link #profile-heading {
+        color: rgba(255, 255, 255, 0.8) !important;
+    }
 }
 
 @media (max-width: 1024px) and (min-width: 992px) {
