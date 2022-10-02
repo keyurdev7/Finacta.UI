@@ -48,6 +48,7 @@ import { TermsViewComponent } from './components/term-management/terms-view/term
 import { DeleteTermConfirmationComponent } from './components/term-management/delete-term-confirmation/delete-term-confirmation.component';
 import { InvoicesComponent } from './components/invoices/invoices.component';
 import { NgxStripeModule } from 'ngx-stripe';
+import { StripeDemoComponent } from './components/stripe-demo/stripe-demo.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { NgxStripeModule } from 'ngx-stripe';
     TermsViewComponent,
     DeleteTermConfirmationComponent,
     InvoicesComponent,
+    StripeDemoComponent,
   ],
   imports: [
     HttpClientModule,

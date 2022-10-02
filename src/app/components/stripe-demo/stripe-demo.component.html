@@ -1,0 +1,10 @@
+<h4 *ngIf="customerID" class="center">{{ customerID }}</h4>
+<h2 class="center">Start Subsciption</h2>
+<div class="center">
+  <ngx-stripe-card
+    class="stripe"
+    [options]="cardOptions"
+    [elementsOptions]="elementsOptions"
+  ></ngx-stripe-card>
+  <button type="submit" (click)="createToken()">Start Subscription</button>
+</div>

@@ -21,7 +21,7 @@ export class TokenInterceptor implements HttpInterceptor {
       first(),
       mergeMap((user) => {
         const authReq =
-          user && user.token
+          user && user.token && !request.url.includes('4242')
             ? request.clone({
                 setHeaders: { Authorization: user.token },
               })
