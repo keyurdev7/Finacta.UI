@@ -8,6 +8,7 @@ import { FileManagementComponent } from 'src/app/components/file-management/file
 import { TermListComponent } from 'src/app/components/term-management/term-list/term-list.component'
 import { TermsViewComponent } from 'src/app/components/term-management/terms-view/terms-view.component'
 import { InvoicesComponent } from 'src/app/components/invoices/invoices.component';
+import { SettingManagementComponent } from 'src/app/components/setting-management/setting-management.component'
 
 export const content: Routes = [
   {
@@ -29,6 +30,10 @@ export const content: Routes = [
   {
     path: 'terms',
     component: TermsViewComponent,
+  },
+  {
+    path: 'Settings',
+    component: SettingManagementComponent,
   },
   {
     path: 'blog',
