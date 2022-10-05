@@ -1,5 +1,5 @@
 <h1 mat-dialog-title>
-    <strong>Contacts</strong>
+    <strong>Xero Contacts</strong>
   </h1>
   
   <div mat-dialog-content class="mat-typography">
@@ -27,18 +27,9 @@
                 class="table text-nowrap table-bordered"
                 matSort
               >
-                <ng-container matColumnDef="contactid">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                    contactid
-                  </th>
-                  <td mat-cell *matCellDef="let element">
-                    {{ element.contactID }}
-                  </td>
-                </ng-container>
-  
                 <ng-container matColumnDef="contactname">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                    contactname
+                    Contact Name
                   </th>
                   <td mat-cell *matCellDef="let element">
                     {{ element.contactName }}
@@ -47,7 +38,7 @@
   
                 <ng-container matColumnDef="contactfirstname">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                    contactfirstname
+                    First Name
                   </th>
                   <td mat-cell *matCellDef="let element">
                     {{ element.contactFirstName }}
@@ -56,7 +47,7 @@
   
                 <ng-container matColumnDef="contactlastname">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                    contactlastname
+                    Last Name
                   </th>
                   <td mat-cell *matCellDef="let element">
                     {{ element.contactLastName }}
@@ -65,7 +56,7 @@
   
                 <ng-container matColumnDef="contactstatus">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                    contactstatus
+                    Status
                   </th>
                   <td mat-cell *matCellDef="let element">
                     {{ element.contactStatus }}

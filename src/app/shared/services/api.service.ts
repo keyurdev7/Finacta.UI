@@ -38,6 +38,13 @@ export class APIService extends AbstractService {
     }) as Observable<any>;
   }
 
+  logOut(): Observable<any> {
+    return this.httpGet({
+      url: this.baseUrl + '/Auth/Logout',
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
   emailVerify(token: string): Observable<any> {
     const params = new HttpParams().append('param', token);
     return this.httpGet({

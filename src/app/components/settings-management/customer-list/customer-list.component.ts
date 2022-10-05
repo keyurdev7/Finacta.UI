@@ -12,7 +12,6 @@ import { XeroCustomers } from 'src/app/models/xero-customer-list';
 })
 export class CustomerListComponent implements OnInit {
   displayedColumns: string[] = [
-    'contactid',
     'contactname',
     'contactfirstname',
     'contactlastname',
