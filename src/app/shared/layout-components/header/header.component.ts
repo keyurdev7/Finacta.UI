@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user.model';
 import { UpdateUserAction } from 'src/app/store/app.actions';
 import { AppState, userSelector } from 'src/app/store/app.state';
+import { APIService } from '../../services/api.service';
 import { CompanyUsersService } from '../../services/company-users.service';
 import { SwitcherService } from '../../services/switcher.service';
 
@@ -21,7 +22,9 @@ export class HeaderComponent implements OnInit {
     private store: Store<AppState>,
     private toster: ToastrService,
     private companyService: CompanyUsersService,
-    public SwitcherService: SwitcherService
+    public SwitcherService: SwitcherService,
+    public apiService : APIService
+
   ) {}
 
   ngOnInit(): void {
@@ -70,6 +73,7 @@ export class HeaderComponent implements OnInit {
   }
 
   signout(): void {
+    this.apiService.logOut().subscribe((res)=>{});
     const user = new User();
     delete user.isPortalSubscibe;
     this.store.dispatch(UpdateUserAction(user));

@@ -1,0 +1,40 @@
+<app-page-header
+  [title]="'Settings'"
+  [items]="[{ title: 'Home', link: '/' }]"
+  [active_item]="'Settings'"
+></app-page-header>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header border-bottom">
+                <h3 class="card-title">Sync xero Customer</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a class="btn btn-primary btn-w-xs" href="https://finactaapp.azurewebsites.net/xero/index/contact">Sync Xero Customers</a>
+                        <!-- <button type="button" class="btn btn-primary btn-w-xs" (click)="SyncXeroCustomer()"  ></button> -->
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-success btn-w-md" (click)="ViewAllXeroCustomers()" >View All Xero Customers</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header border-bottom">
+                <h3 class="card-title">Sync xero Invoice</h3>
+                
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-primary btn-w-xs" (click)="SyncXeroInvoice()" >Sync Xero Invoice</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

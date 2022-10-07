@@ -41,6 +41,15 @@ export class CompanyPaymentListComponent implements OnInit {
     console.log(this.paymentDataSource.data);
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.paymentDataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.paymentDataSource.paginator) {
+      this.paymentDataSource.paginator.firstPage();
+    }
+  }
+
   ngAfterViewInit() {
     this.paymentDataSource.paginator = this.paginator;
     this.paymentDataSource.sort = this.sort;

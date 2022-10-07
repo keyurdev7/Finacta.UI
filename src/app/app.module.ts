@@ -47,6 +47,8 @@ import { AddTermComponent } from './components/term-management/add-term/add-term
 import { TermsViewComponent } from './components/term-management/terms-view/terms-view.component';
 import { DeleteTermConfirmationComponent } from './components/term-management/delete-term-confirmation/delete-term-confirmation.component';
 import { InvoicesComponent } from './components/invoices/invoices.component';
+import { SettingsManagementHomeComponent } from './components/settings-management/settings-management-home/settings-management-home.component';
+import { CustomerListComponent } from './components/settings-management/customer-list/customer-list.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +77,8 @@ import { InvoicesComponent } from './components/invoices/invoices.component';
     TermsViewComponent,
     DeleteTermConfirmationComponent,
     InvoicesComponent,
+    SettingsManagementHomeComponent,
+    CustomerListComponent,
   ],
   imports: [
     HttpClientModule,
