@@ -4,6 +4,7 @@ import { ActivatedRoute,Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CustomerListComponent } from '../customer-list/customer-list.component';
 import { ToastrService } from 'ngx-toastr';
+import { MappedCompanyDialogComponent } from '../mapped-company-dialog/mapped-company-dialog.component';
 declare var require: any;
 const Swal = require('sweetalert2');
 
@@ -92,10 +93,17 @@ export class SettingsManagementHomeComponent implements OnInit {
 
   }
 
-  SyncXeroInvoice(){
-    this.settingService.syncXeroInvoices(10).subscribe((res)=>{
-      console.log(res);
+  ShowMappedCompany(){
+    this.settingService.getCompaniesLinkedWithXeroContact().subscribe((res)=>{
+      if(res && res.succeeded){
+        const dialog = new MatDialogConfig();
+        dialog.width = '25%';
+        dialog.data = res.data;
+        this.dialog.open(MappedCompanyDialogComponent,dialog);
+      }
     });
   }
+
+ 
 
 }
