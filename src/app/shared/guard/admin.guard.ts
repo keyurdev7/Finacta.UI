@@ -31,6 +31,9 @@ export class AdminGuard implements CanActivateChild {
           } else if (!res.isPortalSubscibe && state.url !== '/pricing') {
             this.router.navigate(['/pricing']);
             obs.next(true);
+          } else if (!!res.isPortalSubscibe && state.url === '/pricing') {
+            this.router.navigate(['/dashboard']);
+            obs.next(true);
           }
           obs.next(true);
         });

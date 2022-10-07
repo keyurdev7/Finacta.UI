@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>
+  <strong>Subscribe</strong>
+</h1>
+<div mat-dialog-content>
+  <ngx-stripe-card
+    class="stripe"
+    [options]="cardOptions"
+    [elementsOptions]="elementsOptions"
+    (change)="cardChange($event)"
+  ></ngx-stripe-card>
+</div>
+<div mat-dialog-actions class="float-end">
+  <button
+    mat-button
+    [disabled]="!validCard"
+    (click)="makePayment()"
+    mat-flat-button
+    color="warn"
+  >
+    Start Subscription
+  </button>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+</div>
