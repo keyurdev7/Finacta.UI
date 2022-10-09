@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SettingService } from 'src/app/shared/services/settings.service';
+import { environment } from "src/environments/environment";
+
 declare var require: any;
 const Swal = require('sweetalert2');
 
@@ -32,25 +34,16 @@ export class MappedCompanyDialogComponent implements OnInit {
   }
 
   SyncXeroInvoice(){
-    console.log(this.selectedCompanyId);
-    this.settingService.syncXeroInvoices(this.selectedCompanyId).subscribe((res)=>{
-      if (res && res.succeeded) {
-        this.SuccessSyncInvoice();
-      }
-    });
+    window.location.href= environment.application_host +"/xero/index/invoice/"+this.selectedCompanyId;
+    // console.log(this.selectedCompanyId);
+    // this.settingService.syncXeroInvoices(this.selectedCompanyId).subscribe((res)=>{
+    //   if (res && res.succeeded) {
+    //     this.SuccessSyncInvoice();
+    //   }
+    // });
   }
 
-  SuccessSyncInvoice() {
-    Swal.fire({
-      icon: 'success',
-      // title: 'Congratulations!',
-      text: 'Invoice data sync succesfully',
-      showConfirmButton: true,
-      confirmButtonText: 'OK',
-      confirmButtonColor: '#705ec8',
-    }).then((result: any) => {
-    });;
-  }
+ 
 
   closeDialog() {
     this.dialogRef.close({ event: 'Cancel' });

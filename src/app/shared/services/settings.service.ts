@@ -41,8 +41,8 @@ import { Observable } from 'rxjs';
       }
 
       syncXeroInvoices(companyid:number): Observable<any> {
-        return this.httpPost({
-          url: this.baseUrl + '/XeroManagement/syncXeroInvoices?companyId='+companyid,
+        return this.httpGet({
+          url: environment.application_host + '/Xero/index/invoice/'+companyid,
           callerErrorHandler: false,
         }) as Observable<any>;
       }

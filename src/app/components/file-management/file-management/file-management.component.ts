@@ -48,7 +48,6 @@ export class FileManagementComponent implements OnInit, OnDestroy {
     commonFile: 'file',
     folder: 'folder',
   };
-  isAllCompaniesSelected: boolean = false;
   constructor(
     private dialog: MatDialog,
     private fileManagementService: FileManagementService,
@@ -76,8 +75,6 @@ export class FileManagementComponent implements OnInit, OnDestroy {
       this.user = res;
       this.isListView =
         this.user.fileManagementListView === false ? false : true;
-      this.isAllCompaniesSelected =
-        this.user.lastLoginCompanyId === commonConstants.ALL_COMPANY_ID;
     });
   }
 

@@ -28,7 +28,14 @@ export class SettingsManagementHomeComponent implements OnInit {
       this.success = params['success']
       if(this.success != undefined)
       {
-        this.Success()
+        if(this.success == "1")
+        {
+          this.Success();
+        }
+        else if(this.success == "2")
+        {
+          this.SuccessSyncInvoice();
+        }
       }
     });
   }
@@ -104,6 +111,18 @@ export class SettingsManagementHomeComponent implements OnInit {
     });
   }
 
- 
+  SuccessSyncInvoice() {
+    Swal.fire({
+      icon: 'success',
+      // title: 'Congratulations!',
+      text: 'Invoice data sync succesfully',
+      showConfirmButton: true,
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#705ec8',
+    }).then((result: any) => {
+      this.router.navigate(['/Settings/']);
+      this.ShowMappedCompany();
+    });;
+  }
 
 }
