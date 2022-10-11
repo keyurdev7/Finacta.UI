@@ -39,12 +39,12 @@ export class PricingComponent implements OnInit, OnDestroy {
       this.IsFromCompanyList = !!this.companyId;
     });
 
+    this.subscribeToUser();
+    this.getSubscriptionPlans();
+    
     if (!this.companyId || this.companyId == 0) {
       this.companyId = this.user.lastLoginCompanyId;
     }
-
-    this.subscribeToUser();
-    this.getSubscriptionPlans();
   }
 
   subscribeToUser() {
