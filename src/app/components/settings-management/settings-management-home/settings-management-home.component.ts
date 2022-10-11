@@ -4,6 +4,7 @@ import { ActivatedRoute,Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CustomerListComponent } from '../customer-list/customer-list.component';
 import { ToastrService } from 'ngx-toastr';
+import { MappedCompanyDialogComponent } from '../mapped-company-dialog/mapped-company-dialog.component';
 declare var require: any;
 const Swal = require('sweetalert2');
 
@@ -27,7 +28,14 @@ export class SettingsManagementHomeComponent implements OnInit {
       this.success = params['success']
       if(this.success != undefined)
       {
-        this.Success()
+        if(this.success == "1")
+        {
+          this.Success();
+        }
+        else if(this.success == "2")
+        {
+          this.SuccessSyncInvoice();
+        }
       }
     });
   }
@@ -92,10 +100,29 @@ export class SettingsManagementHomeComponent implements OnInit {
 
   }
 
-  SyncXeroInvoice(){
-    this.settingService.syncXeroInvoices(10).subscribe((res)=>{
-      console.log(res);
+  ShowMappedCompany(){
+    this.settingService.getCompaniesLinkedWithXeroContact().subscribe((res)=>{
+      if(res && res.succeeded){
+        const dialog = new MatDialogConfig();
+        dialog.width = '25%';
+        dialog.data = res.data;
+        this.dialog.open(MappedCompanyDialogComponent,dialog);
+      }
     });
+  }
+
+  SuccessSyncInvoice() {
+    Swal.fire({
+      icon: 'success',
+      // title: 'Congratulations!',
+      text: 'Invoice data sync succesfully',
+      showConfirmButton: true,
+      confirmButtonText: 'OK',
+      confirmButtonColor: '#705ec8',
+    }).then((result: any) => {
+      this.router.navigate(['/Settings/']);
+      this.ShowMappedCompany();
+    });;
   }
 
 }

@@ -40,14 +40,9 @@ import { Observable } from 'rxjs';
         }) as Observable<any>;
       }
 
-      syncXeroInvoices(id): Observable<any> {
-        const body = new FormData();
-        Object.keys(id).forEach((key) => {
-          body.append(key, id[key]);
-        });
-        return this.httpPost({
-          url: this.baseUrl + '/XeroManagement/syncXeroInvoices',
-          payload: body,
+      syncXeroInvoices(companyid:number): Observable<any> {
+        return this.httpGet({
+          url: environment.application_host + '/Xero/index/invoice/'+companyid,
           callerErrorHandler: false,
         }) as Observable<any>;
       }

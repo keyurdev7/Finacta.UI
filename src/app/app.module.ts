@@ -49,6 +49,7 @@ import { DeleteTermConfirmationComponent } from './components/term-management/de
 import { InvoicesComponent } from './components/invoices/invoices.component';
 import { SettingsManagementHomeComponent } from './components/settings-management/settings-management-home/settings-management-home.component';
 import { CustomerListComponent } from './components/settings-management/customer-list/customer-list.component';
+import { MappedCompanyDialogComponent } from './components/settings-management/mapped-company-dialog/mapped-company-dialog.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { CustomerListComponent } from './components/settings-management/customer
     InvoicesComponent,
     SettingsManagementHomeComponent,
     CustomerListComponent,
+    MappedCompanyDialogComponent,
   ],
   imports: [
     HttpClientModule,

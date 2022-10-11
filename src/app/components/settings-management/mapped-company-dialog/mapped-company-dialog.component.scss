@@ -1,0 +1,9 @@
+.mat-select-value-text, .mat-option-text {
+    font-size: 0.85rem;
+    font-family: 'Poppins', sans-serif;
+}
+.dark-header {
+    .mat-select-arrow, .mat-select-value-text {
+        color: black !important;
+    }
+}
