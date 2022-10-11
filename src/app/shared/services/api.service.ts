@@ -79,12 +79,14 @@ export class APIService extends AbstractService {
     }) as Observable<any>;
   }
 
-  createStripeSubscription(paymentMethodid: string): Observable<any> {
+  createStripeSubscription(
+    paymentMethodid: string,
+    companyid: number
+  ): Observable<any> {
+    const body = { paymentMethodid, companyid };
     return this.httpPost({
-      url:
-        this.baseUrl +
-        '/Stripe/Subscription?paymentMethodid=' +
-        paymentMethodid,
+      url: this.baseUrl + '/Stripe/Subscription',
+      payload: body,
       callerErrorHandler: false,
     }) as Observable<any>;
   }

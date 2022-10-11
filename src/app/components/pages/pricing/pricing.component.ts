@@ -39,7 +39,7 @@ export class PricingComponent implements OnInit, OnDestroy {
       this.IsFromCompanyList = !!this.companyId;
     });
 
-    if (this.companyId == 0) {
+    if (!this.companyId || this.companyId == 0) {
       this.companyId = this.user.lastLoginCompanyId;
     }
 
@@ -85,6 +85,7 @@ export class PricingComponent implements OnInit, OnDestroy {
   openSubscriptionDialog(): void {
     const dialog = this.dialog.open(SubscriptionModalComponent, {
       minWidth: '40%',
+      data: parseInt(this.companyId.toString()),
     });
     dialog.afterClosed().subscribe((result) => {
       if (result?.event === 'success') {

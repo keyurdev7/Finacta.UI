@@ -88,7 +88,7 @@ export class CompanyListComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((result) => {
       if (result?.event === 'success') {
-        this.getAllCompanies();
+        this.subscriptionPay(result.data);
       }
       return;
     });
@@ -134,7 +134,7 @@ export class CompanyListComponent implements OnInit {
         dialog.height = '50%';
         dialog.data = res.data;
         this.dialog.open(CompanyPaymentListComponent, dialog);
-        
+
         // const dialog = this.dialog.open(CompanyPaymentListComponent,{
         //   minWidth:'28%',
         // });

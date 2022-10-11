@@ -12,7 +12,7 @@ import { AppState, userSelector } from 'src/app/store/app.state';
 @Component({
   selector: 'app-add-company',
   templateUrl: './add-company.component.html',
-  styleUrls: ['./add-company.component.scss']
+  styleUrls: ['./add-company.component.scss'],
 })
 export class AddCompanyComponent implements OnInit {
   user: User = new User();
@@ -31,7 +31,10 @@ export class AddCompanyComponent implements OnInit {
     this.subscribeToUser();
     this.addCompanyForm = this.fb.group({
       name: [null, [Validators.required]],
-      phoneNumber: [null, [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]]
+      phoneNumber: [
+        null,
+        [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)],
+      ],
     });
   }
 
@@ -59,7 +62,7 @@ export class AddCompanyComponent implements OnInit {
     this.companyUserService.addCompany(data).subscribe((res) => {
       if (res && res.succeeded) {
         this.addCompanyForm.reset();
-        this.dialogRef.close({ event: 'success' });
+        this.dialogRef.close({ event: 'success', data: parseInt(res.data) });
         this.toster.success(res.message);
       } else if (res && res.errors.length) {
         res.errors.forEach((err) => {
@@ -74,5 +77,4 @@ export class AddCompanyComponent implements OnInit {
   closeDialog() {
     this.dialogRef.close({ event: 'Cancel' });
   }
-
 }

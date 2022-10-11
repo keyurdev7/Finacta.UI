@@ -38,7 +38,7 @@ export class SubscriptionModalComponent {
   validCard: boolean = false;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public companyId: number,
     public dialogRef: MatDialogRef<SubscriptionModalComponent>,
     public toster: ToastrService,
     private stripeService: StripeService,
@@ -59,7 +59,7 @@ export class SubscriptionModalComponent {
       .subscribe((result) => {
         if (result.paymentMethod) {
           this.api
-            .createStripeSubscription(result.paymentMethod.id)
+            .createStripeSubscription(result.paymentMethod.id, this.companyId)
             .subscribe((res) => {
               if (res && res.succeeded) {
                 this.dialogRef.close({
