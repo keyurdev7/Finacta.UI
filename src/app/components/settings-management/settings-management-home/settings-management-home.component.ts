@@ -121,7 +121,6 @@ export class SettingsManagementHomeComponent implements OnInit {
       confirmButtonColor: '#705ec8',
     }).then((result: any) => {
       this.router.navigate(['/Settings/']);
-      this.ShowMappedCompany();
     });;
   }
 

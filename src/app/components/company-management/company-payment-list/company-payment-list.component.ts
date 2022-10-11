@@ -16,10 +16,8 @@ export class CompanyPaymentListComponent implements OnInit {
   public constants = commonConstants;
   displayedColumns: string[] = [
     'amount',
-    'subscriptionEndDateTime',
     'subscriptionStartDateTime',
-    'finactaUniqueId',
-    'stripeSessionId',
+    'subscriptionEndDateTime',
     'paymentErrorText',
   ];
 
