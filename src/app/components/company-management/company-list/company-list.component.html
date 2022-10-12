@@ -46,6 +46,14 @@
               </td>
             </ng-container>
 
+            <!-- Xero Contact Name Column -->
+            <ng-container matColumnDef="xeroContactName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Xero Contact</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.xeroContactName }}
+              </td>
+            </ng-container>
+
             <!-- Phone Number Column -->
             <ng-container matColumnDef="companyNumber">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -115,6 +123,12 @@
                   (click)="selectCompany(element.companyId)"
                 >
                   Select Company
+                </button>
+                <button *ngIf="user.userTypeId === 1"
+                  class="btn btn-primary me-2"
+                  (click)="mapXeroContact(element.companyId)"
+                >
+                  Map Xero Company
                 </button>
               </td>
             </ng-container>

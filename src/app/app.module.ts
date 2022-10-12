@@ -50,6 +50,7 @@ import { InvoicesComponent } from './components/invoices/invoices.component';
 import { SettingsManagementHomeComponent } from './components/settings-management/settings-management-home/settings-management-home.component';
 import { CustomerListComponent } from './components/settings-management/customer-list/customer-list.component';
 import { MappedCompanyDialogComponent } from './components/settings-management/mapped-company-dialog/mapped-company-dialog.component';
+import { MapXeroContactDialogComponent } from './components/company-management/map-xero-contact-dialog/map-xero-contact-dialog.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { MappedCompanyDialogComponent } from './components/settings-management/m
     SettingsManagementHomeComponent,
     CustomerListComponent,
     MappedCompanyDialogComponent,
+    MapXeroContactDialogComponent,
   ],
   imports: [
     HttpClientModule,

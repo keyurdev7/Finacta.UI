@@ -17,6 +17,7 @@ import { AppState, userSelector } from 'src/app/store/app.state';
 import { User } from 'src/app/models/user.model';
 import * as commonConstants from 'src/app/shared/constants/common.constant';
 import { UpdateUserAction } from 'src/app/store/app.actions';
+import { MapXeroContactDialogComponent } from '../map-xero-contact-dialog/map-xero-contact-dialog.component';
 
 @Component({
   selector: 'app-company-list',
@@ -30,6 +31,7 @@ export class CompanyListComponent implements OnInit {
   usertypeid = 0;
   displayedColumns: string[] = [
     'companyName',
+    'xeroContactName',
     'companyNumber',
     'SubscriptionStartDateTime',
     'SubscriptionEndDateTime',
@@ -91,6 +93,25 @@ export class CompanyListComponent implements OnInit {
         this.subscriptionPay(result.data);
       }
       return;
+    });
+  }
+
+  mapXeroContact(id: number): void {
+    this.companyUserService.getXeroContactList().subscribe((res) => {
+      const dialog = this.dialog.open(MapXeroContactDialogComponent, {
+        minWidth: '28%',
+        data: {
+          companyId: id,
+          userId: this.user.userId,
+          list: res.data,
+        },
+      });
+      dialog.afterClosed().subscribe((result) => {
+        if (result?.event === 'success') {
+          this.getAllCompanies();
+        }
+        return;
+      });
     });
   }
 
