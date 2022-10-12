@@ -18,7 +18,6 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { IvyGalleryModule } from 'angular-gallery';
 import { RouterModule } from '@angular/router';
 import { NgxStripeModule } from 'ngx-stripe';
-import { environment } from 'src/environments/environment';
 import { SubscriptionModalComponent } from './pricing/subscription-modal/subscription-modal.component';
 
 @NgModule({
@@ -43,7 +42,7 @@ import { SubscriptionModalComponent } from './pricing/subscription-modal/subscri
     ColorPickerModule,
     IvyGalleryModule,
     RouterModule,
-    NgxStripeModule.forRoot(environment.stripe_key),
+    NgxStripeModule.forRoot(''),
   ],
   exports: [SwitcherComponent],
 })

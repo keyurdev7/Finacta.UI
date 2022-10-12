@@ -1,21 +1,24 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StripeCardComponent, StripeService } from 'ngx-stripe';
+import { Subscription } from 'rxjs';
 import {
   StripeCardElementChangeEvent,
   StripeCardElementOptions,
   StripeElementsOptions,
 } from '@stripe/stripe-js';
 import { APIService } from 'src/app/shared/services/api.service';
+import { Store } from '@ngrx/store';
+import { AppState, stripeKeySelector } from 'src/app/store/app.state';
 
 @Component({
   selector: 'app-subscription-modal',
   templateUrl: './subscription-modal.component.html',
   styleUrls: ['./subscription-modal.component.scss'],
 })
-export class SubscriptionModalComponent {
+export class SubscriptionModalComponent implements OnInit, OnDestroy {
   @ViewChild(StripeCardComponent) card!: StripeCardComponent;
   cardOptions: StripeCardElementOptions = {
     hidePostalCode: true,
@@ -36,14 +39,24 @@ export class SubscriptionModalComponent {
     locale: 'en',
   };
   validCard: boolean = false;
+  subscriptions: Subscription[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public companyId: number,
     public dialogRef: MatDialogRef<SubscriptionModalComponent>,
     public toster: ToastrService,
     private stripeService: StripeService,
-    private api: APIService
+    private api: APIService,
+    public store: Store<AppState>
   ) {}
+
+  ngOnInit(): void {
+    this.subscriptions.push(
+      this.store.pipe(stripeKeySelector).subscribe((res) => {
+        this.stripeService.changeKey(res.key);
+      })
+    );
+  }
 
   cardChange(e: StripeCardElementChangeEvent): void {
     this.validCard = e.complete;
@@ -80,5 +93,9 @@ export class SubscriptionModalComponent {
 
   closeDialog() {
     this.dialogRef.close({ event: 'Cancel' });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((eachSub) => eachSub.unsubscribe());
   }
 }

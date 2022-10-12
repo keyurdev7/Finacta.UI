@@ -166,4 +166,11 @@ export class APIService extends AbstractService {
       callerErrorHandler: false,
     }) as Observable<any>;
   }
+
+  getStripeKey(): Observable<any> {
+    return this.httpGet({
+      url: this.baseUrl + '/Stripe/GetStripePublishablekey',
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
 }

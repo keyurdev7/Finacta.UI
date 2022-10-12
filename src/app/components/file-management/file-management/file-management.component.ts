@@ -13,6 +13,7 @@ import { Store } from '@ngrx/store';
 import { AppState, userSelector } from 'src/app/store/app.state';
 import { User } from 'src/app/models/user.model';
 import { UpdateUserAction } from 'src/app/store/app.actions';
+import { CopyToCustomerModalComponent } from '../copy-to-customer-modal/copy-to-customer-modal.component';
 
 @Component({
   selector: 'app-file-management',
@@ -169,6 +170,17 @@ export class FileManagementComponent implements OnInit, OnDestroy {
         this.getData(this.currentFolderId);
       }
       return;
+    });
+  }
+
+  copyToCustomerModal(): void {
+    this.fileManagementService.getActiveCompanies().subscribe((res) => {
+      if (res && res.succeeded) {
+        const dialog = this.dialog.open(CopyToCustomerModalComponent, {
+          minWidth: '28%',
+          data: res.data,
+        });
+      }
     });
   }
 

@@ -4,6 +4,7 @@ import { User } from '../models/user.model';
 import { AppState } from './app.state';
 import { Blog } from '../models/blog.model';
 import { Category } from '../models/category.model';
+import { StripeKey } from '../models/stripe-key.model';
 
 export const hydrationMetaReducer = (
   reducer: ActionReducer<AppState>
@@ -36,4 +37,8 @@ export const blogReducer = createReducer(
 export const categoryReducer = createReducer(
   new Category(),
   on(AppActions.UpdateCategoryAction, (state, category) => category)
+);
+export const stripeReducer = createReducer(
+  new StripeKey(),
+  on(AppActions.SetStripeKeyAction, (state, stripeKey) => stripeKey)
 );

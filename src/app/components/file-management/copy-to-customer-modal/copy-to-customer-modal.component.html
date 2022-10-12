@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>
+  <strong>Copy To Customer</strong>
+</h1>
+<div mat-dialog-content>
+  <form class="login100-form validate-form">
+    <div class="form-group">
+      <label class="form-label">Select Company:</label>
+      <mat-form-field class="w-100">
+        <mat-select [formControl]="companyControl">
+          <mat-option
+            *ngFor="let company of companies"
+            [value]="company.companyId"
+            >{{ company.companyName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div
+      *ngIf="companyControl.touched && companyControl.hasError('required')"
+      class="text text-danger mt-1"
+    >
+      Company is required
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions class="float-end">
+  <button
+    mat-button
+    [disabled]="!companyControl.valid"
+    (click)="save()"
+    mat-flat-button
+    color="warn"
+  >
+    Save
+  </button>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+</div>
