@@ -19,6 +19,7 @@ import {
   hydrationMetaReducer,
   categoryReducer,
   userReducer,
+  stripeReducer,
 } from './store/app.reducer';
 import { TokenInterceptor } from './shared/services/token.interceptor';
 import { CompanyUserComponent } from './components/company-user/company-user/company-user.component';
@@ -50,6 +51,8 @@ import { InvoicesComponent } from './components/invoices/invoices.component';
 import { SettingsManagementHomeComponent } from './components/settings-management/settings-management-home/settings-management-home.component';
 import { CustomerListComponent } from './components/settings-management/customer-list/customer-list.component';
 import { MappedCompanyDialogComponent } from './components/settings-management/mapped-company-dialog/mapped-company-dialog.component';
+import { MapXeroContactDialogComponent } from './components/company-management/map-xero-contact-dialog/map-xero-contact-dialog.component';
+import { CopyToCustomerModalComponent } from './components/file-management/copy-to-customer-modal/copy-to-customer-modal.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +84,8 @@ import { MappedCompanyDialogComponent } from './components/settings-management/m
     SettingsManagementHomeComponent,
     CustomerListComponent,
     MappedCompanyDialogComponent,
+    MapXeroContactDialogComponent,
+    CopyToCustomerModalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -100,6 +105,7 @@ import { MappedCompanyDialogComponent } from './components/settings-management/m
         user: userReducer,
         blog: blogReducer,
         category: categoryReducer,
+        stripeKey: stripeReducer,
       },
       { metaReducers: [hydrationMetaReducer] }
     ),

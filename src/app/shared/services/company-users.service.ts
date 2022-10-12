@@ -84,17 +84,23 @@ export class CompanyUsersService extends AbstractService {
       callerErrorHandler: false,
     }) as Observable<any>;
   }
-  cancelCompanySubscription(companyId:number):Observable<any>{
+  cancelCompanySubscription(companyId: number): Observable<any> {
     return this.httpGet({
-      url: this.baseUrl + '/CompanyManagement/CancelCompanySubscription?companyId='+companyId,
+      url:
+        this.baseUrl +
+        '/CompanyManagement/CancelCompanySubscription?companyId=' +
+        companyId,
       params: new HttpParams(),
       callerErrorHandler: false,
     }) as Observable<any>;
   }
 
-  getCompanyPayments(companyId:number):Observable<any>{
+  getCompanyPayments(companyId: number): Observable<any> {
     return this.httpGet({
-      url: this.baseUrl + '/CompanyManagement/GetCompanyPayments?companyId='+companyId,
+      url:
+        this.baseUrl +
+        '/CompanyManagement/GetCompanyPayments?companyId=' +
+        companyId,
       params: new HttpParams(),
       callerErrorHandler: false,
     }) as Observable<any>;
@@ -103,6 +109,31 @@ export class CompanyUsersService extends AbstractService {
   activeInActiveUser(data: ActiveInActiveUserRequest): Observable<any> {
     return this.httpPost({
       url: this.baseUrl + '/UserManagement/InActiveUser',
+      payload: data,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  getXeroContactList(): Observable<any> {
+    return this.httpGet({
+      url: this.baseUrl + '/XeroManagement/GetAllXeroContacts',
+      params: new HttpParams(),
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  addCompanyXeroContactRelation(
+    userId: number,
+    xeroContactId: number,
+    companyId: number
+  ): Observable<any> {
+    const data = {
+      userId,
+      xeroContactId,
+      companyId,
+    };
+    return this.httpPost({
+      url: this.baseUrl + '/XeroManagement/AddCompanyXeroContactRelation',
       payload: data,
       callerErrorHandler: false,
     }) as Observable<any>;

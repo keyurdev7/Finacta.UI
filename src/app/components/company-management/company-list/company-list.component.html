@@ -24,7 +24,10 @@
             mat-button
             mat-flat-button
             color="warn"
-            *ngIf="user.userTypeId !== 1 && user.userTypeId !== 3"
+            *ngIf="
+              user.userTypeId !== constants.MASTER_USER_TYPE &&
+              user.userTypeId !== constants.ADVISOR_USER_TYPE
+            "
           >
             Add
           </button>
@@ -46,6 +49,16 @@
               </td>
             </ng-container>
 
+            <!-- Xero Contact Name Column -->
+            <ng-container matColumnDef="xeroContactName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Xero Contact
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.xeroContactName }}
+              </td>
+            </ng-container>
+
             <!-- Phone Number Column -->
             <ng-container matColumnDef="companyNumber">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -56,16 +69,17 @@
               </td>
             </ng-container>
 
-             <!-- Subscription Start Date -->
-             <ng-container matColumnDef="SubscriptionStartDateTime">
+            <!-- Subscription Start Date -->
+            <ng-container matColumnDef="SubscriptionStartDateTime">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
                 Subscription Start Date
               </th>
               <td mat-cell *matCellDef="let element">
-                {{ element.subscriptionEndDateTime | date: constants.DATE_FORMAT }}
+                {{
+                  element.subscriptionEndDateTime | date: constants.DATE_FORMAT
+                }}
               </td>
             </ng-container>
-
 
             <!-- Subscription End Date -->
             <ng-container matColumnDef="SubscriptionEndDateTime">
@@ -73,15 +87,16 @@
                 Subscription End Date
               </th>
               <td mat-cell *matCellDef="let element">
-                {{ element.subscriptionStartDateTime  | date: constants.DATE_FORMAT}}
+                {{
+                  element.subscriptionStartDateTime
+                    | date: constants.DATE_FORMAT
+                }}
               </td>
             </ng-container>
 
             <!-- Subscription Status Column -->
             <ng-container matColumnDef="subscriptionStatus">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                Status
-              </th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
               <td mat-cell *matCellDef="let element">
                 {{ element.subscriptionStatus }}
               </td>
@@ -90,31 +105,59 @@
             <!-- Action Column -->
             <ng-container matColumnDef="action">
               <th mat-header-cell *matHeaderCellDef>Action</th>
-              <td mat-cell *matCellDef="let element" class="action-link" >
-                <button *ngIf="element.subscriptionStatus !== 'Subscribed' && user.userTypeId !== 1  && user.userTypeId !== 3" 
+              <td mat-cell *matCellDef="let element" class="action-link">
+                <button
+                  *ngIf="
+                    element.subscriptionStatus !== 'Subscribed' &&
+                    user.userTypeId !== constants.MASTER_USER_TYPE &&
+                    user.userTypeId !== constants.ADVISOR_USER_TYPE
+                  "
                   class="btn btn-success me-2"
                   (click)="subscriptionPay(element.companyId)"
                 >
                   Subscribe
                 </button>
-                <button *ngIf="element.subscriptionStatus === 'Subscribed' && user.userTypeId !== 1  && user.userTypeId !== 3"
+                <button
+                  *ngIf="
+                    element.subscriptionStatus === 'Subscribed' &&
+                    user.userTypeId !== constants.MASTER_USER_TYPE &&
+                    user.userTypeId !== constants.ADVISOR_USER_TYPE
+                  "
                   class="btn btn-danger me-2"
                   (click)="cancelSubscriptionConfirmation(element.companyId)"
                 >
                   Cancel Subscription
                 </button>
-                <button *ngIf="element.subscriptionStatus === 'Subscribed' && user.userTypeId !== 1 && user.userTypeId !== 3"
+                <button
+                  *ngIf="
+                    element.subscriptionStatus === 'Subscribed' &&
+                    user.userTypeId !== constants.MASTER_USER_TYPE &&
+                    user.userTypeId !== constants.ADVISOR_USER_TYPE
+                  "
                   class="btn btn-warning me-2"
-                  (click)="getCompaySubscriptionPaymentDetails(element.companyId)"
+                  (click)="
+                    getCompaySubscriptionPaymentDetails(element.companyId)
+                  "
                 >
                   Payment Details
                 </button>
 
-                <button *ngIf="user.userTypeId === 1 || user.userTypeId === 3"
+                <button
+                  *ngIf="
+                    user.userTypeId === constants.MASTER_USER_TYPE ||
+                    user.userTypeId === constants.ADVISOR_USER_TYPE
+                  "
                   class="btn btn-primary me-2"
                   (click)="selectCompany(element.companyId)"
                 >
                   Select Company
+                </button>
+                <button
+                  *ngIf="user.userTypeId === constants.MASTER_USER_TYPE"
+                  class="btn btn-primary me-2"
+                  (click)="mapXeroContact(element.companyId)"
+                >
+                  Map Xero Company
                 </button>
               </td>
             </ng-container>
