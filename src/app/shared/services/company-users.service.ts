@@ -116,7 +116,7 @@ export class CompanyUsersService extends AbstractService {
 
   getXeroContactList(): Observable<any> {
     return this.httpGet({
-      url: this.baseUrl + '/XeroManagement/GetAllXeroContacts',
+      url: this.baseUrl + '/XeroManagement/GetXeroContactUnlinkedWithCompanies',
       params: new HttpParams(),
       callerErrorHandler: false,
     }) as Observable<any>;

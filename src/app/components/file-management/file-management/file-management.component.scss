@@ -24,6 +24,15 @@
     margin-bottom: 1rem;
   }
 }
+.btn-file-management-action{
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: 991.98px) {
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+}
 .mode-icons {
   display: flex;
   align-items: center;
