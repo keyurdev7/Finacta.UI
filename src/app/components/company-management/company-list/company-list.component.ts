@@ -97,7 +97,7 @@ export class CompanyListComponent implements OnInit {
   }
 
   mapXeroContact(id: number): void {
-    this.companyUserService.getXeroContactList().subscribe((res) => {
+    this.companyUserService.getXeroContactList(id).subscribe((res) => {
       const dialog = this.dialog.open(MapXeroContactDialogComponent, {
         minWidth: '28%',
         data: {

@@ -22,11 +22,11 @@ export class MapXeroContactDialogComponent implements OnInit {
     this.xeroContactList = this.data.list;
   }
 
-  getXeroContactList(): void {
-    this.companyUserService.getXeroContactList().subscribe((res) => {
+  /*getXeroContactList(): void {
+    this.companyUserService.getXeroContactList(this.data.companyId).subscribe((res) => {
       this.xeroContactList = res.data;
     });
-  }
+  }*/
 
   save(): void {
     this.companyUserService
