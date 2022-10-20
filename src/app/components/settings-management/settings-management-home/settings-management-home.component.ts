@@ -5,6 +5,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CustomerListComponent } from '../customer-list/customer-list.component';
 import { ToastrService } from 'ngx-toastr';
 import { MappedCompanyDialogComponent } from '../mapped-company-dialog/mapped-company-dialog.component';
+import { environment } from 'src/environments/environment';
 declare var require: any;
 const Swal = require('sweetalert2');
 
@@ -15,6 +16,7 @@ const Swal = require('sweetalert2');
 })
 export class SettingsManagementHomeComponent implements OnInit {
   success:string = "";
+  xerocontactULR = environment.application_host + "/xero/index/contact";
   constructor(
     private settingService : SettingService,
     private activatedRoute: ActivatedRoute,
