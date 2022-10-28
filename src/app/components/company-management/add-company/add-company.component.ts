@@ -33,7 +33,7 @@ export class AddCompanyComponent implements OnInit {
       name: [null, [Validators.required]],
       phoneNumber: [
         null,
-        [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)],
+        [Validators.required, Validators.pattern(/^[0-9]+$/)],
       ],
     });
   }

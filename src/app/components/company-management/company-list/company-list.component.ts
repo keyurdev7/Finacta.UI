@@ -18,6 +18,8 @@ import { User } from 'src/app/models/user.model';
 import * as commonConstants from 'src/app/shared/constants/common.constant';
 import { UpdateUserAction } from 'src/app/store/app.actions';
 import { MapXeroContactDialogComponent } from '../map-xero-contact-dialog/map-xero-contact-dialog.component';
+declare var require: any;
+const Swal = require('sweetalert2');
 
 @Component({
   selector: 'app-company-list',
@@ -113,6 +115,30 @@ export class CompanyListComponent implements OnInit {
         return;
       });
     });
+  }
+
+  deleteCompany(id:number):void{
+    this.Confirm();
+  }
+
+  Confirm() {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You wnat to delete this company",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result:any) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'Deleted!',
+          'Company has been deleted.',
+          'success'
+        )
+      }
+    })
   }
 
   subscriptionPay(companyid: number) {

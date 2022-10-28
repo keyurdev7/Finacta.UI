@@ -8,7 +8,9 @@ body:not(.horizontal-hover) .sub-slide-menu.open{
 body:not(.horizontal-hover) .slide-menu.open{
     display: block !important;
 }
-
+.header-padding{
+    padding-left: 0.625rem
+}
 @media (min-width: 1400px){
     .horizontal.layout-boxed .sticky-pin {
         max-width: 100% !important;
