@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  changeCompany(value): void {
+  changeCompany(value: any): void {
     if (
       this.user.userTypeId == MASTER_USER_TYPE ||
       this.user.userTypeId == ADVISOR_USER_TYPE

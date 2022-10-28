@@ -1,6 +1,6 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@use '@angular/material'as mat;
+@use "@angular/material" as mat;
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -8,18 +8,17 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
-
 /* You can add global styles to this file, and also import other style files */
 
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
-// ng select 
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+// ng select
 @import "~@ng-select/ng-select/themes/default.theme.css";
 // ngx-quill
-@import '~quill/dist/quill.snow.css';
+@import "~quill/dist/quill.snow.css";
 // chartist
 @import "~chartist/dist/chartist.css";
 
-// leaflet 
+// leaflet
 @import "~leaflet/dist/leaflet.css";
 
 // intl-tel-input
@@ -34,12 +33,12 @@
 
 // ngx bar rating
 @import "../node_modules/ngx-bar-rating/themes/br-default-theme.scss";
-@import '../node_modules/ngx-bar-rating/themes/br-horizontal-theme.scss';
-@import '../node_modules/ngx-bar-rating/themes/br-vertical-theme.scss';
-@import '../node_modules/ngx-bar-rating/themes/br-movie-theme.scss';
-@import '../node_modules/ngx-bar-rating/themes/br-square-theme.scss';
+@import "../node_modules/ngx-bar-rating/themes/br-horizontal-theme.scss";
+@import "../node_modules/ngx-bar-rating/themes/br-vertical-theme.scss";
+@import "../node_modules/ngx-bar-rating/themes/br-movie-theme.scss";
+@import "../node_modules/ngx-bar-rating/themes/br-square-theme.scss";
 // ngx toastr
-@import '~ngx-toastr/toastr';
+@import "~ngx-toastr/toastr";
 
 // custom css file
 @import "./assets/css/style.css";
@@ -49,12 +48,11 @@
 @import "./assets/switcher/css/switcher.css";
 @import "./assets/switcher/demo.css";
 
-
 .badge.bg-secondary {
   background-color: #e984b1 !important;
 }
 
-.main-sidemenu>ul {
+.main-sidemenu > ul {
   padding: 0 !important;
 }
 
@@ -67,14 +65,19 @@
   border-color: #e8e8f7 !important;
 }
 
-.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+.ng-select.ng-select-multiple
+  .ng-select-container
+  .ng-value-container
+  .ng-value {
   color: #fff !important;
   background-color: var(--primary-bg-color) !important;
   padding: 0.25rem 0.5rem;
 }
 
 .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected,
-.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected.ng-option-marked,
+.ng-dropdown-panel
+  .ng-dropdown-panel-items
+  .ng-option.ng-option-selected.ng-option-marked,
 .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
   color: #fff;
   background-color: var(--primary-bg-color) !important;
@@ -94,13 +97,12 @@ mat-option.mat-selected {
   background-color: var(--primary-bg-color);
 }
 
-.ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
+.ng-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
   outline: none;
   box-shadow: none !important;
 }
 
 .dark-mode {
-
   .ng-placeholder,
   .ng-select .ng-clear-wrapper {
     color: #fff !important;
@@ -109,14 +111,13 @@ mat-option.mat-selected {
   .ng-select-container {
     border-color: var(--dark-border) !important;
     color: #fff !important;
-
   }
 
-  .ng-select.ng-select-opened>.ng-select-container .ng-arrow {
+  .ng-select.ng-select-opened > .ng-select-container .ng-arrow {
     border-color: transparent transparent #fff;
   }
 
-  .ng-select>.ng-select-container .ng-arrow {
+  .ng-select > .ng-select-container .ng-arrow {
     border-color: #fff transparent transparent;
   }
 
@@ -129,33 +130,32 @@ mat-option.mat-selected {
     background-color: var(--dark-body);
     border: 1px solid var(--dark-border);
   }
-
 }
 
 .table td {
   padding: 0.55rem !important;
 }
 
-.was-validated .form-control:valid+.invalid-feedback,
+.was-validated .form-control:valid + .invalid-feedback,
 .form-control.is-valid,
 .invalid-feedback input.form-control.parsley-success,
-.invalid-feedback textarea.form-control.parsley-success+.invalid-feedback {
+.invalid-feedback textarea.form-control.parsley-success + .invalid-feedback {
   display: block !important;
 }
 
 // table sort arrows
 th[sortable].desc:before,
 th[sortable].asc:before {
-  content: '';
+  content: "";
   display: block;
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAmxJREFUeAHtmksrRVEUx72fH8CIGQNJkpGUUmakDEiZSJRIZsRQmCkTJRmZmJgQE0kpX0D5DJKJgff7v+ru2u3O3vvc67TOvsdatdrnnP1Y///v7HvvubdbUiIhBISAEBACQkAICAEhIAQ4CXSh2DnyDfmCPEG2Iv9F9MPlM/LHyAecdyMzHYNwR3fdNK/OH9HXl1UCozD24TCvILxizEDWIEzA0FcM8woCgRrJCoS5PIwrANQSMAJX1LEI9bqpQo4JYNFFKRSvIgsxHDVnqZgIkPnNBM0rIGtYk9YOOsqgbgepRCfdbmFtqhFkVEDVPjJp0+Z6e6hRHhqBKgg6ZDCvYBygVmUoEGoh5JTRvIJwhJo1aUOoh4CLPMyvxxi7EWOMgnCGsXXI1GIXlZUYX7ucU+kbR8NW8lh3O7cue0Pk32MKndfUxQFAwxdirk3fHappAnc0oqDPzDfGTBrCfHP04dM4oTV8cxr0SVzH9FF07xD3ib6xCDE+M+aUcVygtWzzbtGX2rPBrEUYfecfQkaFzYi6HjVnGBdtL7epqAlc1+jRdAap74RrnPc4BCijttY2tRcdN0g17w7HqZrXhdJTYAuS3hd8z+vKgK3V1zWPae0mZDMykadBn1hTQBLnZNwVrJpSe/NwEeDsEwCctEOsJTsgxLvCqUl2ACftEGvJDgjxrnBqkh3ASTvEWrIDQrwrnJpkB3DSDrGW7IAQ7wqnJtkBnLRztejXXVu4+mxz/nQ9jR1w5VB86ejLTFcnnDwhzV+F6T+CHZlx6THSjn76eyyBIOPHyDakhBAQAkJACAgBISAEhIAQYCLwC8JxpAmsEGt6AAAAAElFTkSuQmCC) no-repeat;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAmxJREFUeAHtmksrRVEUx72fH8CIGQNJkpGUUmakDEiZSJRIZsRQmCkTJRmZmJgQE0kpX0D5DJKJgff7v+ru2u3O3vvc67TOvsdatdrnnP1Y///v7HvvubdbUiIhBISAEBACQkAICAEhIAQ4CXSh2DnyDfmCPEG2Iv9F9MPlM/LHyAecdyMzHYNwR3fdNK/OH9HXl1UCozD24TCvILxizEDWIEzA0FcM8woCgRrJCoS5PIwrANQSMAJX1LEI9bqpQo4JYNFFKRSvIgsxHDVnqZgIkPnNBM0rIGtYk9YOOsqgbgepRCfdbmFtqhFkVEDVPjJp0+Z6e6hRHhqBKgg6ZDCvYBygVmUoEGoh5JTRvIJwhJo1aUOoh4CLPMyvxxi7EWOMgnCGsXXI1GIXlZUYX7ucU+kbR8NW8lh3O7cue0Pk32MKndfUxQFAwxdirk3fHappAnc0oqDPzDfGTBrCfHP04dM4oTV8cxr0SVzH9FF07xD3ib6xCDE+M+aUcVygtWzzbtGX2rPBrEUYfecfQkaFzYi6HjVnGBdtL7epqAlc1+jRdAap74RrnPc4BCijttY2tRcdN0g17w7HqZrXhdJTYAuS3hd8z+vKgK3V1zWPae0mZDMykadBn1hTQBLnZNwVrJpSe/NwEeDsEwCctEOsJTsgxLvCqUl2ACftEGvJDgjxrnBqkh3ASTvEWrIDQrwrnJpkB3DSDrGW7IAQ7wqnJtkBnLRztejXXVu4+mxz/nQ9jR1w5VB86ejLTFcnnDwhzV+F6T+CHZlx6THSjn76eyyBIOPHyDakhBAQAkJACAgBISAEhIAQYCLwC8JxpAmsEGt6AAAAAElFTkSuQmCC)
+    no-repeat;
   background-size: 22px;
   width: 22px;
   height: 22px;
   float: left;
   margin-left: -22px;
 }
-
 
 ngx-dropzone,
 .custom-dropzone {
@@ -175,7 +175,6 @@ ngx-dropzone,
   border: none !important;
 }
 
-
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
   color: var(--primary-bg-color) !important;
 }
@@ -189,12 +188,13 @@ ngx-dropzone,
 }
 
 @media (hover: hover) {
-  .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+  .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover
+    > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
     background-color: var(--primary03);
   }
 }
 
-// Angular material Dark mode 
+// Angular material Dark mode
 .dark-mode {
   .mat-card {
     background: transparent !important;
@@ -250,7 +250,6 @@ ngx-dropzone,
     color: #eee !important;
   }
 
-
   .mat-select-panel,
   mat-option {
     background-color: var(--dark-body) !important;
@@ -261,7 +260,7 @@ ngx-dropzone,
   }
 
   .mat-option.mat-option-disabled {
-    color: rgba(255, 255, 255, 0.3)
+    color: rgba(255, 255, 255, 0.3);
   }
 
   .mat-optgroup-label {
@@ -269,7 +268,8 @@ ngx-dropzone,
   }
 
   .mat-datepicker-content {
-    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%),
+      0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
     background-color: var(--dark-body);
     color: #fff;
   }
@@ -295,7 +295,6 @@ ngx-dropzone,
   .ngb-dp-weekdays {
     background-color: var(--dark-body);
   }
-
 
   ngx-dropzone,
   .custom-dropzone {
@@ -353,7 +352,8 @@ ngx-dropzone,
 
   //mat dialog container
   .mat-dialog-container {
-    box-shadow: 0px 11px 15px -7px rgb(0 0 0 / 20%), 0px 24px 38px 3px rgb(0 0 0 / 14%), 0px 9px 46px 8px rgb(0 0 0 / 12%);
+    box-shadow: 0px 11px 15px -7px rgb(0 0 0 / 20%),
+      0px 24px 38px 3px rgb(0 0 0 / 14%), 0px 9px 46px 8px rgb(0 0 0 / 12%);
     background: var(--dark-body);
     color: #fff;
   }
@@ -364,7 +364,6 @@ ngx-dropzone,
     color: #fff;
   }
 }
-
 
 .modal-backdrop {
   z-index: 999 !important;
@@ -379,12 +378,12 @@ button.close {
 
 //Mat dort arrow position
 .mat-sort-header-arrow,
-[dir=rtl] .mat-sort-header-position-before .mat-sort-header-arrow {
+[dir="rtl"] .mat-sort-header-position-before .mat-sort-header-arrow {
   margin: 0 0 0 auto !important;
 }
 
 .mat-sort-header-position-before .mat-sort-header-arrow,
-[dir=rtl] .mat-sort-header-arrow {
+[dir="rtl"] .mat-sort-header-arrow {
   margin: 0 auto 0 0 !important;
 }
 
@@ -406,16 +405,15 @@ button.close {
   background-color: var(--primary-bg-color);
 }
 
-
-[dir=rtl] th.mat-header-cell:last-of-type:not(:only-of-type),
-[dir=rtl] td.mat-cell:last-of-type:not(:only-of-type),
-[dir=rtl] td.mat-footer-cell:last-of-type:not(:only-of-type) {
+[dir="rtl"] th.mat-header-cell:last-of-type:not(:only-of-type),
+[dir="rtl"] td.mat-cell:last-of-type:not(:only-of-type),
+[dir="rtl"] td.mat-footer-cell:last-of-type:not(:only-of-type) {
   padding-right: 24px !important;
 }
 
-[dir=rtl] th.mat-header-cell:first-of-type:not(:only-of-type),
-[dir=rtl] td.mat-cell:first-of-type:not(:only-of-type),
-[dir=rtl] td.mat-footer-cell:first-of-type:not(:only-of-type) {
+[dir="rtl"] th.mat-header-cell:first-of-type:not(:only-of-type),
+[dir="rtl"] td.mat-cell:first-of-type:not(:only-of-type),
+[dir="rtl"] td.mat-footer-cell:first-of-type:not(:only-of-type) {
   padding-left: 24px !important;
 }
 
@@ -438,8 +436,8 @@ button.close {
   }
 }
 
-[dir=rtl] .mat-calendar-previous-button,
-[dir=rtl] .mat-calendar-next-button {
+[dir="rtl"] .mat-calendar-previous-button,
+[dir="rtl"] .mat-calendar-next-button {
   transform: rotate(0deg) !important;
 }
 
@@ -475,12 +473,11 @@ button.close {
   }
 }
 
-
 .mat-flat-button.mat-primary,
 .mat-raised-button.mat-primary,
 .mat-fab.mat-primary,
 .mat-mini-fab.mat-primary {
-  background-color: var(--primary-bg-color)
+  background-color: var(--primary-bg-color);
 }
 
 .mat-button.mat-primary,
@@ -489,9 +486,11 @@ button.close {
   color: var(--primary-bg-color);
 }
 
-.mat-expansion-panel-header[aria-disabled=true] .mat-expansion-panel-header-title,
-.mat-expansion-panel-header[aria-disabled=true] .mat-expansion-panel-header-description {
-  color: rgba(255, 255, 255, .5);
+.mat-expansion-panel-header[aria-disabled="true"]
+  .mat-expansion-panel-header-title,
+.mat-expansion-panel-header[aria-disabled="true"]
+  .mat-expansion-panel-header-description {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .dark-mode {
@@ -500,22 +499,35 @@ button.close {
   }
 }
 
-@media screen and (max-width:767.98px) {
+@media screen and (max-width: 767.98px) {
   .mat-expansion-panel-header,
   .mat-expansion-panel-header.mat-expanded {
     height: auto;
     .mat-content {
       flex-direction: column;
-      > *{
+      > * {
         margin-block: 0.5rem;
       }
     }
   }
 }
 
-.mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate{
+.mat-primary .mat-pseudo-checkbox-checked,
+.mat-primary .mat-pseudo-checkbox-indeterminate {
   background: var(--primary-bg-color);
 }
-mat-option.mat-selected{
+mat-option.mat-selected {
   background-color: transparent !important;
+}
+
+.header-select {
+  .ng-select .ng-select-container .ng-value-container .ng-input > input {
+    color: #fff !important;
+  }
+  .ng-placeholder {
+    color: #fff !important;
+  }
+  .ng-select .ng-select-container {
+    color: #f7f6f6;
+  }
 }
