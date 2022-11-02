@@ -173,6 +173,21 @@ export class FileManagementComponent implements OnInit, OnDestroy {
     });
   }
 
+  approveDoc(file: File): void {
+    this.fileManagementService.approveFile(file.recordId).subscribe((res) => {
+      if (res && res.succeeded) {
+        this.toster.success(res.message);
+        this.getData(this.currentFolderId);
+      } else if (res && res.errors.length) {
+        res.errors.forEach((err) => {
+          this.toster.error(err.errorMessage);
+        });
+      } else if (res && !res.succeeded && res.data) {
+        this.toster.error(res.data);
+      }
+    });
+  }
+
   copyToCustomerModal(): void {
     this.fileManagementService.getActiveCompanies().subscribe((res) => {
       if (res && res.succeeded) {

@@ -5,3 +5,5 @@ export const PAGINATION_OPTIONS = '[10, 25, 100]';
 export const ALL_COMPANY_ID = -1;
 export const MASTER_USER_TYPE = 1;
 export const ADVISOR_USER_TYPE = 3;
+export const DOCUMENT_STATUS_PENDING = "Pending Approval";
+export const DOCUMENT_STATUS_APPROVED = "Approved";

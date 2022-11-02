@@ -102,4 +102,13 @@ export class FileManagementService extends AbstractService {
       callerErrorHandler: false,
     }) as Observable<any>;
   }
+
+  approveFile(id): Observable<any> {
+    const params = new HttpParams().append('fileId', id);
+    return this.httpGet({
+      url: this.baseUrl + '/FileManagement/ApproveFile',
+      params: params,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
 }

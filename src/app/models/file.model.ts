@@ -12,4 +12,6 @@ export class File {
   createdBy: string = '';
   @Transform(({ value }) => momentTransform(value), { toClassOnly: true })
   createdDateTime: string = '';
+  documentStatus: string = '';
+  modifiedBy: string = '';
 }

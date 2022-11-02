@@ -21,6 +21,7 @@ import { SwitcherService } from '../../services/switcher.service';
 export class HeaderComponent implements OnInit {
   public isCollapsed = true;
   public user: User = new User();
+  public companyId: number = 0;
   constructor(
     private router: Router,
     private store: Store<AppState>,
@@ -33,18 +34,19 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.store.pipe(userSelector).subscribe((res) => {
       this.user = res;
+      this.companyId = this.user.lastLoginCompanyId;
     });
   }
 
-  changeCompany(value: any): void {
+  changeCompany(): void {
     if (
       this.user.userTypeId == MASTER_USER_TYPE ||
       this.user.userTypeId == ADVISOR_USER_TYPE
     ) {
-      this.companyService.selectCompany(value).subscribe((res) => {
+      this.companyService.selectCompany(this.companyId).subscribe((res) => {
         if (res && res.succeeded) {
-          this.reload();
           this.store.dispatch(UpdateUserAction(res.data));
+          this.reload();
         } else if (res && res.errors.length) {
           res.errors.forEach((err) => {
             this.toster.error(err.errorMessage);
@@ -54,10 +56,10 @@ export class HeaderComponent implements OnInit {
         }
       });
     } else {
-      this.companyService.changeCompany(value).subscribe((res) => {
+      this.companyService.changeCompany(this.companyId).subscribe((res) => {
         if (res && res.succeeded) {
-          this.reload();
           this.store.dispatch(UpdateUserAction(res.data));
+          this.reload();
           this.toster.success('Company changed successfully');
         } else if (res && res.errors.length) {
           res.errors.forEach((err) => {

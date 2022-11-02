@@ -480,7 +480,7 @@ export function lightMenuFn() {
   document.getElementsByName('onoffswitch2').forEach((e: any) => {
     e.checked = false;
   });
-  (document.getElementById('myonoffswitch3') as any).checked = true;
+  (document.getElementById('myonoffswitch3') || {} as any).checked = true;
 }
 
 export function darkMenuFn() {
@@ -492,7 +492,7 @@ export function darkMenuFn() {
   document.getElementsByName('onoffswitch2').forEach((e: any) => {
     e.checked = false;
   });
-  (document.getElementById('myonoffswitch5') as any).checked = true;
+  (document.getElementById('myonoffswitch5') || {} as any).checked = true;
 }
 
 export function lightHeaderFn() {
@@ -504,7 +504,7 @@ export function lightHeaderFn() {
   document.getElementsByName('onoffswitch3').forEach((e: any) => {
     e.checked = false;
   });
-  (document.getElementById('myonoffswitch6') as any).checked = true;
+  (document.getElementById('myonoffswitch6') || {} as any).checked = true;
 }
 
 export function darkHeaderFn() {
@@ -516,7 +516,7 @@ export function darkHeaderFn() {
   document.getElementsByName('onoffswitch3').forEach((e: any) => {
     e.checked = false;
   });
-  (document.getElementById('myonoffswitch8') as any).checked = true;
+  (document.getElementById('myonoffswitch8') || {} as any).checked = true;
 }
 
 export function fixedLayoutFn() {
@@ -526,7 +526,7 @@ export function fixedLayoutFn() {
   document.getElementsByName('onoffswitch5').forEach((e: any) => {
     e.checked = false;
   });
-  (document.getElementById('myonoffswitch11') as any).checked = true;
+  (document.getElementById('myonoffswitch11') || {} as any).checked = true;
 }
 
 export function scrollLayoutFn() {
@@ -536,7 +536,7 @@ export function scrollLayoutFn() {
   document.getElementsByName('onoffswitch5').forEach((e: any) => {
     e.checked = false;
   });
-  (document.getElementById('myonoffswitch12') as any).checked = true;
+  (document.getElementById('myonoffswitch12') || {} as any).checked = true;
 }
 
 export function removeForTransparent() {

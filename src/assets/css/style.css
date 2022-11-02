@@ -106403,4 +106403,11 @@ textarea.form-control {
     }
 }
 
+@media (max-width: 767px) {
+    .header-select .ng-select .ng-select-container{
+        color: #333 !important;
+    }
+}
+
+
 /*# sourceMappingURL=style.css.map */
