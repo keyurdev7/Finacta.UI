@@ -32,9 +32,9 @@ export class SidemenuToggleDirective {
       .pipe(userSelector)
       .pipe(first())
       .subscribe((res) => {
-        this.user = res;
-        if (isSidebarOpen === null && res && res.isSidebarOpen === false) {
-          this.addClass();
+        this.user = Object.assign({}, this.user, res);
+        if (isSidebarOpen === null && res) {
+          this.user.isSidebarOpen === false ? this.addClass() : this.removeClass();
         } else if (isSidebarOpen !== null) {
           this.store.dispatch(
             UpdateUserAction(

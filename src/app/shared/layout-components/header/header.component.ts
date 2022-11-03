@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
     ) {
       this.companyService.selectCompany(this.companyId).subscribe((res) => {
         if (res && res.succeeded) {
-          this.store.dispatch(UpdateUserAction(res.data));
+          this.store.dispatch(UpdateUserAction(Object.assign({}, this.user, res.data)));
           this.reload();
         } else if (res && res.errors.length) {
           res.errors.forEach((err) => {
@@ -58,7 +58,7 @@ export class HeaderComponent implements OnInit {
     } else {
       this.companyService.changeCompany(this.companyId).subscribe((res) => {
         if (res && res.succeeded) {
-          this.store.dispatch(UpdateUserAction(res.data));
+          this.store.dispatch(UpdateUserAction(Object.assign({}, this.user, res.data)));
           this.reload();
           this.toster.success('Company changed successfully');
         } else if (res && res.errors.length) {

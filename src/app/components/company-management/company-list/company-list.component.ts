@@ -198,7 +198,7 @@ export class CompanyListComponent implements OnInit {
   selectCompany(id: number): void {
     this.companyUserService.selectCompany(id).subscribe((res) => {
       if (res && res.succeeded) {
-        this.store.dispatch(UpdateUserAction(res.data));
+        this.store.dispatch(UpdateUserAction(Object.assign({}, this.user, res.data)));
       } else if (res && res.errors.length) {
         res.errors.forEach((err) => {
           this.toster.error(err.errorMessage);

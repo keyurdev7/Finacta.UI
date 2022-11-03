@@ -70,7 +70,7 @@ export class PricingComponent implements OnInit, OnDestroy {
   changeCompany(value): void {
     this.companyService.changeCompany(value).subscribe((res) => {
       if (res && res.succeeded) {
-        this.store.dispatch(UpdateUserAction(res.data));
+        this.store.dispatch(UpdateUserAction(Object.assign({}, this.user, res.data)));
         this.router.navigate(['/dashboard']);
       } else if (res && res.errors.length) {
         res.errors.forEach((err) => {
