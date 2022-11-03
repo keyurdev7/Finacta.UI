@@ -117,28 +117,24 @@ export class CompanyListComponent implements OnInit {
     });
   }
 
-  deleteCompany(id:number):void{
+  deleteCompany(id: number): void {
     this.Confirm();
   }
 
   Confirm() {
     Swal.fire({
       title: 'Are you sure?',
-      text: "You wnat to delete this company",
+      text: 'You wnat to delete this company',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result:any) => {
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result: any) => {
       if (result.isConfirmed) {
-        Swal.fire(
-          'Deleted!',
-          'Company has been deleted.',
-          'success'
-        )
+        Swal.fire('Deleted!', 'Company has been deleted.', 'success');
       }
-    })
+    });
   }
 
   subscriptionPay(companyid: number) {
@@ -198,7 +194,9 @@ export class CompanyListComponent implements OnInit {
   selectCompany(id: number): void {
     this.companyUserService.selectCompany(id).subscribe((res) => {
       if (res && res.succeeded) {
-        this.store.dispatch(UpdateUserAction(Object.assign({}, this.user, res.data)));
+        this.store.dispatch(
+          UpdateUserAction(Object.assign({}, this.user, res.data))
+        );
       } else if (res && res.errors.length) {
         res.errors.forEach((err) => {
           this.toster.error(err.errorMessage);

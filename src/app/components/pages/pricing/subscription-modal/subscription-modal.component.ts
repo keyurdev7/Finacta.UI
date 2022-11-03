@@ -11,7 +11,13 @@ import {
 } from '@stripe/stripe-js';
 import { APIService } from 'src/app/shared/services/api.service';
 import { Store } from '@ngrx/store';
-import { AppState, stripeKeySelector } from 'src/app/store/app.state';
+import {
+  AppState,
+  stripeKeySelector,
+  userSelector,
+} from 'src/app/store/app.state';
+import { UpdateUserAction } from 'src/app/store/app.actions';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-subscription-modal',
@@ -39,6 +45,7 @@ export class SubscriptionModalComponent implements OnInit, OnDestroy {
     locale: 'en',
   };
   validCard: boolean = false;
+  user: User = new User();
   subscriptions: Subscription[] = [];
 
   constructor(
@@ -51,6 +58,19 @@ export class SubscriptionModalComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.subscribeToStripeService();
+    this.subscribeToUser();
+  }
+
+  subscribeToUser() {
+    this.subscriptions.push(
+      this.store.pipe(userSelector).subscribe((res) => {
+        this.user = res;
+      })
+    );
+  }
+
+  subscribeToStripeService() {
     this.subscriptions.push(
       this.store.pipe(stripeKeySelector).subscribe((res) => {
         this.stripeService.changeKey(res.key);
@@ -75,6 +95,13 @@ export class SubscriptionModalComponent implements OnInit, OnDestroy {
             .createStripeSubscription(result.paymentMethod.id, this.companyId)
             .subscribe((res) => {
               if (res && res.succeeded) {
+                this.store.dispatch(
+                  UpdateUserAction(
+                    Object.assign({}, this.user, {
+                      userCompany: res.data.userCompany,
+                    })
+                  )
+                );
                 this.dialogRef.close({
                   event: 'success',
                   message: res.message || 'Payment Successful',
