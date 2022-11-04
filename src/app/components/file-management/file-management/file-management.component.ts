@@ -14,6 +14,7 @@ import { AppState, userSelector } from 'src/app/store/app.state';
 import { User } from 'src/app/models/user.model';
 import { UpdateUserAction } from 'src/app/store/app.actions';
 import { CopyToCustomerModalComponent } from '../copy-to-customer-modal/copy-to-customer-modal.component';
+import { DocPreviewModalComponent } from '../doc-preview-modal/doc-preview-modal.component';
 
 @Component({
   selector: 'app-file-management',
@@ -303,10 +304,17 @@ export class FileManagementComponent implements OnInit, OnDestroy {
 
   rowClick(row: any): void {
     if (row.recordType === this.constants.FILE_TYPE) {
-      window.open(row.blobFilePath, '_blank');
+      this.openPreview(row);
     } else if (row.recordType === this.constants.FOLDER_TYPE) {
       this.getData(row.recordId);
     }
+  }
+
+  openPreview(file: File): void {
+    const dialog = this.dialog.open(DocPreviewModalComponent, {
+      minWidth: '28%',
+      data: file,
+    });
   }
 
   ngOnDestroy(): void {

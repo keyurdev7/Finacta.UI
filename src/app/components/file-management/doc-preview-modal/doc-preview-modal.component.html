@@ -1,0 +1,42 @@
+<h1 mat-dialog-title>
+  <strong>Preview</strong>
+</h1>
+<div mat-dialog-content>
+  <img
+    [src]="fileData.blobFilePath"
+    class="image"
+    *ngIf="docFileType === 'image'"
+  />
+  <audio controls *ngIf="docFileType === 'audio'">
+    <source [src]="fileData.blobFilePath" type="audio/mpeg" />
+    Your browser does not support the audio tag.
+  </audio>
+  <video class="video" controls *ngIf="docFileType === 'video'">
+    <source [src]="fileData.blobFilePath" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+  <div *ngIf="docFileType === 'file'">No preview for this file</div>
+  <ngx-doc-viewer
+    *ngIf="
+      docFileType !== 'audio' &&
+      docFileType !== 'video' &&
+      docFileType !== 'image' &&
+      docFileType !== 'file'
+    "
+    [url]="fileData.blobFilePath"
+    viewer="google"
+    class="doc-viewer"
+  ></ngx-doc-viewer>
+</div>
+<div mat-dialog-actions class="float-end">
+  <a
+    mat-button
+    mat-flat-button
+    color="warn"
+    [href]="fileData.blobFilePath"
+    target="_blank"
+  >
+    Download
+  </a>
+  <button mat-button (click)="closeDialog()">close</button>
+</div>

@@ -120,6 +120,15 @@
                     ><i class="fe fe-download me-2"></i> Download</a
                   >
                   <a
+                    *ngIf="
+                      constants.FILE_TYPE === eachData.recordType &&
+                      constants.DOCUMENT_STATUS_APPROVED !== eachData.documentStatus"
+                    href="javascript:;"
+                    ngbDropdownItem
+                    (click)="approveDoc(eachData)"
+                    ><i class="fe fe-check me-2"></i> Approve</a
+                  >
+                  <a
                     ngbDropdownItem
                     href="javascript:;"
                     (click)="deleteConfirmation(eachData)"
@@ -146,8 +155,7 @@
                 </a>
                 <a
                   *ngIf="eachData.recordType === constants.FILE_TYPE"
-                  [href]="eachData.blobFilePath"
-                  target="_blank"
+                  (click)="openPreview(eachData)"
                 >
                   <img
                     [src]="
@@ -231,8 +239,6 @@
                             >{{ eachData.recordName }}</span
                           >
                           <a
-                            [href]="eachData.blobFilePath"
-                            target="_blank"
                             class="mb-1 file-name"
                             *ngIf="eachData.recordType === constants.FILE_TYPE"
                             >{{ eachData.recordName }}</a
@@ -305,6 +311,7 @@
                                 constants.DOCUMENT_STATUS_APPROVED !==
                                   eachData.documentStatus
                               "
+                              href="javascript:;"
                               ngbDropdownItem
                               (click)="approveDoc(eachData)"
                               ><i class="fe fe-check me-2"></i> Approve</a

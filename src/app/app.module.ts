@@ -53,6 +53,8 @@ import { CustomerListComponent } from './components/settings-management/customer
 import { MappedCompanyDialogComponent } from './components/settings-management/mapped-company-dialog/mapped-company-dialog.component';
 import { MapXeroContactDialogComponent } from './components/company-management/map-xero-contact-dialog/map-xero-contact-dialog.component';
 import { CopyToCustomerModalComponent } from './components/file-management/copy-to-customer-modal/copy-to-customer-modal.component';
+import { DocPreviewModalComponent } from './components/file-management/doc-preview-modal/doc-preview-modal.component';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 @NgModule({
   declarations: [
@@ -86,6 +88,7 @@ import { CopyToCustomerModalComponent } from './components/file-management/copy-
     MappedCompanyDialogComponent,
     MapXeroContactDialogComponent,
     CopyToCustomerModalComponent,
+    DocPreviewModalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -97,6 +100,7 @@ import { CopyToCustomerModalComponent } from './components/file-management/copy-
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     SharedModule,
+    NgxDocViewerModule,
     NgbModule,
     SimpleNotificationsModule.forRoot(),
     ToastrModule.forRoot({ positionClass: 'toast-top-center' }),

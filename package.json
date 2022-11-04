@@ -71,6 +71,7 @@
     "ngx-bar-rating": "^4.0.1",
     "ngx-color-picker": "^12.0.1",
     "ngx-cookie-service": "^14.0.1",
+    "ngx-doc-viewer": "^14.0.0",
     "ngx-dropzone": "^3.1.0",
     "ngx-echarts": "^14.0.0",
     "ngx-editor": "^14.0.0",
