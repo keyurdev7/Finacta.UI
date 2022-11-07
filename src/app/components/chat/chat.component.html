@@ -1,0 +1,11 @@
+<app-page-header
+[title]="'Chat'"
+[items]="[{ title: 'Home', link: '/' }]"
+[active_item]="'Chat'"
+></app-page-header>
+
+<!-- Row -->
+<div class="row row-deck">
+  <app-chat-detail class="col-sm-12 col-md-12 col-lg-12 col-xl-7"></app-chat-detail>
+  <app-chat-list class="col-sm-12 col-md-12 col-lg-12 col-xl-5"></app-chat-list>
+</div>

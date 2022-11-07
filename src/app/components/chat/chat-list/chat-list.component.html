@@ -1,0 +1,45 @@
+<div class="card overflow-scroll">
+  <div class="main-content-chat-app pt-0">
+    <div class="main-content-left main-content-left-chat">
+      <!-- main-chat-header -->
+      <div class="card-body overflow-scroll">
+        <div class="input-group mb-2">
+          <input type="text" [(ngModel)]="searchUserStr" class="form-control" placeholder="Search ..." />
+          <span class="input-group-text btn btn-primary text-white" (click)="searchUser()"
+            >Search</span
+          >
+        </div>
+      </div>
+      <div class="main-chat-list tab-pane">
+        <a
+          *ngFor="let eachUser of activeUser"
+          class="media new"
+          href="javascript:;"
+        >
+          <div class="avatar avatar-md brround bg-secondary-transparent">
+            <span *ngIf="eachUser.unReadCount > 0" _ngcontent-eup-c279=""
+              >1</span
+            >
+            <i
+              *ngIf="!eachUser.profilePhoto"
+              class="fe fe-user text-secondary"
+            ></i>
+            <img
+              *ngIf="eachUser.profilePhoto"
+              alt=""
+              [src]="eachUser.profilePhoto"
+            />
+          </div>
+          <div class="media-body">
+            <div class="media-contact-name">
+              <span>{{ eachUser.name }}</span>
+              <span>{{ eachUser.lastMessageSentDateTime | dateAgo }}</span>
+            </div>
+            <p>I have some work</p>
+          </div>
+        </a>
+      </div>
+      <!-- main-chat-list -->
+    </div>
+  </div>
+</div>

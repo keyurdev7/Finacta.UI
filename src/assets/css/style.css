@@ -60429,6 +60429,12 @@ ul li .legend-dots {
     }
 }
 
+@media (min-width: 992px) {
+    .main-content-chat-app {
+        height: calc(100vh - 50px);
+    }
+}
+
 .overflow-scroll::-webkit-scrollbar {
     display: none;
 }

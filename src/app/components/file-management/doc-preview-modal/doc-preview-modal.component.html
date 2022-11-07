@@ -6,6 +6,7 @@
     [src]="fileData.blobFilePath"
     class="image"
     *ngIf="docFileType === 'image'"
+    [alt]="fileData.recordName"
   />
   <audio controls *ngIf="docFileType === 'audio'">
     <source [src]="fileData.blobFilePath" type="audio/mpeg" />

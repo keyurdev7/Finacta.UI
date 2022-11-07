@@ -55,6 +55,20 @@ import { MapXeroContactDialogComponent } from './components/company-management/m
 import { CopyToCustomerModalComponent } from './components/file-management/copy-to-customer-modal/copy-to-customer-modal.component';
 import { DocPreviewModalComponent } from './components/file-management/doc-preview-modal/doc-preview-modal.component';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import {
+  PerfectScrollbarConfigInterface,
+  PerfectScrollbarModule,
+  PERFECT_SCROLLBAR_CONFIG,
+} from 'ngx-perfect-scrollbar';
+import { ChatComponent } from './components/chat/chat.component';
+import { ChatDetailComponent } from './components/chat/chat-detail/chat-detail.component';
+import { ContactListComponent } from './components/chat/contact-list/contact-list.component';
+import { ChatListComponent } from './components/chat/chat-list/chat-list.component';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true,
+  wheelPropagation: false,
+};
 
 @NgModule({
   declarations: [
@@ -89,6 +103,10 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
     MapXeroContactDialogComponent,
     CopyToCustomerModalComponent,
     DocPreviewModalComponent,
+    ChatComponent,
+    ChatDetailComponent,
+    ContactListComponent,
+    ChatListComponent,
   ],
   imports: [
     HttpClientModule,
@@ -102,6 +120,7 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
     SharedModule,
     NgxDocViewerModule,
     NgbModule,
+    PerfectScrollbarModule,
     SimpleNotificationsModule.forRoot(),
     ToastrModule.forRoot({ positionClass: 'toast-top-center' }),
     StoreModule.forRoot(
@@ -118,6 +137,10 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
   providers: [
     ColorPickerService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
+    },
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

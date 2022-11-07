@@ -9,6 +9,7 @@ import { TermListComponent } from 'src/app/components/term-management/term-list/
 import { TermsViewComponent } from 'src/app/components/term-management/terms-view/terms-view.component'
 import { InvoicesComponent } from 'src/app/components/invoices/invoices.component';
 import { SettingsManagementHomeComponent } from 'src/app/components/settings-management/settings-management-home/settings-management-home.component';
+import { ChatComponent } from 'src/app/components/chat/chat.component';
 
 export const content: Routes = [
   {
@@ -18,6 +19,10 @@ export const content: Routes = [
   {
     path: 'company',
     component: CompanyListComponent,
+  },
+  {
+    path: 'Chat',
+    component: ChatComponent,
   },
   {
     path: 'blog-management',
