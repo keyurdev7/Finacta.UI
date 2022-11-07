@@ -4,13 +4,27 @@
       <!-- main-chat-header -->
       <div class="card-body overflow-scroll">
         <div class="input-group mb-2">
-          <input type="text" [(ngModel)]="searchUserStr" class="form-control" placeholder="Search ..." />
-          <span class="input-group-text btn btn-primary text-white" (click)="searchUser()"
+          <input
+            type="text"
+            [(ngModel)]="searchUserStr"
+            class="form-control"
+            placeholder="Search ..."
+          />
+          <span
+            class="input-group-text btn btn-primary text-white"
+            (click)="searchUser()"
             >Search</span
           >
         </div>
       </div>
       <div class="main-chat-list tab-pane">
+        <a
+          *ngIf="!activeUser || !activeUser.length || activeUser.length === 0"
+          class="media new"
+          href="javascript:;"
+        >
+          No results found
+        </a>
         <a
           *ngFor="let eachUser of activeUser"
           class="media new"
