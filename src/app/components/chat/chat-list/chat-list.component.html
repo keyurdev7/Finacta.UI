@@ -1,59 +1,244 @@
-<div class="card overflow-scroll">
-  <div class="main-content-chat-app pt-0">
-    <div class="main-content-left main-content-left-chat">
-      <!-- main-chat-header -->
-      <div class="card-body overflow-scroll">
-        <div class="input-group mb-2">
-          <input
-            type="text"
-            [(ngModel)]="searchUserStr"
-            class="form-control"
-            placeholder="Search ..."
-          />
-          <span
-            class="input-group-text btn btn-primary text-white"
-            (click)="searchUser()"
-            >Search</span
-          >
+<div class="row row-deck">
+  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-8">
+    <div class="card">
+      <div class="main-content-chat-app pt-0">
+        <div class="main-content-body main-content-body-chat h-100">
+          <div class="main-chat-header pt-3 d-block d-sm-flex">
+            <div class="main-img-user online">
+              <img
+                *ngIf="chatDetailUser.profilePhoto"
+                [src]="chatDetailUser.profilePhoto"
+                alt="profile-user"
+              />
+              <img
+                *ngIf="!chatDetailUser.profilePhoto"
+                src="./assets/images/faces/default-profile-icon.jpg"
+                alt="profile-user"
+              />
+            </div>
+            <div class="main-chat-msg-name mt-2">
+              <p class="mb-0">{{ chatDetailUser.name }}</p>
+            </div>
+            <nav class="nav">
+              <div>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="chatSearch"
+                    placeholder="Search"
+                  />
+                  <button
+                    class="btn ripple btn-primary input-group-text text-white border-0"
+                    type="button" (click)="searchInChat()"
+                  >
+                    <i class="fe fe-search"></i>
+                  </button>
+                </div>
+              </div>
+            </nav>
+          </div>
+          <!-- main-chat-header -->
+          <div class="main-chat-body flex-2" id="ChatBody">
+            <perfect-scrollbar>
+              <div class="content-inner">
+                <!-- <label class="main-chat-time"><span>2 days ago</span></label> -->
+                <ng-container *ngFor="let eachChat of chatDetail">
+                  <div
+                    *ngIf="eachChat.messageDirection === 'FromMe'"
+                    class="media flex-row-reverse chat-right"
+                  >
+                    <div class="main-img-user online">
+                      <img
+                        *ngIf="user.profilePhoto"
+                        [src]="user.profilePhoto"
+                        alt="profile-user"
+                      />
+                      <img
+                        *ngIf="!user.profilePhoto"
+                        src="./assets/images/faces/default-profile-icon.jpg"
+                        alt="profile-user"
+                      />
+                    </div>
+                    <div class="media-body">
+                      <div class="main-msg-wrapper">
+                        {{ eachChat.chatText }}
+                      </div>
+                      <div>
+                        <span>{{
+                          eachChat.sentDateTime | date: "h:mm a"
+                        }}</span>
+                        <a href="javascript:void(0)"
+                          ><i class="icon ion-android-more-vertical"></i
+                        ></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    *ngIf="eachChat.messageDirection !== 'FromMe'"
+                    class="media chat-left"
+                  >
+                    <div class="main-img-user online">
+                      <img
+                        *ngIf="chatDetailUser.profilePhoto"
+                        [src]="chatDetailUser.profilePhoto"
+                        alt="profile-user"
+                      />
+                      <img
+                        *ngIf="!chatDetailUser.profilePhoto"
+                        src="./assets/images/faces/default-profile-icon.jpg"
+                        alt="profile-user"
+                      />
+                    </div>
+                    <div class="media-body">
+                      <div class="main-msg-wrapper">
+                        {{ eachChat.chatText }}
+                      </div>
+                      <div>
+                        <span>{{
+                          eachChat.sentDateTime | date: "h:mm a"
+                        }}</span>
+                        <a href="javascript:void(0)"
+                          ><i class="icon ion-android-more-vertical"></i
+                        ></a>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </perfect-scrollbar>
+          </div>
+          <div class="main-chat-footer pt-5">
+            <input
+              class="form-control"
+              placeholder="Type your message here..."
+              type="text"
+              [(ngModel)]="message"
+            />
+            <a
+              class="nav-link"
+              data-bs-toggle="tooltip"
+              href="javascript:void(0)"
+              title="Attach a File"
+              (click)="addAttachment()"
+              ><i class="fe fe-paperclip"></i
+            ></a>
+            <button
+              type="button"
+              class="btn btn-icon btn-primary brround"
+              (click)="addChat()"
+            >
+              <i class="fa fa-paper-plane-o"></i>
+            </button>
+            <nav class="nav"></nav>
+          </div>
         </div>
       </div>
-      <div class="main-chat-list tab-pane">
-        <a
-          *ngIf="!activeUser || !activeUser.length || activeUser.length === 0"
-          class="media new"
-          href="javascript:;"
-        >
-          No results found
-        </a>
-        <a
-          *ngFor="let eachUser of activeUser"
-          class="media new"
-          href="javascript:;"
-        >
-          <div class="avatar avatar-md brround bg-secondary-transparent">
-            <span *ngIf="eachUser.unReadCount > 0" _ngcontent-eup-c279=""
-              >1</span
-            >
-            <i
-              *ngIf="!eachUser.profilePhoto"
-              class="fe fe-user text-secondary"
-            ></i>
-            <img
-              *ngIf="eachUser.profilePhoto"
-              alt=""
-              [src]="eachUser.profilePhoto"
-            />
-          </div>
-          <div class="media-body">
-            <div class="media-contact-name">
-              <span>{{ eachUser.name }}</span>
-              <span>{{ eachUser.lastMessageSentDateTime | dateAgo }}</span>
+    </div>
+  </div>
+  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4">
+    <div class="card overflow-scroll">
+      <div class="main-content-chat-app pt-0">
+        <div class="main-content-left main-content-left-chat">
+          <!-- main-chat-header -->
+          <div class="card-body overflow-scroll">
+            <div class="input-group mb-2">
+              <input
+                type="text"
+                [(ngModel)]="searchUserStr"
+                class="form-control"
+                placeholder="Search ..."
+              />
+              <span
+                class="input-group-text btn btn-primary text-white"
+                (click)="searchUser()"
+                >Search</span
+              >
             </div>
-            <p>I have some work</p>
           </div>
-        </a>
+          <div *ngIf="!searchUserStr" class="main-chat-list tab-pane">
+            <a
+              *ngIf="
+                !activeUser || !activeUser.length || activeUser.length === 0
+              "
+              class="media new"
+              href="javascript:;"
+            >
+              No results found
+            </a>
+            <a
+              *ngFor="let eachUser of activeUser"
+              class="media new"
+              href="javascript:;"
+              (click)="getChat(eachUser, 0)"
+            >
+              <div class="avatar avatar-md brround bg-secondary-transparent">
+                <span *ngIf="eachUser.unReadCount > 0" _ngcontent-eup-c279=""
+                  >1</span
+                >
+                <i
+                  *ngIf="!eachUser.profilePhoto"
+                  class="fe fe-user text-secondary"
+                ></i>
+                <img
+                  *ngIf="eachUser.profilePhoto"
+                  alt=""
+                  [src]="eachUser.profilePhoto"
+                />
+              </div>
+              <div class="media-body">
+                <div class="media-contact-name">
+                  <span>{{ eachUser.name }}</span>
+                  <span>{{ eachUser.lastMessageSentDateTime | dateAgo }}</span>
+                </div>
+                <p>I have some work</p>
+              </div>
+            </a>
+          </div>
+          <div *ngIf="!!searchUserStr" class="main-chat-list tab-pane">
+            <a
+              *ngIf="
+                !searchedUser ||
+                !searchedUser.length ||
+                searchedUser.length === 0
+              "
+              class="media new"
+              href="javascript:;"
+            >
+              No results found
+            </a>
+            <a
+              *ngFor="let eachUser of searchedUser"
+              class="media new"
+              href="javascript:;"
+              (click)="addUser(eachUser.userId)"
+            >
+              <div class="avatar avatar-md brround bg-secondary-transparent">
+                <span *ngIf="eachUser.unReadCount > 0" _ngcontent-eup-c279=""
+                  >1</span
+                >
+                <i
+                  *ngIf="!eachUser.profilePhoto"
+                  class="fe fe-user text-secondary"
+                ></i>
+                <img
+                  *ngIf="eachUser.profilePhoto"
+                  alt=""
+                  [src]="eachUser.profilePhoto"
+                />
+              </div>
+              <div class="media-body">
+                <div class="media-contact-name">
+                  <span>{{ eachUser.name }}</span>
+                  <span>{{ eachUser.lastMessageSentDateTime | dateAgo }}</span>
+                </div>
+                <p>I have some work</p>
+              </div>
+            </a>
+          </div>
+          <!-- main-chat-list -->
+        </div>
       </div>
-      <!-- main-chat-list -->
     </div>
   </div>
 </div>

@@ -30,4 +30,40 @@ export class ChatService extends AbstractService {
       callerErrorHandler: false,
     }) as Observable<any>;
   }
+
+  getChat(userId, lastMessageId): Observable<any> {
+    const params = new HttpParams()
+      .append('selecteUserId', userId)
+      .append('lastMessageChatId', lastMessageId);
+    return this.httpGet({
+      url: this.baseUrl + '/ChatManagement/GetChatByUserId',
+      params: params,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  sendChat(userId, message): Observable<any> {
+    const data = {
+      SelecteUserId: userId,
+      ChatText: message,
+    };
+    const body = new FormData();
+    Object.keys(data).forEach((key) => {
+      body.append(key, data[key]);
+    });
+    return this.httpPost({
+      url: this.baseUrl + '/ChatManagement/AddChat',
+      payload: body,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  addUserToChat(userId): Observable<any> {
+    const params = new HttpParams().append('selecteUserId', userId);
+    return this.httpGet({
+      url: this.baseUrl + '/ChatManagement/AddUserToChatList',
+      params: params,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
 }
