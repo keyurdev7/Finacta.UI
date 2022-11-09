@@ -1,0 +1,41 @@
+<div class="modal-header">
+  <h6 class="modal-title">Add file</h6>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="closeDialog()"
+  ></button>
+</div>
+<div class="modal-body">
+  <div class="mb-2">
+    <ngx-dropzone (change)="onSelect($event)" [multiple]="false">
+      <ngx-dropzone-label>Drop it, Here!</ngx-dropzone-label>
+      <ngx-dropzone-preview
+        ngProjectAs="ngx-dropzone-preview"
+        *ngFor="let f of files"
+        [file]="f"
+        [removable]="true"
+        (removed)="onRemove()"
+      >
+        <ngx-dropzone-label class="file-label">{{ f.name }}</ngx-dropzone-label>
+      </ngx-dropzone-preview>
+    </ngx-dropzone>
+  </div>
+  <label class="ckbox" for="ckbox-unchecked" *ngIf="duplicateErr">
+    <input type="checkbox" id="ckbox-unchecked" [(ngModel)]="override" />
+    <span class="ms-1 d-inline form-label">Overwrite File</span>
+  </label>
+</div>
+<div class="modal-footer">
+  <button
+    mat-button
+    mat-flat-button
+    color="warn"
+    (click)="add()"
+    [disabled]="!files.length"
+  >
+    Save
+  </button>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+</div>

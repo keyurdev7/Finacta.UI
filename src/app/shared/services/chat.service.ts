@@ -15,10 +15,11 @@ export class ChatService extends AbstractService {
     super(httpClient, loadingMaskService);
   }
 
-  getAllActiveUser(): Observable<any> {
+  getAllActiveUser(loadingMask: boolean = false): Observable<any> {
     return this.httpGet({
       url: this.baseUrl + '/ChatManagement/GetActiveChatUserList',
       params: new HttpParams(),
+      noLoadingMask: loadingMask,
       callerErrorHandler: false,
     }) as Observable<any>;
   }
@@ -37,6 +38,30 @@ export class ChatService extends AbstractService {
       .append('lastMessageChatId', lastMessageId);
     return this.httpGet({
       url: this.baseUrl + '/ChatManagement/GetChatByUserId',
+      params: params,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  getLastestChatByUserId(userId, lastMessageId): Observable<any> {
+    const params = new HttpParams()
+      .append('selecteUserId', userId)
+      .append('lastMessageChatId', lastMessageId);
+    return this.httpGet({
+      url: this.baseUrl + '/ChatManagement/GetLastestChatByUserId',
+      noLoadingMask: true,
+      params: params,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  searchInChat(userId, searchStr): Observable<any> {
+    const params = new HttpParams()
+      .append('selecteUserId', userId)
+      .append('searchText', searchStr);
+    return this.httpGet({
+      url: this.baseUrl + '/ChatManagement/SearchChatByUserId',
+      noLoadingMask: true,
       params: params,
       callerErrorHandler: false,
     }) as Observable<any>;

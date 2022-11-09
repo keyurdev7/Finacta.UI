@@ -64,6 +64,7 @@ import { ChatComponent } from './components/chat/chat.component';
 import { ChatDetailComponent } from './components/chat/chat-detail/chat-detail.component';
 import { ContactListComponent } from './components/chat/contact-list/contact-list.component';
 import { ChatListComponent } from './components/chat/chat-list/chat-list.component';
+import { AddChatFileComponent } from './components/chat/add-chat-file/add-chat-file.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -107,6 +108,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ChatDetailComponent,
     ContactListComponent,
     ChatListComponent,
+    AddChatFileComponent,
   ],
   imports: [
     HttpClientModule,
