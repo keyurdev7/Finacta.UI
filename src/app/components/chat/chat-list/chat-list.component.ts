@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { User } from 'src/app/models/user.model';
 import { AppState, userSelector } from 'src/app/store/app.state';
 import { Subscription } from 'rxjs';
-import { AddFileComponent } from '../add-chat-file/add-file.component';
+// import { AddFileComponent } from '../add-chat-file/add-file.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -100,10 +100,10 @@ export class ChatListComponent implements OnInit {
 
   }
   addAttachment(): void {
-    const dialog = this.dialog.open(AddFileComponent, {
-      minWidth: '50%',
-      // data: this.currentFolderId,
-    });
+    // const dialog = this.dialog.open(AddFileComponent, {
+    //   minWidth: '50%',
+    //   // data: this.currentFolderId,
+    // });
     // dialog.afterClosed().subscribe((result) => {
     //   if (result?.event === 'success') {
     //     this.breadCrumb.push({
