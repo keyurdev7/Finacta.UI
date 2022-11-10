@@ -1,3 +1,42 @@
 .card-height {
-    height: calc(100% - 10px)
+  height: calc(100% - 10px);
+}
+.search-wrap {
+  align-items: center;
+  input {
+    height: 35px;
+  }
+  button {
+    height: 35px;
+  }
+  .clear-icon {
+    position: absolute;
+    padding: 12px;
+    font-size: 1rem;
+    right: 35px;
+    cursor: pointer;
+    z-index: 5;
+  }
+}
+.search-wrap-user {
+  align-items: center;
+  input {
+    height: 33px;
+  }
+  .clear-user-icon {
+    position: absolute;
+    padding: 12px;
+    font-size: 1rem;
+    right: 73px;
+    cursor: pointer;
+    z-index: 5;
+  }
+}
+.searched-user {
+  align-self: center;
+  display: flex;
+  justify-content: space-between;
+  .media-contact-name span {
+    font-size: 14px !important;
+  }
 }

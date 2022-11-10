@@ -104,6 +104,7 @@ export class ChatListComponent implements OnInit {
         }
         if (this.subscriptions.length === 2) {
           this.subscriptions[1].unsubscribe();
+          this.subscriptions.pop();
         }
 
         this.subscriptions.push(
@@ -111,6 +112,17 @@ export class ChatListComponent implements OnInit {
         );
       }
     });
+  }
+
+  clearChatSearch(): void {
+    this.chatSearch = '';
+    this.getChat(this.chatDetailUser, 0);
+  }
+
+  clearUserSearch(): void {
+    this.searchUserStr = '';
+    this.isSearchedUser = false;
+    this.getAllActiveUserList();
   }
 
   getLatestChatByUserId(userId, lastMessageChatId): Subscription {

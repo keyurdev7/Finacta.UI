@@ -21,16 +21,22 @@
             </div>
             <nav class="nav">
               <div>
-                <div class="input-group">
+                <div class="input-group search-wrap">
                   <input
                     type="text"
                     class="form-control"
                     [(ngModel)]="chatSearch"
                     placeholder="Search"
                   />
+                  <i
+                    class="fa fa-close clear-icon"
+                    (click)="clearChatSearch()"
+                    *ngIf="chatSearch"
+                  ></i>
                   <button
                     class="btn ripple btn-primary input-group-text text-white border-0"
-                    type="button" (click)="searchInChat()"
+                    type="button"
+                    (click)="searchInChat()"
                   >
                     <i class="fe fe-search"></i>
                   </button>
@@ -142,13 +148,18 @@
         <div class="main-content-left main-content-left-chat">
           <!-- main-chat-header -->
           <div class="card-body overflow-scroll">
-            <div class="input-group mb-2">
+            <div class="input-group mb-2 search-wrap-user">
               <input
                 type="text"
                 [(ngModel)]="searchUserStr"
                 class="form-control"
                 placeholder="Search ..."
               />
+              <i
+                class="fa fa-close clear-user-icon"
+                (click)="clearUserSearch()"
+                *ngIf="searchUserStr"
+              ></i>
               <span
                 class="input-group-text btn btn-primary text-white"
                 (click)="searchUser()"
@@ -156,7 +167,10 @@
               >
             </div>
           </div>
-          <div *ngIf="(!searchedUser || !searchedUser.length) && !isSearchedUser" class="main-chat-list tab-pane">
+          <div
+            *ngIf="(!searchedUser || !searchedUser.length) && !isSearchedUser"
+            class="main-chat-list tab-pane"
+          >
             <a
               *ngIf="
                 !activeUser || !activeUser.length || activeUser.length === 0
@@ -173,9 +187,9 @@
               (click)="getChat(eachUser, 0)"
             >
               <div class="avatar avatar-md brround bg-secondary-transparent">
-                <span *ngIf="eachUser.unReadCount > 0" _ngcontent-eup-c279=""
-                  >{{eachUser.unReadCount}}</span
-                >
+                <span *ngIf="eachUser.unReadCount > 0" _ngcontent-eup-c279="">{{
+                  eachUser.unReadCount
+                }}</span>
                 <i
                   *ngIf="!eachUser.profilePhoto"
                   class="fe fe-user text-secondary"
@@ -195,7 +209,10 @@
               </div>
             </a>
           </div>
-          <div *ngIf="!!isSearchedUser || (!!searchedUser && searchedUser.length)" class="main-chat-list tab-pane">
+          <div
+            *ngIf="!!isSearchedUser || (!!searchedUser && searchedUser.length)"
+            class="main-chat-list tab-pane"
+          >
             <a
               *ngIf="
                 !searchedUser ||
@@ -211,12 +228,8 @@
               *ngFor="let eachUser of searchedUser"
               class="media new"
               href="javascript:;"
-              (click)="addUser(eachUser.userId)"
             >
               <div class="avatar avatar-md brround bg-secondary-transparent">
-                <span *ngIf="eachUser.unReadCount > 0" _ngcontent-eup-c279=""
-                  >1</span
-                >
                 <i
                   *ngIf="!eachUser.profilePhoto"
                   class="fe fe-user text-secondary"
@@ -227,11 +240,17 @@
                   [src]="eachUser.profilePhoto"
                 />
               </div>
-              <div class="media-body">
+              <div class="media-body searched-user">
                 <div class="media-contact-name">
                   <span>{{ eachUser.name }}</span>
                 </div>
-                <p>I have some work</p>
+                <div>
+                  <span
+                    class="input-group-text btn btn-primary text-white"
+                    (click)="addUser(eachUser.userId)"
+                    >Chat</span
+                  >
+                </div>
               </div>
             </a>
           </div>
