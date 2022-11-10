@@ -36,26 +36,26 @@ export class AddChatFileComponent implements OnInit {
   add(): void {
     const data = {
       AttachmentName: this.files[0],
+      SelecteUserId: this.id,
     };
 
-    // this.chatService.sendChat(data).subscribe((res) => {
-    //   if (res && res.succeeded) {
-    //     this.duplicateErr = false;
-    //     this.dialogRef.close({ event: 'success' });
-    //     this.toster.success(res.message);
-    //   } else if (res && res.errors.length) {
-    //     this.duplicateErr = false;
-    //     res.errors.forEach((err) => {
-    //       if (err.errorCode === 10) {
-    //         this.duplicateErr = true;
-    //         this.override = true;
-    //       }
-    //       this.toster.error(err.errorMessage);
-    //     });
-    //   } else if (res && !res.succeeded && res.data) {
-    //     this.toster.error(res.data);
-    //   }
-    // });
+    this.chatService.sendChat(data).subscribe((res) => {
+      if (res && res.succeeded) {
+        this.duplicateErr = false;
+        this.dialogRef.close({ event: 'success' });
+      } else if (res && res.errors.length) {
+        this.duplicateErr = false;
+        res.errors.forEach((err) => {
+          if (err.errorCode === 10) {
+            this.duplicateErr = true;
+            this.override = true;
+          }
+          this.toster.error(err.errorMessage);
+        });
+      } else if (res && !res.succeeded && res.data) {
+        this.toster.error(res.data);
+      }
+    });
   }
 
   closeDialog(): void {

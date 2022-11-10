@@ -146,14 +146,16 @@ export class ChatListComponent implements OnInit {
   }
 
   addChat(): void {
-    this.chatService
-      .sendChat(this.chatDetailUser.userId, this.message)
-      .subscribe((res) => {
-        if (res && res.succeeded) {
-          this.getChat(this.chatDetailUser, 0);
-          this.message = '';
-        }
-      });
+    const data = {
+      SelecteUserId: this.chatDetailUser.userId,
+      ChatText: this.message,
+    };
+    this.chatService.sendChat(data).subscribe((res) => {
+      if (res && res.succeeded) {
+        this.getChat(this.chatDetailUser, 0);
+        this.message = '';
+      }
+    });
   }
 
   addUser(id): void {
@@ -177,18 +179,15 @@ export class ChatListComponent implements OnInit {
   addAttachment(): void {
     const dialog = this.dialog.open(AddChatFileComponent, {
       minWidth: '50%',
-      // data: this.currentFolderId,
+      data: this.chatDetailUser.userId,
     });
-    // dialog.afterClosed().subscribe((result) => {
-    //   if (result?.event === 'success') {
-    //     this.breadCrumb.push({
-    //       title: this.currentActiveItem,
-    //       link: this.currentFolderId,
-    //     });
-    //     this.getData(this.currentFolderId);
-    //   }
-    //   return;
-    // });
+    dialog.afterClosed().subscribe((result) => {
+      if (result?.event === 'success') {
+        this.getChat(this.chatDetailUser, 0);
+        this.message = '';
+      }
+      return;
+    });
   }
 
   ngOnDestroy(): void {

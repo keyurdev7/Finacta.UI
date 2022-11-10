@@ -67,11 +67,7 @@ export class ChatService extends AbstractService {
     }) as Observable<any>;
   }
 
-  sendChat(userId, message): Observable<any> {
-    const data = {
-      SelecteUserId: userId,
-      ChatText: message,
-    };
+  sendChat(data): Observable<any> {
     const body = new FormData();
     Object.keys(data).forEach((key) => {
       body.append(key, data[key]);

@@ -67,8 +67,34 @@
                       />
                     </div>
                     <div class="media-body">
-                      <div class="main-msg-wrapper">
+                      <div
+                        class="main-msg-wrapper"
+                        *ngIf="!eachChat.attachmentName"
+                      >
                         {{ eachChat.chatText }}
+                      </div>
+                      <div
+                        class="main-msg-wrapper"
+                        *ngIf="eachChat.attachmentName"
+                      >
+                        <span class="text-dark attachment-wrapper"
+                          ><span class="attachment-image"
+                            ><i
+                              class="fa fa-image fs-14 text-muted px-3"
+                            ></i></span
+                          ><span class="fs-14 mt-1">
+                            {{ eachChat.attachmentName }}
+                          </span>
+                          <a
+                            *ngIf="eachChat.blobFilePath"
+                            ngbDropdownItem
+                            [href]="eachChat.blobFilePath"
+                            [download]="eachChat.attachmentName"
+                            ><i
+                              class="fe fe-download mt-3 ms-4 text-muted pe-2"
+                            ></i
+                          ></a>
+                        </span>
                       </div>
                       <div>
                         <span>{{

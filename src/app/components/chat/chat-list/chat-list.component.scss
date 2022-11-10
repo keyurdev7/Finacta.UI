@@ -40,3 +40,9 @@
     font-size: 14px !important;
   }
 }
+.attachment-wrapper {
+  display: flex;
+  .attachment-image {
+    align-self: center;
+  }
+}
