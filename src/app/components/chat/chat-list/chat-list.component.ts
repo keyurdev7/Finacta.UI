@@ -140,7 +140,7 @@ export class ChatListComponent implements OnInit {
           res.data.length &&
           res.data.length > 0
         ) {
-          this.chatDetail.push(res.data);
+          this.chatDetail = [...this.chatDetail, ...res.data];
         }
       });
   }
@@ -152,7 +152,7 @@ export class ChatListComponent implements OnInit {
     };
     this.chatService.sendChat(data).subscribe((res) => {
       if (res && res.succeeded) {
-        this.getChat(this.chatDetailUser, 0);
+        this.getAllActiveUserList();
         this.message = '';
       }
     });
@@ -176,6 +176,7 @@ export class ChatListComponent implements OnInit {
         }
       });
   }
+
   addAttachment(): void {
     const dialog = this.dialog.open(AddChatFileComponent, {
       minWidth: '50%',
@@ -183,7 +184,7 @@ export class ChatListComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((result) => {
       if (result?.event === 'success') {
-        this.getChat(this.chatDetailUser, 0);
+        this.getAllActiveUserList();
         this.message = '';
       }
       return;

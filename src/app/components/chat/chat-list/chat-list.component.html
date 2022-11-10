@@ -107,7 +107,7 @@
                     </div>
                   </div>
                   <div
-                    *ngIf="eachChat.messageDirection !== 'FromMe'"
+                    *ngIf="eachChat.messageDirection === 'ToMe'"
                     class="media chat-left"
                   >
                     <div class="main-img-user online">
@@ -208,7 +208,8 @@
             </a>
             <a
               *ngFor="let eachUser of activeUser"
-              class="media new"
+              class="media"
+              [ngClass] = "{ 'selected': chatDetailUser.userId === eachUser.userId }"
               href="javascript:;"
               (click)="getChat(eachUser, 0)"
             >
