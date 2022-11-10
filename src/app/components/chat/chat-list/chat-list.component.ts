@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChatUser } from 'src/app/models/chat-user.model';
 import { ChatService } from 'src/app/shared/services/chat.service';
 import { Store } from '@ngrx/store';
@@ -50,7 +50,8 @@ export class ChatListComponent implements OnInit {
     },
     id: number
   ): void {
-    if (visible && this.manualScroll) this.getChat(this.chatDetailUser, id);
+    if (visible && this.manualScroll)
+      this.getChat(this.chatDetailUser, id, false, true);
     if (!this.manualScroll) this.manualScroll = true;
   }
 
@@ -107,35 +108,50 @@ export class ChatListComponent implements OnInit {
     return document.getElementById('latestMsg');
   }
 
-  getChat(user, lastMessageId, scrollToLatest: boolean = false): void {
+  getChat(
+    user,
+    lastMessageId,
+    scrollToLatest: boolean = false,
+    oldMsgs: boolean = false
+  ): void {
     this.chatDetailUser = user;
-    this.chatService.getChat(user.userId, lastMessageId).subscribe((res) => {
-      if (res && res.succeeded) {
-        this.chatSearch = '';
-        this.chatDetail = [...(this.chatDetail || []), ...res.data];
-        setTimeout(() => {
-          if (scrollToLatest && this.getLatestMsg()) {
-            this.getLatestMsg()?.scrollIntoView();
+    let lastMessageChatId = lastMessageId;
+    this.chatService
+      .getChat(user.userId, lastMessageChatId)
+      .subscribe((res) => {
+        if (res && res.succeeded) {
+          this.chatSearch = '';
+          this.chatDetail = [
+            ...(oldMsgs ? res.data : []),
+            ...(lastMessageChatId === 0 ? [] : this.chatDetail || []),
+            ...(!oldMsgs ? res.data : []),
+          ];
+          setTimeout(() => {
+            if (scrollToLatest && this.getLatestMsg()) {
+              this.getLatestMsg()?.scrollIntoView();
+            }
+          }, 100);
+          if (
+            this.chatDetail &&
+            this.chatDetail.length &&
+            this.chatDetail.length > 0
+          ) {
+            lastMessageChatId =
+              this.chatDetail[this.chatDetail.length - 1].chatId;
           }
-        });
-        let lastMessageId = 0;
-        if (
-          this.chatDetail &&
-          this.chatDetail.length &&
-          this.chatDetail.length > 0
-        ) {
-          lastMessageId = this.chatDetail[this.chatDetail.length - 1].chatId;
-        }
-        if (this.subscriptions.length === 2) {
-          this.subscriptions[1].unsubscribe();
-          this.subscriptions.pop();
-        }
+          if (this.subscriptions.length === 2) {
+            this.subscriptions[1].unsubscribe();
+            this.subscriptions.pop();
+          }
 
-        this.subscriptions.push(
-          this.getLatestChatByUserId(this.chatDetailUser.userId, lastMessageId)
-        );
-      }
-    });
+          this.subscriptions.push(
+            this.getLatestChatByUserId(
+              this.chatDetailUser.userId,
+              lastMessageChatId
+            )
+          );
+        }
+      });
   }
 
   clearChatSearch(): void {
@@ -170,6 +186,11 @@ export class ChatListComponent implements OnInit {
           res.data.length > 0
         ) {
           this.chatDetail = [...(this.chatDetail || []), ...res.data];
+          setTimeout(() => {
+            if (scrollToLatest && this.getLatestMsg()) {
+              this.getLatestMsg()?.scrollIntoView();
+            }
+          }, 100);
           if (
             this.chatDetail &&
             this.chatDetail.length &&
@@ -177,11 +198,6 @@ export class ChatListComponent implements OnInit {
           ) {
             lastMessageId = this.chatDetail[this.chatDetail.length - 1].chatId;
           }
-          setTimeout(() => {
-            if (scrollToLatest && this.getLatestMsg()) {
-              this.getLatestMsg()?.scrollIntoView();
-            }
-          });
         }
       });
   }
