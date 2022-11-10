@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ChatUser } from 'src/app/models/chat-user.model';
 import { ChatService } from 'src/app/shared/services/chat.service';
 import { Store } from '@ngrx/store';
@@ -27,6 +27,7 @@ export class ChatListComponent implements OnInit {
   public user: User = new User();
   public subscriptions: Subscription[] = [];
   public activeUserSubscription: Subscription = new Subscription();
+  public manualScroll: boolean = false;
   constructor(
     private chatService: ChatService,
     private dialog: MatDialog,
@@ -37,6 +38,20 @@ export class ChatListComponent implements OnInit {
     this.activeUserSubscription = this.subscribeToActiveUser();
     this.subscriptions = [this.subscribeToUser()];
     this.getAllActiveUserList();
+  }
+
+  onIntersection(
+    {
+      target,
+      visible,
+    }: {
+      target: Element;
+      visible: boolean;
+    },
+    id: number
+  ): void {
+    if (visible && this.manualScroll) this.getChat(this.chatDetailUser, id);
+    if (!this.manualScroll) this.manualScroll = true;
   }
 
   subscribeToUser(): Subscription {
@@ -64,7 +79,7 @@ export class ChatListComponent implements OnInit {
         this.searchedUser = [];
         this.searchUserStr = '';
         if (res.data && res.data[0]) {
-          this.getChat(res.data[0], 0);
+          this.getChat(res.data[0], 0, true);
         }
       }
     });
@@ -88,12 +103,21 @@ export class ChatListComponent implements OnInit {
     }
   }
 
-  getChat(user, lastMessageId): void {
+  getLatestMsg(): HTMLElement | null {
+    return document.getElementById('latestMsg');
+  }
+
+  getChat(user, lastMessageId, scrollToLatest: boolean = false): void {
     this.chatDetailUser = user;
     this.chatService.getChat(user.userId, lastMessageId).subscribe((res) => {
       if (res && res.succeeded) {
         this.chatSearch = '';
-        this.chatDetail = res.data;
+        this.chatDetail = [...(this.chatDetail || []), ...res.data];
+        setTimeout(() => {
+          if (scrollToLatest && this.getLatestMsg()) {
+            this.getLatestMsg()?.scrollIntoView();
+          }
+        });
         let lastMessageId = 0;
         if (
           this.chatDetail &&
@@ -125,11 +149,16 @@ export class ChatListComponent implements OnInit {
     this.getAllActiveUserList();
   }
 
-  getLatestChatByUserId(userId, lastMessageChatId): Subscription {
+  getLatestChatByUserId(
+    userId,
+    lastMessageChatId,
+    scrollToLatest: boolean = false
+  ): Subscription {
+    let lastMessageId = lastMessageChatId;
     return timer(0, 5000)
       .pipe(
         switchMap(() =>
-          this.chatService.getLastestChatByUserId(userId, lastMessageChatId)
+          this.chatService.getLastestChatByUserId(userId, lastMessageId)
         )
       )
       .subscribe((res) => {
@@ -140,7 +169,19 @@ export class ChatListComponent implements OnInit {
           res.data.length &&
           res.data.length > 0
         ) {
-          this.chatDetail = [...this.chatDetail, ...res.data];
+          this.chatDetail = [...(this.chatDetail || []), ...res.data];
+          if (
+            this.chatDetail &&
+            this.chatDetail.length &&
+            this.chatDetail.length > 0
+          ) {
+            lastMessageId = this.chatDetail[this.chatDetail.length - 1].chatId;
+          }
+          setTimeout(() => {
+            if (scrollToLatest && this.getLatestMsg()) {
+              this.getLatestMsg()?.scrollIntoView();
+            }
+          });
         }
       });
   }

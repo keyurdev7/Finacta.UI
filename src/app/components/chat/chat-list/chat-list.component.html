@@ -49,7 +49,16 @@
             <perfect-scrollbar>
               <div class="content-inner">
                 <!-- <label class="main-chat-time"><span>2 days ago</span></label> -->
-                <ng-container *ngFor="let eachChat of chatDetail">
+                <ng-container
+                  *ngFor="let eachChat of chatDetail; let i = index"
+                >
+                  <p
+                    inViewport
+                    [inViewportOptions]="{ threshold: [0] }"
+                    (inViewportAction)="onIntersection($event, eachChat.chatId)"
+                    *ngIf="i === 0 && chatDetail.length >= 50"
+                  ></p>
+                  <p id="latestMsg" *ngIf="i === chatDetail.length - 1"></p>
                   <div
                     *ngIf="eachChat.messageDirection === 'FromMe'"
                     class="media flex-row-reverse chat-right"
@@ -209,7 +218,9 @@
             <a
               *ngFor="let eachUser of activeUser"
               class="media"
-              [ngClass] = "{ 'selected': chatDetailUser.userId === eachUser.userId }"
+              [ngClass]="{
+                selected: chatDetailUser.userId === eachUser.userId
+              }"
               href="javascript:;"
               (click)="getChat(eachUser, 0)"
             >
