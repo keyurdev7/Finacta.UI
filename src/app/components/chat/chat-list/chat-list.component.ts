@@ -126,11 +126,6 @@ export class ChatListComponent implements OnInit {
             ...(lastMessageChatId === 0 ? [] : this.chatDetail || []),
             ...(!oldMsgs ? res.data : []),
           ];
-          setTimeout(() => {
-            if (scrollToLatest && this.getLatestMsg()) {
-              this.getLatestMsg()?.scrollIntoView();
-            }
-          }, 100);
           if (
             this.chatDetail &&
             this.chatDetail.length &&
@@ -139,6 +134,12 @@ export class ChatListComponent implements OnInit {
             lastMessageChatId =
               this.chatDetail[this.chatDetail.length - 1].chatId;
           }
+          setTimeout(() => {
+            if (scrollToLatest && this.getLatestMsg()) {
+              console.log("alsdlak")
+              this.getLatestMsg()?.scrollIntoView();
+            }
+          }, 1000);
           if (this.subscriptions.length === 2) {
             this.subscriptions[1].unsubscribe();
             this.subscriptions.pop();
@@ -147,7 +148,8 @@ export class ChatListComponent implements OnInit {
           this.subscriptions.push(
             this.getLatestChatByUserId(
               this.chatDetailUser.userId,
-              lastMessageChatId
+              lastMessageChatId,
+              scrollToLatest
             )
           );
         }
@@ -156,7 +158,7 @@ export class ChatListComponent implements OnInit {
 
   clearChatSearch(): void {
     this.chatSearch = '';
-    this.getChat(this.chatDetailUser, 0);
+    this.getChat(this.chatDetailUser, 0, true);
   }
 
   clearUserSearch(): void {
@@ -186,11 +188,6 @@ export class ChatListComponent implements OnInit {
           res.data.length > 0
         ) {
           this.chatDetail = [...(this.chatDetail || []), ...res.data];
-          setTimeout(() => {
-            if (scrollToLatest && this.getLatestMsg()) {
-              this.getLatestMsg()?.scrollIntoView();
-            }
-          }, 100);
           if (
             this.chatDetail &&
             this.chatDetail.length &&
@@ -198,6 +195,11 @@ export class ChatListComponent implements OnInit {
           ) {
             lastMessageId = this.chatDetail[this.chatDetail.length - 1].chatId;
           }
+          setTimeout(() => {
+            if (scrollToLatest && this.getLatestMsg()) {
+              this.getLatestMsg()?.scrollIntoView();
+            }
+          }, 1000);
         }
       });
   }

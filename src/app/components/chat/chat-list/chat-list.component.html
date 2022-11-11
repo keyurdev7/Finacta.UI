@@ -222,7 +222,7 @@
                 selected: chatDetailUser.userId === eachUser.userId
               }"
               href="javascript:;"
-              (click)="getChat(eachUser, 0)"
+              (click)="getChat(eachUser, 0, true)"
             >
               <div class="avatar avatar-md brround bg-secondary-transparent">
                 <span *ngIf="eachUser.unReadCount > 0" _ngcontent-eup-c279="">{{

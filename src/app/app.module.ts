@@ -61,8 +61,6 @@ import {
   PERFECT_SCROLLBAR_CONFIG,
 } from 'ngx-perfect-scrollbar';
 import { ChatComponent } from './components/chat/chat.component';
-import { ChatDetailComponent } from './components/chat/chat-detail/chat-detail.component';
-import { ContactListComponent } from './components/chat/contact-list/contact-list.component';
 import { ChatListComponent } from './components/chat/chat-list/chat-list.component';
 import { AddChatFileComponent } from './components/chat/add-chat-file/add-chat-file.component';
 import { InViewportModule } from 'ng-in-viewport';
@@ -106,8 +104,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CopyToCustomerModalComponent,
     DocPreviewModalComponent,
     ChatComponent,
-    ChatDetailComponent,
-    ContactListComponent,
     ChatListComponent,
     AddChatFileComponent,
   ],
