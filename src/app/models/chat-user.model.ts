@@ -9,5 +9,6 @@ export class ChatUser {
   userType: string = '';
   @Transform(({ value }) => momentTransform(value), { toClassOnly: true })
   lastMessageSentDateTime: string = '';
+  lastMessageText: string = '';
   profilePhoto: string = '';
 }
