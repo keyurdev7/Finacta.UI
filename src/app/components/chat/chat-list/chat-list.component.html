@@ -1,5 +1,5 @@
 <div class="row row-deck">
-  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-8">
+  <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
     <div class="card card-height">
       <div class="main-content-chat-app pt-0">
         <div class="main-content-body main-content-body-chat h-100">
@@ -155,6 +155,7 @@
               placeholder="Type your message here..."
               type="text"
               [(ngModel)]="message"
+              (keydown.enter)="addChat()"
             />
             <a
               class="nav-link"
@@ -168,6 +169,7 @@
               type="button"
               class="btn btn-icon btn-primary brround"
               (click)="addChat()"
+              [disabled]="!this.message.trim()"
             >
               <i class="fa fa-paper-plane-o"></i>
             </button>
@@ -177,7 +179,7 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4">
+  <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
     <div class="card card-height overflow-scroll">
       <div class="main-content-chat-app pt-0">
         <div class="main-content-left main-content-left-chat">
@@ -217,33 +219,34 @@
             </a>
             <a
               *ngFor="let eachUser of activeUser"
-              class="media"
+              class="media new"
               [ngClass]="{
                 selected: chatDetailUser.userId === eachUser.userId
               }"
               href="javascript:;"
               (click)="getChat(eachUser, 0, true)"
             >
-              <div class="avatar avatar-md brround bg-secondary-transparent">
-                <span *ngIf="eachUser.unReadCount > 0" _ngcontent-eup-c279="">{{
-                  eachUser.unReadCount
-                }}</span>
-                <i
-                  *ngIf="!eachUser.profilePhoto"
-                  class="fe fe-user text-secondary"
-                ></i>
+              <div class="main-img-user">
                 <img
                   *ngIf="eachUser.profilePhoto"
-                  alt=""
                   [src]="eachUser.profilePhoto"
+                  alt="profile-user"
                 />
+                <img
+                  *ngIf="!eachUser.profilePhoto"
+                  src="./assets/images/faces/default-profile-icon.jpg"
+                  alt="profile-user"
+                />
+                <span *ngIf="eachUser.unReadCount > 0">{{
+                  eachUser.unReadCount
+                }}</span>
               </div>
               <div class="media-body">
                 <div class="media-contact-name">
                   <span>{{ eachUser.name }}</span>
                   <span>{{ eachUser.lastMessageSentDateTime | dateAgo }}</span>
                 </div>
-                <p>{{eachUser.lastMessageText}}</p>
+                <p>{{ eachUser.lastMessageText }}</p>
               </div>
             </a>
           </div>
@@ -267,15 +270,16 @@
               class="media new"
               href="javascript:;"
             >
-              <div class="avatar avatar-md brround bg-secondary-transparent">
-                <i
-                  *ngIf="!eachUser.profilePhoto"
-                  class="fe fe-user text-secondary"
-                ></i>
+              <div class="main-img-user">
                 <img
                   *ngIf="eachUser.profilePhoto"
-                  alt=""
                   [src]="eachUser.profilePhoto"
+                  alt="profile-user"
+                />
+                <img
+                  *ngIf="!eachUser.profilePhoto"
+                  src="./assets/images/faces/default-profile-icon.jpg"
+                  alt="profile-user"
                 />
               </div>
               <div class="media-body searched-user">

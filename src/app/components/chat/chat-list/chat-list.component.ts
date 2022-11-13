@@ -38,6 +38,7 @@ export class ChatListComponent implements OnInit {
     this.activeUserSubscription = this.subscribeToActiveUser();
     this.subscriptions = [this.subscribeToUser()];
     this.getAllActiveUserList();
+    document.getElementsByClassName('main-content')[0].classList.add('chat-main-content');
   }
 
   onIntersection(
@@ -136,7 +137,6 @@ export class ChatListComponent implements OnInit {
           }
           setTimeout(() => {
             if (scrollToLatest && this.getLatestMsg()) {
-              console.log("alsdlak")
               this.getLatestMsg()?.scrollIntoView();
             }
           }, 1000);
@@ -205,16 +205,19 @@ export class ChatListComponent implements OnInit {
   }
 
   addChat(): void {
-    const data = {
-      SelecteUserId: this.chatDetailUser.userId,
-      ChatText: this.message,
-    };
-    this.chatService.sendChat(data).subscribe((res) => {
-      if (res && res.succeeded) {
-        this.getAllActiveUserList();
-        this.message = '';
-      }
-    });
+    if(this.message.trim()){
+      const data = {
+        SelecteUserId: this.chatDetailUser.userId,
+        ChatText: this.message,
+      };
+      this.chatService.sendChat(data).subscribe((res) => {
+        if (res && res.succeeded) {
+          this.getAllActiveUserList();
+          this.message = '';
+        }
+      });
+    }
+    
   }
 
   addUser(id): void {
@@ -253,5 +256,6 @@ export class ChatListComponent implements OnInit {
   ngOnDestroy(): void {
     this.subscriptions.forEach((eachSub) => eachSub.unsubscribe());
     this.activeUserSubscription.unsubscribe();
+    document.getElementsByClassName('main-content')[0].classList.remove('chat-main-content');
   }
 }

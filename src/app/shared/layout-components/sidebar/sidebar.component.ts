@@ -7,11 +7,13 @@ import {
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { NavService } from '../../services/nav.service';
 import { switcherArrowFn, parentNavActive, checkHoriMenu } from './sidebar';
-import { fromEvent } from 'rxjs';
+import { fromEvent, Subscription, timer } from 'rxjs';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { AppState, userSelector } from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';
+import { switchMap } from 'rxjs/operators';
 import { AccessMenuHeader } from 'src/app/models/access-menu-header.model';
+import { ChatService } from '../../services/chat.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -22,12 +24,15 @@ import { AccessMenuHeader } from 'src/app/models/access-menu-header.model';
 export class SidebarComponent {
   public menuItems: AccessMenuHeader[] = [];
   public url: any;
+  public chatSubscription: Subscription = new Subscription();
   public routerSubscription: any;
   public windowSubscribe$!: any;
+  public messageCount: number = 0;
   constructor(
     private breakpointObserver: BreakpointObserver,
     private router: Router,
     private navServices: NavService,
+    private chatService: ChatService,
     public elRef: ElementRef,
     private store: Store<AppState>
   ) {
@@ -56,7 +61,20 @@ export class SidebarComponent {
             // }, 100);
           }
           if (event instanceof NavigationEnd) {
+            if (
+              res.accessMenu.some((e) => e.moduleName.toLowerCase() === 'chat')
+            ) {
+              this.chatSubscription = this.subscribeToChatUnreadCount();
+            }
+
             res.accessMenu.filter((items: any) => {
+              if (
+                items.moduleName.toLowerCase() === 'chat' &&
+                event.url === '/Chat'
+              ) {
+                this.messageCount = 0;
+                this.chatSubscription.unsubscribe();
+              }
               if (items.path === event.url) {
                 this.setNavActive(items);
               }
@@ -86,6 +104,17 @@ export class SidebarComponent {
         });
       }
     });
+  }
+
+  subscribeToChatUnreadCount(): Subscription {
+    this.chatSubscription.unsubscribe();
+    return timer(0, 10000)
+      .pipe(switchMap(() => this.chatService.getUnReadMessageCount()))
+      .subscribe((res) => {
+        if (res && res.succeeded && res.data && res.data[0]) {
+          this.messageCount = res.data;
+        }
+      });
   }
 
   checkCurrentActive() {
@@ -289,6 +318,7 @@ export class SidebarComponent {
 
   ngOnDestroy() {
     // unsubscribing the Observable
+    this.chatSubscription.unsubscribe();
     this.windowSubscribe$.unsubscribe();
   }
 }

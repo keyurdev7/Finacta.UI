@@ -24,6 +24,15 @@ export class ChatService extends AbstractService {
     }) as Observable<any>;
   }
 
+  getUnReadMessageCount(): Observable<any> {
+    return this.httpGet({
+      url: this.baseUrl + '/ChatManagement/GetTotalUnreadMessageCount',
+      params: new HttpParams(),
+      noLoadingMask: true,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
   getSearchUser(): Observable<any> {
     return this.httpGet({
       url: this.baseUrl + '/ChatManagement/GetChatUserList',

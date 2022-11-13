@@ -1,5 +1,13 @@
-.card-height {
-  height: calc(100% - 10px);
+@media (min-width: 992px) {
+  .card-height {
+    height: 63vh;
+  }
+  ::ng-deep {
+    .chat-main-content {
+      min-height: unset;
+      max-height: 75vh;
+    }
+  }
 }
 .search-wrap {
   align-items: center;

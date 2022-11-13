@@ -60431,7 +60431,7 @@ ul li .legend-dots {
 
 @media (min-width: 992px) {
     .main-content-chat-app {
-        height: calc(100vh - 50px);
+        height: calc(100% - 10px);
     }
 }
 

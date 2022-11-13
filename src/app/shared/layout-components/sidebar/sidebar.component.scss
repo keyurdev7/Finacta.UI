@@ -111,3 +111,18 @@ perfect-scrollbar{
 .light-menu .slide-rightRTL svg{
     fill: #333;
 }
+.side-menu__item .count {
+    position: absolute;
+    top: 5px;
+    left: 38px;
+    width: 12px;
+    height: 12px;
+    line-height: 12px;
+    text-align: center;
+    border-radius: 100%;
+    font-size: 10px;
+    font-weight: 500;
+    color: #fff;
+    background-color: var(--primary-bg-color);
+    box-shadow: 0 0 0 2px #fff;
+}
