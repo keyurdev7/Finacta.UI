@@ -84,7 +84,7 @@
             <span class="side-menu__icon">
               <i class="{{menuItem.menuIcon}}"></i>
             </span>
-            <span *ngIf="menuItem.moduleName.toLowerCase() === 'chat'" class="count">{{messageCount}}</span>
+            <span *ngIf="menuItem.moduleName.toLowerCase() === 'chat' && messageCount > 0" class="count">{{messageCount}}</span>
             <span class="side-menu__label">{{ menuItem.moduleName }}</span>
           </a>
           <!-- empty path -->
