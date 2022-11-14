@@ -9,11 +9,13 @@ import { Subscription, timer } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { switchMap } from 'rxjs/operators';
 import { AddChatFileComponent } from '../add-chat-file/add-chat-file.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-chat-list',
   templateUrl: './chat-list.component.html',
   styleUrls: ['./chat-list.component.scss'],
+  providers: [DatePipe]
 })
 export class ChatListComponent implements OnInit {
   public activeUser: ChatUser[] = [];
@@ -28,10 +30,12 @@ export class ChatListComponent implements OnInit {
   public subscriptions: Subscription[] = [];
   public activeUserSubscription: Subscription = new Subscription();
   public manualScroll: boolean = false;
+  public currentDate = new Date();
   constructor(
     private chatService: ChatService,
     private dialog: MatDialog,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private datePipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -154,6 +158,14 @@ export class ChatListComponent implements OnInit {
           );
         }
       });
+  }
+
+  todayDate(date): boolean {
+    const chatDate = new Date(date);
+    if(this.datePipe.transform(chatDate, 'yyyy-MM-dd') === this.datePipe.transform(this.currentDate, 'yyyy-MM-dd')){
+      return true;
+    }
+    return false;
   }
 
   clearChatSearch(): void {

@@ -1,0 +1,12 @@
+.button-wrap {
+  align-self: self-end;
+  .button-div {
+    padding-bottom: 5px;
+    .submit-button {
+      margin-left: 10px;
+    }
+  }
+}
+.form-control:focus {
+  border-color: #eaedf1 !important;
+}

@@ -106,9 +106,16 @@
                         </span>
                       </div>
                       <div>
-                        <span>{{
-                          eachChat.sentDateTime | date: "h:mm a"
-                        }}</span>
+                        <span
+                          *ngIf="
+                            todayDate(eachChat.sentDateTime);
+                            else elseBlock
+                          "
+                          >{{ eachChat.sentDateTime | date: "h:mm a" }}</span
+                        >
+                        <ng-template #elseBlock>{{
+                          eachChat.sentDateTime | date: "MM/dd/yyyy h:mm a"
+                        }}</ng-template>
                         <a href="javascript:void(0)"
                           ><i class="icon ion-android-more-vertical"></i
                         ></a>
