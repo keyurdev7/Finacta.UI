@@ -198,17 +198,18 @@
                 [(ngModel)]="searchUserStr"
                 class="form-control"
                 placeholder="Search ..."
+                (keyup)="searchUser()"
               />
               <i
                 class="fa fa-close clear-user-icon"
                 (click)="clearUserSearch()"
                 *ngIf="searchUserStr"
               ></i>
-              <span
+              <!-- <span
                 class="input-group-text btn btn-primary text-white"
                 (click)="searchUser()"
                 >Search</span
-              >
+              > -->
             </div>
           </div>
           <div

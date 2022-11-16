@@ -108,7 +108,7 @@ export class SidebarComponent {
 
   subscribeToChatUnreadCount(): Subscription {
     this.chatSubscription.unsubscribe();
-    return timer(0, 300000)
+    return timer(0, 30000)
       .pipe(switchMap(() => this.chatService.getUnReadMessageCount()))
       .subscribe((res) => {
         if (res && res.succeeded && res.data && res.data[0]) {

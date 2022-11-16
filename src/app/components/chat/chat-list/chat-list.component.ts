@@ -15,7 +15,7 @@ import { DatePipe } from '@angular/common';
   selector: 'app-chat-list',
   templateUrl: './chat-list.component.html',
   styleUrls: ['./chat-list.component.scss'],
-  providers: [DatePipe]
+  providers: [DatePipe],
 })
 export class ChatListComponent implements OnInit {
   public activeUser: ChatUser[] = [];
@@ -25,6 +25,7 @@ export class ChatListComponent implements OnInit {
   public chatSearch: string = '';
   public message: string = '';
   public chatDetail: any;
+  public allChatUsers: ChatUser[] = [];
   public chatDetailUser: ChatUser = new ChatUser();
   public user: User = new User();
   public subscriptions: Subscription[] = [];
@@ -42,7 +43,18 @@ export class ChatListComponent implements OnInit {
     this.activeUserSubscription = this.subscribeToActiveUser();
     this.subscriptions = [this.subscribeToUser()];
     this.getAllActiveUserList();
-    document.getElementsByClassName('main-content')[0].classList.add('chat-main-content');
+    this.getAllChatUsers();
+    document
+      .getElementsByClassName('main-content')[0]
+      .classList.add('chat-main-content');
+  }
+
+  getAllChatUsers(): void {
+    this.chatService.getSearchUser().subscribe((res) => {
+      if (res && res.succeeded) {
+        this.allChatUsers = res.data;
+      }
+    });
   }
 
   onIntersection(
@@ -83,7 +95,7 @@ export class ChatListComponent implements OnInit {
         this.activeUser = res.data;
         this.isSearchedUser = false;
         this.searchedUser = [];
-        this.searchUserStr = '';
+        // this.searchUserStr = '';
         if (res.data && res.data[0]) {
           this.getChat(res.data[0], 0, true);
         }
@@ -93,17 +105,13 @@ export class ChatListComponent implements OnInit {
 
   searchUser(): void {
     if (!!this.searchUserStr) {
-      this.chatService.getSearchUser().subscribe((res) => {
-        if (res && res.succeeded) {
-          this.isSearchedUser = true;
-          const updatedUser = res.data.filter(
-            (i) =>
-              !this.activeUser.some((e) => e.userId === i.userId) &&
-              i.name.toLowerCase().includes(this.searchUserStr.toLowerCase())
-          );
-          this.searchedUser = updatedUser;
-        }
-      });
+      this.isSearchedUser = true;
+      const updatedUser = this.allChatUsers.filter(
+        (i) =>
+          !this.activeUser.some((e) => e.userId === i.userId) &&
+          i.name.toLowerCase().includes(this.searchUserStr.toLowerCase())
+      );
+      this.searchedUser = updatedUser;
     } else {
       this.getAllActiveUserList();
     }
@@ -162,7 +170,10 @@ export class ChatListComponent implements OnInit {
 
   todayDate(date): boolean {
     const chatDate = new Date(date);
-    if(this.datePipe.transform(chatDate, 'yyyy-MM-dd') === this.datePipe.transform(this.currentDate, 'yyyy-MM-dd')){
+    if (
+      this.datePipe.transform(chatDate, 'yyyy-MM-dd') ===
+      this.datePipe.transform(this.currentDate, 'yyyy-MM-dd')
+    ) {
       return true;
     }
     return false;
@@ -217,7 +228,7 @@ export class ChatListComponent implements OnInit {
   }
 
   addChat(): void {
-    if(this.message.trim()){
+    if (this.message.trim()) {
       const data = {
         SelecteUserId: this.chatDetailUser.userId,
         ChatText: this.message,
@@ -229,13 +240,13 @@ export class ChatListComponent implements OnInit {
         }
       });
     }
-    
   }
 
   addUser(id): void {
     this.chatService.addUserToChat(id).subscribe((res) => {
       if (res && res.succeeded) {
         this.chatSearch = '';
+        this.searchUserStr = '';
         this.getAllActiveUserList();
       }
     });
@@ -268,6 +279,8 @@ export class ChatListComponent implements OnInit {
   ngOnDestroy(): void {
     this.subscriptions.forEach((eachSub) => eachSub.unsubscribe());
     this.activeUserSubscription.unsubscribe();
-    document.getElementsByClassName('main-content')[0].classList.remove('chat-main-content');
+    document
+      .getElementsByClassName('main-content')[0]
+      .classList.remove('chat-main-content');
   }
 }
