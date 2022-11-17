@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SettingService } from 'src/app/shared/services/settings.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -6,6 +6,12 @@ import { CustomerListComponent } from '../customer-list/customer-list.component'
 import { ToastrService } from 'ngx-toastr';
 import { MappedCompanyDialogComponent } from '../mapped-company-dialog/mapped-company-dialog.component';
 import { environment } from 'src/environments/environment';
+import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState, userSelector } from 'src/app/store/app.state';
+import { User } from 'src/app/models/user.model';
+import { UpdateUserAction } from 'src/app/store/app.actions';
+import { ViewLogoModalComponent } from '../view-logo-modal/view-logo-modal.component';
 declare var require: any;
 const Swal = require('sweetalert2');
 
@@ -14,20 +20,26 @@ const Swal = require('sweetalert2');
   templateUrl: './settings-management-home.component.html',
   styleUrls: ['./settings-management-home.component.scss'],
 })
-export class SettingsManagementHomeComponent implements OnInit {
+export class SettingsManagementHomeComponent implements OnInit, OnDestroy {
   success: string = '';
+  subscriptions: Subscription[] = [];
+  user: User = new User();
   xerocontactULR = environment.application_host + '/xero/index/contact';
   expandFile: File | null = null;
   collapseFile: File | null = null;
+  expandFileErr: string = '';
+  collapseFileErr: String = '';
   constructor(
     private settingService: SettingService,
     private activatedRoute: ActivatedRoute,
     public router: Router,
     public dialog: MatDialog,
-    public toster: ToastrService
+    public toster: ToastrService,
+    public store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
+    this.subscribeToUser();
     this.activatedRoute.params.subscribe((params) => {
       this.success = params['success'];
       if (this.success != undefined) {
@@ -42,7 +54,10 @@ export class SettingsManagementHomeComponent implements OnInit {
 
   isFormValid(): boolean {
     if (!!this.collapseFile || !!this.expandFile) {
-      return true;
+      if (!this.expandFileErr && !this.collapseFileErr) {
+        return true;
+      }
+      return false;
     }
     return false;
   }
@@ -127,23 +142,62 @@ export class SettingsManagementHomeComponent implements OnInit {
   }
 
   expandLogoChange(event): void {
-    let file: File | null;
+    let file: File | null = null;
+    this.expandFileErr = '';
     if (event.target.files && event.target.files.length) {
       file = event.target.files[0];
-    } else {
-      file = null;
+      if (file && file.type && file.type.split('/')[0] !== 'image') {
+        this.expandFileErr = 'Expand file should be an image file';
+      } else {
+        this.expandFileErr = '';
+      }
     }
     this.expandFile = file;
   }
 
   collapseLogoChange(event): void {
-    let file: File | null;
+    let file: File | null = null;
+    this.collapseFileErr = '';
     if (event.target.files && event.target.files.length) {
       file = event.target.files[0];
-    } else {
-      file = null;
+      if (file && file.type && file.type.split('/')[0] !== 'image') {
+        this.collapseFileErr = 'Collapse file should be an image file';
+      } else {
+        this.collapseFileErr = '';
+      }
     }
     this.collapseFile = file;
+  }
+
+  subscribeToUser(): void {
+    this.subscriptions.push(
+      this.store.pipe(userSelector).subscribe((res) => {
+        this.user = res;
+      })
+    );
+  }
+
+  getLogo(): void {
+    this.settingService.getLogo().subscribe((res) => {
+      if (res && res.succeeded) {
+        this.store.dispatch(
+          UpdateUserAction(Object.assign({}, this.user, res.data))
+        );
+      } else if (res && res.errors.length) {
+        res.errors.forEach((err) => {
+          this.toster.error(err.errorMessage);
+        });
+      } else if (res && !res.succeeded && res.data) {
+        this.toster.error(res.data);
+      }
+    });
+  }
+
+  viewLogo(url): void {
+    const dialog = this.dialog.open(ViewLogoModalComponent, {
+      minWidth: '28%',
+      data: url,
+    });
   }
 
   setLogo(): void {
@@ -160,6 +214,7 @@ export class SettingsManagementHomeComponent implements OnInit {
           this.collapseFile = null;
           this.expandFile = null;
           this.toster.success('Logo changed successfully');
+          this.getLogo();
         } else if (res && res.errors.length) {
           res.errors.forEach((err) => {
             this.toster.error(err.errorMessage);
@@ -169,5 +224,9 @@ export class SettingsManagementHomeComponent implements OnInit {
         }
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((eachSub) => eachSub.unsubscribe());
   }
 }

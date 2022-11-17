@@ -576,6 +576,9 @@ pre code {
     .container {
         max-width: 960px;
     }
+    .side-header {
+        padding: 16px 17px !important
+    }
 }
 
 @media (min-width: 1280px) {
@@ -53247,7 +53250,7 @@ iframe {
     -webkit-transition: left 0.3s ease, width 450ms ease;
     -o-transition: left 0.3s ease, width 450ms ease;
     transition: left 0.3s ease, width 450ms ease;
-    height: 75px;
+    height: 63px;
 }
 
 .closed-leftmenu .side-header .header-brand-img.toggle-logo,
@@ -53479,7 +53482,7 @@ iframe {
     }
 
     .hover-submenu .app-sidebar {
-        padding-top: 75px !important;
+        padding-top: 63px !important;
     }
 }
 
@@ -54567,7 +54570,7 @@ iframe {
     --webkit-transition: left 0.3s ease, width 0.2s ease;
     -o-transition: left 0.3s ease, width 0.2s ease;
     transition: left 0.3s ease, width 0.2s ease;
-    height: 75px;
+    height: 63px;
 }
 
 .hover-submenu .side-header .header-brand-img.toggle-logo,
@@ -55101,7 +55104,7 @@ iframe {
     }
 
     .hover-submenu1 .app-sidebar {
-        padding-top: 75px !important;
+        padding-top: 63px !important;
     }
 }
 
@@ -56075,7 +56078,7 @@ iframe {
     --webkit-transition: left 0.3s ease, width 0.2s ease;
     -o-transition: left 0.3s ease, width 0.2s ease;
     transition: left 0.3s ease, width 0.2s ease;
-    height: 75px;
+    height: 63px;
 }
 
 .hover-submenu1 .side-header .header-brand-img.toggle-logo,
@@ -56651,7 +56654,7 @@ iframe {
     }
 
     .app-sidebar {
-        padding-top: 75px;
+        padding-top: 63px;
     }
 
     .side-header {
@@ -57542,7 +57545,7 @@ iframe {
     -webkit-transition: all ease 0.2s;
     -o-transition: all ease 0.2s;
     transition: all ease 0.2s;
-    height: 75px;
+    height: 63px;
 }
 
 .sidebar-mini.sidenav-toggled .app-sidebar__toggle {
@@ -59071,7 +59074,7 @@ iframe {
     --webkit-transition: left 0.3s ease, width 0.2s ease;
     -o-transition: left 0.3s ease, width 0.2s ease;
     transition: left 0.3s ease, width 0.2s ease;
-    height: 75px;
+    height: 63px;
 }
 
 .icontext-menu .side-header .header-brand-img.toggle-logo,

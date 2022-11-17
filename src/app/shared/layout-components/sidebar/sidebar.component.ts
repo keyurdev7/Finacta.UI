@@ -3,6 +3,8 @@ import {
   ViewEncapsulation,
   HostListener,
   ElementRef,
+  OnInit,
+  OnDestroy,
 } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { NavService } from '../../services/nav.service';
@@ -14,6 +16,7 @@ import { Store } from '@ngrx/store';
 import { switchMap } from 'rxjs/operators';
 import { AccessMenuHeader } from 'src/app/models/access-menu-header.model';
 import { ChatService } from '../../services/chat.service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,13 +24,15 @@ import { ChatService } from '../../services/chat.service';
   styleUrls: ['./sidebar.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit, OnDestroy {
   public menuItems: AccessMenuHeader[] = [];
   public url: any;
+  public user: User = new User();
   public chatSubscription: Subscription = new Subscription();
   public routerSubscription: any;
   public windowSubscribe$!: any;
   public messageCount: number = 0;
+  subscriptions: Subscription[] = [];
   constructor(
     private breakpointObserver: BreakpointObserver,
     private router: Router,
@@ -115,6 +120,14 @@ export class SidebarComponent {
           this.messageCount = res.data;
         }
       });
+  }
+
+  subscribeToUser(): void {
+    this.subscriptions.push(
+      this.store.pipe(userSelector).subscribe((res) => {
+        this.user = res;
+      })
+    );
   }
 
   checkCurrentActive() {
@@ -211,6 +224,7 @@ export class SidebarComponent {
   }
   ngOnInit(): void {
     switcherArrowFn();
+    this.subscribeToUser();
     // detect screen size changes
     this.breakpointObserver
       .observe(['(max-width: 991px)'])
@@ -320,5 +334,6 @@ export class SidebarComponent {
     // unsubscribing the Observable
     this.chatSubscription.unsubscribe();
     this.windowSubscribe$.unsubscribe();
+    this.subscriptions.forEach((eachSub) => eachSub.unsubscribe());
   }
 }
