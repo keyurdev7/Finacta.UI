@@ -5,28 +5,68 @@
   class="app-sidebar sticky"
   [ngClass]="{ 'fixed-header visible-title': scrolled }"
 >
-  <div class="side-header">
+  <div class="side-header custom-sidebar">
     <a class="header-padding" routerLink="/dashboard">
+      <!-- dark theme full logo -->
       <img
+        *ngIf="user.expandLogo"
+        [src]="user.expandLogo"
+        class="header-brand-img desktop-logo"
+        alt="NoaLogo"
+      />
+      <img
+        *ngIf="!user.expandLogo"
         src="./assets/images/brand/logo.png"
         class="header-brand-img desktop-logo"
         alt="NoaLogo"
       />
       <img
+        *ngIf="user.collapseLogo"
+        [src]="user.collapseLogo"
+        class="header-brand-img toggle-logo"
+        alt="NoaLogo"
+      />
+      <img
+        *ngIf="!user.collapseLogo"
         src="./assets/images/brand/logo-1.png"
         class="header-brand-img toggle-logo"
         alt="NoaLogo"
       />
       <img
-        src="./assets/images/brand/logo-2.png"
+        *ngIf="user.expandLogo"
+        [src]="user.expandLogo"
+        class="header-brand-img light-logo1"
+        alt="NoaLogo"
+      />
+      <img
+        *ngIf="!user.expandLogo"
+        src="./assets/images/brand/logo.png"
+        class="header-brand-img light-logo1"
+        alt="NoaLogo"
+      />
+      <img
+        *ngIf="user.collapseLogo"
+        [src]="user.collapseLogo"
         class="header-brand-img light-logo"
         alt="NoaLogo"
       />
       <img
+        *ngIf="!user.collapseLogo"
+        src="./assets/images/brand/logo-1.png"
+        class="header-brand-img light-logo"
+        alt="NoaLogo"
+      />
+      <!-- <img
+        src="./assets/images/brand/logo-2.png"
+        class="header-brand-img light-logo"
+        alt="NoaLogo"
+      /> -->
+      <!-- light theme full logo -->
+      <!-- <img
         src="./assets/images/brand/logo-3.png"
         class="header-brand-img light-logo1"
         alt="NoaLogo"
-      />
+      /> -->
     </a>
   </div>
   <perfect-scrollbar>
@@ -82,9 +122,15 @@
             <span class="shape1"></span>
             <span class="shape2"></span>
             <span class="side-menu__icon">
-              <i class="{{menuItem.menuIcon}}"></i>
+              <i class="{{ menuItem.menuIcon }}"></i>
             </span>
-            <span *ngIf="menuItem.moduleName.toLowerCase() === 'chat' && messageCount > 0" class="count">{{messageCount}}</span>
+            <span
+              *ngIf="
+                menuItem.moduleName.toLowerCase() === 'chat' && messageCount > 0
+              "
+              class="count"
+              >{{ messageCount }}</span
+            >
             <span class="side-menu__label">{{ menuItem.moduleName }}</span>
           </a>
           <!-- empty path -->

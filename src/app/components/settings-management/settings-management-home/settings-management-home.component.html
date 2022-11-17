@@ -69,15 +69,22 @@
                     class="form-control file-input"
                     type="file"
                     id="formFile"
-                    [(ngModel)]="collapseFile"
                     name="collapseFile"
                     (change)="collapseLogoChange($event)"
                   />
                 </div>
+                <div *ngIf="collapseFileErr" class="text text-danger mt-1">
+                  {{ collapseFileErr }}
+                </div>
               </div>
               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 button-wrap">
                 <div class="form-group button-div">
-                  <button class="btn btn-primary">View</button>
+                  <button
+                    class="btn btn-primary"
+                    (click)="viewLogo(user.collapseLogo)"
+                  >
+                    View
+                  </button>
                 </div>
               </div>
             </div>
@@ -89,15 +96,22 @@
                     class="form-control file-input"
                     type="file"
                     id="formFile"
-                    [(ngModel)]="expandFile"
                     name="expandFile"
                     (change)="expandLogoChange($event)"
                   />
                 </div>
+                <div *ngIf="expandFileErr" class="text text-danger mt-1">
+                  {{ expandFileErr }}
+                </div>
               </div>
               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 button-wrap">
                 <div class="form-group button-div">
-                  <button class="btn btn-primary">View</button>
+                  <button
+                    class="btn btn-primary"
+                    (click)="viewLogo(user.expandLogo)"
+                  >
+                    View
+                  </button>
                   <button
                     class="btn btn-success submit-button"
                     (click)="setLogo()"

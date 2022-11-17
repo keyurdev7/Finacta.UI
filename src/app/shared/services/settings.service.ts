@@ -58,4 +58,11 @@ export class SettingService extends AbstractService {
       payload: body,
     }) as Observable<any>;
   }
+
+  getLogo(): Observable<any> {
+    return this.httpGet({
+      url: this.baseUrl + '/UserManagement/GetCompanyLogo',
+      callerErrorHandler: false
+    }) as Observable<any>;
+  }
 }

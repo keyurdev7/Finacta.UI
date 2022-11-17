@@ -8,6 +8,8 @@ export class User {
   accessMenu: AccessMenuHeader[] = [];
   companyId: number = 0;
   companyName: string = '';
+  collapseLogo: string = '';
+  expandLogo: string = '';
   emailId: string = '';
   errors: string = '';
   firstName: string = '';

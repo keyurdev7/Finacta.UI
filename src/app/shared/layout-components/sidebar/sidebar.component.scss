@@ -9,7 +9,7 @@ body:not(.horizontal-hover) .slide-menu.open{
     display: block !important;
 }
 .header-padding{
-    padding-left: 0.625rem
+    padding-left: 0.225rem
 }
 @media (min-width: 1400px){
     .horizontal.layout-boxed .sticky-pin {
@@ -38,6 +38,9 @@ perfect-scrollbar{
     }
     .horizontal-hover .side-menu__item.has__link{
         pointer-events: auto;    
+    }
+    .custom-sidebar {
+        padding: 16px 17px !important
     }
     
     .ltr{
@@ -125,4 +128,7 @@ perfect-scrollbar{
     color: #fff;
     background-color: var(--primary-bg-color);
     box-shadow: 0 0 0 2px #fff;
+}
+.custom-sidebar {
+    justify-content: center;
 }
