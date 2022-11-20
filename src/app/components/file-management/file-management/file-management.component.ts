@@ -312,7 +312,8 @@ export class FileManagementComponent implements OnInit, OnDestroy {
 
   openPreview(file: File): void {
     const dialog = this.dialog.open(DocPreviewModalComponent, {
-      minWidth: '28%',
+      width:'auto',
+      minHeight: '90%',
       data: file,
     });
   }

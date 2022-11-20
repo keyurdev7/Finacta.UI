@@ -50,9 +50,10 @@ li::marker{color: transparent;}
         font-family: 'Poppins', sans-serif;
     }
     .dark-header {
-        
-        .mat-select-arrow, .mat-select-value-text {
-            color: rgba(255, 255, 255, 0.8);
+        .header {
+            .mat-select-arrow, .mat-select-value-text {
+                color: rgba(255, 255, 255, 0.8);
+            }
         }
         .clscompany span.mat-select-value-text
         {
@@ -102,5 +103,26 @@ input:not(.dark-mode)::placeholder{
 }
 .dropdown-menu-arrow a {
     cursor: pointer;
+}
+
+.count {
+    float: right;
+    padding: 2px 4px;
+    line-height: 12px;
+    text-align: center;
+    border-radius: 100%;
+    font-size: 10px;
+    font-weight: 500;
+    color: #fff;
+    background-color: var(--primary-bg-color);
+}
+
+:host ::ng-deep {
+    .ng-option-marked, .ng-option-selected {
+        .count {
+            color: var(--primary-bg-color);
+            background-color: #fff;
+        }
+    }
 }
 

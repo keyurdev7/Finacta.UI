@@ -1,50 +1,74 @@
 <h1 mat-dialog-title>
-    <strong>Add Company</strong>
-  </h1>
-  <div mat-dialog-content>
-    <form class="login100-form validate-form" [formGroup]="addCompanyForm">
-      <div class="wrap-input100 validate-input">
-        <input
-          class="input100"
-          type="text"
-          formControlName="name"
-          placeholder="Name"
-        />
-        <span class="focus-input100"></span>
-        <span class="symbol-input100">
-          <i class="fa fa-bank" aria-hidden="true"></i>
-        </span>
-      </div>
-      <div
-        *ngIf="hasError('name', 'required')"
-        class="text text-danger mt-1"
+  <strong>Add Company</strong>
+</h1>
+<div mat-dialog-content>
+  <form class="login100-form validate-form" [formGroup]="addCompanyForm">
+    <div class="wrap-input100 validate-input">
+      <input
+        type="text"
+        placeholder="Company Name"
+        aria-label="Number"
+        class="input100"
+        formControlName="name"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete
+        autoActiveFirstOption
+        #auto="matAutocomplete"
+        (optionSelected)="addNumber($event.option.value)"
       >
-        Company Name is required
-      </div>
-      <div class="wrap-input100 validate-input">
-        <input
-          class="input100"
-          type="text"
-          formControlName="phoneNumber"
-          placeholder="Company Number"
-        />
-        <span class="focus-input100"></span>
-        <span class="symbol-input100">
-          <i class="fa fa-address-book" aria-hidden="true"></i>
-        </span>
-      </div>
-      <div *ngIf="hasError('phoneNumber', 'required')" class="text text-danger mt-1">
-        Company Number is required
-      </div>
-      <div *ngIf="hasError('phoneNumber', 'pattern')" class="text text-danger mt-1">
-        Company Number must be numbers
-      </div>
-    </form>
-  </div>
-  <div mat-dialog-actions class="float-end">
-    <button mat-button [disabled]="!addCompanyForm.valid" (click)="Add()" mat-flat-button color="warn">
-      Add
-    </button>
-    <button mat-button (click)="closeDialog()">Cancel</button>
-  </div>
-  
+        <mat-option
+          *ngFor="let option of companies"
+          [value]="option.companyName"
+        >
+          {{ option.companyName }}
+        </mat-option>
+        <mat-option disabled *ngIf="showNoResult">No results found</mat-option>
+      </mat-autocomplete>
+      <span class="focus-input100"></span>
+      <span class="symbol-input100">
+        <i class="fa fa-bank" aria-hidden="true"></i>
+      </span>
+      <span class="loader--text" *ngIf="showCompanyLoader"> </span>
+    </div>
+    <div *ngIf="hasError('name', 'required')" class="text text-danger mt-1">
+      Company Name is required
+    </div>
+    <div class="wrap-input100 validate-input">
+      <input
+        class="input100"
+        type="text"
+        formControlName="phoneNumber"
+        placeholder="Company Number"
+      />
+      <span class="focus-input100"></span>
+      <span class="symbol-input100">
+        <i class="fa fa-address-book" aria-hidden="true"></i>
+      </span>
+    </div>
+    <div
+      *ngIf="hasError('phoneNumber', 'required')"
+      class="text text-danger mt-1"
+    >
+      Company Number is required
+    </div>
+    <div
+      *ngIf="hasError('phoneNumber', 'pattern')"
+      class="text text-danger mt-1"
+    >
+      Company Number must be numbers
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions class="float-end">
+  <button
+    mat-button
+    [disabled]="!addCompanyForm.valid"
+    (click)="Add()"
+    mat-flat-button
+    color="warn"
+  >
+    Add
+  </button>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+</div>

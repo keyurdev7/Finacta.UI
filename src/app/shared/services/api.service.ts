@@ -173,4 +173,14 @@ export class APIService extends AbstractService {
       callerErrorHandler: false,
     }) as Observable<any>;
   }
+
+  syncCompaniesHouse(companyName: string): Observable<any> {
+    const params = new HttpParams().append('searchCompanyName', companyName);
+    return this.httpGet({
+      url: this.baseUrl + '/Auth/SyncCompaniesHouse',
+      callerErrorHandler: false,
+      noLoadingMask: true,
+      params: params
+    }) as Observable<any>;
+  }
 }

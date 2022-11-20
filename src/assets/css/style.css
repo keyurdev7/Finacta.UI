@@ -576,9 +576,6 @@ pre code {
     .container {
         max-width: 960px;
     }
-    .side-header {
-        padding: 16px 17px !important
-    }
 }
 
 @media (min-width: 1280px) {
@@ -29105,7 +29102,7 @@ body.rtl .buy-now {
 .header {
     background: #fff;
     padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    padding-bottom: 1.5rem;
     border-bottom: 1px solid #eaedf1;
 }
 
@@ -52912,10 +52909,6 @@ iframe {
         padding-left: 20px;
     }
 
-    .closed-leftmenu.app.sidebar-mini.sidenav-toggled .side-menu {
-        padding: 0 0px 40px 0px;
-    }
-
     .closed-leftmenu.app.sidebar-mini.sidenav-toggled .side-menu .sub-category {
         display: none;
     }
@@ -53250,7 +53243,7 @@ iframe {
     -webkit-transition: left 0.3s ease, width 450ms ease;
     -o-transition: left 0.3s ease, width 450ms ease;
     transition: left 0.3s ease, width 450ms ease;
-    height: 63px;
+    height: 75px;
 }
 
 .closed-leftmenu .side-header .header-brand-img.toggle-logo,
@@ -53482,7 +53475,7 @@ iframe {
     }
 
     .hover-submenu .app-sidebar {
-        padding-top: 63px !important;
+        padding-top: 75px !important;
     }
 }
 
@@ -54238,10 +54231,6 @@ iframe {
         padding-left: 130px !important;
     }
 
-    .hover-submenu.sidebar-mini.sidenav-toggled .side-menu {
-        padding: 0 0px 40px 0px;
-    }
-
     .hover-submenu.sidebar-mini.sidenav-toggled .side-menu .sub-category {
         display: none;
     }
@@ -54570,7 +54559,7 @@ iframe {
     --webkit-transition: left 0.3s ease, width 0.2s ease;
     -o-transition: left 0.3s ease, width 0.2s ease;
     transition: left 0.3s ease, width 0.2s ease;
-    height: 63px;
+    height: 75px;
 }
 
 .hover-submenu .side-header .header-brand-img.toggle-logo,
@@ -55104,7 +55093,7 @@ iframe {
     }
 
     .hover-submenu1 .app-sidebar {
-        padding-top: 63px !important;
+        padding-top: 75px !important;
     }
 }
 
@@ -55750,10 +55739,6 @@ iframe {
         padding-left: 130px !important;
     }
 
-    .hover-submenu1.sidebar-mini.sidenav-toggled .side-menu {
-        padding: 0 0px 40px 0px;
-    }
-
     .hover-submenu1.sidebar-mini.sidenav-toggled .side-menu .sub-category {
         display: none;
     }
@@ -56078,7 +56063,7 @@ iframe {
     --webkit-transition: left 0.3s ease, width 0.2s ease;
     -o-transition: left 0.3s ease, width 0.2s ease;
     transition: left 0.3s ease, width 0.2s ease;
-    height: 63px;
+    height: 75px;
 }
 
 .hover-submenu1 .side-header .header-brand-img.toggle-logo,
@@ -56654,7 +56639,7 @@ iframe {
     }
 
     .app-sidebar {
-        padding-top: 63px;
+        padding-top: 75px;
     }
 
     .side-header {
@@ -57545,7 +57530,7 @@ iframe {
     -webkit-transition: all ease 0.2s;
     -o-transition: all ease 0.2s;
     transition: all ease 0.2s;
-    height: 63px;
+    height: 75px;
 }
 
 .sidebar-mini.sidenav-toggled .app-sidebar__toggle {
@@ -57916,10 +57901,6 @@ iframe {
 
     .app.sidebar-mini.sidenav-toggled .app-header.header {
         padding-left: 100px;
-    }
-
-    .app.sidebar-mini.sidenav-toggled .side-menu {
-        padding: 0 0px 40px 0px;
     }
 
     .sidebar-mini.sidenav-toggled .app-sidebar {
@@ -58726,10 +58707,6 @@ iframe {
         padding-left: 130px;
     }
 
-    .icontext-menu.sidebar-mini.sidenav-toggled .side-menu {
-        padding: 0 0px 40px 0px;
-    }
-
     .icontext-menu.sidebar-mini.sidenav-toggled .side-menu .sub-category {
         display: none;
     }
@@ -59074,7 +59051,7 @@ iframe {
     --webkit-transition: left 0.3s ease, width 0.2s ease;
     -o-transition: left 0.3s ease, width 0.2s ease;
     transition: left 0.3s ease, width 0.2s ease;
-    height: 63px;
+    height: 75px;
 }
 
 .icontext-menu .side-header .header-brand-img.toggle-logo,
@@ -60429,12 +60406,6 @@ ul li .legend-dots {
 @media (min-width: 992px) {
     .main-content-app {
         height: calc(100vh - 250px);
-    }
-}
-
-@media (min-width: 992px) {
-    .main-content-chat-app {
-        height: calc(100% - 10px);
     }
 }
 
@@ -106411,12 +106382,5 @@ textarea.form-control {
         width: 20% !important;
     }
 }
-
-@media (max-width: 767px) {
-    .header-select .ng-select .ng-select-container{
-        color: #333 !important;
-    }
-}
-
 
 /*# sourceMappingURL=style.css.map */

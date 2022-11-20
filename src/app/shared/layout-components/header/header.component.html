@@ -42,19 +42,6 @@
               <div style="min-width: 190px" *ngIf="user.isPortalSubscibe">
                 <ul>
                   <li class="select-status header-select">
-                    <!-- <ng-select
-                      placeholder=""
-                      [(ngModel)]="user.lastLoginCompanyId"
-                      (change)="changeCompany($event)"
-                      [clearable]="false"
-                    >
-                      <ng-option
-                        *ngFor="let eachCompany of user.userCompany"
-                        [value]="eachCompany.companyId"
-                      >
-                        {{ eachCompany.companyName }}
-                      </ng-option>
-                    </ng-select> -->
                     <ng-select
                       #select
                       [items]="user.userCompany"
@@ -67,6 +54,16 @@
                       dropdownPosition="bottom"
                       [clearable]="false"
                     >
+                      <ng-template ng-option-tmp let-item="item">
+                        <div title="item">
+                          {{ item.companyName }}
+                          <span
+                            class="count"
+                            *ngIf="item && item.unreadMessageCount > 0"
+                            >{{ item.unreadMessageCount }}</span
+                          >
+                        </div>
+                      </ng-template>
                       <ng-template ng-header-tmp>
                         <input
                           style="width: 100%; line-height: 24px"

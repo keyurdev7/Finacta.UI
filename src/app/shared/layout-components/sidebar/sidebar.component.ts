@@ -17,6 +17,7 @@ import { switchMap } from 'rxjs/operators';
 import { AccessMenuHeader } from 'src/app/models/access-menu-header.model';
 import { ChatService } from '../../services/chat.service';
 import { User } from 'src/app/models/user.model';
+import { SettingService } from '../../services/settings.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -27,6 +28,7 @@ import { User } from 'src/app/models/user.model';
 export class SidebarComponent implements OnInit, OnDestroy {
   public menuItems: AccessMenuHeader[] = [];
   public url: any;
+  public companyLogo: any;
   public user: User = new User();
   public chatSubscription: Subscription = new Subscription();
   public routerSubscription: any;
@@ -37,6 +39,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private breakpointObserver: BreakpointObserver,
     private router: Router,
     private navServices: NavService,
+    private settingServices: SettingService,
     private chatService: ChatService,
     public elRef: ElementRef,
     private store: Store<AppState>
@@ -128,6 +131,12 @@ export class SidebarComponent implements OnInit, OnDestroy {
         this.user = res;
       })
     );
+  }
+
+  getCompanyLogo(): void {
+    this.settingServices.getLogo().subscribe((res) => {
+      this.companyLogo = res.data;
+    });
   }
 
   checkCurrentActive() {
@@ -225,6 +234,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     switcherArrowFn();
     this.subscribeToUser();
+    this.getCompanyLogo();
     // detect screen size changes
     this.breakpointObserver
       .observe(['(max-width: 991px)'])
@@ -305,6 +315,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
       }
       checkHoriMenu();
     });
+  }
+
+  getFilteredMenu(atBottom: boolean = false) {
+    return this.menuItems.filter((m) => m.displayAtbottom === atBottom);
   }
 
   sidebarClose() {

@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
+import { Company } from 'src/app/models/company.model';
 import { User } from 'src/app/models/user.model';
 import { UpdateUserAction } from 'src/app/store/app.actions';
 import { AppState, userSelector } from 'src/app/store/app.state';
+import { Subscription, timer } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import {
   ADVISOR_USER_TYPE,
   MASTER_USER_TYPE,
@@ -18,10 +21,12 @@ import { SwitcherService } from '../../services/switcher.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   public isCollapsed = true;
   public user: User = new User();
   public companyId: number = 0;
+  public companySubscription: Subscription = new Subscription();
+  public activeCompanies: Company[] = [];
   constructor(
     private router: Router,
     private store: Store<AppState>,
@@ -34,8 +39,20 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.store.pipe(userSelector).subscribe((res) => {
       this.user = res;
-      this.companyId = this.user.lastLoginCompanyId;
     });
+    this.companySubscription = this.getAllActiveCompanies();
+  }
+
+  getAllActiveCompanies(): Subscription {
+    this.companySubscription.unsubscribe();
+    return timer(0, 30000)
+      .pipe(switchMap(() => this.companyService.getMyActiveCompanies()))
+      .subscribe((res) => {
+        if (res && res.succeeded && res.data && res.data[0]) {
+          this.activeCompanies = res.data;
+          this.companyId = this.user.lastLoginCompanyId;
+        }
+      });
   }
 
   changeCompany(): void {
@@ -45,7 +62,9 @@ export class HeaderComponent implements OnInit {
     ) {
       this.companyService.selectCompany(this.companyId).subscribe((res) => {
         if (res && res.succeeded) {
-          this.store.dispatch(UpdateUserAction(Object.assign({}, this.user, res.data)));
+          this.store.dispatch(
+            UpdateUserAction(Object.assign({}, this.user, res.data))
+          );
           this.reload();
         } else if (res && res.errors.length) {
           res.errors.forEach((err) => {
@@ -58,7 +77,9 @@ export class HeaderComponent implements OnInit {
     } else {
       this.companyService.changeCompany(this.companyId).subscribe((res) => {
         if (res && res.succeeded) {
-          this.store.dispatch(UpdateUserAction(Object.assign({}, this.user, res.data)));
+          this.store.dispatch(
+            UpdateUserAction(Object.assign({}, this.user, res.data))
+          );
           this.reload();
           this.toster.success('Company changed successfully');
         } else if (res && res.errors.length) {
@@ -86,5 +107,9 @@ export class HeaderComponent implements OnInit {
     delete user.isPortalSubscibe;
     this.store.dispatch(UpdateUserAction(user));
     this.router.navigate(['/auth/login']);
+  }
+
+  ngOnDestroy(): void {
+    this.companySubscription.unsubscribe();
   }
 }

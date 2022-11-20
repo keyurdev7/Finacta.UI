@@ -12,3 +12,28 @@
   box-shadow: none;
   border-radius: 35px;
 }
+.loader--text {
+  position: absolute;
+  top: 13px;
+  right: 10px;
+  margin: auto;
+}
+.loader--text:before {
+  color: var(--primary-bg-color);
+  content: "\f110";
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  animation: loader 0.3s infinite;
+}
+@keyframes loader {
+  15% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
