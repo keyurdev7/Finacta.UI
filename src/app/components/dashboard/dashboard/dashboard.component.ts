@@ -1,8 +1,12 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit,ElementRef } from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { ApexRandomData } from 'src/app/shared/data/dashboard/dashboardData';
+import { DashBoardManagementService } from 'src/app/shared/services/dashboard.service';
+import { DashBoard } from 'src/app/models/dashboard.model';
+
+import * as pbi from 'powerbi-client';
 
 export interface DashboardTableDataType {
   id: number;
@@ -30,18 +34,65 @@ const DashboardTable_Data: DashboardTableDataType[] = [
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
+  dashboarddata = new DashBoard();
+  screenHeight:number = 0;
 
-    @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild('embeddedReport')
+  embeddedReport!: ElementRef;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   displayedColumns: string[] = ['AssignTo', 'Task', 'Projects', 'Duedate', 'Status', 'Action'];
   // Assign the data to the data source for the table to render
   dataSource = new MatTableDataSource(DashboardTable_Data);
 
-  constructor() {}
+  constructor(
+    private dashBoardManagementService: DashBoardManagementService,
+  ) {}
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.getReport();
+  }
+
+  getReport(): void {
+    this.dashBoardManagementService.getReport().subscribe((res) => {
+      this.showReport(res.data);
+    });
+  }
+
+  showReport(data : DashBoard ) {
+    const embedReportId = data.reportId;
+    const accessToken = data.accessToken;
+    let embedUrl = data.embedUrl;
+
+    let config = {
+      type: 'report',
+      tokenType: pbi.models.TokenType.Embed,
+      accessToken: accessToken,
+      embedUrl: embedUrl,
+      id: embedReportId,
+      filters: [],
+      settings: {
+        filterPaneEnabled: true,
+        navContentPaneEnabled: true
+      }
+    };
+
+    let powerbi = new pbi.service.Service(
+      pbi.factories.hpmFactory,
+      pbi.factories.wpmpFactory,
+      pbi.factories.routerFactory
+    );
+    let report = powerbi.embed(this.embeddedReport.nativeElement, config);
+    report.off('loaded');
+    report.on('loaded', () => {
+      console.log('Loaded');
+    });
+    report.on('error', () => {
+      // this.getToken();
+    });
   }
 
   applyFilter(event: Event) {
@@ -53,6 +104,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
   }
   ngOnInit(): void {
+    this.screenHeight = (window.screen.height);
   }
 
   public RandomData = ApexRandomData;
