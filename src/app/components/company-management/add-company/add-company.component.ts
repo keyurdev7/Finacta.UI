@@ -3,9 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 import { AddCompanyForm } from 'src/app/models/add-company-form.model';
 import { User } from 'src/app/models/user.model';
+import { APIService } from 'src/app/shared/services/api.service';
 import { CompanyUsersService } from 'src/app/shared/services/company-users.service';
 import { AppState, userSelector } from 'src/app/store/app.state';
 
@@ -17,6 +18,9 @@ import { AppState, userSelector } from 'src/app/store/app.state';
 export class AddCompanyComponent implements OnInit {
   user: User = new User();
   subscriptions: Subscription[] = [];
+  public companies: any[] = [];
+  public showCompanyLoader: boolean = false;
+  public showNoResult: boolean = false;
   public addCompanyForm: FormGroup = new FormGroup([]);
 
   constructor(
@@ -24,6 +28,7 @@ export class AddCompanyComponent implements OnInit {
     private fb: FormBuilder,
     public store: Store<AppState>,
     private companyUserService: CompanyUsersService,
+    private api: APIService,
     public toster: ToastrService
   ) {}
 
@@ -35,6 +40,34 @@ export class AddCompanyComponent implements OnInit {
         null,
         [Validators.required, Validators.pattern(/^[0-9]+$/)],
       ],
+    });
+    this.subscriptions.push(
+      this.addCompanyForm.controls['name'].valueChanges
+        .pipe(debounceTime(1000), distinctUntilChanged())
+        .subscribe((v) => this.search(v))
+    );
+  }
+
+  search(val: string = '') {
+    this.showNoResult = false;
+    if (!!val) {
+      this.showCompanyLoader = true;
+      this.api.syncCompaniesHouse(val).subscribe((res) => {
+        this.companies = res.data;
+        this.showCompanyLoader = false;
+        if (!this.companies.length) this.showNoResult = true;
+      });
+    } else {
+      this.companies = [];
+    }
+  }
+
+  addNumber(value): void {
+    this.addCompanyForm.patchValue({
+      phoneNumber: this.companies.length
+        ? this.companies.find((each) => each.companyName === value)
+            .companyNumber
+        : '',
     });
   }
 

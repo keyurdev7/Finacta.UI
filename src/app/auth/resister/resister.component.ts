@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
 import { RegisterForm } from 'src/app/models/register-form.model';
 import { APIService } from 'src/app/shared/services/api.service';
 import { CustomValidators } from 'src/app/shared/validations/CustomValidators';
@@ -13,6 +14,10 @@ import { CustomValidators } from 'src/app/shared/validations/CustomValidators';
 })
 export class ResisterComponent implements OnInit {
   public registerForm: FormGroup = new FormGroup([]);
+  public companies: any[] = [];
+  public showCompanyLoader: boolean = false;
+  public showNoResult: boolean = false;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -29,7 +34,13 @@ export class ResisterComponent implements OnInit {
         firstName: [null, [Validators.required]],
         lastName: [null, [Validators.required]],
         emailId: [null, [Validators.required, Validators.email]],
-        password: [null, [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d@$!%*?&]{8,}$/)]],
+        password: [
+          null,
+          [
+            Validators.required,
+            Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d@$!%*?&]{8,}$/),
+          ],
+        ],
         confirmPass: [null, [Validators.required]],
         companyName: [null, [Validators.required]],
         companyNumber: [null, [Validators.required]],
@@ -38,6 +49,34 @@ export class ResisterComponent implements OnInit {
         validators: [CustomValidators.mustMatch('password', 'confirmPass')],
       }
     );
+    this.subscriptions.push(
+      this.registerForm.controls['companyName'].valueChanges
+        .pipe(debounceTime(1000), distinctUntilChanged())
+        .subscribe((v) => this.search(v))
+    );
+  }
+
+  search(val: string = '') {
+    this.showNoResult = false;
+    if (!!val) {
+      this.showCompanyLoader = true;
+      this.api.syncCompaniesHouse(val).subscribe((res) => {
+        this.companies = res.data;
+        this.showCompanyLoader = false;
+        if (!this.companies.length) this.showNoResult = true;
+      });
+    } else {
+      this.companies = [];
+    }
+  }
+
+  addNumber(value): void {
+    this.registerForm.patchValue({
+      companyNumber: this.companies.length
+        ? this.companies.find((each) => each.companyName === value)
+            .companyNumber
+        : '',
+    });
   }
 
   hasError(control: string, validator: string): boolean {
@@ -70,5 +109,6 @@ export class ResisterComponent implements OnInit {
 
   ngOnDestroy() {
     document.querySelector('body')?.classList.remove('login-img');
+    this.subscriptions.forEach((s) => s.unsubscribe());
   }
 }

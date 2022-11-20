@@ -5,10 +5,10 @@
   <div class="form-group">
     <label class="form-label">Select Xero Contact:</label>
     <mat-form-field>
-      <mat-select [(ngModel)]="selectedXeroContactId">
+      <mat-select [(ngModel)]="selectedXeroContact">
         <mat-option
           *ngFor="let eachContact of xeroContactList"
-          [value]="eachContact.xeroContactId"
+          [value]="eachContact"
           >{{ eachContact.contactName }}</mat-option
         >
       </mat-select>
@@ -19,7 +19,7 @@
   <button
     mat-button
     (click)="save()"
-    [disabled]="!selectedXeroContactId"
+    [disabled]="!selectedXeroContact?.xeroContactId"
     mat-flat-button
     color="warn"
   >

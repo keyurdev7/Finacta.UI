@@ -10,6 +10,7 @@ import { RegisterSuccessComponent } from './register-success/register-success.co
 import { EmailVerificationComponent } from './email-verification/email-verification.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { CompanyUserVerificationComponent } from './company-user-verification/company-user-verification.component';
 
 @NgModule({
@@ -27,6 +28,7 @@ import { CompanyUserVerificationComponent } from './company-user-verification/co
     AuthRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    MatAutocompleteModule,
     NgbModule,
   ],
 })

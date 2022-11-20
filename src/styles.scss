@@ -531,3 +531,15 @@ mat-option.mat-selected {
     color: #f7f6f6;
   }
 }
+
+.header-light .header-select {
+  .ng-select .ng-select-container .ng-value-container .ng-input > input {
+    color: #000 !important;
+  }
+  .ng-placeholder {
+    color: #000 !important;
+  }
+  .ng-select .ng-select-container {
+    color: #333;
+  }
+}

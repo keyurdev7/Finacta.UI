@@ -10,7 +10,7 @@ import { CompanyUsersService } from 'src/app/shared/services/company-users.servi
 })
 export class MapXeroContactDialogComponent implements OnInit {
   xeroContactList: any;
-  selectedXeroContactId: number = 0;
+  selectedXeroContact: any;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<MapXeroContactDialogComponent>,
@@ -20,6 +20,7 @@ export class MapXeroContactDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.xeroContactList = this.data.list;
+    this.selectedXeroContact = this.data.list.find((each) => each.selected);
   }
 
   /*getXeroContactList(): void {
@@ -32,12 +33,12 @@ export class MapXeroContactDialogComponent implements OnInit {
     this.companyUserService
       .addCompanyXeroContactRelation(
         this.data.userId,
-        this.selectedXeroContactId,
+        this.selectedXeroContact.xeroContactId,
         this.data.companyId
       )
       .subscribe((res) => {
         if (res && res.succeeded) {
-          this.selectedXeroContactId = 0;
+          this.selectedXeroContact = {};
           this.dialogRef.close({ event: 'success' });
           this.toster.success(res.message);
         } else if (res && res.errors.length) {

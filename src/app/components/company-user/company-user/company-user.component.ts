@@ -6,8 +6,8 @@ import { MatSort } from '@angular/material/sort';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { CompanyUser } from 'src/app/models/company-user.model';
-import { User} from 'src/app/models/user.model';
-import {  UserActiveInactive } from 'src/app/models/User-ActiveInactive.model';
+import { User } from 'src/app/models/user.model';
+import { UserActiveInactive } from 'src/app/models/User-ActiveInactive.model';
 import { CompanyUsersService } from 'src/app/shared/services/company-users.service';
 import { AppState, userSelector } from 'src/app/store/app.state';
 import { InviteUserModalComponent } from '../invite-user-modal/invite-user-modal.component';
@@ -25,8 +25,9 @@ import { ActiveInActiveUserRequest } from 'src/app/models/active-inactive-user.m
 export class CompanyUserComponent implements OnInit, OnDestroy {
   public constants = commonConstants;
   user: User = new User();
-  activeinactive : UserActiveInactive = new UserActiveInactive();
-  activeInActiveUserRequest : ActiveInActiveUserRequest = new ActiveInActiveUserRequest();
+  activeinactive: UserActiveInactive = new UserActiveInactive();
+  activeInActiveUserRequest: ActiveInActiveUserRequest =
+    new ActiveInActiveUserRequest();
   subscriptions: Subscription[] = [];
   displayedColumns: string[] = [
     'photo',
@@ -74,6 +75,9 @@ export class CompanyUserComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.store.pipe(userSelector).subscribe((res) => {
         this.user = res;
+        if (this.constants.MASTER_USER_TYPE === this.user.userTypeId) {
+          this.displayedColumns.splice(4, 0, 'userType');
+        }
       })
     );
   }
@@ -87,7 +91,7 @@ export class CompanyUserComponent implements OnInit, OnDestroy {
   openDialog(id): void {
     const dialog = this.dialog.open(InviteUserModalComponent, {
       minWidth: '28%',
-      data:id
+      data: id,
     });
     dialog.afterClosed().subscribe((result) => {
       if (result?.event === 'success') {
@@ -96,8 +100,6 @@ export class CompanyUserComponent implements OnInit, OnDestroy {
       return;
     });
   }
-
-  
 
   reSendInvite(id: number) {
     this.companyUserService.reSendInvitation(id).subscribe((res) => {
@@ -140,12 +142,12 @@ export class CompanyUserComponent implements OnInit, OnDestroy {
     });
   }
 
-  activedeactiveUserModal(id,isActive) : void{
+  activedeactiveUserModal(id, isActive): void {
     this.activeinactive.id = id;
     this.activeinactive.userActiveStatusId = isActive;
     const dialog = this.dialog.open(ActiveInactiveUserModalComponent, {
       minWidth: '28%',
-      data:this.activeinactive
+      data: this.activeinactive,
     });
     dialog.afterClosed().subscribe((result) => {
       if (result?.event === 'confirm') {
@@ -174,7 +176,7 @@ export class CompanyUserComponent implements OnInit, OnDestroy {
   }
 
   inActiveUser(id: number): void {
-    this.activedeactiveUserModal(id,false);
+    this.activedeactiveUserModal(id, false);
     // this.blogService.unPublishBlog(id).subscribe((res) => {
     //   if (res && res.succeeded) {
     //     this.toster.success(res.message);
@@ -190,7 +192,7 @@ export class CompanyUserComponent implements OnInit, OnDestroy {
   }
 
   activeUser(id: number): void {
-    this.activedeactiveUserModal(id,true);
+    this.activedeactiveUserModal(id, true);
     // this.blogService.unPublishBlog(id).subscribe((res) => {
     //   if (res && res.succeeded) {
     //     this.toster.success(res.message);

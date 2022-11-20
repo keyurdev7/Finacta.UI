@@ -1,7 +1,8 @@
 export class Company {
   companyId: number = 0;
   companyName: string = '';
-  xeroContactName: string = '';
+  unreadMessageCount?: string = '';
+  xeroContactName?: string = '';
   companyNumber?: string = '';
   SubscriptionStartDateTime?: string = '';
   SubscriptionEndDateTime?: string = '';

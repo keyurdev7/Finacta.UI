@@ -138,4 +138,13 @@ export class CompanyUsersService extends AbstractService {
       callerErrorHandler: false,
     }) as Observable<any>;
   }
+
+  getMyActiveCompanies(): Observable<any> {
+    return this.httpGet({
+      url: this.baseUrl + '/CompanyManagement/GetMyActiveCompanies',
+      callerErrorHandler: false,
+      params: new HttpParams(),
+      noLoadingMask: true
+    }) as Observable<any>;
+  }
 }
