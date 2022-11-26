@@ -1,8 +1,5 @@
-<app-page-header
-  [title]="'Settings'"
-  [items]="[{ title: 'Home', link: '/' }]"
-  [active_item]="'Settings'"
-></app-page-header>
+<app-page-header [title]="'Settings'" [items]="[{ title: 'Home', link: '/' }]" [active_item]="'Settings'">
+</app-page-header>
 <div class="row">
   <div class="col-lg-6">
     <div class="card">
@@ -12,18 +9,12 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-4">
-            <a class="btn btn-primary btn-w-xs" href="{{ xerocontactULR }}"
-              >Sync Xero Customers</a
-            >
+            <a class="btn btn-primary btn-w-xs btn-w-14" href="{{ xerocontactULR }}">Import Contacts</a>
             <!-- <button type="button" class="btn btn-primary btn-w-xs" (click)="SyncXeroCustomer()"  ></button> -->
           </div>
           <div class="col-md-4">
-            <button
-              type="button"
-              class="btn btn-success btn-w-md"
-              (click)="ViewAllXeroCustomers()"
-            >
-              View All Xero Customers
+            <button type="button" class="btn btn-success btn-w-md btn-w-14" (click)="ViewAllXeroCustomers()">
+              Map Contacts
             </button>
           </div>
         </div>
@@ -38,12 +29,8 @@
       <div class="card-body">
         <div class="row">
           <div class="col-md-4">
-            <button
-              type="button"
-              class="btn btn-primary btn-w-xs"
-              (click)="ShowMappedCompany()"
-            >
-              Sync Xero Invoice
+            <button type="button" class="btn btn-primary btn-w-xs btn-w-14" (click)="ShowMappedCompany()">
+              Sync Invoices
             </button>
           </div>
         </div>
@@ -65,13 +52,8 @@
               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-8">
                 <div class="form-group">
                   <label for="formFile" class="form-label">Collapse Logo</label>
-                  <input
-                    class="form-control file-input"
-                    type="file"
-                    id="formFile"
-                    name="collapseFile"
-                    (change)="collapseLogoChange($event)"
-                  />
+                  <input class="form-control file-input" type="file" id="formFile" name="collapseFile"
+                    (change)="collapseLogoChange($event)" />
                 </div>
                 <div *ngIf="collapseFileErr" class="text text-danger mt-1">
                   {{ collapseFileErr }}
@@ -79,10 +61,7 @@
               </div>
               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 button-wrap">
                 <div class="form-group button-div">
-                  <button
-                    class="btn btn-primary"
-                    (click)="viewLogo(user.collapseLogo)"
-                  >
+                  <button class="btn btn-primary" (click)="viewLogo(user.collapseLogo)">
                     View
                   </button>
                 </div>
@@ -92,13 +71,8 @@
               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-8">
                 <div class="form-group">
                   <label for="formFile" class="form-label">Expand Logo</label>
-                  <input
-                    class="form-control file-input"
-                    type="file"
-                    id="formFile"
-                    name="expandFile"
-                    (change)="expandLogoChange($event)"
-                  />
+                  <input class="form-control file-input" type="file" id="formFile" name="expandFile"
+                    (change)="expandLogoChange($event)" />
                 </div>
                 <div *ngIf="expandFileErr" class="text text-danger mt-1">
                   {{ expandFileErr }}
@@ -106,17 +80,10 @@
               </div>
               <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4 button-wrap">
                 <div class="form-group button-div">
-                  <button
-                    class="btn btn-primary"
-                    (click)="viewLogo(user.expandLogo)"
-                  >
+                  <button class="btn btn-primary" (click)="viewLogo(user.expandLogo)">
                     View
                   </button>
-                  <button
-                    class="btn btn-success submit-button"
-                    (click)="setLogo()"
-                    [disabled]="!isFormValid()"
-                  >
+                  <button class="btn btn-success submit-button" (click)="setLogo()" [disabled]="!isFormValid()">
                     Submit
                   </button>
                 </div>

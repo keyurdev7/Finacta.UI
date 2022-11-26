@@ -30269,7 +30269,7 @@ body.fixed-header .header {
 .app .header .profile-1 .dropdown-item {
     padding: 0.6rem 1rem !important;
     border-bottom: none;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .app .header .profile-1 .dropdown-item .dropdown-icon {
@@ -30379,6 +30379,11 @@ body.fixed-header .header {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.pr-icon{
+    margin-right: 7px;
+    font-size: 1.1rem !important;
 }
 
 .flag-dropdown .language {

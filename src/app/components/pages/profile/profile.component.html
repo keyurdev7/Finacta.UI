@@ -1,8 +1,5 @@
-<app-page-header
-  [title]="'Profile'"
-  [items]="[{ title: 'Home', link: '/' }]"
-  [active_item]="'Profile'"
-></app-page-header>
+<app-page-header [title]="'Profile'" [items]="[{ title: 'Home', link: '/' }]" [active_item]="'Profile'">
+</app-page-header>
 
 <!-- ROW-1 OPEN -->
 <div class="row" id="user-profile">
@@ -13,18 +10,10 @@
           <div class="col-lg-12 col-md-12 col-xl-6">
             <div class="d-flex flex-wrap align-items-center">
               <div class="profile-img-main rounded">
-                <img
-                  *ngIf="user.profilePhoto"
-                  [src]="user.profilePhoto"
-                  alt="profile-image"
-                  class="m-0 p-1 rounded hrem-6"
-                />
-                <img
-                  *ngIf="!user.profilePhoto"
-                  src="./assets/images/faces/default-profile-icon.jpg"
-                  alt="profile-image"
-                  class="m-0 p-1 rounded hrem-6"
-                />
+                <img *ngIf="user.profilePhoto" [src]="user.profilePhoto" alt="profile-image"
+                  class="m-0 p-1 rounded hrem-6" />
+                <img *ngIf="!user.profilePhoto" src="./assets/images/faces/default-profile-icon.jpg" alt="profile-image"
+                  class="m-0 p-1 rounded hrem-6" />
               </div>
               <div class="ms-4">
                 <h4>{{ getFullName() }}</h4>
@@ -56,6 +45,12 @@
                                 <td>
                                   <strong>Email :</strong>
                                   {{ user.emailId }}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <strong>Role :</strong>
+                                  {{ user.userTypeName }}
                                 </td>
                               </tr>
                               <!-- <tr>
@@ -100,50 +95,30 @@
                           <div class="row mb-4">
                             <div class="col-md-12 col-lg-12 col-xl-6">
                               <div class="form-group">
-                                <label for="firstname" class="form-label"
-                                  >First Name</label
-                                >
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  id="firstname"
-                                  formControlName="firstName"
-                                />
-                                <div
-                                  *ngIf="
+                                <label for="firstname" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="firstname" formControlName="firstName" />
+                                <div *ngIf="
                                     hasError(
                                       'profileForm',
                                       'firstName',
                                       'required'
                                     )
-                                  "
-                                  class="text text-danger mt-1"
-                                >
+                                  " class="text text-danger mt-1">
                                   First Name is required
                                 </div>
                               </div>
                             </div>
                             <div class="col-md-12 col-lg-12 col-xl-6">
                               <div class="form-group">
-                                <label for="secondname" class="form-label"
-                                  >Second Name</label
-                                >
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  id="secondname"
-                                  formControlName="lastName"
-                                />
-                                <div
-                                  *ngIf="
+                                <label for="secondname" class="form-label">Second Name</label>
+                                <input type="text" class="form-control" id="secondname" formControlName="lastName" />
+                                <div *ngIf="
                                     hasError(
                                       'profileForm',
                                       'lastName',
                                       'required'
                                     )
-                                  "
-                                  class="text text-danger mt-1"
-                                >
+                                  " class="text text-danger mt-1">
                                   Second Name is required
                                 </div>
                               </div>
@@ -164,57 +139,31 @@
                             </div> -->
                             <div class="col-md-12 col-lg-12 col-xl-6">
                               <div class="form-group">
-                                <label for="phonenumber" class="form-label"
-                                  >Phone Number</label
-                                >
-                                <input
-                                  type="text"
-                                  class="form-control"
-                                  id="phonenumber"
-                                  placeholder="Phone Number"
-                                  formControlName="phone"
-                                />
+                                <label for="phonenumber" class="form-label">Phone Number</label>
+                                <input type="text" class="form-control" id="phonenumber" placeholder="Phone Number"
+                                  formControlName="phone" />
                               </div>
                             </div>
                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-6">
                               <div class="form-group">
-                                <label for="formFile" class="form-label"
-                                  >Profile Image</label
-                                >
-                                <input
-                                  class="form-control file-input"
-                                  type="file"
-                                  id="formFile"
-                                  formControlName="image"
-                                  (change)="onFileUpload($event)"
-                                />
+                                <label for="formFile" class="form-label">Profile Image</label>
+                                <input class="form-control file-input" type="file" id="formFile" formControlName="image"
+                                  (change)="onFileUpload($event)" />
                               </div>
                             </div>
                             <div class="col-md-12 col-lg-12 col-xl-6">
                               <div class="form-group">
                                 <div class="row row-sm">
                                   <div class="col-sm-12 col-md-12 col-lg-12">
-                                    <label class="ckbox" for="ckbox-unchecked"
-                                      ><input
-                                        type="checkbox"
-                                        id="ckbox-unchecked"
-                                        formControlName="marketing"
-                                      /><span class="ms-1 d-inline form-label"
-                                        >Enable Marketing Emails</span
-                                      ></label
-                                    >
+                                    <label class="ckbox" for="ckbox-unchecked"><input type="checkbox"
+                                        id="ckbox-unchecked" formControlName="marketing" /><span
+                                        class="ms-1 d-inline form-label">Enable Marketing Emails</span></label>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div
-                              class="col-md-12 col-lg-12 col-xl-12 text-center"
-                            >
-                              <button
-                                [disabled]="!profileForm.valid"
-                                class="btn btn-primary"
-                                (click)="submitProfile()"
-                              >
+                            <div class="col-md-12 col-lg-12 col-xl-12 text-center">
+                              <button [disabled]="!profileForm.valid" class="btn btn-primary" (click)="submitProfile()">
                                 Submit
                               </button>
                             </div>
@@ -229,32 +178,21 @@
                   <ng-template ngbNavContent>
                     <div class="card">
                       <div class="card-body">
-                        <form
-                          class="login100-form validate-form"
-                          [formGroup]="changePasswordForm"
-                        >
+                        <form class="login100-form validate-form" [formGroup]="changePasswordForm">
                           <div class="wrap-input100 validate-input">
-                            <input
-                              class="input100"
-                              type="password"
-                              formControlName="password"
-                              placeholder="Password"
-                            />
+                            <input class="input100" type="password" formControlName="password" placeholder="Password" />
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                               <i class="zmdi zmdi-lock" aria-hidden="true"></i>
                             </span>
                           </div>
-                          <div
-                            *ngIf="
+                          <div *ngIf="
                               hasError(
                                 'changePasswordForm',
                                 'password',
                                 'required'
                               )
-                            "
-                            class="text text-danger mt-1"
-                          >
+                            " class="text text-danger mt-1">
                             Password is required
                           </div>
                           <!-- <div
@@ -269,61 +207,45 @@
                           >
                             Password should contain 8 letters.
                           </div> -->
-                          <div
-                            *ngIf="
+                          <div *ngIf="
                               hasError(
                                 'changePasswordForm',
                                 'password',
                                 'pattern'
                               )
-                            "
-                            class="text text-danger mt-1"
-                          >
+                            " class="text text-danger mt-1">
                             Password should be minimum eight characters, at
                             least one uppercase letter, one lowercase letter.
                           </div>
                           <div class="wrap-input100 validate-input">
-                            <input
-                              class="input100"
-                              type="password"
-                              formControlName="confirmPass"
-                              placeholder="Confirm Password"
-                            />
+                            <input class="input100" type="password" formControlName="confirmPass"
+                              placeholder="Confirm Password" />
                             <span class="focus-input100"></span>
                             <span class="symbol-input100">
                               <i class="zmdi zmdi-lock" aria-hidden="true"></i>
                             </span>
                           </div>
-                          <div
-                            *ngIf="
+                          <div *ngIf="
                               hasError(
                                 'changePasswordForm',
                                 'confirmPass',
                                 'required'
                               )
-                            "
-                            class="text text-danger mt-1"
-                          >
+                            " class="text text-danger mt-1">
                             Confirm Password is required
                           </div>
-                          <div
-                            *ngIf="
+                          <div *ngIf="
                               hasError(
                                 'changePasswordForm',
                                 'confirmPass',
                                 'mustMatch'
                               )
-                            "
-                            class="text text-danger mt-1"
-                          >
+                            " class="text text-danger mt-1">
                             Confirm Password should be same as Password
                           </div>
                           <div class="container-login100-form-btn">
-                            <button
-                              [disabled]="!changePasswordForm.valid"
-                              class="btn btn-primary btn-block"
-                              (click)="changePassword()"
-                            >
+                            <button [disabled]="!changePasswordForm.valid" class="btn btn-primary btn-block"
+                              (click)="changePassword()">
                               Save
                             </button>
                           </div>
