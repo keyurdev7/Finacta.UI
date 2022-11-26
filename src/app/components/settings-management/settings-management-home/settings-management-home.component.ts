@@ -66,7 +66,7 @@ export class SettingsManagementHomeComponent implements OnInit, OnDestroy {
     Swal.fire({
       icon: 'success',
       // title: 'Congratulations!',
-      text: 'Customer data sync succesfully',
+      text: 'Contacts Sync complete!',
       showConfirmButton: true,
       confirmButtonText: 'OK',
       confirmButtonColor: '#705ec8',

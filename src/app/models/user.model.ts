@@ -33,6 +33,7 @@ export class User {
   token: string = '';
   userId: number = 0;
   userTypeId: number = 0;
+  userTypeName: string = '';
   userActiveStatusId?: boolean = false;
   userCompany: Company[] = [];
   fileManagementListView?: boolean = true;

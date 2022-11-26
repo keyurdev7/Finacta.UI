@@ -39,6 +39,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.store.pipe(userSelector).subscribe((res) => {
       this.user = res;
+      console.log('this.user', this.user);
     });
     this.companySubscription = this.getAllActiveCompanies();
   }

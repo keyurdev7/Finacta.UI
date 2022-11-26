@@ -35,6 +35,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   public windowSubscribe$!: any;
   public messageCount: number = 0;
   subscriptions: Subscription[] = [];
+  ishideShow: boolean = false;
   constructor(
     private breakpointObserver: BreakpointObserver,
     private router: Router,
@@ -123,6 +124,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
           this.messageCount = res.data;
         }
       });
+  }
+
+  clickToShow() {
+    this.ishideShow = !this.ishideShow;
   }
 
   subscribeToUser(): void {
