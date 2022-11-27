@@ -312,8 +312,11 @@ export class FileManagementComponent implements OnInit, OnDestroy {
 
   openPreview(file: File): void {
     const dialog = this.dialog.open(DocPreviewModalComponent, {
-      width:'auto',
-      minHeight: '90%',
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      height: '100%',
+      width: '100%',
+      panelClass: 'full-screen-modal',
       data: file,
     });
   }
