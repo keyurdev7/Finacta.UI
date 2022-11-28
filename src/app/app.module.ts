@@ -65,6 +65,7 @@ import { ChatListComponent } from './components/chat/chat-list/chat-list.compone
 import { AddChatFileComponent } from './components/chat/add-chat-file/add-chat-file.component';
 import { InViewportModule } from 'ng-in-viewport';
 import { ViewLogoModalComponent } from './components/settings-management/view-logo-modal/view-logo-modal.component';
+import { SafeHtmlPipe } from './shared/pipes/safe.pipe';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -108,6 +109,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ChatListComponent,
     AddChatFileComponent,
     ViewLogoModalComponent,
+    SafeHtmlPipe,
   ],
   imports: [
     HttpClientModule,
