@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  Pipe,
+  PipeTransform,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
@@ -41,6 +47,8 @@ export class BlogDetailComponent implements OnInit, OnDestroy {
 
   subscribeToBlog(): Subscription {
     return this.store.pipe(blogSelector).subscribe((res) => {
+      console.log('blog', res);
+
       this.blog = res;
       if (!this.blog.blogId) {
         this.router.navigate(['/blog']);

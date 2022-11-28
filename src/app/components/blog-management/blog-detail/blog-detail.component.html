@@ -39,7 +39,7 @@
           </div>
         </div>
         <div class="mb-2 mt-5 content">
-          <p class="text-muted text-14" [innerHTML]="blog.blogContents"></p>
+          <p class="text-muted text-14" [innerHTML]="blog.blogContents | safeHtml"></p>
         </div>
         <div class="mt-4 pt-5 border-top">
           <ng-container *ngIf="comments && comments.length > 0">
