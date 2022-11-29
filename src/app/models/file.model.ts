@@ -14,4 +14,5 @@ export class File {
   createdDateTime: string = '';
   documentStatus: string = '';
   modifiedBy: string = '';
+  approvedBy: string = '';
 }

@@ -2,12 +2,7 @@
   <strong>Preview</strong>
 </h1>
 <div mat-dialog-content>
-  <img
-    [src]="fileData.blobFilePath"
-    class="image"
-    *ngIf="docFileType === 'image'"
-    [alt]="fileData.recordName"
-  />
+  <img [src]="fileData.blobFilePath" class="image" *ngIf="docFileType === 'image'" [alt]="fileData.recordName" />
   <audio controls *ngIf="docFileType === 'audio'">
     <source [src]="fileData.blobFilePath" type="audio/mpeg" />
     Your browser does not support the audio tag.
@@ -17,26 +12,18 @@
     Your browser does not support the video tag.
   </video>
   <div *ngIf="docFileType === 'file'">No preview for this file</div>
-  <ngx-doc-viewer
-    *ngIf="
+</div>
+
+<div mat-dialog-content *ngIf="
       docFileType !== 'audio' &&
       docFileType !== 'video' &&
       docFileType !== 'image' &&
       docFileType !== 'file'
-    "
-    [url]="fileData.blobFilePath"
-    viewer="google"
-    class="doc-viewer"
-  ></ngx-doc-viewer>
+    " class="pdf_view">
+  <ngx-doc-viewer [url]="fileData.blobFilePath" viewer="google" class="doc-viewer"></ngx-doc-viewer>
 </div>
 <div mat-dialog-actions class="float-end">
-  <a
-    mat-button
-    mat-flat-button
-    color="warn"
-    [href]="fileData.blobFilePath"
-    target="_blank"
-  >
+  <a mat-button mat-flat-button color="warn" [href]="fileData.blobFilePath" target="_blank">
     Download
   </a>
   <button mat-button (click)="closeDialog()">Close</button>

@@ -30,7 +30,8 @@
                           <span class="count" *ngIf="item && item.companyName == ' All '">
                             .
                           </span>
-                          <span class="count" *ngIf="item && item.unreadMessageCount > 0">
+                          <span class="count"
+                            *ngIf="item && item.unreadMessageCount > 0 && item.companyName != ' All '">
                             {{ item.unreadMessageCount}}
                           </span>
                         </div>
