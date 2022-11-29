@@ -10,9 +10,18 @@ export function localStorageBackUp() {
     light.checked = true;
 
     body?.classList.remove('dark-mode');
-    html?.setProperty('--primary-bg-color',localStorage.getItem('Noalight-primary-color'));
-    html?.setProperty('--primary-bg-hover', localStorage.getItem('Noalight-primary-hover'));
-    html?.setProperty( '--primary-bg-border', localStorage.getItem('Noalight-primary-border'));
+    html?.setProperty(
+      '--primary-bg-color',
+      localStorage.getItem('Noalight-primary-color')
+    );
+    html?.setProperty(
+      '--primary-bg-hover',
+      localStorage.getItem('Noalight-primary-hover')
+    );
+    html?.setProperty(
+      '--primary-bg-border',
+      localStorage.getItem('Noalight-primary-border')
+    );
   }
   if (localStorage.getItem('Noadark-primary-color') !== null) {
     body?.classList.add('dark-mode');
@@ -20,9 +29,18 @@ export function localStorageBackUp() {
     dark.checked = true;
 
     body?.classList.remove('light-mode');
-    html?.setProperty('--primary-bg-color', localStorage.getItem('Noadark-primary-color'));
-    html?.setProperty('--primary-bg-hover', localStorage.getItem('Noadark-primary-hover'));
-    html?.setProperty('--primary-bg-border', localStorage.getItem('Noadark-primary-border'));
+    html?.setProperty(
+      '--primary-bg-color',
+      localStorage.getItem('Noadark-primary-color')
+    );
+    html?.setProperty(
+      '--primary-bg-hover',
+      localStorage.getItem('Noadark-primary-hover')
+    );
+    html?.setProperty(
+      '--primary-bg-border',
+      localStorage.getItem('Noadark-primary-border')
+    );
   }
   if (localStorage.getItem('Noadark-body') !== null) {
     body?.classList.add('dark-mode');
@@ -38,34 +56,39 @@ export function localStorageBackUp() {
     dark.checked = true;
 
     body?.classList.remove('light-mode');
-    let BgImage:any = localStorage.getItem('NoaBgImage')
-    body?.classList.add(BgImage)
+    let BgImage: any = localStorage.getItem('NoaBgImage');
+    body?.classList.add(BgImage);
   }
 
-  if(localStorage.getItem('Noalight-theme') !== null){
+  if (localStorage.getItem('Noalight-theme') !== null) {
     body?.classList.add('light-mode');
     let light = document.getElementById('myonoffswitch1') as HTMLInputElement;
     light.checked = true;
   }
-  if(localStorage.getItem('Noadark-theme') !== null){
+  if (localStorage.getItem('Noadark-theme') !== null) {
     body?.classList.add('dark-mode');
     let dark = document.getElementById('myonoffswitch2') as HTMLInputElement;
     dark.checked = true;
   }
 
-  if(localStorage.getItem('Noartl')){
+  if (localStorage.getItem('Noartl')) {
     let rtl = document.getElementById('myonoffswitch55') as HTMLInputElement;
     rtl.checked = true;
     let styleId = document.querySelector('#style');
-    document.querySelector('body')?.classList.add('rtl')
-    document.querySelector('html')?.setAttribute('dir', 'rtl')    
-    styleId?.setAttribute('href','./assets/plugins/bootstrap/css/bootstrap.rtl.css');
+    document.querySelector('body')?.classList.add('rtl');
+    document.querySelector('html')?.setAttribute('dir', 'rtl');
+    styleId?.setAttribute(
+      'href',
+      './assets/plugins/bootstrap/css/bootstrap.rtl.css'
+    );
     //remove
     body?.classList.remove('ltr');
     sidebarFn.checkHoriMenu();
   }
-  if(localStorage.getItem('Noahorizontal') !== null){
-    let horizontal = document.getElementById('myonoffswitch35') as HTMLInputElement;
+  if (localStorage.getItem('Noahorizontal') !== null) {
+    let horizontal = document.getElementById(
+      'myonoffswitch35'
+    ) as HTMLInputElement;
     horizontal.checked = true;
     let mainContent: any = document.querySelector('.main-content');
     let mainContainer: any = document.querySelectorAll('.main-container');
@@ -76,9 +99,9 @@ export function localStorageBackUp() {
     //add
     body?.classList.add('horizontal');
     mainContent?.classList.add('hor-content');
-    mainContainer.forEach((e,i)=>{
-      e.classList.add('container')
-    })
+    mainContainer.forEach((e, i) => {
+      e.classList.add('container');
+    });
     header?.classList.add('hor-header');
     appSidebar?.classList.add('horizontal-main');
     mainSidemenu?.classList.add('container');
@@ -86,9 +109,9 @@ export function localStorageBackUp() {
     // // remove
     sideMenu?.classList.remove('flex-wrap');
     mainContent?.classList.remove('app-content');
-    mainContainer.forEach((e,i)=>{
-      e.classList.remove('container-fluid')
-    })
+    mainContainer.forEach((e, i) => {
+      e.classList.remove('container-fluid');
+    });
     header?.classList.remove('app-header');
     body?.classList.remove('sidebar-mini');
     body?.classList.remove('sidenav-toggled');
@@ -97,13 +120,15 @@ export function localStorageBackUp() {
     li.forEach((e, i) => {
       e.classList.remove('is-expanded');
     });
-    sidebarFn.checkHoriMenu();     
-    setTimeout(()=>{
-      sidebarFn.parentNavActive();    
-    }, 300) 
+    sidebarFn.checkHoriMenu();
+    setTimeout(() => {
+      sidebarFn.parentNavActive();
+    }, 300);
   }
-  if(localStorage.getItem('NoahorizontalHover') !== null){
-    let horizontalHover = document.getElementById('myonoffswitch111') as HTMLInputElement;
+  if (localStorage.getItem('NoahorizontalHover') !== null) {
+    let horizontalHover = document.getElementById(
+      'myonoffswitch111'
+    ) as HTMLInputElement;
     horizontalHover.checked = true;
     let mainContent: any = document.querySelector('.main-content');
     let mainContainer: any = document.querySelectorAll('.main-container');
@@ -115,9 +140,9 @@ export function localStorageBackUp() {
     body?.classList.add('horizontal');
     body?.classList.add('horizontal-hover');
     mainContent?.classList.add('hor-content');
-    mainContainer.forEach((e,i)=>{
-      e.classList.add('container')
-    })
+    mainContainer.forEach((e, i) => {
+      e.classList.add('container');
+    });
     console.log(mainContainer);
     header?.classList.add('hor-header');
     appSidebar?.classList.add('horizontal-main');
@@ -126,9 +151,9 @@ export function localStorageBackUp() {
     // remove
     sideMenu?.classList.remove('flex-nowrap');
     mainContent?.classList.remove('app-content');
-    mainContainer.forEach((e,i)=>{
-      e.classList.remove('container-fluid')
-    })
+    mainContainer.forEach((e, i) => {
+      e.classList.remove('container-fluid');
+    });
     header?.classList.remove('app-header');
     body?.classList.remove('sidebar-mini');
     body?.classList.remove('sidenav-toggled');
@@ -138,9 +163,9 @@ export function localStorageBackUp() {
       e.classList.remove('is-expanded');
     });
     sidebarFn.checkHoriMenu();
-    setTimeout(()=>{
-      sidebarFn.parentNavActive();    
-    }, 300)    
+    setTimeout(() => {
+      sidebarFn.parentNavActive();
+    }, 300);
   }
 }
 
@@ -480,19 +505,21 @@ export function lightMenuFn() {
   document.getElementsByName('onoffswitch2').forEach((e: any) => {
     e.checked = false;
   });
-  (document.getElementById('myonoffswitch3') || {} as any).checked = true;
+  (document.getElementById('myonoffswitch3') || ({} as any)).checked = true;
 }
 
 export function darkMenuFn() {
   let body: HTMLBodyElement | any = document.querySelector('body');
   body?.classList.add('dark-menu');
+
   body?.classList.remove('color-menu');
   body?.classList.remove('light-menu');
   body?.classList.remove('gradient-menu');
+
   document.getElementsByName('onoffswitch2').forEach((e: any) => {
     e.checked = false;
   });
-  (document.getElementById('myonoffswitch5') || {} as any).checked = true;
+  (document.getElementById('myonoffswitch5') || ({} as any)).checked = true;
 }
 
 export function lightHeaderFn() {
@@ -504,19 +531,20 @@ export function lightHeaderFn() {
   document.getElementsByName('onoffswitch3').forEach((e: any) => {
     e.checked = false;
   });
-  (document.getElementById('myonoffswitch6') || {} as any).checked = true;
+  (document.getElementById('myonoffswitch6') || ({} as any)).checked = true;
 }
 
 export function darkHeaderFn() {
   let body: HTMLBodyElement | any = document.querySelector('body');
   body?.classList.add('dark-header');
+  body?.classList.add('dark-menu');
   body?.classList.remove('header-light');
   body?.classList.remove('color-header');
   body?.classList.remove('gradient-header');
   document.getElementsByName('onoffswitch3').forEach((e: any) => {
     e.checked = false;
   });
-  (document.getElementById('myonoffswitch8') || {} as any).checked = true;
+  (document.getElementById('myonoffswitch8') || ({} as any)).checked = true;
 }
 
 export function fixedLayoutFn() {
@@ -526,7 +554,7 @@ export function fixedLayoutFn() {
   document.getElementsByName('onoffswitch5').forEach((e: any) => {
     e.checked = false;
   });
-  (document.getElementById('myonoffswitch11') || {} as any).checked = true;
+  (document.getElementById('myonoffswitch11') || ({} as any)).checked = true;
 }
 
 export function scrollLayoutFn() {
@@ -536,7 +564,7 @@ export function scrollLayoutFn() {
   document.getElementsByName('onoffswitch5').forEach((e: any) => {
     e.checked = false;
   });
-  (document.getElementById('myonoffswitch12') || {} as any).checked = true;
+  (document.getElementById('myonoffswitch12') || ({} as any)).checked = true;
 }
 
 export function removeForTransparent() {
@@ -643,4 +671,4 @@ export function updateChanges() {
   let colorData9 = hexToRgba(myVarVal, 0.9);
   document.querySelector('html')?.style.setProperty('--primary09', colorData9);
 }
-updateChanges()
+updateChanges();

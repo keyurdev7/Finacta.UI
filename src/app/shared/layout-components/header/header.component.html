@@ -24,11 +24,21 @@
                     <ng-select #select [items]="user.userCompany" notFoundText="No results found" [searchable]="false"
                       [(ngModel)]="companyId" bindLabel="companyName" bindValue="companyId" (change)="changeCompany()"
                       dropdownPosition="bottom" [clearable]="false">
-                      <ng-template ng-option-tmp let-item="item">
+                      <!--  -->
+
+                      <ng-template ng-label-tmp let-item="item">
+                        <b>{{ item.companyName }}</b>
+                        <ng-container *ngIf="item && item.companyName == ' All '">
+                          <span style="margin-right: 110px;">&nbsp;</span>
+                          <span class="count co-icon">&nbsp;</span>
+                        </ng-container>
+                      </ng-template>
+
+                      <ng-template ng-option-tmp let-item="item" let-index="index">
                         <div title="item">
                           {{ item.companyName }}
                           <span class="count" *ngIf="item && item.companyName == ' All '">
-                            .
+                            &nbsp;
                           </span>
                           <span class="count"
                             *ngIf="item && item.unreadMessageCount > 0 && item.companyName != ' All '">
@@ -87,7 +97,7 @@
                       Settings
                     </a>
                     <a ngbDropdownItem class="" routerLink="/company">
-                      <span class="fe fe-24 fe-aperture pr-icon"></span>
+                      <span class="fe fe-24 fe-grid pr-icon"></span>
                       Companies
                     </a>
                     <a ngbDropdownItem class="" (click)="signout()">

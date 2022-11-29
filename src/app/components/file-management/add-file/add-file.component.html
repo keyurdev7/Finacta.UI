@@ -17,24 +17,24 @@
     <span class="ms-1 d-inline form-label">Overwrite File</span>
   </label>
 </div>
-<div class="modal-footer d-block">
-  <div class="row">
-    <div class="col-6">
-      <div class="form-group">
-        <div class="row">
-          <div class="col-3">
-            <label>Document Status</label>
-          </div>
-          <div class="col-3">
-            <ng-select placeholder="Choose one" tabindex="-1" aria-hidden="true">
-              <ng-option [value]="item.categoryId" *ngFor="let item of fileCatTypeData">
-                {{item.categoryName}}
-              </ng-option>
-            </ng-select>
-          </div>
-        </div>
+<div class="modal-footer d-block pb-0">
+  <div class="row m-0" style="align-items: baseline;">
+    <div class="col-2">
+      <label *ngIf="user && user.lastLoginCompanyId == -1 && user.userTypeId == 3">
+        Document Status
+      </label>
+    </div>
+    <div class="col-4">
+      <div class="form-group" *ngIf="user && user.lastLoginCompanyId == -1 && user.userTypeId == 3">
+        <ng-select placeholder="Choose one" [(ngModel)]="fileCategoryType" name="fileCategoryType" tabindex="-1"
+          aria-hidden="true" [appendTo]="'body'" [clearable]="false">
+          <ng-option [value]="item.categoryId" *ngFor="let item of fileCatTypeData">
+            {{item.categoryName}}
+          </ng-option>
+        </ng-select>
       </div>
     </div>
+
     <div class="col-6 text-end">
       <button mat-button mat-flat-button color="warn" (click)="add()" [disabled]="!files.length">
         Save
