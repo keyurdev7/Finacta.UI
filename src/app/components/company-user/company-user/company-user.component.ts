@@ -77,6 +77,7 @@ export class CompanyUserComponent implements OnInit, OnDestroy {
         this.user = res;
         if (this.constants.MASTER_USER_TYPE === this.user.userTypeId) {
           this.displayedColumns.splice(4, 0, 'userType');
+          this.displayedColumns.splice(5, 0, 'companyName');
         }
       })
     );
