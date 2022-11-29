@@ -13,6 +13,7 @@ export class AddFileComponent implements OnInit {
   files: File[] = [];
   duplicateErr: boolean = false;
   override: boolean = false;
+  fileCatTypeData: any = [];
   constructor(
     @Inject(MAT_DIALOG_DATA) public id: number,
     public dialogRef: MatDialogRef<AddFileComponent>,
@@ -20,7 +21,9 @@ export class AddFileComponent implements OnInit {
     private toster: ToastrService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getFileCatTypes();
+  }
 
   onSelect(event: any): void {
     this.duplicateErr = false;
@@ -62,5 +65,17 @@ export class AddFileComponent implements OnInit {
 
   closeDialog(): void {
     this.dialogRef.close({ event: 'Cancel' });
+  }
+
+  getFileCatTypes() {
+    this.fileManagementService.getFileCategoryTypes().subscribe(
+      (res) => {
+        this.fileCatTypeData = res['data'];
+        console.log('>>>>>>>>>>>res', res);
+      },
+      (error: any) => {
+        console.log('error', error);
+      }
+    );
   }
 }

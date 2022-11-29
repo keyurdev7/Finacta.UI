@@ -94,6 +94,13 @@ export class FileManagementService extends AbstractService {
     }) as Observable<any>;
   }
 
+  getFileCategoryTypes(): Observable<any> {
+    return this.httpGet({
+      url: this.baseUrl + '/FileManagement/FileCategoryTypes',
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
   copyToCustomer(id: number): Observable<any> {
     const params = new HttpParams().append('toCompanyId', id);
     return this.httpGet({

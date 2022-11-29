@@ -1,23 +1,13 @@
 <div class="modal-header">
   <h6 class="modal-title">Add file</h6>
-  <button
-    type="button"
-    class="btn-close"
-    aria-label="Close"
-    (click)="closeDialog()"
-  ></button>
+  <button type="button" class="btn-close" aria-label="Close" (click)="closeDialog()"></button>
 </div>
 <div class="modal-body">
   <div class="mb-2">
     <ngx-dropzone (change)="onSelect($event)" [multiple]="false">
       <ngx-dropzone-label>Drop it, Here!</ngx-dropzone-label>
-      <ngx-dropzone-preview
-        ngProjectAs="ngx-dropzone-preview"
-        *ngFor="let f of files"
-        [file]="f"
-        [removable]="true"
-        (removed)="onRemove()"
-      >
+      <ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true"
+        (removed)="onRemove()">
         <ngx-dropzone-label class="file-label">{{ f.name }}</ngx-dropzone-label>
       </ngx-dropzone-preview>
     </ngx-dropzone>
@@ -27,15 +17,29 @@
     <span class="ms-1 d-inline form-label">Overwrite File</span>
   </label>
 </div>
-<div class="modal-footer">
-  <button
-    mat-button
-    mat-flat-button
-    color="warn"
-    (click)="add()"
-    [disabled]="!files.length"
-  >
-    Save
-  </button>
-  <button mat-button (click)="closeDialog()">Cancel</button>
+<div class="modal-footer d-block">
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-3">
+            <label>Document Status</label>
+          </div>
+          <div class="col-3">
+            <ng-select placeholder="Choose one" tabindex="-1" aria-hidden="true">
+              <ng-option [value]="item.categoryId" *ngFor="let item of fileCatTypeData">
+                {{item.categoryName}}
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 text-end">
+      <button mat-button mat-flat-button color="warn" (click)="add()" [disabled]="!files.length">
+        Save
+      </button>
+      <button mat-button (click)="closeDialog()">Cancel</button>
+    </div>
+  </div>
 </div>
