@@ -1,27 +1,39 @@
 <app-page-header [title]="'Settings'" [items]="[{ title: 'Home', link: '/' }]" [active_item]="'Settings'">
 </app-page-header>
 <div class="row">
-  <div class="col-lg-6">
+  <div class="col-lg-12">
     <div class="card">
       <div class="card-header border-bottom">
-        <h3 class="card-title">Sync xero Customer</h3>
+        <h3 class="card-title">Accounting Practice Xero Sync to Customer</h3>
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="col-md-4">
-            <a class="btn btn-primary btn-w-xs btn-w-14" href="{{ xerocontactULR }}">Import Contacts</a>
-            <!-- <button type="button" class="btn btn-primary btn-w-xs" (click)="SyncXeroCustomer()"  ></button> -->
+          <div class="col-md-8">
+            <h3 class="card-title">
+              These settings are provided to map Xero Contacts to Portal <br>
+              Companies and interface invoices raised in Xero to the Client Portal.
+            </h3>
           </div>
           <div class="col-md-4">
-            <button type="button" class="btn btn-success btn-w-md btn-w-14" (click)="ViewAllXeroCustomers()">
-              Map Contacts
-            </button>
+            <div class="mb-3">
+              <a class="btn btn-primary btn-w-xs btn-w-14" href="{{ xerocontactULR }}">Import Contacts</a>
+            </div>
+            <div class="mb-3">
+              <button type="button" class="btn btn-success btn-w-md btn-w-14" (click)="ViewAllXeroCustomers()">
+                Map Contacts
+              </button>
+            </div>
+            <div>
+              <button type="button" class="btn btn-primary btn-w-xs btn-w-14" (click)="ShowMappedCompany()">
+                Sync Invoices
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-lg-6">
+  <!-- <div class="col-lg-6">
     <div class="card">
       <div class="card-header border-bottom">
         <h3 class="card-title">Sync xero Invoice</h3>
@@ -36,7 +48,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
 
 <div class="row">
