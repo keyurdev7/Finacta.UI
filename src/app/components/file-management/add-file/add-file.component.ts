@@ -18,7 +18,7 @@ export class AddFileComponent implements OnInit {
   duplicateErr: boolean = false;
   override: boolean = false;
   fileCatTypeData: any = [];
-  fileCategoryType: any = null;
+  fileCategoryType: any = 0;
   constructor(
     @Inject(MAT_DIALOG_DATA) public id: number,
     public dialogRef: MatDialogRef<AddFileComponent>,
