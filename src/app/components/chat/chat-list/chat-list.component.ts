@@ -108,10 +108,13 @@ export class ChatListComponent implements OnInit {
       this.isSearchedUser = true;
       const updatedUser = this.allChatUsers.filter(
         (i) =>
-          !this.activeUser.some((e) => e.userId === i.userId) &&
-          i.name.toLowerCase().includes(this.searchUserStr.toLowerCase())
+          (!this.activeUser.some((e) => e.userId === i.userId) &&
+            i.name.toLowerCase().includes(this.searchUserStr.toLowerCase())) ||
+          (!this.activeUser.some((e) => e.userId === i.userId) &&
+            i.userType.toLowerCase().includes(this.searchUserStr.toLowerCase()))
       );
       this.searchedUser = updatedUser;
+      console.log('this.searchedUser', this.searchedUser);
     } else {
       this.getAllActiveUserList();
     }
