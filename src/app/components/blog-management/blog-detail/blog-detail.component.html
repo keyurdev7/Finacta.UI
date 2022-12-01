@@ -24,7 +24,7 @@
                 class="fe fe-calendar text-muted me-1 text-15"></span><span class="mt-0 mt-0 text-muted">{{
                 blog.createdDateTime | date: constants.DATE_FORMAT
                 }}</span></a>
-            <a href="javascript:void(0)" class="me-0 d-f-ai-c text-13"><span
+            <a href="blog/detail#comments" class="me-0 d-f-ai-c text-13"><span
                 class="fe fe-message-square text-muted me-1 text-15"></span><span class="mt-0 mt-0 text-muted">{{
                 blogCommentCount }}
                 {{ blogCommentCount > 1 ? "Comments" : "Comment" }}</span></a>
@@ -83,7 +83,7 @@
               </div>
             </div>
           </ng-container>
-          <div class="row row-xs form-group-wrapper">
+          <div id="comments" class="row row-xs form-group-wrapper">
             <h3 class="card-title">Comment here:</h3>
             <div class="col-md-12 mt-2">
               <div class="main-form-group">
