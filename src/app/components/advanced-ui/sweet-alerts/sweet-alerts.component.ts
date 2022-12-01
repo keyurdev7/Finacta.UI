@@ -213,7 +213,7 @@ export class SweetAlertsComponent implements OnInit {
     Swal.fire({
       title: this.SimpleTitle,
       text: this.SimpleMessage,
-      imageUrl: './assets/images/brand/logo-2.png',
+      imageUrl: './assets/images/brand/finacta_notext_orange.svg',
       imageAlt: 'Custom image',
       confirmButtonColor: '#705ec8',
     });
