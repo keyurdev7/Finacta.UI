@@ -10,6 +10,7 @@ import { TermsViewComponent } from 'src/app/components/term-management/terms-vie
 import { InvoicesComponent } from 'src/app/components/invoices/invoices.component';
 import { SettingsManagementHomeComponent } from 'src/app/components/settings-management/settings-management-home/settings-management-home.component';
 import { ChatComponent } from 'src/app/components/chat/chat.component';
+import { ListComponent } from 'src/app/components/promocodes/list/list.component';
 
 export const content: Routes = [
   {
@@ -59,6 +60,10 @@ export const content: Routes = [
   {
     path: 'invoices',
     component: InvoicesComponent,
+  },
+  {
+    path: 'PromoCodes',
+    component: ListComponent,
   },
   {
     path: 'dashboard',

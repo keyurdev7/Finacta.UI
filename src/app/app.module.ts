@@ -66,6 +66,8 @@ import { AddChatFileComponent } from './components/chat/add-chat-file/add-chat-f
 import { InViewportModule } from 'ng-in-viewport';
 import { ViewLogoModalComponent } from './components/settings-management/view-logo-modal/view-logo-modal.component';
 import { SafeHtmlPipe } from './shared/pipes/safe.pipe';
+import { ListComponent } from './components/promocodes/list/list.component';
+import { AddEditPromocodeComponent } from './components/promocodes/add-edit-promocode/add-edit-promocode.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -110,6 +112,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AddChatFileComponent,
     ViewLogoModalComponent,
     SafeHtmlPipe,
+    ListComponent,
+    AddEditPromocodeComponent,
   ],
   imports: [
     HttpClientModule,

@@ -126,11 +126,22 @@ input:not(.dark-mode)::placeholder {
 }
 
 :host ::ng-deep {
-  .ng-option-marked,
-  .ng-option-selected {
-    .count {
-      color: var(--primary-bg-color);
-      background-color: #fff;
+  .header {
+    .ng-option-marked,
+    .ng-option-selected {
+      .count {
+        color: var(--primary-bg-color);
+        background-color: #fff;
+      }
+    }
+
+    .ng-dropdown-panel {
+      min-width: 80px;
+      width: auto;
+      .ng-option {
+        word-break: break-word;
+        white-space: break-spaces;
+      }
     }
   }
 }
