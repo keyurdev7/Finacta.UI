@@ -1,4 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { Menu, NavService } from 'src/app/shared/services/nav.service';
 import { SwitcherService } from 'src/app/shared/services/switcher.service';
 
@@ -12,10 +13,25 @@ export class ContentLayoutComponent implements OnInit {
 
   constructor(
     public SwitcherService: SwitcherService,
+    private router: Router,
     public navServices: NavService
   ) {
     this.navServices.items.subscribe((menuItems: any) => {
       this.menuItems = menuItems;
+    });
+    this.router.events.subscribe((event: any) => {
+      document.querySelector('.main-content')?.classList.add('subscription-bg');
+      if (event instanceof NavigationEnd) {
+        if (event.url.includes('pricing/')) {
+          document
+            .querySelector('.main-content')
+            ?.classList.add('subscription-bg');
+        } else {
+          document
+            .querySelector('.main-content')
+            ?.classList.remove('subscription-bg');
+        }
+      }
     });
   }
   ngOnInit() {}
@@ -30,6 +46,4 @@ export class ContentLayoutComponent implements OnInit {
   onWindowScroll() {
     this.scrolled = window.scrollY > 74;
   }
-
-
 }

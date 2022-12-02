@@ -1,0 +1,155 @@
+<app-page-header
+  [title]="'Promocodes'"
+  [items]="[{ title: 'Home', link: '/' }]"
+  [active_item]="'Promocodes'"
+></app-page-header>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card cart">
+      <div class="card-body">
+        <div>
+          <mat-form-field appearance="standard">
+            <mat-label>Filter</mat-label>
+            <input
+              matInput
+              (keyup)="applyFilter($event)"
+              placeholder="Ex. Mia"
+              #input
+            />
+          </mat-form-field>
+          <div class="float-end">
+            <div class="btn-group radiobtns" role="group" (change)="viewChange()" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" [checked]="activeView">
+                <label class="btn btn-outline-primary" for="btnradio1">Active</label>
+    
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" [checked]="!activeView">
+                <label class="btn btn-outline-primary" for="btnradio2">All</label>
+            </div>
+            <button
+            (click)="addPromocode()"
+            class="float-end mt-4 add-company"
+            mat-button
+            mat-flat-button
+            color="warn"
+            >
+            Add
+            </button>
+        </div>
+
+        <div class="table-responsive">
+          <table
+            mat-table
+            [dataSource]="promoCodeDataSource"
+            #mytable
+            class="table text-nowrap table-bordered"
+            matSort
+          >
+            <!-- Promo Code Column -->
+            <ng-container matColumnDef="promoCode">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Promo Code</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.promoCode }}
+              </td>
+            </ng-container>
+
+            <!-- Promo Type  Column -->
+            <ng-container matColumnDef="promoDays">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Promo Type (Days)
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.promoDays }}
+              </td>
+            </ng-container>
+
+            <!-- Generated Date Column -->
+            <ng-container matColumnDef="promoStartDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Generated Date
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.promoStartDate | date: constants.DATE_FORMAT }}
+              </td>
+            </ng-container>
+
+            <!-- Customer Email -->
+            <ng-container matColumnDef="emailId">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Customer Email
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{
+                  element.emailId
+                }}
+              </td>
+            </ng-container>
+
+            <!-- Activated/Pending -->
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Activated/Pending
+              </th>
+              <td mat-cell *matCellDef="let element">
+                <span *ngIf="!!element.promoActivated"> Activated </span>
+                <span *ngIf="!element.promoActivated"> Pending </span>
+              </td>
+            </ng-container>
+
+            <!-- Activated Date Column -->
+            <ng-container matColumnDef="activatedDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Activated Date</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.promoActivatedDate | date: constants.DATE_FORMAT }}
+              </td>
+            </ng-container>
+
+            <!-- Promo End Date Column -->
+            <ng-container matColumnDef="promoEndDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Promo End Date</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.promoEndDate | date: constants.DATE_FORMAT }}
+              </td>
+            </ng-container>
+
+            <!-- Action Column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>Action</th>
+              <td mat-cell *matCellDef="let element" class="action-link">
+                <button
+                  class="btn btn-success me-2"
+                  (click)="edit(element.promoCodeId)"
+                >
+                  Edit
+                </button>
+                <button *ngIf="!element.promoActivated" class="btn btn-warning me-2" (click)="activate(element.promoCodeId)"
+                >
+                  Activate
+                </button>
+                <button
+                  class="btn btn-danger me-2"
+                  (click)="delete(element.promoCodeId)"
+                >
+                  Delete
+                </button>
+              </td>
+            </ng-container>
+
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+                No data found.
+              </td>
+            </tr>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+          <mat-paginator
+            [pageSizeOptions]="[10, 20, 100]"
+            aria-label="Select page of users"
+          ></mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
