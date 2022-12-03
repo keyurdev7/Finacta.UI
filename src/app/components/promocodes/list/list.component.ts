@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,21 +12,19 @@ import { Store } from '@ngrx/store';
 import { AppState, userSelector } from 'src/app/store/app.state';
 import { User } from 'src/app/models/user.model';
 import * as commonConstants from 'src/app/shared/constants/common.constant';
-import { UpdateUserAction } from 'src/app/store/app.actions';
+import { AddEditPromocodeComponent } from '../add-edit-promocode/add-edit-promocode.component';
 declare var require: any;
 const Swal = require('sweetalert2');
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
 })
-export class ListComponent implements OnInit {
-
+export class ListComponent implements OnInit, OnDestroy {
   public constants = commonConstants;
   subscriptions: Subscription[] = [];
   user: User = new User();
-  usertypeid = 0;
   displayedColumns: string[] = [
     'promoCode',
     'promoDays',
@@ -35,7 +33,7 @@ export class ListComponent implements OnInit {
     'status',
     'activatedDate',
     'promoEndDate',
-    'action'
+    'action',
   ];
   activeView: boolean = true;
   promoCodeDataSource: MatTableDataSource<PromoCode> =
@@ -64,7 +62,12 @@ export class ListComponent implements OnInit {
     this.subscriptions.push(
       this.store.pipe(userSelector).subscribe((res) => {
         this.user = res;
-        this.usertypeid = this.user.userTypeId;
+        if (
+          this.user &&
+          this.user.userTypeId !== this.constants.MASTER_USER_TYPE
+        ) {
+          this.router.navigate(['/dashboard']);
+        }
       })
     );
   }
@@ -84,10 +87,9 @@ export class ListComponent implements OnInit {
   }
 
   getData(): void {
-    if(this.activeView){
+    if (this.activeView) {
       this.getAllActivePromoCodes();
-    }
-    else{
+    } else {
       this.getAllPromoCodes();
     }
   }
@@ -105,20 +107,31 @@ export class ListComponent implements OnInit {
   }
 
   addPromocode(): void {
-    // const dialog = this.dialog.open(AddCompanyComponent, {
-    //   minWidth: '28%',
-    // });
-    // dialog.afterClosed().subscribe((result) => {
-    //   if (result?.event === 'success') {
-    //     this.subscriptionPay(result.data);
-    //   }
-    //   return;
-    // });
+    const dialog = this.dialog.open(AddEditPromocodeComponent, {
+      minWidth: '28%',
+    });
+    dialog.afterClosed().subscribe((result) => {
+      if (result?.event === 'success') {
+        this.getData();
+      }
+      return;
+    });
   }
-  
+
   edit(id: number): void {
-    const editData = this.promoCodeDataSource.data.find(rec => rec.promoCodeId === id);
-    console.log(editData);
+    const editData = this.promoCodeDataSource.data.find(
+      (rec) => rec.promoCodeId === id
+    );
+    const dialog = this.dialog.open(AddEditPromocodeComponent, {
+      minWidth: '28%',
+      data: editData,
+    });
+    dialog.afterClosed().subscribe((result) => {
+      if (result?.event === 'success') {
+        this.getData();
+      }
+      return;
+    });
   }
 
   delete(id: number): void {
@@ -162,5 +175,8 @@ export class ListComponent implements OnInit {
       }
     });
   }
-}
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((each) => each.unsubscribe());
+  }
+}

@@ -1,1 +1,112 @@
-<p>add-edit-promocode works!</p>
+<h1 mat-dialog-title>
+  <strong *ngIf="codeData && codeData.promoCodeId">Edit Company</strong>
+  <strong *ngIf="!codeData || !codeData.promoCodeId">Add Company</strong>
+</h1>
+<div mat-dialog-content>
+  <form class="login100-form validate-form" [formGroup]="promoCodeForm">
+    <div class="wrap-input100 validate-input">
+      <input
+        type="text"
+        placeholder="Promo Code"
+        aria-label="Number"
+        class="input100"
+        formControlName="promoCode"
+      />
+      <span class="focus-input100"></span>
+      <span class="symbol-input100">
+        <i class="fa fa-bank" aria-hidden="true"></i>
+      </span>
+    </div>
+    <div
+      *ngIf="hasError('promoCode', 'required')"
+      class="text text-danger mt-1"
+    >
+      Promo Code is required
+    </div>
+    <div class="wrap-input100 validate-input">
+      <input
+        class="input100"
+        type="text"
+        formControlName="email"
+        placeholder="Email Id"
+      />
+      <span class="focus-input100"></span>
+      <span class="symbol-input100">
+        <i class="fa fa-address-book" aria-hidden="true"></i>
+      </span>
+    </div>
+    <div *ngIf="hasError('email', 'required')" class="text text-danger mt-1">
+      Email Id is required
+    </div>
+    <div *ngIf="hasError('email', 'email')" class="text text-danger mt-1">
+      Email Id must be email
+    </div>
+
+    <div class="wrap-input100 validate-input">
+      <input
+        formControlName="startDate"
+        (click)="d2.toggle()"
+        class="input100"
+        placeholder="dd/mm/yyyy"
+        ngbDatepicker
+        #d2="ngbDatepicker"
+      />
+      <span class="focus-input100"></span>
+      <span class="symbol-input100">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+      </span>
+    </div>
+    <div
+      *ngIf="hasError('startDate', 'required')"
+      class="text text-danger mt-1"
+    >
+      Start Date is required
+    </div>
+    <div *ngIf="hasError('startDate', 'ngbDate')" class="text text-danger mt-1">
+      Please choose a valid date from date picker
+    </div>
+
+    <div class="wrap-input100 validate-input z-index-0">
+      <input
+        type="text"
+        placeholder="Days"
+        aria-label="Number"
+        class="input100"
+        formControlName="days"
+      />
+      <span class="focus-input100"></span>
+      <span class="symbol-input100">
+        <i class="fa fa-bank" aria-hidden="true"></i>
+      </span>
+    </div>
+    <div *ngIf="hasError('days', 'required')" class="text text-danger mt-1">
+      Days is required
+    </div>
+    <div *ngIf="hasError('days', 'pattern')" class="text text-danger mt-1">
+      Days must be number
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions class="float-end">
+  <button
+    *ngIf="codeData && codeData.promoCodeId"
+    mat-button
+    [disabled]="!promoCodeForm.valid"
+    (click)="update()"
+    mat-flat-button
+    color="warn"
+  >
+    Update
+  </button>
+  <button
+    *ngIf="!codeData || !codeData.promoCodeId"
+    mat-button
+    [disabled]="!promoCodeForm.valid"
+    (click)="add()"
+    mat-flat-button
+    color="warn"
+  >
+    Add
+  </button>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+</div>
