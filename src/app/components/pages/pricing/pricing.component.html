@@ -1,6 +1,6 @@
 <app-page-header
   [title]="'Pricing'"
-  [items]="['Pages']"
+  [items]="[{ title: 'Home', link: '/' }]"
   [active_item]="'Pricing'"
 ></app-page-header>
 <div class="row d-flex align-items-center justify-content-center">
@@ -12,7 +12,9 @@
         </p>
         <p class="text-justify font-weight-semibold mb-1">
           <span class="text-30 me-2">$</span
-          ><span class="text-30 me-1">{{ subPlans.subscriptionPrice }}</span
+          ><span class="text-30 me-1">{{
+            promoCodeApplied ? "0" : subPlans.subscriptionPrice
+          }}</span
           ><span class="text-24"
             ><span class="op-0-5 text-muted text-20">/</span>
             {{ subPlans.durationMonth ? "Month" : "Year" }}</span
@@ -23,6 +25,31 @@
         </p>
       </div>
       <div class="card-footer text-center border-top-0 pt-1">
+        <div class="row promocode-section">
+          <input
+            type="text"
+            placeholder="Promo Code"
+            aria-label="Number"
+            class="form-control"
+            [disabled]="promoCodeApplied"
+            [(ngModel)]="promoCode"
+          />
+          <button
+            *ngIf="!promoCodeApplied"
+            (click)="applyPromo()"
+            [disabled]="!promoCode"
+            class="btn btn-warning btn-sm w-50 mt-2"
+          >
+            Apply
+          </button>
+          <button
+            *ngIf="!!promoCodeApplied"
+            (click)="cancelPromo()"
+            class="btn btn-warning btn-sm w-50 mt-2"
+          >
+            Cancel
+          </button>
+        </div>
         <button
           (click)="openSubscriptionDialog()"
           class="btn btn-lg btn-outline-warning btn-block"

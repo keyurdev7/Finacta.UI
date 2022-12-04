@@ -24,10 +24,6 @@ export class AddEditPromocodeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(
-      this.codeData,
-      this.codeData && this.getStartDateForInit(this.codeData.promoStartDate)
-    );
     this.promoCodeForm = this.fb.group({
       promoCode: [
         this.codeData && this.codeData.promoCode
