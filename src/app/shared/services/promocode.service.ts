@@ -75,4 +75,13 @@ export class PromocodeService extends AbstractService {
       callerErrorHandler: false,
     }) as Observable<any>;
   }
+
+  checkPromoCode(promoCode: string): Observable<any> {
+    const params = new HttpParams().append('promoCode', promoCode);
+    return this.httpGet({
+      url: this.baseUrl + '/PromoCodeManagement/CheckPromoCode',
+      params: params,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
 }

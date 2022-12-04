@@ -22,7 +22,7 @@ export class ContentLayoutComponent implements OnInit {
     this.router.events.subscribe((event: any) => {
       document.querySelector('.main-content')?.classList.add('subscription-bg');
       if (event instanceof NavigationEnd) {
-        if (event.url.includes('pricing/')) {
+        if (event.url.includes('pricing')) {
           document
             .querySelector('.main-content')
             ?.classList.add('subscription-bg');
