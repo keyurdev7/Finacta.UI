@@ -537,7 +537,7 @@ export function lightHeaderFn() {
 export function darkHeaderFn() {
   let body: HTMLBodyElement | any = document.querySelector('body');
   body?.classList.add('dark-header');
-  body?.classList.add('dark-menu');
+  // body?.classList.add('dark-menu');
   body?.classList.remove('header-light');
   body?.classList.remove('color-header');
   body?.classList.remove('gradient-header');

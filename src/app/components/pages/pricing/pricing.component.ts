@@ -45,7 +45,7 @@ export class PricingComponent implements OnInit, OnDestroy {
 
     this.subscribeToUser();
     this.getSubscriptionPlans();
-    
+
     if (!this.companyId || this.companyId == 0) {
       this.companyId = this.user.lastLoginCompanyId;
     }
@@ -59,6 +59,24 @@ export class PricingComponent implements OnInit, OnDestroy {
         res.errors.forEach((err) => {
           this.toster.error(err.errorMessage);
         });
+      }
+    });
+  }
+
+  activatePromo(): void {
+    this.promoCodeService.ActivatePromoCode(this.promoCode).subscribe((res) => {
+      if (res && res.succeeded) {
+        if (this.IsFromCompanyList) {
+          this.router.navigate(['/company']);
+        } else {
+          this.changeCompany(this.user.lastLoginCompanyId);
+        }
+      } else if (res && res.errors.length) {
+        res.errors.forEach((err) => {
+          this.toster.error(err.errorMessage);
+        });
+      } else if (res && !res.succeeded && res.data) {
+        this.toster.error(res.data);
       }
     });
   }
@@ -91,7 +109,9 @@ export class PricingComponent implements OnInit, OnDestroy {
   changeCompany(value): void {
     this.companyService.changeCompany(value).subscribe((res) => {
       if (res && res.succeeded) {
-        this.store.dispatch(UpdateUserAction(Object.assign({}, this.user, res.data)));
+        this.store.dispatch(
+          UpdateUserAction(Object.assign({}, this.user, res.data))
+        );
         this.router.navigate(['/dashboard']);
       } else if (res && res.errors.length) {
         res.errors.forEach((err) => {
@@ -104,21 +124,25 @@ export class PricingComponent implements OnInit, OnDestroy {
   }
 
   openSubscriptionDialog(): void {
-    const dialog = this.dialog.open(SubscriptionModalComponent, {
-      minWidth: '40%',
-      data: parseInt(this.companyId.toString()),
-    });
-    dialog.afterClosed().subscribe((result) => {
-      if (result?.event === 'success') {
-        this.toster.success(result.message);
-        if (this.IsFromCompanyList) {
-          this.router.navigate(['/company']);
-        } else {
-          this.changeCompany(this.user.lastLoginCompanyId);
+    if (this.promoCodeApplied && this.promoCode) {
+      this.activatePromo();
+    } else {
+      const dialog = this.dialog.open(SubscriptionModalComponent, {
+        minWidth: '40%',
+        data: parseInt(this.companyId.toString()),
+      });
+      dialog.afterClosed().subscribe((result) => {
+        if (result?.event === 'success') {
+          this.toster.success(result.message);
+          if (this.IsFromCompanyList) {
+            this.router.navigate(['/company']);
+          } else {
+            this.changeCompany(this.user.lastLoginCompanyId);
+          }
         }
-      }
-      return;
-    });
+        return;
+      });
+    }
   }
 
   ngOnDestroy(): void {

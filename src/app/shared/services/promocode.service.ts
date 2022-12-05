@@ -34,8 +34,8 @@ export class PromocodeService extends AbstractService {
     }) as Observable<any>;
   }
 
-  ActivatePromoCode(id: number): Observable<any> {
-    const params = new HttpParams().append('promoCodeId', id);
+  ActivatePromoCode(promoCode: string): Observable<any> {
+    const params = new HttpParams().append('promoCode', promoCode);
     return this.httpGet({
       url: this.baseUrl + '/PromoCodeManagement/ActivatePromoCode',
       params: params,
