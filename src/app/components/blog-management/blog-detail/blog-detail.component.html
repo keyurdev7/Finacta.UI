@@ -43,7 +43,7 @@
         </div>
         <div class="mt-4 pt-5 border-top">
           <ng-container *ngIf="comments && comments.length > 0">
-            <h3 class="card-title">Comments:</h3>
+            <h3 class="card-title" id="comments">Comments:</h3>
             <div *ngFor="let eachComment of comments" class="media mb-4 overflow-visible"
               [id]="'comment' + eachComment.blogCommentId">
               <div class="me-3">
@@ -83,7 +83,7 @@
               </div>
             </div>
           </ng-container>
-          <div id="comments" class="row row-xs form-group-wrapper">
+          <div class="row row-xs form-group-wrapper">
             <h3 class="card-title">Comment here:</h3>
             <div class="col-md-12 mt-2">
               <div class="main-form-group">

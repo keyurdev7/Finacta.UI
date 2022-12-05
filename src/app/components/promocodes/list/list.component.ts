@@ -161,20 +161,20 @@ export class ListComponent implements OnInit, OnDestroy {
     });
   }
 
-  activate(id: number): void {
-    this.promoCodeService.ActivatePromoCode(id).subscribe((res) => {
-      if (res && res.succeeded) {
-        this.toster.success(res.message);
-        this.getData();
-      } else if (res && res.errors.length) {
-        res.errors.forEach((err) => {
-          this.toster.error(err.errorMessage);
-        });
-      } else if (res && !res.succeeded && res.data) {
-        this.toster.error(res.data);
-      }
-    });
-  }
+  // activate(id: number): void {
+  //   this.promoCodeService.ActivatePromoCode(id).subscribe((res) => {
+  //     if (res && res.succeeded) {
+  //       this.toster.success(res.message);
+  //       this.getData();
+  //     } else if (res && res.errors.length) {
+  //       res.errors.forEach((err) => {
+  //         this.toster.error(err.errorMessage);
+  //       });
+  //     } else if (res && !res.succeeded && res.data) {
+  //       this.toster.error(res.data);
+  //     }
+  //   });
+  // }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((each) => each.unsubscribe());

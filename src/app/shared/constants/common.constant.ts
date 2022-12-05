@@ -7,3 +7,4 @@ export const MASTER_USER_TYPE = 1;
 export const ADVISOR_USER_TYPE = 3;
 export const DOCUMENT_STATUS_PENDING = "Pending Approval";
 export const DOCUMENT_STATUS_APPROVED = "Approved";
+export const INVALID_DATE = "0001-01-01T00:00:00";
