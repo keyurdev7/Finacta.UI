@@ -60265,9 +60265,14 @@ ul li .legend-dots {
 
 @media (min-width: 992px) {
     .main-chat-list {
-        height: 700px;
+        /* height: 700px; */
         position: relative;
     }
+}
+
+.main-chat-list {
+   height:54vh;
+   overflow-x:auto;
 }
 
 .fa,

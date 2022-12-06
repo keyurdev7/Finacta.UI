@@ -1,7 +1,7 @@
 <div class="row row-deck">
   <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
     <div class="card card-height">
-      <div class="main-content-chat-app pt-0">
+      <div class="main-content-chat-app pt-0 h-100">
         <div class="main-content-body main-content-body-chat h-100">
           <div class="main-chat-header pt-3 d-block d-sm-flex">
             <div class="main-img-user online">
@@ -28,7 +28,7 @@
           <!-- main-chat-header -->
           <div class="main-chat-body flex-2" id="ChatBody">
             <perfect-scrollbar>
-              <div class="content-inner" style="overflow: auto; height: calc(100vh - 515px);">
+              <div class="content-inner" style="overflow-x: auto;">
                 <!-- <label class="main-chat-time"><span>2 days ago</span></label> -->
                 <ng-container *ngFor="let eachChat of chatDetail; let i = index">
                   <p inViewport [inViewportOptions]="{ threshold: [0] }"
@@ -89,7 +89,7 @@
               </div>
             </perfect-scrollbar>
           </div>
-          <div class="main-chat-footer pt-5">
+          <div class="main-chat-footer pt-2 pb-2">
             <input class="form-control" placeholder="Type your message here..." type="text" [(ngModel)]="message"
               (keydown.enter)="addChat()" />
             <a class="nav-link" data-bs-toggle="tooltip" href="javascript:void(0)" title="Attach a File"
@@ -105,11 +105,11 @@
     </div>
   </div>
   <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
-    <div class="card card-height overflow-scroll">
+    <div class="card card-height">
       <div class="main-content-chat-app pt-0">
         <div class="main-content-left main-content-left-chat">
           <!-- main-chat-header -->
-          <div class="card-body overflow-scroll">
+          <div class="card-body">
             <div class="input-group mb-2 search-wrap-user">
               <input type="text" [(ngModel)]="searchUserStr" class="form-control" placeholder="Search ..."
                 (keyup)="searchUser()" />
