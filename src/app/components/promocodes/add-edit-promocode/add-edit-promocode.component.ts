@@ -37,29 +37,11 @@ export class AddEditPromocodeComponent implements OnInit {
           : null,
         [Validators.required, Validators.pattern(/^[0-9]+$/)],
       ],
-      startDate: [
-        this.codeData && this.codeData.promoStartDate
-          ? this.getStartDateForInit(this.codeData.promoStartDate)
-          : null,
-        [Validators.required],
-      ],
       email: [
         this.codeData && this.codeData.emailId ? this.codeData.emailId : null,
         [Validators.required, Validators.email],
       ],
     });
-  }
-
-  getStartDateForInit(date: string): any {
-    if (!!date) {
-      const mDate = moment(date);
-      return {
-        year: mDate.year(),
-        month: mDate.month() + 1,
-        day: mDate.date(),
-      };
-    }
-    return null;
   }
 
   hasError(control: string, validator: string): boolean {
@@ -69,30 +51,11 @@ export class AddEditPromocodeComponent implements OnInit {
     );
   }
 
-  getPromoCodeDates() {
-    const startDate = moment(
-      new Date(
-        this.promoCodeForm.value.startDate.year,
-        this.promoCodeForm.value.startDate.month - 1,
-        this.promoCodeForm.value.startDate.day
-      )
-    );
-    return {
-      start: startDate.format('YYYY-MM-DDTHH:mm:ss'),
-      end: startDate
-        .add(this.promoCodeForm.value.days, 'days')
-        .format('YYYY-MM-DDTHH:mm:ss'),
-    };
-  }
-
   add(): void {
-    const dates = this.getPromoCodeDates();
     const data = new PromoCodeForm();
     data.PromoCode = this.promoCodeForm.value.promoCode;
     data.EmailId = this.promoCodeForm.value.email;
     data.PromoDays = this.promoCodeForm.value.days;
-    data.PromoStartDate = dates.start;
-    data.promoEndDate = dates.end;
 
     this.promoCodeService.addPromoCode(data).subscribe((res) => {
       if (res && res.succeeded) {
@@ -110,14 +73,11 @@ export class AddEditPromocodeComponent implements OnInit {
   }
 
   update(): void {
-    const dates = this.getPromoCodeDates();
     const data = new PromoCodeForm();
     data.PromoCodeId = this.codeData.promoCodeId;
     data.PromoCode = this.promoCodeForm.value.promoCode;
     data.EmailId = this.promoCodeForm.value.email;
     data.PromoDays = this.promoCodeForm.value.days;
-    data.PromoStartDate = dates.start;
-    data.promoEndDate = dates.end;
 
     this.promoCodeService.updatePromoCode(data).subscribe((res) => {
       if (res && res.succeeded) {

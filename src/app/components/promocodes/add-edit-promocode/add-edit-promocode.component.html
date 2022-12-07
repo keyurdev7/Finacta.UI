@@ -41,31 +41,6 @@
     <div *ngIf="hasError('email', 'email')" class="text text-danger mt-1">
       Email Id must be email
     </div>
-
-    <div class="wrap-input100 validate-input">
-      <input
-        formControlName="startDate"
-        (click)="d2.toggle()"
-        class="input100"
-        placeholder="dd/mm/yyyy"
-        ngbDatepicker
-        #d2="ngbDatepicker"
-      />
-      <span class="focus-input100"></span>
-      <span class="symbol-input100">
-        <i class="fa fa-calendar" aria-hidden="true"></i>
-      </span>
-    </div>
-    <div
-      *ngIf="hasError('startDate', 'required')"
-      class="text text-danger mt-1"
-    >
-      Start Date is required
-    </div>
-    <div *ngIf="hasError('startDate', 'ngbDate')" class="text text-danger mt-1">
-      Please choose a valid date from date picker
-    </div>
-
     <div class="wrap-input100 validate-input z-index-0">
       <input
         type="text"

@@ -90,7 +90,11 @@
                   Generated Date
                 </th>
                 <td mat-cell *matCellDef="let element">
-                  {{ element.promoStartDate | date: constants.DATE_FORMAT }}
+                  {{
+                    element.promoStartDate === constants.INVALID_DATE
+                      ? ""
+                      : (element.promoStartDate | date: constants.DATE_FORMAT)
+                  }}
                 </td>
               </ng-container>
 
@@ -121,7 +125,12 @@
                   Activated Date
                 </th>
                 <td mat-cell *matCellDef="let element">
-                  {{ element.promoActivatedDate === constants.INVALID_DATE ? '' : element.promoActivatedDate | date: constants.DATE_FORMAT }}
+                  {{
+                    element.promoActivatedDate === constants.INVALID_DATE
+                      ? ""
+                      : (element.promoActivatedDate
+                        | date: constants.DATE_FORMAT)
+                  }}
                 </td>
               </ng-container>
 
@@ -131,7 +140,11 @@
                   Promo End Date
                 </th>
                 <td mat-cell *matCellDef="let element">
-                  {{ element.promoEndDate | date: constants.DATE_FORMAT }}
+                  {{
+                    element.promoEndDate === constants.INVALID_DATE
+                      ? ""
+                      : (element.promoEndDate | date: constants.DATE_FORMAT)
+                  }}
                 </td>
               </ng-container>
 
@@ -145,13 +158,6 @@
                   >
                     Edit
                   </button>
-                  <!-- <button
-                    *ngIf="!element.promoActivated"
-                    class="btn btn-warning me-2"
-                    (click)="activate(element.promoCodeId)"
-                  >
-                    Activate
-                  </button> -->
                   <button
                     class="btn btn-danger me-2"
                     (click)="delete(element.promoCodeId)"

@@ -64,21 +64,23 @@ export class PricingComponent implements OnInit, OnDestroy {
   }
 
   activatePromo(): void {
-    this.promoCodeService.ActivatePromoCode(this.promoCode).subscribe((res) => {
-      if (res && res.succeeded) {
-        if (this.IsFromCompanyList) {
-          this.router.navigate(['/company']);
-        } else {
-          this.changeCompany(this.user.lastLoginCompanyId);
+    this.promoCodeService
+      .ActivatePromoCode(this.promoCode, this.companyId)
+      .subscribe((res) => {
+        if (res && res.succeeded) {
+          if (this.IsFromCompanyList) {
+            this.router.navigate(['/company']);
+          } else {
+            this.changeCompany(this.user.lastLoginCompanyId);
+          }
+        } else if (res && res.errors.length) {
+          res.errors.forEach((err) => {
+            this.toster.error(err.errorMessage);
+          });
+        } else if (res && !res.succeeded && res.data) {
+          this.toster.error(res.data);
         }
-      } else if (res && res.errors.length) {
-        res.errors.forEach((err) => {
-          this.toster.error(err.errorMessage);
-        });
-      } else if (res && !res.succeeded && res.data) {
-        this.toster.error(res.data);
-      }
-    });
+      });
   }
 
   cancelPromo(): void {
