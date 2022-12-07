@@ -3,6 +3,4 @@ export class PromoCodeForm {
   PromoCode: string = '';
   EmailId: string = '';
   PromoDays: number = 0;
-  PromoStartDate: string = '';
-  promoEndDate: string = '';
 }

@@ -76,7 +76,10 @@
               </th>
               <td mat-cell *matCellDef="let element">
                 {{
-                  element.subscriptionEndDateTime | date: constants.DATE_FORMAT
+                  element.subscriptionStartDateTime === constants.INVALID_DATE
+                    ? ""
+                    : (element.subscriptionStartDateTime
+                      | date: constants.DATE_FORMAT)
                 }}
               </td>
             </ng-container>
@@ -88,8 +91,10 @@
               </th>
               <td mat-cell *matCellDef="let element">
                 {{
-                  element.subscriptionStartDateTime
-                    | date: constants.DATE_FORMAT
+                  element.subscriptionEndDateTime === constants.INVALID_DATE
+                    ? ""
+                    : (element.subscriptionEndDateTime
+                      | date: constants.DATE_FORMAT)
                 }}
               </td>
             </ng-container>
@@ -130,7 +135,7 @@
                 </button>
                 <button
                   *ngIf="
-                    element.subscriptionStatus === 'Subscribed' &&
+                    element.subscriptionStatus !== 'Not Subscribed' &&
                     user.userTypeId !== constants.MASTER_USER_TYPE &&
                     user.userTypeId !== constants.ADVISOR_USER_TYPE
                   "
@@ -142,33 +147,39 @@
                   Payment Details
                 </button>
                 <div class="d-sm-flex ms-auto">
-                  <a href="javascript:void(0)" class="me-0 d-flex" *ngIf="
-                  user.userTypeId === constants.MASTER_USER_TYPE ||
-                  user.userTypeId === constants.ADVISOR_USER_TYPE" (click)="selectCompany(element.companyId)"
-                  title="Select Company"
-                    ><span
-                      class="fe fe-log-in text-muted me-2 text-17"
-                    ></span>
-                    <div class="mt-0 mt-0 text-muted">
-                    </div></a
-                  >
-                  <a class="me-0 d-flex" href="javascript:void(0)" *ngIf="user.userTypeId === constants.MASTER_USER_TYPE" 
-                  (click)="mapXeroContact(element.companyId, element.xeroContactName)" title="Map Xero Company"
-                    ><span
-                      class="fe fe-share-2 text-muted me-2 text-17"
-                    ></span>
-                    <div class="mt-0 mt-0 text-muted">
-                    </div></a
-                  >
+                  <a
+                    href="javascript:void(0)"
+                    class="me-0 d-flex"
+                    *ngIf="
+                      user.userTypeId === constants.MASTER_USER_TYPE ||
+                      user.userTypeId === constants.ADVISOR_USER_TYPE
+                    "
+                    (click)="selectCompany(element.companyId)"
+                    title="Select Company"
+                    ><span class="fe fe-log-in text-muted me-2 text-17"></span>
+                    <div class="mt-0 mt-0 text-muted"></div
+                  ></a>
+                  <a
+                    class="me-0 d-flex"
+                    href="javascript:void(0)"
+                    *ngIf="user.userTypeId === constants.MASTER_USER_TYPE"
+                    (click)="
+                      mapXeroContact(element.companyId, element.xeroContactName)
+                    "
+                    title="Map Xero Company"
+                    ><span class="fe fe-share-2 text-muted me-2 text-17"></span>
+                    <div class="mt-0 mt-0 text-muted"></div
+                  ></a>
 
-                  <a class="me-0 d-flex" href="javascript:void(0)" *ngIf="user.userTypeId === constants.MASTER_USER_TYPE" 
-                  (click)="deleteCompany(element.companyId)" title="Delete Company"
-                    ><span
-                      class="fe fe-trash text-muted me-2 text-17"
-                    ></span>
-                    <div class="mt-0 mt-0 text-muted">
-                    </div></a
-                  >
+                  <a
+                    class="me-0 d-flex"
+                    href="javascript:void(0)"
+                    *ngIf="user.userTypeId === constants.MASTER_USER_TYPE"
+                    (click)="deleteCompany(element.companyId)"
+                    title="Delete Company"
+                    ><span class="fe fe-trash text-muted me-2 text-17"></span>
+                    <div class="mt-0 mt-0 text-muted"></div
+                  ></a>
                 </div>
                 <!-- <button
                   *ngIf="
