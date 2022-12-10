@@ -30,7 +30,6 @@ export class AddFileComponent implements OnInit {
   ngOnInit(): void {
     this.store.pipe(userSelector).subscribe((res) => {
       this.user = res;
-      console.log('this.user', this.user);
     });
     this.getFileCatTypes();
   }
@@ -82,7 +81,7 @@ export class AddFileComponent implements OnInit {
     this.fileManagementService.getFileCategoryTypes().subscribe(
       (res) => {
         this.fileCatTypeData = res['data'];
-        console.log('>>>>>>>>>>>res', res);
+        this.fileCategoryType = this.fileCatTypeData[0].categoryId;
       },
       (error: any) => {
         console.log('error', error);

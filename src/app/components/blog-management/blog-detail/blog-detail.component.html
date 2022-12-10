@@ -22,7 +22,9 @@
             </h6>
             <a href="javascript:void(0)" class="d-f-ai-c mx-4 text-13"><span
                 class="fe fe-calendar text-muted me-1 text-15"></span><span class="mt-0 mt-0 text-muted">{{
-                blog.createdDateTime | date: constants.DATE_FORMAT
+                blog.createdDateTime === constants.INVALID_DATE
+                ? ""
+                : (blog.createdDateTime | date: constants.DATE_FORMAT)
                 }}</span></a>
             <a href="blog/detail#comments" class="me-0 d-f-ai-c text-13"><span
                 class="fe fe-message-square text-muted me-1 text-15"></span><span class="mt-0 mt-0 text-muted">{{

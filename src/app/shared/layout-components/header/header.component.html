@@ -29,17 +29,12 @@
                       <ng-template ng-label-tmp let-item="item">
                         <b>{{ item.companyName }}</b>
                         <ng-container *ngIf="item && item.companyName == ' All '">
-                          <span style="margin-right: 110px;">&nbsp;</span>
-                          <span class="count co-icon">&nbsp;</span>
                         </ng-container>
                       </ng-template>
 
                       <ng-template ng-option-tmp let-item="item" let-index="index">
                         <div title="item">
                           {{ item.companyName }}
-                          <span class="count" *ngIf="item && item.companyName == ' All '">
-                            &nbsp;
-                          </span>
                           <span class="count"
                             *ngIf="item && item.unreadMessageCount > 0 && item.companyName != ' All '">
                             {{ item.unreadMessageCount}}
@@ -96,7 +91,7 @@
                       <span class="fe fe-24 fe-sliders pr-icon"></span>
                       Settings
                     </a>
-                    <a ngbDropdownItem class="" routerLink="/company">
+                    <a ngbDropdownItem class="" routerLink="/company" *ngIf="showCompanyMenu()">
                       <span class="fe fe-24 fe-grid pr-icon"></span>
                       Companies
                     </a>

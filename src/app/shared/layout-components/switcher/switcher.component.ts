@@ -58,6 +58,11 @@ export class SwitcherComponent implements OnInit {
 
   }
 
+  closeModal(){
+    this.renderer.removeClass(this.switcher.nativeElement.firstElementChild,'active');
+    this.renderer.setStyle(this.switcher.nativeElement.firstElementChild,'right','-270px');
+  }
+
   updateUserTheme(data: any): void {
     const theme = Object.assign({}, this.user.userTheme, data);
     this.api.updateUserTheme(theme).subscribe(() => {

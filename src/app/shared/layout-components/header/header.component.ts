@@ -55,6 +55,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
   }
 
+  showCompanyMenu(): boolean {
+    if (
+      this.user && this.user.accessMenu.find((a) => a.moduleName.toLowerCase() === 'company')
+    ) {
+      return true;
+    }
+    return false;
+  }
+
   changeCompany(): void {
     if (
       this.user.userTypeId == MASTER_USER_TYPE ||

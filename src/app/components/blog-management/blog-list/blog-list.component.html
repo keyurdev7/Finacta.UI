@@ -59,7 +59,9 @@
                     ></span>
                     <div class="mt-0 mt-0 text-muted">
                       {{
-                        eachBlog.publishedDateTime | date: constants.DATE_FORMAT
+                        eachBlog.publishedDateTime === constants.INVALID_DATE
+                        ? ""
+                        : (eachBlog.publishedDateTime | date: constants.DATE_FORMAT)
                       }}
                     </div></a
                   >

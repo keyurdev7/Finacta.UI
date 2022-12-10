@@ -104,7 +104,6 @@
             <!-- User Type Column -->
             <ng-container
               matColumnDef="userType"
-              *ngIf="constants.MASTER_USER_TYPE === user.userTypeId"
             >
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
                 User Type
@@ -133,7 +132,9 @@
                 Last Login
               </th>
               <td mat-cell class="text-center" *matCellDef="let element">
-                {{ element.lastLoginDateTime | date: constants.DATE_FORMAT }}
+                {{ element.lastLoginDateTime === constants.INVALID_DATE
+                  ? ""
+                  : (element.lastLoginDateTime | date: constants.DATE_FORMAT) }}
               </td>
             </ng-container>
 
@@ -148,7 +149,9 @@
                 mat-cell
                 *matCellDef="let element"
               >
-                {{ element.joinedDate | date: constants.DATE_FORMAT }}
+                {{ element.joinedDate === constants.INVALID_DATE
+                  ? ""
+                  : (element.joinedDate | date: constants.DATE_FORMAT) }}
               </td>
             </ng-container>
 
