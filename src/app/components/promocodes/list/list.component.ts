@@ -28,7 +28,7 @@ export class ListComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [
     'promoCode',
     'promoDays',
-    'promoStartDate',
+    'generatedDate',
     'emailId',
     'status',
     'activatedDate',

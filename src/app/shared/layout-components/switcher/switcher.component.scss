@@ -9,7 +9,7 @@
 
 .demo_changer .form_holder {
   min-height: max-content !important;
-  height: auto !important;
+  height: 100vh !important;
 }
 
 ::ng-deep {
@@ -26,4 +26,9 @@
 
 .sidebar-right1{
   overflow-x: hidden;
+}
+.close-modal-icon {
+  color: #495057;
+  display: flex;
+  justify-content: right;
 }
