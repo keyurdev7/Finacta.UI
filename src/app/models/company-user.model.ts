@@ -17,4 +17,5 @@ export class CompanyUser {
   userDeleteStatus: string = '';
   userActiveStatusId? :boolean = false;
   companyName:string ='';
+  userType: string = '';
 }

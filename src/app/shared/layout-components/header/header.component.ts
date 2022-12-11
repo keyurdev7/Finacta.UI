@@ -57,7 +57,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   showCompanyMenu(): boolean {
     if (
-      this.user && this.user.accessMenu.find((a) => a.moduleName.toLowerCase() === 'company')
+      this.user &&
+      this.user.accessMenu.find((a) => a.moduleName.toLowerCase() === 'company')
     ) {
       return true;
     }
@@ -100,6 +101,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  allUnreadCount(): boolean {
+    let count = 0;
+    this.user?.userCompany.forEach((c) => {
+      if (c && c.unreadMessageCount) count += +c.unreadMessageCount;
+    });
+    return !!count;
   }
 
   reload() {

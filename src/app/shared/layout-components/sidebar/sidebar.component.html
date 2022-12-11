@@ -3,7 +3,7 @@
 <!-- Sidemenu -->
 <div class="app-sidebar sticky" [ngClass]="{ 'fixed-header visible-title': scrolled }">
   <div class="side-header custom-sidebar">
-    <a class="header-padding" routerLink="/dashboard">
+    <a class="d-f-ai-c" routerLink="/dashboard">
       <!-- dark theme full logo -->
       <!-- <img
         *ngIf="user.expandLogo"
@@ -221,20 +221,17 @@
                 <span class="side-menu__label">{{ menuItem.moduleName }}</span>
               </a>
             </ng-container>
-            <ng-container *ngIf="iii == (getFilteredMenu(true).length -1)">
-              <a class="side-menu__item has__link" (click)="clickToShow()">
-                <span class="shape1"></span>
-                <span class="shape2"></span>
-                <span class="side-menu__icon">
-                  <i class="{{ menuItem.menuIcon }}"></i>
-                </span>
-                <span *ngIf="menuItem.moduleName.toLowerCase() === 'chat' &&
-                                  messageCount > 0
-                                " class="count">{{ messageCount }}</span>
-                <span class="side-menu__label">{{ menuItem.moduleName }}</span>
-              </a>
-            </ng-container>
           </li>
+          <li>
+            <a class="side-menu__item has__link" (click)="clickToShow()">
+              <span class="shape1"></span>
+              <span class="shape2"></span>
+              <span class="side-menu__icon">
+                <i class="fe fe-aperture"></i>
+              </span>
+              <span class="side-menu__label">Company</span>
+            </a>
+        </li>
         </ul>
       </div>
       <!-- right-arrow  -->
