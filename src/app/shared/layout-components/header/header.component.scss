@@ -135,13 +135,15 @@ input:not(.dark-mode)::placeholder {
       }
     }
 
+    .ng-select {
+      max-width: 190px;
+    }
+
     .ng-dropdown-panel {
       min-width: 80px;
       width: auto;
-      .ng-option {
-        word-break: break-word;
-        white-space: break-spaces;
-      }
+      left: auto;
+      right: 0;
     }
   }
 }

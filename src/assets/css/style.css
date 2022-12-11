@@ -29101,8 +29101,8 @@ body.rtl .buy-now {
 
 .header {
     background: #fff;
-    padding-top: 0.75rem;
-    padding-bottom: 1.5rem;
+    padding-top: 1.125rem;
+    padding-bottom: 1.125rem;
     border-bottom: 1px solid #eaedf1;
 }
 
@@ -30269,7 +30269,7 @@ body.fixed-header .header {
 .app .header .profile-1 .dropdown-item {
     padding: 0.6rem 1rem !important;
     border-bottom: none;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .app .header .profile-1 .dropdown-item .dropdown-icon {
@@ -30379,11 +30379,6 @@ body.fixed-header .header {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.pr-icon{
-    margin-right: 7px;
-    font-size: 1.1rem !important;
 }
 
 .flag-dropdown .language {
@@ -60265,14 +60260,9 @@ ul li .legend-dots {
 
 @media (min-width: 992px) {
     .main-chat-list {
-        /* height: 700px; */
+        height: 700px;
         position: relative;
     }
-}
-
-.main-chat-list {
-   height:54vh;
-   overflow-x:auto;
 }
 
 .fa,

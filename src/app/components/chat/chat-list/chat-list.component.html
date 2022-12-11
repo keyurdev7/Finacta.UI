@@ -61,7 +61,7 @@
                             else elseBlock
                           ">{{ eachChat.sentDateTime | date: "h:mm a" }}</span>
                         <ng-template #elseBlock>{{
-                          eachChat.sentDateTime | date: "MM/dd/yyyy h:mm a"
+                          eachChat.sentDateTime | date: "dd/MM/yyyy h:mm a"
                           }}</ng-template>
                         <a href="javascript:void(0)"><i class="icon ion-android-more-vertical"></i></a>
                       </div>
@@ -168,8 +168,10 @@
                   </span>
                 </div>
                 <div>
-                  <span class="input-group-text btn btn-primary text-white"
-                    (click)="addUser(eachUser.userId)">Chat</span>
+                  <span *ngIf="isActiveUser(eachUser); else inActiveUserBlock " class="input-group-text btn btn-primary text-white"
+                    (click)="activeUserChat(eachUser)">Chat</span>
+                  <ng-template #inActiveUserBlock><span class="input-group-text btn btn-primary text-white"
+                    (click)="addUser(eachUser.userId)">Chat</span></ng-template>
                 </div>
               </div>
             </a>

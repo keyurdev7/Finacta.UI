@@ -34,6 +34,7 @@ export class CompanyUserComponent implements OnInit, OnDestroy {
     'firstName',
     'emailId',
     'phoneNumber',
+    'userType',
     'lastLoginDateTime',
     'joinedDate',
     'invitationStatusName',
@@ -75,8 +76,10 @@ export class CompanyUserComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.store.pipe(userSelector).subscribe((res) => {
         this.user = res;
-        if (this.constants.MASTER_USER_TYPE === this.user.userTypeId) {
-          this.displayedColumns.splice(4, 0, 'userType');
+        if (
+          this.constants.MASTER_USER_TYPE === this.user.userTypeId &&
+          this.constants.ALL_COMPANY_ID === this.user.lastLoginCompanyId
+        ) {
           this.displayedColumns.splice(5, 0, 'companyName');
         }
       })

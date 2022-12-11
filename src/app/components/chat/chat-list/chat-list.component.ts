@@ -108,16 +108,21 @@ export class ChatListComponent implements OnInit {
       this.isSearchedUser = true;
       const updatedUser = this.allChatUsers.filter(
         (i) =>
-          (!this.activeUser.some((e) => e.userId === i.userId) &&
-            i.name.toLowerCase().includes(this.searchUserStr.toLowerCase())) ||
-          (!this.activeUser.some((e) => e.userId === i.userId) &&
-            i.userType.toLowerCase().includes(this.searchUserStr.toLowerCase()))
+          i.name.toLowerCase().includes(this.searchUserStr.toLowerCase()) ||
+          i.userType.toLowerCase().includes(this.searchUserStr.toLowerCase())
       );
       this.searchedUser = updatedUser;
       console.log('this.searchedUser', this.searchedUser);
     } else {
       this.getAllActiveUserList();
     }
+  }
+
+  isActiveUser(user: ChatUser): boolean {
+    if (this.activeUser.find((a) => a.userId === user.userId)) {
+      return true;
+    }
+    return false;
   }
 
   getLatestMsg(): HTMLElement | null {
@@ -253,6 +258,13 @@ export class ChatListComponent implements OnInit {
         this.getAllActiveUserList();
       }
     });
+  }
+
+  activeUserChat(user: ChatUser): void {
+    this.searchedUser = [];
+    this.isSearchedUser = false;
+    this.searchUserStr = '';
+    this.getChat(user, 0, true);
   }
 
   searchInChat(): void {
