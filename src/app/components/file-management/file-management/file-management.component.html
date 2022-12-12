@@ -159,7 +159,7 @@
                         <span class="text-muted modified-date">{{
                           eachData.createdDateTime === constants.INVALID_DATE
                           ? ""
-                          : (element.createdDateTime | date: constants.DATE_FORMAT)
+                          : (eachData.createdDateTime | date: constants.DATE_FORMAT)
                           }}</span>
                       </td>
                       <td (click)="rowClick(eachData)">
