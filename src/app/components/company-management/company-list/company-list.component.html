@@ -69,6 +69,16 @@
               </td>
             </ng-container>
 
+            <!-- User Type Column -->
+            <ng-container matColumnDef="userType">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                User Type
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.userType }}
+              </td>
+            </ng-container>
+
             <!-- Subscription Start Date -->
             <ng-container matColumnDef="SubscriptionStartDateTime">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>

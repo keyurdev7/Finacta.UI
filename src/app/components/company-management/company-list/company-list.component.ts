@@ -67,6 +67,12 @@ export class CompanyListComponent implements OnInit {
       this.store.pipe(userSelector).subscribe((res) => {
         this.user = res;
         this.usertypeid = this.user.userTypeId;
+        if (
+          this.constants.STANDARD_USER_TYPE === this.user.userTypeId ||
+          this.constants.ADMIN_USER_TYPE === this.user.userTypeId
+        ) {
+          this.displayedColumns.splice(3, 0, 'userType');
+        }
       })
     );
   }

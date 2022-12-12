@@ -4,55 +4,58 @@
   [active_item]="'Pricing'"
 ></app-page-header>
 <div class="row d-flex align-items-center justify-content-center">
-  <div class="col-lg-8 col-xl-3 col-md-8 col-sm-12">
-    <div class="card p-3 pricing-card">
-      <div class="card-header d-block text-justified pt-2">
-        <p class="text-18 font-weight-semibold mb-1">
+  <div class="col-md-4 col-sm-12">
+    <div class="card p-3 pricing-card bg-gray-200 border border-gray-500">
+      <div class="card-header d-block text-justified p-2">
+        <p class="text-20 font-weight-semibold mb-1">
           {{ subPlans.subscriptionName }}
         </p>
         <p class="text-justify font-weight-semibold mb-1">
-          <span class="text-30 me-2">$</span
-          ><span class="text-30 me-1">{{
+          <span class="text-20 me-2">$</span
+          ><span class="text-20 me-1">{{
             promoCodeApplied ? "0" : subPlans.subscriptionPrice
           }}</span
-          ><span class="text-24"
+          ><span class="text-20"
             ><span class="op-0-5 text-muted text-20">/</span>
             {{ subPlans.durationMonth ? "Month" : "Year" }}</span
           >
         </p>
-        <p class="text-13 mb-1 text-warning font-weight-">
-          Billed monthly on regular basis!
-        </p>
+        <div
+          class="text-13 mb-1"
+          [innerHTML]="subPlans.subscriptionDetails | safeHtml"
+        ></div>
       </div>
-      <div class="card-footer text-center border-top-0 pt-1">
-        <div class="row promocode-section">
-          <input
-            type="text"
-            placeholder="Promo Code"
-            aria-label="Number"
-            class="form-control"
-            [disabled]="promoCodeApplied"
-            [(ngModel)]="promoCode"
-          />
-          <button
-            *ngIf="!promoCodeApplied"
-            (click)="applyPromo()"
-            [disabled]="!promoCode"
-            class="btn btn-warning btn-sm w-50 mt-2"
-          >
-            Apply
-          </button>
-          <button
-            *ngIf="!!promoCodeApplied"
-            (click)="cancelPromo()"
-            class="btn btn-warning btn-sm w-50 mt-2"
-          >
-            Cancel
-          </button>
+      <div class="card-footer text-center border-top-0 p-2">
+        <div class="form-group">
+          <div class="input-group search-wrap">
+            <input
+              type="text"
+              placeholder="Promo Code"
+              aria-label="Number"
+              class="form-control"
+              [disabled]="promoCodeApplied"
+              [(ngModel)]="promoCode"
+            />
+            <button
+              *ngIf="!promoCodeApplied"
+              (click)="applyPromo()"
+              [disabled]="!promoCode"
+              class="input-group-text btn btn-primary text-white"
+            >
+              Apply
+            </button>
+            <button
+              *ngIf="!!promoCodeApplied"
+              (click)="cancelPromo()"
+              class="input-group-text btn btn-primary text-white"
+            >
+              Cancel
+            </button>
+          </div>
         </div>
         <button
           (click)="openSubscriptionDialog()"
-          class="btn btn-lg btn-outline-warning btn-block"
+          class="btn btn-lg btn-outline-warning btn-block bg-white"
         >
           <span class="ms-4 me-4">Pay</span>
         </button>

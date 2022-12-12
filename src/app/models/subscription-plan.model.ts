@@ -5,4 +5,5 @@ export class SubsciptionPlan {
   isVATExtra: boolean = true;
   durationMonth: boolean = true;
   durationYear: boolean = false;
+  subscriptionDetails: string = '';
 }

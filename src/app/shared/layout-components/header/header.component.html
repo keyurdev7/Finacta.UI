@@ -21,7 +21,7 @@
               <div style="min-width: 190px" *ngIf="user.isPortalSubscibe">
                 <ul>
                   <li class="select-status header-select">
-                    <ng-select #select [items]="user.userCompany" notFoundText="No results found" [searchable]="false"
+                    <ng-select #select [items]="activeCompanies" notFoundText="No results found" [searchable]="false"
                       [(ngModel)]="companyId" bindLabel="companyName" bindValue="companyId" (change)="changeCompany()"
                       dropdownPosition="bottom" [clearable]="false">
                       <!--  -->
@@ -37,7 +37,7 @@
                       <ng-template ng-option-tmp let-item="item" let-index="index">
                         <div title="item">
                           {{ item.companyName }}
-                          <span class="count" *ngIf="item && item.companyName == ' All ' && allUnreadCount()">
+                          <span class="count co-icon" *ngIf="item && item.companyName == ' All ' && allUnreadCount()">
                             &nbsp;
                           </span>
                           <span class="count"
