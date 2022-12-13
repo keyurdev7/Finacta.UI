@@ -1,13 +1,23 @@
 <div class="modal-header">
   <h6 class="modal-title">Add file</h6>
-  <button type="button" class="btn-close" aria-label="Close" (click)="closeDialog()"></button>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="closeDialog()"
+  ></button>
 </div>
 <div class="modal-body">
   <div class="mb-2">
-    <ngx-dropzone (change)="onSelect($event)" [multiple]="false">
+    <ngx-dropzone (change)="onSelect($event)" [multiple]="true">
       <ngx-dropzone-label>Drop it, Here!</ngx-dropzone-label>
-      <ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true"
-        (removed)="onRemove()">
+      <ngx-dropzone-preview
+        ngProjectAs="ngx-dropzone-preview"
+        *ngFor="let f of files; let i = index"
+        [file]="f"
+        [removable]="true"
+        (removed)="onRemove(i)"
+      >
         <ngx-dropzone-label class="file-label">{{ f.name }}</ngx-dropzone-label>
       </ngx-dropzone-preview>
     </ngx-dropzone>
@@ -18,25 +28,50 @@
   </label>
 </div>
 <div class="modal-footer d-block pb-0">
-  <div class="row m-0" style="align-items: baseline;">
-    <div class="col-2">
-      <label *ngIf="user && user.lastLoginCompanyId !== -1 && (user.userTypeId == 3 || user.userTypeId == 1)">
-        Document Status
-      </label>
-    </div>
-    <div class="col-4">
-      <div class="form-group" *ngIf="user && user.lastLoginCompanyId !== -1 && (user.userTypeId == 3 || user.userTypeId == 1)">
-        <ng-select placeholder="Choose one" [(ngModel)]="fileCategoryType" name="fileCategoryType" tabindex="-1"
-          aria-hidden="true" [appendTo]="'body'" [clearable]="false">
-          <ng-option [value]="item.categoryId" *ngFor="let item of fileCatTypeData">
-            {{item.categoryName}}
-          </ng-option>
-        </ng-select>
+  <div class="row m-0" style="align-items: baseline">
+    <ng-container
+      *ngIf="
+        user &&
+          user.lastLoginCompanyId !== -1 &&
+          (user.userTypeId == 3 || user.userTypeId == 1);
+        else emptyDivBlock
+      "
+    >
+      <div class="col-2">
+        <label> Document Status </label>
       </div>
-    </div>
-
+      <div class="col-4">
+        <div class="form-group">
+          <ng-select
+            placeholder="Choose one"
+            [(ngModel)]="fileCategoryType"
+            name="fileCategoryType"
+            tabindex="-1"
+            aria-hidden="true"
+            [appendTo]="'body'"
+            [clearable]="false"
+          >
+            <ng-option
+              [value]="item.categoryId"
+              *ngFor="let item of fileCatTypeData"
+            >
+              {{ item.categoryName }}
+            </ng-option>
+          </ng-select>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #emptyDivBlock>
+      <div class="col-6"></div>
+    </ng-template>
     <div class="col-6 text-end">
-      <button mat-button mat-flat-button color="warn" (click)="add()" [disabled]="!files.length">
+      <button
+        mat-button
+        mat-flat-button
+        color="warn"
+        (click)="add()"
+        [disabled]="!files.length"
+      >
         Save
       </button>
       <button mat-button (click)="closeDialog()">Cancel</button>

@@ -19,6 +19,13 @@ export class AddFileComponent implements OnInit {
   override: boolean = false;
   fileCatTypeData: any = [];
   fileCategoryType: any = 0;
+  fileNameArray: string[] = [
+    'FileName',
+    'FileName2',
+    'FileName3',
+    'FileName4',
+    'FileName5',
+  ];
   constructor(
     @Inject(MAT_DIALOG_DATA) public id: number,
     public dialogRef: MatDialogRef<AddFileComponent>,
@@ -35,24 +42,29 @@ export class AddFileComponent implements OnInit {
   }
 
   onSelect(event: any): void {
-    this.duplicateErr = false;
-    this.override = false;
-    this.files = [...event.addedFiles];
+    if (event.addedFiles.length <= 5) {
+      this.files = [...event.addedFiles];
+      this.duplicateErr = false;
+      this.override = false;
+    } else {
+      this.toster.error('Max 5 files are allowed');
+    }
   }
 
-  onRemove(): void {
+  onRemove(index): void {
     this.duplicateErr = false;
     this.override = false;
-    this.files = [];
+    this.files.splice(index, 1);
   }
 
   add(): void {
     const data = new AddFile();
     data.folderId = this.id;
-    data.FileName = this.files[0];
     data.Overwrite = this.override;
     data.FileCategoryType = this.fileCategoryType;
-
+    this.files.forEach((eachFile, i) => {
+      data[this.fileNameArray[i]] = eachFile;
+    });
     this.fileManagementService.addFile(data).subscribe((res) => {
       if (res && res.succeeded) {
         this.duplicateErr = false;

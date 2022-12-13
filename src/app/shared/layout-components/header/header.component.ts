@@ -111,6 +111,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return !!count;
   }
 
+  getCompantText(text: string): string {
+    return !!text ? text.trim() : '';
+  }
+
   reload() {
     window.location.reload();
   }
