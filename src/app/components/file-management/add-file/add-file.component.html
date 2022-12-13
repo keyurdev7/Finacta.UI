@@ -25,7 +25,7 @@
       </label>
     </div>
     <div class="col-4">
-      <div class="form-group" *ngIf="user && (user.userTypeId == 3 || user.userTypeId == 1)">
+      <div class="form-group" *ngIf="user && user.lastLoginCompanyId !== -1 && (user.userTypeId == 3 || user.userTypeId == 1)">
         <ng-select placeholder="Choose one" [(ngModel)]="fileCategoryType" name="fileCategoryType" tabindex="-1"
           aria-hidden="true" [appendTo]="'body'" [clearable]="false">
           <ng-option [value]="item.categoryId" *ngFor="let item of fileCatTypeData">
