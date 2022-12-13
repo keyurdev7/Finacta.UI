@@ -33,6 +33,7 @@ import { MaterialModuleModule } from '../materialModule/material-module/material
 import { DateAgoPipe } from './pipes/date-ago.pipe';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { SafeHtmlPipe } from './pipes/safe.pipe';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -60,6 +61,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SwitcherLayoutComponent,
     SwitcherLayoutHeaderComponent,
     DateAgoPipe,
+    SafeHtmlPipe,
   ],
   imports: [
     CommonModule,
@@ -90,6 +92,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ReactiveFormsModule,
     MaterialModuleModule,
     DateAgoPipe,
+    SafeHtmlPipe,
     NgSelectModule,
     NgxDropzoneModule,
   ],

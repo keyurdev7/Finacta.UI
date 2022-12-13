@@ -20,7 +20,7 @@
 <div class="modal-footer d-block pb-0">
   <div class="row m-0" style="align-items: baseline;">
     <div class="col-2">
-      <label *ngIf="user && (user.userTypeId == 3 || user.userTypeId == 1)">
+      <label *ngIf="user && user.lastLoginCompanyId !== -1 && (user.userTypeId == 3 || user.userTypeId == 1)">
         Document Status
       </label>
     </div>

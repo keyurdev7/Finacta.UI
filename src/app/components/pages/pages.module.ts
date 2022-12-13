@@ -19,11 +19,9 @@ import { IvyGalleryModule } from 'angular-gallery';
 import { RouterModule } from '@angular/router';
 import { NgxStripeModule } from 'ngx-stripe';
 import { SubscriptionModalComponent } from './pricing/subscription-modal/subscription-modal.component';
-import { SafeHtmlPipe } from 'src/app/shared/pipes/safe.pipe';
 
 @NgModule({
   declarations: [
-    SafeHtmlPipe,
     SettingsComponent,
     ProfileComponent,
     ServiceComponent,
