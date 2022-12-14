@@ -128,7 +128,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     InViewportModule,
     SimpleNotificationsModule.forRoot(),
-    ToastrModule.forRoot({ positionClass: 'toast-top-center' }),
+    ToastrModule.forRoot({ positionClass: 'toast-bottom-full-width' }),
     StoreModule.forRoot(
       {
         user: userReducer,
