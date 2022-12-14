@@ -29182,7 +29182,7 @@ body.fixed-header .header {
 }
 
 .header-brand-img {
-    height: 2rem;
+    height: 3rem;
     line-height: 2rem;
     vertical-align: middle;
     width: auto;
@@ -106381,6 +106381,11 @@ textarea.form-control {
     .wp-sm-max-20 {
         width: 20% !important;
     }
+}
+
+iframe {
+    height: 400px;
+    width: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -71,7 +71,8 @@
                     [download]="eachData.recordName"><i class="fe fe-download me-2"></i> Download</a>
                   <a *ngIf="
                       constants.FILE_TYPE === eachData.recordType &&
-                      constants.DOCUMENT_STATUS_APPROVED !== eachData.documentStatus" href="javascript:;"
+                      constants.DOCUMENT_STATUS_APPROVED !== eachData.documentStatus
+                      && eachData.documentStatus == 'Requires Approval' && !eachData.approvedBy" href="javascript:;"
                     ngbDropdownItem (click)="approveDoc(eachData)"><i class="fe fe-check me-2"></i> Approve</a>
                   <a ngbDropdownItem href="javascript:;" (click)="deleteConfirmation(eachData)"><i
                       class="fe fe-trash me-2"></i> Delete</a>
