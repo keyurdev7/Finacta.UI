@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { File } from 'src/app/models/file.model';
@@ -15,6 +15,8 @@ import { User } from 'src/app/models/user.model';
 import { UpdateUserAction } from 'src/app/store/app.actions';
 import { CopyToCustomerModalComponent } from '../copy-to-customer-modal/copy-to-customer-modal.component';
 import { DocPreviewModalComponent } from '../doc-preview-modal/doc-preview-modal.component';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-file-management',
@@ -50,6 +52,21 @@ export class FileManagementComponent implements OnInit, OnDestroy {
     commonFile: 'file',
     folder: 'folder',
   };
+  displayedColumns: string[] = [
+    'recordName',
+    'createdDateTime',
+    'recordType',
+    'fileSize',
+    'documentStatus',
+    'createdBy',
+    'approvedBy',
+    'action',
+  ];
+  fileDataSource: MatTableDataSource<File> = new MatTableDataSource<File>();
+  // Need to use setter function as we have used *ngIf in parents of mat table
+  @ViewChild(MatSort) set matSort(sort: MatSort) {
+    this.fileDataSource.sort = sort;
+  }
   constructor(
     private dialog: MatDialog,
     private fileManagementService: FileManagementService,
@@ -117,6 +134,7 @@ export class FileManagementComponent implements OnInit, OnDestroy {
       this.breadCrumb = [this.homeLink];
       this.fileManagementService.getData(id).subscribe((response) => {
         this.data = response.data;
+        this.fileDataSource.data = response.data;
       });
     } else {
       const activeItem = this.data.find(
@@ -152,6 +170,7 @@ export class FileManagementComponent implements OnInit, OnDestroy {
         }
         this.fileManagementService.getData(id).subscribe((response) => {
           this.data = response.data;
+          this.fileDataSource.data = response.data;
         });
       });
     }
@@ -282,6 +301,7 @@ export class FileManagementComponent implements OnInit, OnDestroy {
         .subscribe((res) => {
           if (res && res.succeeded) {
             this.data = res.data;
+            this.fileDataSource.data = res.data;
           } else if (res && res.errors.length) {
             res.errors.forEach((err) => {
               this.toster.error(err.errorMessage);
