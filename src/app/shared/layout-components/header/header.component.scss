@@ -144,6 +144,9 @@ input:not(.dark-mode)::placeholder {
       width: auto;
       left: auto;
       right: 0;
+      .ng-option {
+        padding-right: 20px;
+      }
     }
   }
 }
