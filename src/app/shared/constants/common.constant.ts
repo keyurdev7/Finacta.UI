@@ -9,4 +9,6 @@ export const ADMIN_USER_TYPE = 2;
 export const STANDARD_USER_TYPE = 4;
 export const DOCUMENT_STATUS_PENDING = "Pending Approval";
 export const DOCUMENT_STATUS_APPROVED = "Approved";
+export const DOCUMENT_STATUS_REQUIRES_APPROVAL = "Requires Approval";
+export const DOCUMENT_STATUS_ADVISOR_UPLOAD = "Advisor upload";
 export const INVALID_DATE = "0001-01-01T00:00:00";
