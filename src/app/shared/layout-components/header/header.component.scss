@@ -37,7 +37,9 @@ li::marker {
   }
   .rtl app-header {
     .input-group
-      > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+      > :not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(
+        .valid-feedback
+      ):not(.invalid-tooltip):not(.invalid-feedback) {
       border-top-right-radius: 7px;
       border-bottom-right-radius: 7px;
       border-top-left-radius: 0;
@@ -132,6 +134,22 @@ input:not(.dark-mode)::placeholder {
       .count {
         color: var(--primary-bg-color);
         background-color: #fff;
+      }
+    }
+
+    .ng-value {
+      width: 100%;
+      .company-label-select {
+        display: flex;
+        justify-content: space-between;
+        b {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        span {
+          margin-top: 0;
+        }
       }
     }
 

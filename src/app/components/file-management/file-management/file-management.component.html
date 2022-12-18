@@ -200,13 +200,14 @@
                   class="table text-nowrap recent-files-container"
                   matSort
                 >
-                  <ng-container matColumnDef="image">
+                  <ng-container matColumnDef="isAcknowledged">
                     <th mat-header-cell *matHeaderCellDef></th>
                     <td
                       mat-cell
                       *matCellDef="let eachData"
-                      (click)="rowClick(eachData)"
-                    ></td>
+                    >
+                    <span *ngIf="!eachData.isAcknowledged" class="count co-icon"></span>
+                  </td>
                   </ng-container>
                   <!-- File Name Column -->
                   <ng-container matColumnDef="recordName">
@@ -318,6 +319,18 @@
                     </td>
                   </ng-container>
 
+                  <!-- Acknowledged by -->
+                  <ng-container matColumnDef="acknowledgedBy">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                      Acknowledged by
+                    </th>
+                    <td mat-cell *matCellDef="let eachData">
+                      <span class="text-muted file-size">
+                        {{ eachData.acknowledgedBy }}
+                      </span>
+                    </td>
+                  </ng-container>
+
                   <!-- Approved by Column -->
                   <ng-container matColumnDef="approvedBy">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -389,6 +402,13 @@
                             href="javascript:;"
                             (click)="deleteConfirmation(eachData)"
                             ><i class="fe fe-trash me-2"></i> Delete</a
+                          >
+                          <a
+                            *ngIf="!!eachData.allowAcknowledge"
+                            ngbDropdownItem
+                            href="javascript:;"
+                            (click)="acknowledgeSet(eachData)"
+                            ><i class="fe fe-download me-2"></i> Download</a
                           >
                         </div>
                       </div>
