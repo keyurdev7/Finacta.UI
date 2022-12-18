@@ -53,12 +53,14 @@ export class FileManagementComponent implements OnInit, OnDestroy {
     folder: 'folder',
   };
   displayedColumns: string[] = [
+    'isAcknowledged',
     'recordName',
     'createdDateTime',
     'recordType',
     'fileSize',
     'documentStatus',
     'createdBy',
+    'acknowledgedBy',
     'approvedBy',
     'action',
   ];
@@ -87,6 +89,21 @@ export class FileManagementComponent implements OnInit, OnDestroy {
         })
       )
     );
+  }
+
+  acknowledgeSet(file: File): void {
+    this.fileManagementService.setAcknowledgeValue(file.recordId).subscribe((res) => {
+      if (res && res.succeeded) {
+        this.toster.success(res.message);
+        this.getData(this.currentFolderId);
+      } else if (res && res.errors.length) {
+        res.errors.forEach((err) => {
+          this.toster.error(err.errorMessage);
+        });
+      } else if (res && !res.succeeded && res.data) {
+        this.toster.error(res.data);
+      }
+    });
   }
 
   subscribeToUser(): Subscription {

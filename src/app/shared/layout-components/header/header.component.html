@@ -57,17 +57,17 @@
                       <!--  -->
 
                       <ng-template ng-label-tmp let-item="item">
-                        <b>{{ item.companyName }}</b>
-                        <ng-container
-                          *ngIf="
-                            item &&
-                            getCompantText(item.companyName) == 'All' &&
-                            item.unreadMessageCount > 0
-                          "
-                        >
-                          <span style="margin-right: 110px">&nbsp;</span>
-                          <span class="count co-icon">&nbsp;</span>
-                        </ng-container>
+                        <div class="company-label-select">
+                          <b>{{ item.companyName }}</b>
+                          <ng-container
+                            *ngIf="
+                              item &&
+                              item.unreadMessageCount > 0
+                            "
+                          >
+                            <span class="count co-icon">&nbsp;</span>
+                          </ng-container> 
+                        </div>
                       </ng-template>
 
                       <ng-template

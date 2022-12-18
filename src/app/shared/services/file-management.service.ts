@@ -118,4 +118,13 @@ export class FileManagementService extends AbstractService {
       callerErrorHandler: false,
     }) as Observable<any>;
   }
+
+  setAcknowledgeValue(id: number): Observable<any> {
+    const params = new HttpParams().append('fileId', id);
+    return this.httpGet({
+      url: this.baseUrl + '/FileManagement/AcknowledgedFile',
+      params: params,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
 }
