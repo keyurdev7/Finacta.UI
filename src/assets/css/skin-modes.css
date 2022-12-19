@@ -150,7 +150,7 @@
     }
 }
 
-@media (max-width: 991px) {
+@media (max-width: 991.98px) {
     .color-header .app-header .header-brand1 .header-brand-img.light-logo1 {
         display: none !important;
     }
