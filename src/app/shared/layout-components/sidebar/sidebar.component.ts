@@ -33,7 +33,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   public chatSubscription: Subscription = new Subscription();
   public routerSubscription: any;
   public windowSubscribe$!: any;
-  public messageCount: number = 0;
+  public valueCount = { unacknowledgedCount: 0, unreadMessageCount: 0 };
   subscriptions: Subscription[] = [];
   ishideShow: boolean = false;
   constructor(
@@ -71,17 +71,24 @@ export class SidebarComponent implements OnInit, OnDestroy {
           }
           if (event instanceof NavigationEnd) {
             if (
-              res.accessMenu.some((e) => e.moduleName.toLowerCase() === 'chat')
+              res.accessMenu.some((e) => e.moduleName.toLowerCase() === 'chat' || e.moduleName.toLowerCase() === 'files')
             ) {
               this.chatSubscription = this.subscribeToChatUnreadCount();
             }
 
             res.accessMenu.filter((items: any) => {
               if (
-                items.moduleName.toLowerCase() === 'chat' &&
-                event.url === '/Chat'
+                (items.moduleName.toLowerCase() === 'chat' &&
+                  event.url === '/Chat') ||
+                (items.moduleName.toLowerCase() === 'files' &&
+                  event.url === '/file-management')
               ) {
-                this.messageCount = 0;
+                if (items.moduleName.toLowerCase() === 'chat') {
+                  this.valueCount.unreadMessageCount = 0;
+                }
+                if(items.moduleName.toLowerCase() === 'files'){
+                  this.valueCount.unacknowledgedCount = 0;
+                }
                 this.chatSubscription.unsubscribe();
               }
               if (items.path === event.url) {
@@ -120,8 +127,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
     return timer(0, 30000)
       .pipe(switchMap(() => this.chatService.getUnReadMessageCount()))
       .subscribe((res) => {
-        if (res && res.succeeded && res.data && res.data[0]) {
-          this.messageCount = res.data;
+        if (res && res.succeeded && res.data) {
+          this.valueCount = res.data;
         }
       });
   }
