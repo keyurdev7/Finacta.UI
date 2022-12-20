@@ -93,10 +93,8 @@
               <span class="side-menu__icon">
                 <i class="{{ menuItem.menuIcon }}"></i>
               </span>
-              <span *ngIf="
-                  menuItem.moduleName.toLowerCase() === 'chat' &&
-                  messageCount > 0
-                " class="count">{{ messageCount }}</span>
+              <span class="count" *ngIf="menuItem.moduleName.toLowerCase() === 'chat' && valueCount.unreadMessageCount > 0"> {{valueCount.unreadMessageCount}} </span>
+              <span class="count" *ngIf="menuItem.moduleName.toLowerCase() === 'files' && valueCount.unacknowledgedCount > 0"> {{valueCount.unacknowledgedCount}} </span>
               <span class="side-menu__label">{{ menuItem.moduleName }}</span>
             </a>
             <!-- empty path -->
@@ -214,10 +212,8 @@
                 <span class="side-menu__icon">
                   <i class="{{ menuItem.menuIcon }}"></i>
                 </span>
-                <span *ngIf="
-                    menuItem.moduleName.toLowerCase() === 'chat' &&
-                    messageCount > 0
-                  " class="count">{{ messageCount }}</span>
+                <span class="count" *ngIf="menuItem.moduleName.toLowerCase() === 'chat' && valueCount.unreadMessageCount > 0"> {{valueCount.unreadMessageCount}} </span>
+                <span class="count" *ngIf="menuItem.moduleName.toLowerCase() === 'files' && valueCount.unacknowledgedCount > 0"> {{valueCount.unacknowledgedCount}} </span>
                 <span class="side-menu__label">{{ menuItem.moduleName }}</span>
               </a>
             </ng-container>
