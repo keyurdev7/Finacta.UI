@@ -79,15 +79,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
             res.accessMenu.filter((items: any) => {
               if (
                 (items.moduleName.toLowerCase() === 'chat' &&
-                  event.url === '/Chat') ||
-                (items.moduleName.toLowerCase() === 'files' &&
-                  event.url === '/file-management')
+                  event.url === '/Chat')
               ) {
                 if (items.moduleName.toLowerCase() === 'chat') {
                   this.valueCount.unreadMessageCount = 0;
-                }
-                if(items.moduleName.toLowerCase() === 'files'){
-                  this.valueCount.unacknowledgedCount = 0;
                 }
                 this.chatSubscription.unsubscribe();
               }
