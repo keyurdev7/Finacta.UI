@@ -18,6 +18,7 @@ import { AccessMenuHeader } from 'src/app/models/access-menu-header.model';
 import { ChatService } from '../../services/chat.service';
 import { User } from 'src/app/models/user.model';
 import { SettingService } from '../../services/settings.service';
+import { SidebarCountService } from '../../services/sidebar-count.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -33,13 +34,14 @@ export class SidebarComponent implements OnInit, OnDestroy {
   public chatSubscription: Subscription = new Subscription();
   public routerSubscription: any;
   public windowSubscribe$!: any;
-  public valueCount = { unacknowledgedCount: 0, unreadMessageCount: 0 };
+  public valueCount: any;
   subscriptions: Subscription[] = [];
   ishideShow: boolean = false;
   constructor(
     private breakpointObserver: BreakpointObserver,
     private router: Router,
     private navServices: NavService,
+    private countService: SidebarCountService,
     private settingServices: SettingService,
     private chatService: ChatService,
     public elRef: ElementRef,
@@ -47,6 +49,13 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ) {
     this.checkNavActiveOnLoad();
   }
+
+  subscribeToSidebarCount(): Subscription {
+    return this.countService.sidebarCount$.subscribe((counts) => {
+      this.valueCount = counts;
+    });
+  }
+
   // To set Active on Load
   checkNavActiveOnLoad() {
     this.store.pipe(userSelector).subscribe((res) => {
@@ -71,18 +80,25 @@ export class SidebarComponent implements OnInit, OnDestroy {
           }
           if (event instanceof NavigationEnd) {
             if (
-              res.accessMenu.some((e) => e.moduleName.toLowerCase() === 'chat' || e.moduleName.toLowerCase() === 'files')
+              res.accessMenu.some(
+                (e) =>
+                  e.moduleName.toLowerCase() === 'chat' ||
+                  e.moduleName.toLowerCase() === 'files'
+              )
             ) {
               this.chatSubscription = this.subscribeToChatUnreadCount();
             }
 
             res.accessMenu.filter((items: any) => {
               if (
-                (items.moduleName.toLowerCase() === 'chat' &&
-                  event.url === '/Chat')
+                items.moduleName.toLowerCase() === 'chat' &&
+                event.url === '/Chat'
               ) {
                 if (items.moduleName.toLowerCase() === 'chat') {
-                  this.valueCount.unreadMessageCount = 0;
+                  this.countService.sidebarCount.next({
+                    ...this.valueCount,
+                    sidebarCount: 0,
+                  });
                 }
                 this.chatSubscription.unsubscribe();
               }
@@ -123,7 +139,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
       .pipe(switchMap(() => this.chatService.getUnReadMessageCount()))
       .subscribe((res) => {
         if (res && res.succeeded && res.data) {
-          this.valueCount = res.data;
+          this.countService.sidebarCount.next(res.data);
         }
       });
   }
@@ -241,6 +257,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     switcherArrowFn();
     this.subscribeToUser();
+    this.subscribeToSidebarCount();
     this.getCompanyLogo();
     // detect screen size changes
     this.breakpointObserver
