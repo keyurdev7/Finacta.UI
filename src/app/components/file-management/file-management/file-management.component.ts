@@ -17,6 +17,7 @@ import { CopyToCustomerModalComponent } from '../copy-to-customer-modal/copy-to-
 import { DocPreviewModalComponent } from '../doc-preview-modal/doc-preview-modal.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { SidebarCountService } from 'src/app/shared/services/sidebar-count.service';
 
 @Component({
   selector: 'app-file-management',
@@ -64,6 +65,7 @@ export class FileManagementComponent implements OnInit, OnDestroy {
     'approvedBy',
     'action',
   ];
+  sidebarCounts: any;
   fileDataSource: MatTableDataSource<File> = new MatTableDataSource<File>();
   // Need to use setter function as we have used *ngIf in parents of mat table
   @ViewChild(MatSort) set matSort(sort: MatSort) {
@@ -73,12 +75,22 @@ export class FileManagementComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private fileManagementService: FileManagementService,
     private toster: ToastrService,
+    private countService: SidebarCountService,
     public store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
     this.getData();
-    this.subscriptions = [this.subscribeToUser()];
+    this.subscriptions = [
+      this.subscribeToUser(),
+      this.subscribeToSidebarCount(),
+    ];
+  }
+
+  subscribeToSidebarCount(): Subscription {
+    return this.countService.sidebarCount$.subscribe((counts) => {
+      this.sidebarCounts = counts;
+    });
   }
 
   changeView(mode: boolean): void {
@@ -92,18 +104,26 @@ export class FileManagementComponent implements OnInit, OnDestroy {
   }
 
   acknowledgeSet(file: File): void {
-    this.fileManagementService.setAcknowledgeValue(file.recordId).subscribe((res) => {
-      if (res && res.succeeded) {
-        this.toster.success(res.message);
-        this.getData(this.currentFolderId);
-      } else if (res && res.errors.length) {
-        res.errors.forEach((err) => {
-          this.toster.error(err.errorMessage);
-        });
-      } else if (res && !res.succeeded && res.data) {
-        this.toster.error(res.data);
-      }
-    });
+    this.fileManagementService
+      .setAcknowledgeValue(file.recordId)
+      .subscribe((res) => {
+        if (res && res.succeeded) {
+          if (this.sidebarCounts.unacknowledgedCount > 0) {
+            this.countService.sidebarCount.next({
+              ...this.sidebarCounts,
+              unacknowledgedCount: this.sidebarCounts.unacknowledgedCount - 1,
+            });
+          }
+          this.toster.success(res.message);
+          this.getData(this.currentFolderId);
+        } else if (res && res.errors.length) {
+          res.errors.forEach((err) => {
+            this.toster.error(err.errorMessage);
+          });
+        } else if (res && !res.succeeded && res.data) {
+          this.toster.error(res.data);
+        }
+      });
   }
 
   subscribeToUser(): Subscription {
