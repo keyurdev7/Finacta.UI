@@ -4,7 +4,10 @@ import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { Company } from 'src/app/models/company.model';
 import { User } from 'src/app/models/user.model';
-import { UpdateUserAction } from 'src/app/store/app.actions';
+import {
+  SetCompaniesAction,
+  UpdateUserAction,
+} from 'src/app/store/app.actions';
 import { AppState, userSelector } from 'src/app/store/app.state';
 import { Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -15,6 +18,7 @@ import {
 import { APIService } from '../../services/api.service';
 import { CompanyUsersService } from '../../services/company-users.service';
 import { SwitcherService } from '../../services/switcher.service';
+import { ChatService } from '../../services/chat.service';
 
 @Component({
   selector: 'app-header',
@@ -32,6 +36,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private store: Store<AppState>,
     private toster: ToastrService,
     private companyService: CompanyUsersService,
+    private chatService: ChatService,
     public SwitcherService: SwitcherService,
     public apiService: APIService
   ) {}
@@ -46,11 +51,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
   getAllActiveCompanies(): Subscription {
     this.companySubscription.unsubscribe();
     return timer(0, 30000)
-      .pipe(switchMap(() => this.companyService.getMyActiveCompanies()))
+      .pipe(switchMap(() => this.chatService.getUnReadMessageCount()))
       .subscribe((res) => {
-        if (res && res.succeeded && res.data && res.data[0]) {
-          this.activeCompanies = res.data;
-          this.companyId = this.user.lastLoginCompanyId;
+        if (
+          res &&
+          res.succeeded &&
+          res.data &&
+          res.data.lstUserCompany &&
+          res.data.lstUserCompany[0]
+        ) {
+          if (res.data.lstUserCompany && res.data.lstUserCompany[0]) {
+            this.activeCompanies = res.data.lstUserCompany;
+            this.companyId = this.user.lastLoginCompanyId;
+          }
+          this.store.dispatch(SetCompaniesAction(res.data));
         }
       });
   }
@@ -101,14 +115,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       });
     }
-  }
-
-  allUnreadCount(): boolean {
-    let count = 0;
-    this.user?.userCompany.forEach((c) => {
-      if (c && c.unreadMessageCount) count += +c.unreadMessageCount;
-    });
-    return !!count;
   }
 
   getCompantText(text: string): string {

@@ -10,14 +10,20 @@ import * as commonConstants from 'src/app/shared/constants/common.constant';
 import { environment } from 'src/environments/environment';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState, userSelector } from 'src/app/store/app.state';
+import {
+  AppState,
+  companiesSelector,
+  userSelector,
+} from 'src/app/store/app.state';
 import { User } from 'src/app/models/user.model';
-import { UpdateUserAction } from 'src/app/store/app.actions';
+import {
+  SetCompaniesAction,
+  UpdateUserAction,
+} from 'src/app/store/app.actions';
 import { CopyToCustomerModalComponent } from '../copy-to-customer-modal/copy-to-customer-modal.component';
 import { DocPreviewModalComponent } from '../doc-preview-modal/doc-preview-modal.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { SidebarCountService } from 'src/app/shared/services/sidebar-count.service';
 
 @Component({
   selector: 'app-file-management',
@@ -65,7 +71,7 @@ export class FileManagementComponent implements OnInit, OnDestroy {
     'approvedBy',
     'action',
   ];
-  sidebarCounts: any;
+  companiesData: any;
   fileDataSource: MatTableDataSource<File> = new MatTableDataSource<File>();
   // Need to use setter function as we have used *ngIf in parents of mat table
   @ViewChild(MatSort) set matSort(sort: MatSort) {
@@ -75,7 +81,6 @@ export class FileManagementComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private fileManagementService: FileManagementService,
     private toster: ToastrService,
-    private countService: SidebarCountService,
     public store: Store<AppState>
   ) {}
 
@@ -88,8 +93,8 @@ export class FileManagementComponent implements OnInit, OnDestroy {
   }
 
   subscribeToSidebarCount(): Subscription {
-    return this.countService.sidebarCount$.subscribe((counts) => {
-      this.sidebarCounts = counts;
+    return this.store.pipe(companiesSelector).subscribe((res) => {
+      this.companiesData = res;
     });
   }
 
@@ -108,11 +113,21 @@ export class FileManagementComponent implements OnInit, OnDestroy {
       .setAcknowledgeValue(file.recordId)
       .subscribe((res) => {
         if (res && res.succeeded) {
-          if (this.sidebarCounts.unacknowledgedCount > 0) {
-            this.countService.sidebarCount.next({
-              ...this.sidebarCounts,
-              unacknowledgedCount: this.sidebarCounts.unacknowledgedCount - 1,
-            });
+          if (
+            this.companiesData?.objNotificationCount?.unacknowledgedCount > 0
+          ) {
+            this.store.dispatch(
+              SetCompaniesAction(
+                Object.assign({}, this.companiesData, {
+                  objNotificationCount: {
+                    ...this.companiesData.objNotificationCount,
+                    unacknowledgedCount:
+                      this.companiesData.objNotificationCount
+                        .unacknowledgedCount - 1,
+                  },
+                })
+              )
+            );
           }
           this.toster.success(res.message);
           this.getData(this.currentFolderId);

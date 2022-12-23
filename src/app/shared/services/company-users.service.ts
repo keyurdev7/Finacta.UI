@@ -116,7 +116,10 @@ export class CompanyUsersService extends AbstractService {
 
   getXeroContactList(companyId: number): Observable<any> {
     return this.httpGet({
-      url: this.baseUrl + '/XeroManagement/GetXeroContactUnlinkedWithCompanies?companyId='+companyId,
+      url:
+        this.baseUrl +
+        '/XeroManagement/GetXeroContactUnlinkedWithCompanies?companyId=' +
+        companyId,
       params: new HttpParams(),
       callerErrorHandler: false,
     }) as Observable<any>;
@@ -136,15 +139,6 @@ export class CompanyUsersService extends AbstractService {
       url: this.baseUrl + '/XeroManagement/AddCompanyXeroContactRelation',
       payload: data,
       callerErrorHandler: false,
-    }) as Observable<any>;
-  }
-
-  getMyActiveCompanies(): Observable<any> {
-    return this.httpGet({
-      url: this.baseUrl + '/CompanyManagement/GetMyActiveCompanies',
-      callerErrorHandler: false,
-      params: new HttpParams(),
-      noLoadingMask: true
     }) as Observable<any>;
   }
 }
