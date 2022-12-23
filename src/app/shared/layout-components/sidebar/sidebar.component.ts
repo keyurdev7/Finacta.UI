@@ -9,16 +9,18 @@ import {
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { NavService } from '../../services/nav.service';
 import { switcherArrowFn, parentNavActive, checkHoriMenu } from './sidebar';
-import { fromEvent, Subscription, timer } from 'rxjs';
+import { fromEvent, Subscription } from 'rxjs';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { AppState, userSelector } from 'src/app/store/app.state';
+import {
+  AppState,
+  companiesSelector,
+  userSelector,
+} from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';
-import { switchMap } from 'rxjs/operators';
 import { AccessMenuHeader } from 'src/app/models/access-menu-header.model';
-import { ChatService } from '../../services/chat.service';
 import { User } from 'src/app/models/user.model';
 import { SettingService } from '../../services/settings.service';
-import { SidebarCountService } from '../../services/sidebar-count.service';
+import { SetCompaniesAction } from 'src/app/store/app.actions';
 
 @Component({
   selector: 'app-sidebar',
@@ -34,26 +36,18 @@ export class SidebarComponent implements OnInit, OnDestroy {
   public chatSubscription: Subscription = new Subscription();
   public routerSubscription: any;
   public windowSubscribe$!: any;
-  public valueCount: any;
+  public companiesData: any;
   subscriptions: Subscription[] = [];
   ishideShow: boolean = false;
   constructor(
     private breakpointObserver: BreakpointObserver,
     private router: Router,
     private navServices: NavService,
-    private countService: SidebarCountService,
     private settingServices: SettingService,
-    private chatService: ChatService,
     public elRef: ElementRef,
     private store: Store<AppState>
   ) {
     this.checkNavActiveOnLoad();
-  }
-
-  subscribeToSidebarCount(): Subscription {
-    return this.countService.sidebarCount$.subscribe((counts) => {
-      this.valueCount = counts;
-    });
   }
 
   // To set Active on Load
@@ -95,10 +89,16 @@ export class SidebarComponent implements OnInit, OnDestroy {
                 event.url === '/Chat'
               ) {
                 if (items.moduleName.toLowerCase() === 'chat') {
-                  this.countService.sidebarCount.next({
-                    ...this.valueCount,
-                    sidebarCount: 0,
-                  });
+                  this.store.dispatch(
+                    SetCompaniesAction(
+                      Object.assign({}, this.companiesData, {
+                        objNotificationCount: {
+                          ...this.companiesData.objNotificationCount,
+                          unacknowledgedCount: 0,
+                        },
+                      })
+                    )
+                  );
                 }
                 this.chatSubscription.unsubscribe();
               }
@@ -135,13 +135,9 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   subscribeToChatUnreadCount(): Subscription {
     this.chatSubscription.unsubscribe();
-    return timer(0, 30000)
-      .pipe(switchMap(() => this.chatService.getUnReadMessageCount()))
-      .subscribe((res) => {
-        if (res && res.succeeded && res.data) {
-          this.countService.sidebarCount.next(res.data);
-        }
-      });
+    return this.store.pipe(companiesSelector).subscribe((res) => {
+      this.companiesData = res;
+    });
   }
 
   clickToShow() {
@@ -257,7 +253,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     switcherArrowFn();
     this.subscribeToUser();
-    this.subscribeToSidebarCount();
     this.getCompanyLogo();
     // detect screen size changes
     this.breakpointObserver

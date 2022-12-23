@@ -20,6 +20,7 @@ import {
   categoryReducer,
   userReducer,
   stripeReducer,
+  companiesReducer,
 } from './store/app.reducer';
 import { TokenInterceptor } from './shared/services/token.interceptor';
 import { CompanyUserComponent } from './components/company-user/company-user/company-user.component';
@@ -128,10 +129,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     InViewportModule,
     SimpleNotificationsModule.forRoot(),
-    ToastrModule.forRoot({ positionClass: 'toast-bottom-full-width' }),
+    ToastrModule.forRoot({ positionClass: 'toast-bottom-full-width'}),
     StoreModule.forRoot(
       {
         user: userReducer,
+        companies: companiesReducer,
         blog: blogReducer,
         category: categoryReducer,
         stripeKey: stripeReducer,

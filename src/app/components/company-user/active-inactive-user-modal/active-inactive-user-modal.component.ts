@@ -26,13 +26,13 @@ export class ActiveInactiveUserModalComponent implements OnInit {
   ngOnInit(): void {
     if(this.activeinactive.userActiveStatusId == true)
     {
-      this.title = "Active confirmation";
-      this.message = "Are you sure you want to Active this user";
+      this.title = "Activate User Confirmation";
+      this.message = "Are you sure you would like to activate this user?";
     }
     else
     {
-      this.title = "InActive confirmation";
-      this.message = "Are you sure you want to InActive this user";
+      this.title = "Deactivate User Confirmation";
+      this.message = "Are you sure you would like to deactivate this user?";
     }
   }
 
