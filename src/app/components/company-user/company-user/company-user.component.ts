@@ -16,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DeleteUserDialogComponent } from '../delete-user-dialog/delete-user-dialog.component';
 import * as commonConstants from 'src/app/shared/constants/common.constant';
 import { ActiveInActiveUserRequest } from 'src/app/models/active-inactive-user.model';
+import { EditRoleModalComponent } from '../edit-role-modal/edit-role-modal.component';
 
 @Component({
   selector: 'app-company-user',
@@ -84,6 +85,19 @@ export class CompanyUserComponent implements OnInit, OnDestroy {
         }
       })
     );
+  }
+
+  editRoleModal(user: CompanyUser): void {
+    const dialog = this.dialog.open(EditRoleModalComponent, {
+      minWidth: '28%',
+      data: user,
+    });
+    dialog.afterClosed().subscribe((result) => {
+      if (result?.event === 'success') {
+        this.getCompanyUsers();
+      }
+      return;
+    });
   }
 
   getCompanyUsers(): void {

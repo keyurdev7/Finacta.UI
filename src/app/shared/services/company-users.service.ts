@@ -141,4 +141,25 @@ export class CompanyUsersService extends AbstractService {
       callerErrorHandler: false,
     }) as Observable<any>;
   }
+
+  getUserRole(): Observable<any> {
+    return this.httpGet({
+      url: this.baseUrl + '/UserManagement/GetUserRoles',
+      params: new HttpParams(),
+      noLoadingMask: true,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  changeUserRole(roleId: number, userId: number): Observable<any> {
+    const data = {
+      userCompanyId: userId,
+      roleId: roleId,
+    };
+    return this.httpPost({
+      url: this.baseUrl + '/UserManagement/ChangeUserRole',
+      payload: data,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
 }
