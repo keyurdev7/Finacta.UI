@@ -12,3 +12,4 @@ export const DOCUMENT_STATUS_APPROVED = "Approved";
 export const DOCUMENT_STATUS_REQUIRES_APPROVAL = "Requires Approval";
 export const DOCUMENT_STATUS_ADVISOR_UPLOAD = "Advisor upload";
 export const INVALID_DATE = "0001-01-01T00:00:00";
+export const FILE_LIMIT = 10;

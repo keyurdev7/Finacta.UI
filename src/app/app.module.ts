@@ -68,6 +68,7 @@ import { InViewportModule } from 'ng-in-viewport';
 import { ViewLogoModalComponent } from './components/settings-management/view-logo-modal/view-logo-modal.component';
 import { ListComponent } from './components/promocodes/list/list.component';
 import { AddEditPromocodeComponent } from './components/promocodes/add-edit-promocode/add-edit-promocode.component';
+import { EditRoleModalComponent } from './components/company-user/edit-role-modal/edit-role-modal.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -113,6 +114,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ViewLogoModalComponent,
     ListComponent,
     AddEditPromocodeComponent,
+    EditRoleModalComponent,
   ],
   imports: [
     HttpClientModule,

@@ -18,4 +18,5 @@ export class CompanyUser {
   userActiveStatusId? :boolean = false;
   companyName:string ='';
   userType: string = '';
+  userRoleId: number = 0;
 }

@@ -130,7 +130,7 @@
                 {{
                   element.lastLoginDateTime === constants.INVALID_DATE
                     ? ""
-                    : (element.lastLoginDateTime | date: constants.DATE_FORMAT)
+                    : (element.lastLoginDateTime | date : constants.DATE_FORMAT)
                 }}
               </td>
             </ng-container>
@@ -149,7 +149,7 @@
                 {{
                   element.joinedDate === constants.INVALID_DATE
                     ? ""
-                    : (element.joinedDate | date: constants.DATE_FORMAT)
+                    : (element.joinedDate | date : constants.DATE_FORMAT)
                 }}
               </td>
             </ng-container>
@@ -213,6 +213,13 @@
                   (click)="reSendInvite(element.userId)"
                 >
                   Resend Invitation
+                </button>
+                <button
+                  *ngIf="constants.MASTER_USER_TYPE === user.userTypeId"
+                  class="btn btn-danger me-2"
+                  (click)="editRoleModal(element)"
+                >
+                  Edit Role
                 </button>
                 <button
                   class="btn btn-danger me-2"

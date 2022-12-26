@@ -6,6 +6,7 @@ import { FileManagementService } from 'src/app/shared/services/file-management.s
 import { User } from 'src/app/models/user.model';
 import { AppState, userSelector } from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';
+import * as commonConstants from 'src/app/shared/constants/common.constant';
 
 @Component({
   selector: 'app-add-file',
@@ -14,6 +15,7 @@ import { Store } from '@ngrx/store';
 })
 export class AddFileComponent implements OnInit {
   public user: User = new User();
+  public constants = commonConstants;
   files: File[] = [];
   duplicateErr: boolean = false;
   override: boolean = false;
@@ -25,6 +27,11 @@ export class AddFileComponent implements OnInit {
     'FileName3',
     'FileName4',
     'FileName5',
+    'FileName6',
+    'FileName7',
+    'FileName8',
+    'FileName9',
+    'FileName10',
   ];
   constructor(
     @Inject(MAT_DIALOG_DATA) public id: number,
@@ -42,12 +49,14 @@ export class AddFileComponent implements OnInit {
   }
 
   onSelect(event: any): void {
-    if (event.addedFiles.length <= 5) {
+    if (event.addedFiles.length <= this.constants.FILE_LIMIT) {
       this.files = [...event.addedFiles];
       this.duplicateErr = false;
       this.override = false;
     } else {
-      this.toster.error('Max 5 files are allowed');
+      this.toster.error(
+        'Max ' + this.constants.FILE_LIMIT + ' files are allowed'
+      );
     }
   }
 
