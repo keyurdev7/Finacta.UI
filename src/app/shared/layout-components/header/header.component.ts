@@ -8,7 +8,11 @@ import {
   SetCompaniesAction,
   UpdateUserAction,
 } from 'src/app/store/app.actions';
-import { AppState, userSelector } from 'src/app/store/app.state';
+import {
+  AppState,
+  companiesSelector,
+  userSelector,
+} from 'src/app/store/app.state';
 import { Subscription, timer } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import {
@@ -19,6 +23,7 @@ import { APIService } from '../../services/api.service';
 import { CompanyUsersService } from '../../services/company-users.service';
 import { SwitcherService } from '../../services/switcher.service';
 import { ChatService } from '../../services/chat.service';
+import { HeaderCompanies } from 'src/app/models/header-companies.model';
 
 @Component({
   selector: 'app-header',
@@ -30,7 +35,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public user: User = new User();
   public companyId: number = 0;
   public companySubscription: Subscription = new Subscription();
-  public activeCompanies: Company[] = [];
+  public chatSubscription: Subscription = new Subscription();
+  public activeCompanies: HeaderCompanies[] = [];
   constructor(
     private router: Router,
     private store: Store<AppState>,
@@ -46,6 +52,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.user = res;
     });
     this.companySubscription = this.getAllActiveCompanies();
+    this.chatSubscription = this.subscribeToChatUnreadCount();
+  }
+
+  subscribeToChatUnreadCount(): Subscription {
+    this.chatSubscription.unsubscribe();
+    return this.store.pipe(companiesSelector).subscribe((res) => {
+      if (res.lstUserCompany && res.lstUserCompany[0]) {
+        this.activeCompanies = res.lstUserCompany;
+        this.companyId = this.user.lastLoginCompanyId;
+      }
+    });
   }
 
   getAllActiveCompanies(): Subscription {
@@ -53,19 +70,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return timer(0, 30000)
       .pipe(switchMap(() => this.chatService.getUnReadMessageCount()))
       .subscribe((res) => {
-        if (
-          res &&
-          res.succeeded &&
-          res.data &&
-          res.data.lstUserCompany &&
-          res.data.lstUserCompany[0]
-        ) {
-          if (res.data.lstUserCompany && res.data.lstUserCompany[0]) {
-            this.activeCompanies = res.data.lstUserCompany;
-            this.companyId = this.user.lastLoginCompanyId;
-          }
-          this.store.dispatch(SetCompaniesAction(res.data));
-        }
+        this.store.dispatch(SetCompaniesAction(res.data));
       });
   }
 
@@ -143,5 +148,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.companySubscription.unsubscribe();
+    this.chatSubscription.unsubscribe();
   }
 }

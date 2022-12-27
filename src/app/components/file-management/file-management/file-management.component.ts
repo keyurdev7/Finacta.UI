@@ -24,6 +24,7 @@ import { CopyToCustomerModalComponent } from '../copy-to-customer-modal/copy-to-
 import { DocPreviewModalComponent } from '../doc-preview-modal/doc-preview-modal.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { ChatService } from 'src/app/shared/services/chat.service';
 
 @Component({
   selector: 'app-file-management',
@@ -81,6 +82,7 @@ export class FileManagementComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private fileManagementService: FileManagementService,
     private toster: ToastrService,
+    private chatService: ChatService,
     public store: Store<AppState>
   ) {}
 
@@ -113,22 +115,27 @@ export class FileManagementComponent implements OnInit, OnDestroy {
       .setAcknowledgeValue(file.recordId)
       .subscribe((res) => {
         if (res && res.succeeded) {
-          if (
-            this.companiesData?.objNotificationCount?.unacknowledgedCount > 0
-          ) {
-            this.store.dispatch(
-              SetCompaniesAction(
-                Object.assign({}, this.companiesData, {
-                  objNotificationCount: {
-                    ...this.companiesData.objNotificationCount,
-                    unacknowledgedCount:
-                      this.companiesData.objNotificationCount
-                        .unacknowledgedCount - 1,
-                  },
-                })
-              )
-            );
-          }
+          this.chatService.getUnReadMessageCount().subscribe((res) => {
+            console.log(res);
+            this.store.dispatch(SetCompaniesAction(res.data));
+          });
+          // if (
+          //   this.companiesData?.objNotificationCount?.unacknowledgedCount > 0
+          // ) {
+          //   this.store.dispatch(
+          //     SetCompaniesAction(
+          //       Object.assign({}, this.companiesData, {
+          //         objNotificationCount: {
+          //           ...this.companiesData.objNotificationCount,
+          //           unacknowledgedCount:
+          //             this.companiesData.objNotificationCount
+          //               .unacknowledgedCount - 1,
+          //         },
+          //       })
+          //     )
+          //   );
+          // }
+
           this.toster.success(res.message);
           this.getData(this.currentFolderId);
         } else if (res && res.errors.length) {

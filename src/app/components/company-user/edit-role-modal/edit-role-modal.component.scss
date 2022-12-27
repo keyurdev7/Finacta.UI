@@ -1,4 +1,6 @@
-
 mat-select[formcontrolname="roleId"] ::ng-deep .mat-select-trigger {
-    height: 43px !important;
-  }
+  height: 43px !important;
+}
+::ng-deep .mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+  background: rgba(0, 0, 0, 0.04) !important;
+}

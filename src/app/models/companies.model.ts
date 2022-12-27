@@ -1,3 +1,4 @@
+import { HeaderCompanies } from './header-companies.model';
 export class Companies {
   objNotificationCount: {
     unreadMessageCount: number;
@@ -6,9 +7,5 @@ export class Companies {
     unreadMessageCount: 0,
     unacknowledgedCount: 0,
   };
-  lstUserCompany: {
-    companyId: string | number;
-    companyName: string;
-    unreadMessageCount: string | number;
-  }[] = [];
+  lstUserCompany: HeaderCompanies[] = [];
 }
