@@ -29182,7 +29182,7 @@ body.fixed-header .header {
 }
 
 .header-brand-img {
-    height: 2.5rem;
+    height: 3.5rem;
     line-height: 2rem;
     vertical-align: middle;
     width: auto;
@@ -29210,13 +29210,7 @@ body.fixed-header .header {
         margin-right: -2px;
     }
 }
-@media (max-width: 991.98px) {
-    .header-brand-img {
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-    }
-}
+
 @media (max-width: 767px) {
     .mobile-header {
         display: block;
@@ -29236,6 +29230,12 @@ body.fixed-header .header {
 
     .header-search-icon {
         display: none !important;
+    }
+
+    .header-brand-img {
+        left: 0;
+        right: 0;
+        margin: 0 auto;
     }
 
     .mobile-header .header-brand-img {
@@ -31064,11 +31064,11 @@ body.fixed-header .header {
     }
 }
 
-/*@media (min-width: 768px) and (max-width: 991.98px) {
+@media (min-width: 768px) and (max-width: 991.98px) {
     .logo-horizontal .header-brand-img {
         margin-left: 60px;
     }
-}*/
+}
 
 @media (max-width: 767.98px) {
     .header.hor-header .header-brand-img.desktop-logo {

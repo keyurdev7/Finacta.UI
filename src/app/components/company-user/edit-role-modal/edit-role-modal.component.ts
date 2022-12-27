@@ -16,7 +16,6 @@ import { O } from '@angular/cdk/keycodes';
 export class EditRoleModalComponent implements OnInit {
   public userRoles: UserRole[] = [];
   public roleForm: FormGroup = new FormGroup([]);
-  public selectedRole: number = O;
   constructor(
     @Inject(MAT_DIALOG_DATA) public userData: CompanyUser,
     public dialogRef: MatDialogRef<EditRoleModalComponent>,
@@ -27,26 +26,29 @@ export class EditRoleModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserRoles();
-    this.roleForm = this.fb.group({
-      roleId: [
-        !!this.userData ? this.userData.userRoleId : null,
-        [Validators.required],
-      ],
-    });
+    this.formInit();
   }
 
   getUserRoles(): void {
     this.companyUserService.getUserRole().subscribe((res) => {
       this.userRoles = res.data;
       if (this.userData) {
-        this.selectedRole = this.userData.userRoleId;
+        this.roleForm.patchValue({
+          roleId: parseInt(this.userData.userRoleId),
+        });
       }
+    });
+  }
+
+  formInit(): void {
+    this.roleForm = this.fb.group({
+      roleId: [null, [Validators.required]],
     });
   }
 
   updateRole(): void {
     this.companyUserService
-      .changeUserRole(this.userData.userId, this.roleForm.value.roleId)
+      .changeUserRole(this.roleForm.value.roleId, this.userData.userCompanyId)
       .subscribe((res) => {
         if (res && res.succeeded) {
           this.roleForm.reset();
