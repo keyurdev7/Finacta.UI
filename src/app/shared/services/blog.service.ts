@@ -106,6 +106,7 @@ export class BlogService extends AbstractService {
     return this.httpGet({
       url: this.baseUrl + '/BlogManagement/GetBlogComments',
       params: params,
+      noLoadingMask: true,
       callerErrorHandler: false,
     }) as Observable<any>;
   }
