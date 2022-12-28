@@ -69,6 +69,8 @@ import { ViewLogoModalComponent } from './components/settings-management/view-lo
 import { ListComponent } from './components/promocodes/list/list.component';
 import { AddEditPromocodeComponent } from './components/promocodes/add-edit-promocode/add-edit-promocode.component';
 import { EditRoleModalComponent } from './components/company-user/edit-role-modal/edit-role-modal.component';
+import { BlogPreviewModalComponent } from './components/blog-management/blog-preview-modal/blog-preview-modal.component';
+import { BlogDetailSectionComponent } from './components/blog-management/blog-detail-section/blog-detail-section.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -115,6 +117,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ListComponent,
     AddEditPromocodeComponent,
     EditRoleModalComponent,
+    BlogPreviewModalComponent,
+    BlogDetailSectionComponent,
   ],
   imports: [
     HttpClientModule,

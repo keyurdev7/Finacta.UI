@@ -33,7 +33,6 @@ export class CompanyListComponent implements OnInit {
   usertypeid = 0;
   displayedColumns: string[] = [
     'companyName',
-    'xeroContactName',
     'companyNumber',
     'SubscriptionStartDateTime',
     'SubscriptionEndDateTime',
@@ -72,6 +71,12 @@ export class CompanyListComponent implements OnInit {
           this.constants.ADMIN_USER_TYPE === this.user.userTypeId
         ) {
           this.displayedColumns.splice(3, 0, 'userType');
+        }
+        if (
+          this.constants.STANDARD_USER_TYPE !== this.user.userTypeId &&
+          this.constants.ADMIN_USER_TYPE !== this.user.userTypeId
+        ) {
+          this.displayedColumns.splice(3, 0, 'xeroContactName');
         }
       })
     );
@@ -112,7 +117,7 @@ export class CompanyListComponent implements OnInit {
           companyId: id,
           userId: this.user.userId,
           list: res.data,
-          selectedData: selectedData
+          selectedData: selectedData,
         },
       });
       dialog.afterClosed().subscribe((result) => {

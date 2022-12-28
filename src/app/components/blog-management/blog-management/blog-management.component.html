@@ -61,9 +61,12 @@
                 Published Date
               </th>
               <td mat-cell *matCellDef="let element">
-                {{ element.publishedDateTime === constants.INVALID_DATE
-                  ? ""
-                  : (element.publlishedDateTime | date: constants.DATE_FORMAT) }}
+                {{
+                  element.publishedDateTime === constants.INVALID_DATE
+                    ? ""
+                    : (element.publlishedDateTime
+                      | date : constants.DATE_FORMAT)
+                }}
               </td>
             </ng-container>
 
@@ -98,6 +101,13 @@
                     (click)="publishBlog(element.blogId)"
                     class="fa fa-toggle-off"
                     ngbTooltip="Not Publish"
+                  ></i>
+                </span>
+                <span class="me-2">
+                  <i
+                    class="fa fa-eye"
+                    (click)="previewBlog(element)"
+                    ngbTooltip="Preview"
                   ></i>
                 </span>
                 <span class="me-2">

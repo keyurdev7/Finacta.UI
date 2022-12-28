@@ -10,6 +10,10 @@ import { BlogService } from 'src/app/shared/services/blog.service';
 import { AddEditBlogComponent } from '../add-edit-blog/add-edit-blog.component';
 import { DeleteBlogConfirmationComponent } from '../delete-blog-confirmation/delete-blog-confirmation.component';
 import * as commonConstants from 'src/app/shared/constants/common.constant';
+import { BlogPreviewModalComponent } from '../blog-preview-modal/blog-preview-modal.component';
+import { UpdateBlogAction } from 'src/app/store/app.actions';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.state';
 
 @Component({
   selector: 'app-blog-management',
@@ -32,7 +36,8 @@ export class BlogManagementComponent implements OnInit {
     private blogService: BlogService,
     public dialog: MatDialog,
     public toster: ToastrService,
-    public router: Router
+    public router: Router,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
@@ -72,10 +77,12 @@ export class BlogManagementComponent implements OnInit {
   }
 
   editBlog(id: number): void {
-    const data = this.blogDataSource.data.find((eachData) => eachData.blogId === id);
+    const data = this.blogDataSource.data.find(
+      (eachData) => eachData.blogId === id
+    );
     const dialog = this.dialog.open(AddEditBlogComponent, {
       minWidth: '50%',
-      data
+      data,
     });
     dialog.afterClosed().subscribe((result) => {
       if (result?.event === 'success') {
@@ -83,10 +90,6 @@ export class BlogManagementComponent implements OnInit {
       }
       return;
     });
-  }
-
-  edit(id: number): void {
-    console.log('edit');
   }
 
   unPublishBlog(id: number): void {
@@ -101,6 +104,13 @@ export class BlogManagementComponent implements OnInit {
       } else if (res && !res.succeeded && res.data) {
         this.toster.error(res.data);
       }
+    });
+  }
+
+  previewBlog(blog: Blog): void {
+    this.store.dispatch(UpdateBlogAction(blog));
+    this.dialog.open(BlogPreviewModalComponent, {
+      minWidth: '28%',
     });
   }
 
