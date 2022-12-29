@@ -30,7 +30,7 @@
               : (blog.createdDateTime | date : constants.DATE_FORMAT)
           }}</span></a
         >
-        <a href="blog/detail#comments" class="me-0 d-f-ai-c text-13"
+        <a href="javasccript:void(0)" (click)="scroll(commentSection)" class="me-0 d-f-ai-c text-13"
           ><span class="fe fe-message-square text-muted me-1 text-15"></span
           ><span class="mt-0 mt-0 text-muted"
             >{{ blogCommentCount }}
@@ -57,9 +57,9 @@
         [innerHTML]="blog.blogContents | safeHtml"
       ></p>
     </div>
-    <div class="mt-4 pt-5 border-top">
+    <div class="mt-4 pt-5 border-top" id="commentSection" #commentSection>
       <ng-container *ngIf="comments && comments.length > 0">
-        <h3 class="card-title" id="comments">Comments:</h3>
+        <h3 class="card-title">Comments:</h3>
         <div
           *ngFor="let eachComment of comments"
           class="media mb-4 overflow-visible"
