@@ -94,7 +94,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
                       Object.assign({}, this.companiesData, {
                         objNotificationCount: {
                           ...this.companiesData.objNotificationCount,
-                          unacknowledgedCount: 0,
+                          unreadMessageCount: 0,
                         },
                       })
                     )
