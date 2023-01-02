@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { LoadingMaskService } from './loading-mask.service';
 import { Observable } from 'rxjs';
+import { XeroMappedCompany } from 'src/app/models/xero-mapped-company.model';
 
 @Injectable({
   providedIn: 'root',
@@ -62,7 +63,16 @@ export class SettingService extends AbstractService {
   getLogo(): Observable<any> {
     return this.httpGet({
       url: this.baseUrl + '/UserManagement/GetCompanyLogo',
-      callerErrorHandler: false
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
+  saveXeroContactRelation(data: XeroMappedCompany[] = []): Observable<any> {
+    return this.httpPost({
+      url:
+        this.baseUrl + '/XeroManagement/SaveMultipleCompanyXeroContactRelation',
+      callerErrorHandler: false,
+      payload: data,
     }) as Observable<any>;
   }
 }
