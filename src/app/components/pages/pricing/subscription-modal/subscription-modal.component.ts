@@ -55,7 +55,7 @@ export class SubscriptionModalComponent implements OnInit, OnDestroy {
     private stripeService: StripeService,
     private api: APIService,
     public store: Store<AppState>
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.subscribeToStripeService();
@@ -83,39 +83,70 @@ export class SubscriptionModalComponent implements OnInit, OnDestroy {
   }
 
   makePayment(): void {
-    this.stripeService
-      .createPaymentMethod({
-        type: 'card',
-        card: this.card.element,
-        billing_details: { name: '' },
-      })
-      .subscribe((result) => {
-        if (result.paymentMethod) {
-          this.api
-            .createStripeSubscription(result.paymentMethod.id, this.companyId)
-            .subscribe((res) => {
-              if (res && res.succeeded) {
-                this.store.dispatch(
-                  UpdateUserAction(
-                    Object.assign({}, this.user, {
-                      userCompany: res.data.userCompany,
-                    })
-                  )
-                );
-                this.dialogRef.close({
-                  event: 'success',
-                  message: res.message || 'Payment Successful',
+    this.api
+      .createStripePaymentIntent()
+      .subscribe(
+        (paymentIntentResponse) => {
+          if (paymentIntentResponse && paymentIntentResponse.succeeded) {
+            if (paymentIntentResponse.data) {
+              this.stripeService.confirmCardPayment(paymentIntentResponse.data, {
+                payment_method: {
+                  card: this.card.element,
+                  billing_details: {
+                    name: '',
+                  },
+                },
+              }).subscribe(
+                (confirmPaymentResponse) => {
+                  if (confirmPaymentResponse && confirmPaymentResponse.paymentIntent && confirmPaymentResponse.paymentIntent.payment_method) {
+                    this.api
+                      .createStripeSubscription((confirmPaymentResponse.paymentIntent.payment_method).toString(), this.companyId)
+                      .subscribe(
+                        (res) => {
+                          if (res && res.succeeded) {
+                            this.store.dispatch(
+                              UpdateUserAction(
+                                Object.assign({}, this.user, {
+                                  userCompany: res.data.userCompany,
+                                })
+                              )
+                            );
+                            this.dialogRef.close({
+                              event: 'success',
+                              message: res.message || 'Payment Successful',
+                            });
+                          } else if (res && res.errors.length) {
+                            res.errors.forEach((err) => {
+                              this.toster.error(err.errorMessage);
+                            });
+                            this.dialogRef.close({ event: 'cancel' });
+                          }
+                        }, (error) => {
+                          this.toster.error("Something went wrong, please try again!");
+                          this.dialogRef.close({ event: 'cancel' });
+                        });
+                  } else {
+                    this.toster.error("Something went wrong, please try again!");
+                    this.dialogRef.close({ event: 'cancel' });
+                  }
+                }, (error) => {
+                  this.toster.error("Something went wrong, please try again!");
+                  this.dialogRef.close({ event: 'cancel' });
                 });
-              } else if (res && res.errors.length) {
-                res.errors.forEach((err) => {
-                  this.toster.error(err.errorMessage);
-                });
-              }
+            } else {
+              this.toster.error("Something went wrong, please try again!");
+              this.dialogRef.close({ event: 'cancel' });
+            }
+          } else if (paymentIntentResponse && paymentIntentResponse.errors.length) {
+            paymentIntentResponse.errors.forEach((err) => {
+              this.toster.error(err.errorMessage);
             });
-        } else if (result.error) {
-          this.toster.error(result.error.message);
-        }
-      });
+            this.dialogRef.close({ event: 'cancel' });
+          }
+        }, (error) => {
+          this.toster.error("Something went wrong, please try again!");
+          this.dialogRef.close({ event: 'cancel' });
+        });
   }
 
   closeDialog() {

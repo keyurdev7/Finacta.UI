@@ -8,5 +8,5 @@ export const environment = {
     messagingSenderId: '******************************',
     appId: '******************************',
   },
-  application_host: 'http://localhost/finacta_build',
+  application_host: 'https://finactaapp.azurewebsites.net',
 };

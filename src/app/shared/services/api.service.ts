@@ -91,6 +91,15 @@ export class APIService extends AbstractService {
     }) as Observable<any>;
   }
 
+  createStripePaymentIntent(): Observable<any> {
+    const body = {};
+    return this.httpPost({
+      url: this.baseUrl + '/Stripe/PaymentIntentCreateOptions',
+      payload: body,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
   forgotPassword(email: string): Observable<any> {
     const body = {
       emailId: email,
