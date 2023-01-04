@@ -67,7 +67,6 @@ export class CustomerListComponent implements OnInit {
 
   mapCompany(value: number, row): void {
     this.mappedCompanyData.push({
-      userId: row.userId,
       xeroContactId: row.xeroContactId,
       companyId: value,
     });
