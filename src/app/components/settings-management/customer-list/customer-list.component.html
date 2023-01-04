@@ -48,7 +48,7 @@
                     <mat-select
                       class="input100 company-dropdown"
                       formControlName="company"
-                      [ngClass]="{ 'border-pink': !element.isMapped }"
+                      [ngClass]="{ 'border-pink': !element.isMapped && element.companyId !== 0 }"
                       placeholder="Portal Client Map"
                       (selectionChange)="mapCompany($event.value, element)"
                     >

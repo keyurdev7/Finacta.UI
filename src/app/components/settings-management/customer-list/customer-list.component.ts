@@ -47,8 +47,8 @@ export class CustomerListComponent implements OnInit {
       clientCompany: this.fb.array([]),
     });
     this.customerDataSource.data = this.data;
-    this.data.forEach(() => {
-      this.clientCompany().push(this.newClientCompany());
+    this.data.forEach((each) => {
+      this.clientCompany().push(this.newClientCompany(each.companyId));
     });
     this.getCompanyDropdown();
   }
@@ -59,15 +59,14 @@ export class CustomerListComponent implements OnInit {
     });
   }
 
-  newClientCompany(): FormGroup {
+  newClientCompany(value): FormGroup {
     return this.fb.group({
-      company: '',
+      company: value,
     });
   }
 
   mapCompany(value: number, row): void {
     this.mappedCompanyData.push({
-      userId: row.userId,
       xeroContactId: row.xeroContactId,
       companyId: value,
     });
