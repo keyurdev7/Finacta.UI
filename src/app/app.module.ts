@@ -71,6 +71,7 @@ import { AddEditPromocodeComponent } from './components/promocodes/add-edit-prom
 import { EditRoleModalComponent } from './components/company-user/edit-role-modal/edit-role-modal.component';
 import { BlogPreviewModalComponent } from './components/blog-management/blog-preview-modal/blog-preview-modal.component';
 import { BlogDetailSectionComponent } from './components/blog-management/blog-detail-section/blog-detail-section.component';
+import { AuditLogModalComponent } from './components/file-management/audit-log-modal/audit-log-modal.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -119,6 +120,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     EditRoleModalComponent,
     BlogPreviewModalComponent,
     BlogDetailSectionComponent,
+    AuditLogModalComponent,
   ],
   imports: [
     HttpClientModule,

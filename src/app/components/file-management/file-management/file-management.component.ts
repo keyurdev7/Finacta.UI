@@ -25,6 +25,7 @@ import { DocPreviewModalComponent } from '../doc-preview-modal/doc-preview-modal
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { ChatService } from 'src/app/shared/services/chat.service';
+import { AuditLogModalComponent } from '../audit-log-modal/audit-log-modal.component';
 
 @Component({
   selector: 'app-file-management',
@@ -184,6 +185,13 @@ export class FileManagementComponent implements OnInit, OnDestroy {
   getExt(type): string {
     const ext = type.split('.').reverse()[0];
     return ext;
+  }
+
+  openAuditLog(file: File): void {
+    const dialog = this.dialog.open(AuditLogModalComponent, {
+      minWidth: '28%',
+      data: file,
+    });
   }
 
   getData(id: number = 0, fromClear: boolean = false): void {

@@ -202,12 +202,12 @@
                 >
                   <ng-container matColumnDef="isAcknowledged">
                     <th mat-header-cell *matHeaderCellDef></th>
-                    <td
-                      mat-cell
-                      *matCellDef="let eachData"
-                    >
-                    <span *ngIf="!eachData.isAcknowledged" class="count co-icon"></span>
-                  </td>
+                    <td mat-cell *matCellDef="let eachData">
+                      <span
+                        *ngIf="!eachData.isAcknowledged"
+                        class="count co-icon"
+                      ></span>
+                    </td>
                   </ng-container>
                   <!-- File Name Column -->
                   <ng-container matColumnDef="recordName">
@@ -409,6 +409,13 @@
                             href="javascript:;"
                             (click)="acknowledgeSet(eachData)"
                             ><i class="fe fe-thumbs-up me-2"></i> Acknowledge</a
+                          >
+                          <a
+                            *ngIf="constants.FILE_TYPE === eachData.recordType && constants.MASTER_USER_TYPE === user.userTypeId"
+                            ngbDropdownItem
+                            href="javascript:;"
+                            (click)="openAuditLog(eachData)"
+                            ><i class="fe fe-list me-2"></i> Audit Log</a
                           >
                         </div>
                       </div>
