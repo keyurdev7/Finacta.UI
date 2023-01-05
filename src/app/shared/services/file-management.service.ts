@@ -127,4 +127,14 @@ export class FileManagementService extends AbstractService {
       callerErrorHandler: false,
     }) as Observable<any>;
   }
+
+  auditLog(id: number): Observable<any> {
+    const params = new HttpParams().append('fileId', id);
+    return this.httpGet({
+      url: this.baseUrl + '/FileManagement/GetAuditHistory',
+      params: params,
+      noLoadingMask: true,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
 }

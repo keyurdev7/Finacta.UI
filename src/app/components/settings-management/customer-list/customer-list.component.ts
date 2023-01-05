@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
@@ -27,6 +27,7 @@ export class CustomerListComponent implements OnInit {
     'contactlastname',
     'contactstatus',
   ];
+  page: number = 0;
 
   customerDataSource: MatTableDataSource<XeroCustomers> =
     new MatTableDataSource<XeroCustomers>();
@@ -47,10 +48,14 @@ export class CustomerListComponent implements OnInit {
       clientCompany: this.fb.array([]),
     });
     this.customerDataSource.data = this.data;
-    this.data.forEach((each) => {
+    this.customerDataSource.data.forEach((each) => {
       this.clientCompany().push(this.newClientCompany(each.companyId));
     });
     this.getCompanyDropdown();
+  }
+
+  handlePageEvent(e: PageEvent): void {
+    this.page = e.pageIndex;
   }
 
   getCompanyDropdown(): void {
@@ -65,10 +70,20 @@ export class CustomerListComponent implements OnInit {
     });
   }
 
-  mapCompany(value: number, row): void {
+  mapCompany(value: number, row, index: number): void {
+    const dataIndex = this.mappedCompanyData.findIndex(
+      (e) => e.index === index
+    );
+    if (dataIndex !== -1) {
+      this.mappedCompanyData.splice(dataIndex);
+      if (this.customerDataSource.data[index].companyId === value) {
+        return;
+      }
+    }
     this.mappedCompanyData.push({
       xeroContactId: row.xeroContactId,
       companyId: value,
+      index: index,
     });
   }
 
@@ -92,7 +107,12 @@ export class CustomerListComponent implements OnInit {
 
   saveClientMapCompany(): void {
     this.settingService
-      .saveXeroContactRelation(this.mappedCompanyData)
+      .saveXeroContactRelation(
+        this.mappedCompanyData.map((e) => {
+          delete e.index;
+          return e;
+        })
+      )
       .subscribe((res) => {
         if (res && res.succeeded) {
           this.toastr.success(res.message);
