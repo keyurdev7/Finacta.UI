@@ -47,6 +47,8 @@ export class SubscriptionModalComponent implements OnInit, OnDestroy {
   validCard: boolean = false;
   user: User = new User();
   subscriptions: Subscription[] = [];
+  paymentMethodDetails: any;
+  subscriptionResponse: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public companyId: number,
@@ -81,8 +83,87 @@ export class SubscriptionModalComponent implements OnInit, OnDestroy {
   cardChange(e: StripeCardElementChangeEvent): void {
     this.validCard = e.complete;
   }
-
   makePayment(): void {
+    this.stripeService
+      .createPaymentMethod({
+        type: 'card',
+        card: this.card.element,
+        billing_details: { name: '' },
+      })
+      .subscribe(
+        (result) => {
+          this.paymentMethodDetails = result;
+          if (this.paymentMethodDetails?.paymentMethod?.id) {
+            this.api
+              .createStripeSubscription(this.paymentMethodDetails.paymentMethod.id, this.companyId)
+              .subscribe(
+                (res) => {
+                  this.subscriptionResponse = res;
+                  if (this.subscriptionResponse && this.subscriptionResponse.succeeded) {
+                    this.stripeService.confirmCardPayment(this.subscriptionResponse.data.clientSecret, {
+                      payment_method: this.paymentMethodDetails.paymentMethod.id,
+                    }).subscribe(
+                      (confirmPaymentResponse) => {
+                        if (confirmPaymentResponse && confirmPaymentResponse.paymentIntent && confirmPaymentResponse.paymentIntent.payment_method) {
+                          this.api
+                            .createStripeSuccessPayment(this.subscriptionResponse.data.resSubscription.id)
+                            .subscribe(
+                              (stripeSuccessPaymentResponse) => {
+                                console.log("stripeSuccessPaymentResponse", stripeSuccessPaymentResponse);
+                                if (this.subscriptionResponse && this.subscriptionResponse.succeeded) {
+                                  this.store.dispatch(
+                                    UpdateUserAction(
+                                      Object.assign({}, this.user, {
+                                        userCompany: this.subscriptionResponse.data.userCompany,
+                                      })
+                                    )
+                                  );
+                                  this.dialogRef.close({
+                                    event: 'success',
+                                    message: stripeSuccessPaymentResponse.message || 'Payment Successful',
+                                  });
+                                } else if (res && res.errors.length) {
+                                  res.errors.forEach((err) => {
+                                    this.toster.error(err.errorMessage);
+                                  });
+                                  this.dialogRef.close({ event: 'cancel' });
+                                }
+                              },
+                              (error) => {
+                                this.toster.error("Something went wrong, please try again!");
+                                this.dialogRef.close({ event: 'cancel' });
+                              });
+                        } else {
+                          this.toster.error("Something went wrong, please try again!");
+                          this.dialogRef.close({ event: 'cancel' });
+                        }
+                      },
+                      (error) => {
+                        this.toster.error("Something went wrong, please try again!");
+                        this.dialogRef.close({ event: 'cancel' });
+                      });
+                  } else if (res && res.errors.length) {
+                    res.errors.forEach((err) => {
+                      this.toster.error(err.errorMessage);
+                    });
+                    this.dialogRef.close({ event: 'cancel' });
+                  }
+                }, (error) => {
+                  this.toster.error("Something went wrong, please try again!");
+                  this.dialogRef.close({ event: 'cancel' });
+                });
+          } else {
+            this.toster.error("Something went wrong, please try again!");
+            this.dialogRef.close({ event: 'cancel' });
+          }
+        },
+        (error) => {
+          this.toster.error("Something went wrong, please try again!");
+          this.dialogRef.close({ event: 'cancel' });
+        }
+      );
+  }
+  /*makePayment(): void {
     this.api
       .createStripePaymentIntent()
       .subscribe(
@@ -147,7 +228,7 @@ export class SubscriptionModalComponent implements OnInit, OnDestroy {
           this.toster.error("Something went wrong, please try again!");
           this.dialogRef.close({ event: 'cancel' });
         });
-  }
+  }*/
 
   closeDialog() {
     this.dialogRef.close({ event: 'Cancel' });
