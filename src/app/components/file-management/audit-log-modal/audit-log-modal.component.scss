@@ -1,0 +1,6 @@
+:host ::ng-deep {
+  .mat-sort-header-container,
+  .cdk-program-focused {
+    border-bottom: unset !important;
+  }
+}

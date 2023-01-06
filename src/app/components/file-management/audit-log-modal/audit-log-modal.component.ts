@@ -16,7 +16,7 @@ import * as commonConstants from 'src/app/shared/constants/common.constant';
 export class AuditLogModalComponent implements OnInit {
   auditLogDataSource: MatTableDataSource<AuditLogList> =
     new MatTableDataSource<AuditLogList>();
-  displayedColumns: string[] = ['actionBy', 'actionDateTime', 'actionName'];
+  displayedColumns: string[] = ['actionDateTime', 'actionBy', 'actionName'];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   public constants = commonConstants;

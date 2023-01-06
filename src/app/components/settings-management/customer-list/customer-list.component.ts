@@ -27,12 +27,12 @@ export class CustomerListComponent implements OnInit {
     'contactlastname',
     'contactstatus',
   ];
-  page: number = 0;
-
   customerDataSource: MatTableDataSource<XeroCustomers> =
     new MatTableDataSource<XeroCustomers>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  pageIndex: number = 0;
+  pageSize: number = 0;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -51,11 +51,15 @@ export class CustomerListComponent implements OnInit {
     this.customerDataSource.data.forEach((each) => {
       this.clientCompany().push(this.newClientCompany(each.companyId));
     });
+    this.pageIndex = this.customerDataSource.paginator?.pageIndex || 0;
+    this.pageSize = this.customerDataSource.paginator?.pageSize || 0;
+
     this.getCompanyDropdown();
   }
 
   handlePageEvent(e: PageEvent): void {
-    this.page = e.pageIndex;
+    this.pageIndex = e.pageIndex;
+    this.pageSize = e.pageSize;
   }
 
   getCompanyDropdown(): void {
