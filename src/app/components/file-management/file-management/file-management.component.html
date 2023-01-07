@@ -410,8 +410,9 @@
                             (click)="acknowledgeSet(eachData)"
                             ><i class="fe fe-thumbs-up me-2"></i> Acknowledge</a
                           >
+                          <!-- && constants.MASTER_USER_TYPE === user.userTypeId -->
                           <a
-                            *ngIf="constants.FILE_TYPE === eachData.recordType && constants.MASTER_USER_TYPE === user.userTypeId"
+                            *ngIf="constants.FILE_TYPE === eachData.recordType"
                             ngbDropdownItem
                             href="javascript:;"
                             (click)="openAuditLog(eachData)"

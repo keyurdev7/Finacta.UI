@@ -21,11 +21,11 @@ export class CustomerListComponent implements OnInit {
   public companyForm: FormGroup = new FormGroup([]);
   public mappedCompanyData: XeroMappedCompany[] = [];
   displayedColumns: string[] = [
-    'contactname',
+    'contactName',
     'companyId',
-    'contactfirstname',
-    'contactlastname',
-    'contactstatus',
+    'contactFirstName',
+    'contactLastName',
+    'contactStatus',
   ];
   customerDataSource: MatTableDataSource<XeroCustomers> =
     new MatTableDataSource<XeroCustomers>();

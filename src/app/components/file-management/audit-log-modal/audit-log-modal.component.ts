@@ -24,9 +24,10 @@ export class AuditLogModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public fileData: File,
     public dialogRef: MatDialogRef<AuditLogModalComponent>,
     private fileManagementService: FileManagementService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    this.dialogRef.updateSize('50%');
     this.fileManagementService
       .auditLog(this.fileData.recordId)
       .subscribe((res) => {
