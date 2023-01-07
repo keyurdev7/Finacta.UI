@@ -43,14 +43,23 @@
                   <td
                     mat-cell
                     *matCellDef="let element; let i = index"
-                    [formGroupName]="i * (page + 1)"
+                    [formGroupName]="pageIndex * pageSize + i"
                   >
                     <mat-select
                       class="input100 company-dropdown"
                       formControlName="company"
-                      [ngClass]="{ 'border-pink': !element.isMapped && element.companyId !== 0 }"
+                      [ngClass]="{
+                        'border-pink':
+                          !element.isMapped && element.companyId !== 0
+                      }"
                       placeholder="Portal Client Map"
-                      (selectionChange)="mapCompany($event.value, element, i * (page + 1))"
+                      (selectionChange)="
+                        mapCompany(
+                          $event.value,
+                          element,
+                          pageIndex * pageSize + i
+                        )
+                      "
                     >
                       <mat-option
                         *ngFor="let each of allCompanies"
@@ -114,7 +123,15 @@
 </div>
 
 <div mat-dialog-actions class="float-end" align="end">
-  <button mat-button (click)="saveClientMapCompany()" mat-flat-button color="warn" [disabled]="!mappedCompanyData.length">Save</button>
+  <button
+    mat-button
+    (click)="saveClientMapCompany()"
+    mat-flat-button
+    color="warn"
+    [disabled]="!mappedCompanyData.length"
+  >
+    Save
+  </button>
   <button mat-button (click)="closeDialog()">Close</button>
   <!-- <button mat-button mat-dialog-close>Cancel</button> -->
   <!-- <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Close</button> -->
