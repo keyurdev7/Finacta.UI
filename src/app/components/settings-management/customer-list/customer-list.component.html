@@ -27,6 +27,7 @@
                 #mytable
                 class="table text-nowrap table-bordered"
                 matSort
+                (matSortChange)="onSortChanged($event)"
                 formArrayName="clientCompany"
               >
                 <ng-container matColumnDef="contactName">

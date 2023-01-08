@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { Company } from 'src/app/models/company.model';
 import { CompanyUsersService } from 'src/app/shared/services/company-users.service';
+import { ChatService } from 'src/app/shared/services/chat.service';
 import { AddCompanyComponent } from '../add-company/add-company.component';
 import { DeleteCompanyDialogComponent } from '../delete-company-dialog/delete-company-dialog.component';
 import { CandelSubscriptionDialogComponent } from '../candel-subscription-dialog//candel-subscription-dialog.component';
@@ -16,7 +17,7 @@ import { Store } from '@ngrx/store';
 import { AppState, userSelector } from 'src/app/store/app.state';
 import { User } from 'src/app/models/user.model';
 import * as commonConstants from 'src/app/shared/constants/common.constant';
-import { UpdateUserAction } from 'src/app/store/app.actions';
+import { SetCompaniesAction, UpdateUserAction } from 'src/app/store/app.actions';
 import { MapXeroContactDialogComponent } from '../map-xero-contact-dialog/map-xero-contact-dialog.component';
 declare var require: any;
 const Swal = require('sweetalert2');
@@ -45,11 +46,12 @@ export class CompanyListComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private companyUserService: CompanyUsersService,
+    private chatService: ChatService,
     public dialog: MatDialog,
     public toster: ToastrService,
     public router: Router,
     public store: Store<AppState>
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getAllCompanies();
@@ -103,7 +105,18 @@ export class CompanyListComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((result) => {
       if (result?.event === 'success') {
-        this.subscriptionPay(result.data);
+        if (
+          this.constants.MASTER_USER_TYPE === this.user.userTypeId ||
+          this.constants.ADVISOR_USER_TYPE === this.user.userTypeId
+        ) {
+          this.getAllCompanies();
+          this.chatService.getUnReadMessageCount()
+            .subscribe((res) => {
+              this.store.dispatch(SetCompaniesAction(res.data));
+            });
+        } else {
+          this.subscriptionPay(result.data);
+        }
       }
       return;
     });

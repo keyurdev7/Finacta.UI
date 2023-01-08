@@ -60271,6 +60271,11 @@ ul li .legend-dots {
     }
 }
 
+.main-chat-list {
+    height:52vh !important;
+    overflow-x:auto;
+ }
+
 .fa,
 .far,
 .fas {

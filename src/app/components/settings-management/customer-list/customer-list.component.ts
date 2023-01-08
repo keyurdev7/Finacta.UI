@@ -41,7 +41,7 @@ export class CustomerListComponent implements OnInit {
     private fb: FormBuilder,
     private settingService: SettingService,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.companyForm = this.fb.group({
@@ -133,5 +133,37 @@ export class CustomerListComponent implements OnInit {
 
   closeDialog() {
     this.dialogRef.close({ event: 'Cancel' });
+  }
+
+  onSortChanged(event) {
+    let sortedData = JSON.parse(JSON.stringify(this.customerDataSource.data));
+    if (event.direction) {
+      sortedData = this.sort_by_key(sortedData, event.active, event.direction)
+    }
+
+    this.companyForm = this.fb.group({
+      clientCompany: this.fb.array([]),
+    });
+    sortedData.forEach((each) => {
+      this.clientCompany().push(this.newClientCompany(each.companyId));
+    });
+  }
+
+  sort_by_key(array, key, direction) {
+    return array.sort(function (a, b) {
+      var x, y;
+      if (direction == "asc") {
+        x = a[key];
+        y = b[key];
+      } else {
+        x = b[key];
+        y = a[key];
+      }
+      x = !x ? "" : x;
+      y = !y ? "" : y;
+      if (x == y) return 0;
+      if (x > y) return 1;
+      return -1;
+    });
   }
 }
