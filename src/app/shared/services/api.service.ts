@@ -102,6 +102,24 @@ export class APIService extends AbstractService {
     }) as Observable<any>;
   }
 
+  confirmStripePayment(
+    stripeSubscriptionId: string,
+    paymentMethodId: string,
+    message: string
+  ): Observable<any> {
+    const body = {
+      "stripeSubscriptionId": stripeSubscriptionId,
+      "paymentMethodId": paymentMethodId,
+      "message": message,
+      "isErrorOcuur": true
+    };
+    return this.httpPost({
+      url: this.baseUrl + '/Stripe/ConfirmPayment',
+      payload: body,
+      callerErrorHandler: false,
+    }) as Observable<any>;
+  }
+
   createStripePaymentIntent(): Observable<any> {
     const body = {};
     return this.httpPost({

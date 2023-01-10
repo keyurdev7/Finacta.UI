@@ -109,7 +109,6 @@ export class SubscriptionModalComponent implements OnInit, OnDestroy {
                             .createStripeSuccessPayment(this.subscriptionResponse.data.resSubscription.id)
                             .subscribe(
                               (stripeSuccessPaymentResponse) => {
-                                console.log("stripeSuccessPaymentResponse", stripeSuccessPaymentResponse);
                                 if (this.subscriptionResponse && this.subscriptionResponse.succeeded) {
                                   this.store.dispatch(
                                     UpdateUserAction(
@@ -134,6 +133,8 @@ export class SubscriptionModalComponent implements OnInit, OnDestroy {
                                 this.dialogRef.close({ event: 'cancel' });
                               });
                         } else {
+                          this.api
+                            .confirmStripePayment(this.subscriptionResponse.data.resSubscription.id, this.paymentMethodDetails.paymentMethod.id, confirmPaymentResponse?.error?.message || "").subscribe();
                           this.toster.error("Something went wrong, please try again!");
                           this.dialogRef.close({ event: 'cancel' });
                         }
